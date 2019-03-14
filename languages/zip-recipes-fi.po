@@ -1,0 +1,251 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Zip Recipes Ltd
+# This file is distributed under the same license as the zip-recipes package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zip-recipes\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2017-03-01 21:27+0200\n"
+"Last-Translator: Kirsi Jaakkola <jaakkola.kirsi@gmail.com>\n"
+"Language-Team: \n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, php-format
+msgid "%d day"
+msgstr "%d päivä"
+
+#, php-format
+msgid "%d days"
+msgstr "%d päivää"
+
+#, php-format
+msgid "%d hour"
+msgstr "%d tunti"
+
+#, php-format
+msgid "%d hours"
+msgstr "%d tuntia"
+
+#, php-format
+msgid "%d minute"
+msgstr "%d minuutti"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d minuuttia"
+
+#, php-format
+msgid "%d month"
+msgstr "%d kuukausi"
+
+#, php-format
+msgid "%d months"
+msgstr "%d kuukautta"
+
+#, php-format
+msgid "%d second"
+msgstr "%d sekuntti"
+
+#, php-format
+msgid "%d seconds"
+msgstr "%d sekunttia"
+
+#, php-format
+msgid "%d year"
+msgstr "%d vuosi"
+
+#, php-format
+msgid "%d years"
+msgstr "%d vuotta"
+
+msgid "Author:"
+msgstr "Tekijä"
+
+msgid "Calories per serving:"
+msgstr "Kaloria annosta kohden:"
+
+msgid "Calories:"
+msgstr "Kalorit:"
+
+#, fuzzy
+msgid "Can't create recipe"
+msgstr "Arvostele resepti"
+
+#, fuzzy
+msgid "Can't update recipe"
+msgstr "Arvostele resepti"
+
+msgid "Carbs per serving:"
+msgstr "Hiilihydraatit annosta kohden:"
+
+msgid "Carbs:"
+msgstr "Hiilihydraatit:"
+
+msgid "Category:"
+msgstr ""
+
+#, fuzzy
+msgid "Cholesterol per serving:"
+msgstr "Kaloria annosta kohden:"
+
+msgid "Cholesterol:"
+msgstr ""
+
+msgid "Cook"
+msgstr "Paisto"
+
+msgid "Cook Time:"
+msgstr "Paisto aika:"
+
+msgid "Cuisine:"
+msgstr ""
+
+msgid "Fat per serving:"
+msgstr "Rasvaa annosta kohden:"
+
+msgid "Fat:"
+msgstr "Rasva:"
+
+msgid "Fiber per serving:"
+msgstr "Kuitu annosta kohden:"
+
+msgid "Fiber:"
+msgstr "Kuitu:"
+
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+
+msgid "Ingredients"
+msgstr "Ainesosat"
+
+msgid "Instructions"
+msgstr "Ohje"
+
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr "Muistiinpanot"
+
+msgid "Prep"
+msgstr "Valmistelu"
+
+msgid "Prep Time:"
+msgstr "Valmistelu aika:"
+
+msgid "Prep:"
+msgstr "Valmistelu:"
+
+msgid "Print"
+msgstr "Tulosta"
+
+msgid "Print this recipe"
+msgstr "Tulosta resepti"
+
+msgid "Protein per serving:"
+msgstr "Proteiini annosta kohden:"
+
+msgid "Protein:"
+msgstr "Proteiini:"
+
+msgid "Rate this recipe"
+msgstr "Arvostele resepti"
+
+#, fuzzy
+msgid "Rating"
+msgstr "arvioita"
+
+msgid "Ready in"
+msgstr "Valmista:"
+
+msgid "Recipe Reviews"
+msgstr ""
+
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
+msgstr ""
+
+msgid "Saturated fat per serving:"
+msgstr "Tyydyttynyt rasva annosta kohden:"
+
+msgid "Saturated fat:"
+msgstr "Tyydyttynyt rasva:"
+
+msgid "Save to BigOven"
+msgstr ""
+
+msgid "Serves:"
+msgstr "Hlö:"
+
+msgid "Serving Size:"
+msgstr "Annoksien määrä:"
+
+msgid "Sodium per serving:"
+msgstr "Natrium annosta kohden:"
+
+msgid "Sodium:"
+msgstr "Natrium:"
+
+msgid "Sugar per serving:"
+msgstr "Sokeri annosta kohden:"
+
+msgid "Sugar:"
+msgstr "Sokeri:"
+
+msgid "Total Time:"
+msgstr "Aika yhteensä:"
+
+msgid "Total:"
+msgstr "Yhteensä:"
+
+#, fuzzy
+msgid "Trans fat per serving:"
+msgstr "Tyydyttynyt rasva annosta kohden:"
+
+msgid "Trans fat:"
+msgstr ""
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+
+msgid "Yield:"
+msgstr "Koko:"
+
+#, fuzzy
+msgid "Your rating:"
+msgstr "arvioita"
+
+msgid "ratings"
+msgstr "arvioita"
+
+msgid "stars"
+msgstr "tähdet"
+
+#~ msgid "Instructions:"
+#~ msgstr "Ohjeet:"
+
+#, fuzzy
+#~ msgid "Ingredients:"
+#~ msgstr "Ainesosat"
+
+#~ msgid "Ingridients:"
+#~ msgstr "Aineet:"

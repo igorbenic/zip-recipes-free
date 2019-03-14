@@ -1,0 +1,385 @@
+{# Output main recipe div with border style #}
+{% import 'macros.twig' as recipe_props %}
+
+<div id="zlrecipe-container-{{ recipe_id }}" class="zlrecipe-container-border" {% if border_style %}style="border: {{ border_style|raw }};"{% endif %}>
+    {% if jsonld %}
+        <script type="application/ld+json">
+            {{ jsonld|raw }}
+        </script>
+    {% endif %}
+<div {{ recipe_props.recipe_attr('itemtype', "http://schema.org/Recipe", amp_on) }}
+    {{ recipe_props.recipe_attr('itemscope', false, amp_on) }} >
+<div id="zlrecipe-container" class="serif zlrecipe">
+  <div id="zlrecipe-innerdiv">
+    {% if recipe_actions %}
+    <div style="text-align: right;">
+        {{ recipe_actions|raw }}
+    </div>
+    {% endif %}
+    <div class="item b-b">
+
+      {# Add the print button #}
+      {% if print_hide != "Hide" %}
+        <div class="zlrecipe-print-link fl-r">
+          {% if custom_print_image %}
+            <a class="print-link" title="{% trans %}Print this recipe{% endtrans %}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow">
+              <img src="{{ custom_print_image }}">
+            </a>
+          {% else %}
+            <a class="butn-link" title="{% trans %}Print this recipe{% endtrans %}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow">
+              {% trans %}Print{% endtrans %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {# add the title and close the item class #}
+      <div id="zlrecipe-title"
+          {{ recipe_props.recipe_attr('itemprop', "name", amp_on) }}
+        class="b-b h-1 strong {% if title_hide %}texthide{% endif %}" >{{ recipe_title }}</div>
+    </div>
+
+    {# open the zlmeta and fl-l container divs #}
+    <div class="zlmeta zlclear">
+      <div class="fl-l width-50">
+        {{ recipe_rating|raw }}
+
+        {# recipe timing #}
+        {% if prep_time %}
+          <p id="zlrecipe-prep-time">
+            {% if prep_time_label_hide != 'Hide' %}
+              {% trans %}Prep Time:{% endtrans %}
+            {% endif %}
+            <span
+                {{ recipe_props.recipe_attr('itemprop', "prepTime", amp_on) }}
+                {{ recipe_props.recipe_attr('content', prep_time_raw, amp_on) }}
+            >{{ prep_time }}</span>
+          </p>
+        {% endif %}
+
+        {% if cook_time %}
+          <p id="zlrecipe-cook-time">
+            {% if cook_time_label_hide != 'Hide' %}
+              {% trans %}Cook Time:{% endtrans %}
+            {% endif %}
+            <span
+                {{ recipe_props.recipe_attr('itemprop', "cookTime", amp_on) }}
+                {{ recipe_props.recipe_attr('content', cook_time_raw, amp_on) }}
+            >{{ cook_time }}</span>
+          </p>
+        {% endif %}
+
+        {% if total_time %}
+          <p id="zlrecipe-total-time">
+            {% if total_time_label_hide != 'Hide' %}
+              {% trans %}Total Time:{% endtrans %}
+            {% endif %}
+            <span
+                {{ recipe_props.recipe_attr('itemprop', "totalTime", amp_on) }}
+                {{ recipe_props.recipe_attr('content', total_time_raw, amp_on) }}
+            >{{ total_time }}</span>
+          </p>
+        {% endif %}
+            
+        {% if category %}
+          <p id="zlrecipe-category">
+            {% if category_label_hide != 'Hide' %}
+              {% trans %}Category:{% endtrans %}
+            {% endif %}
+            <span
+                {{ recipe_props.recipe_attr('itemprop', "recipeCategory", amp_on) }}
+                {{ recipe_props.recipe_attr('content', category, amp_on) }}
+            >{{ category }}</span>
+          </p>
+        {% endif %}            
+            
+         {% if cuisine %}
+          <p id="zlrecipe-cuisine">
+            {% if cuisine_label_hide != 'Hide' %}
+              {% trans %}Cuisine:{% endtrans %}
+            {% endif %}
+            <span
+                {{ recipe_props.recipe_attr('itemprop', "recipeCuisine", amp_on) }}
+                {{ recipe_props.recipe_attr('content', cuisine, amp_on) }}
+            >{{ cuisine }}</span>
+          </p>
+        {% endif %}
+
+        {{ author_section|raw }}
+
+        {# !! close the first container div and open the second #}
+      </div>
+
+      <div class="fl-l width-50">
+        {# !! yield and nutrition #}
+
+        {% if yield %}
+          <p id="zlrecipe-yield">
+            {% if yield_label_hide != 'Hide' %}
+              {% trans %}Yield:{% endtrans %}
+            {% endif %}
+            <span {{ recipe_props.recipe_attr('itemprop', "recipeYield", amp_on) }}>{{ yield }}</span>
+          </p>
+        {% endif %}
+
+        {% if nutritional_info %}
+          <div id="zlrecipe-nutrition"
+                  {{ recipe_props.recipe_attr('itemprop', "nutrition", amp_on) }}
+                  {{ recipe_props.recipe_attr('itemscope', false, amp_on) }}
+                  {{ recipe_props.recipe_attr('itemtype', "http://schema.org/NutritionInformation", amp_on) }}>
+
+          {% if serving_size %}
+              <p id="zlrecipe-serving-size">
+                {% if serving_size_label_hide != 'Hide' %}
+                  {% trans %}Serving Size:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "servingSize", amp_on) }}>{{ serving_size }}</span>
+              </p>
+            {% endif %}
+
+            {% if calories %}
+              <p id="zlrecipe-calories">
+                {% if calories_label_hide != 'Hide' %}
+                  {% trans %}Calories per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "calories", amp_on) }}>{{ calories }}</span>
+              </p>
+            {% endif %}
+
+            {% if fat %}
+              <p id="zlrecipe-fat">
+                {% if fat_label_hide != 'Hide' %}
+                  {% trans %}Fat per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "fatContent", amp_on) }}>{{ fat }}</span>
+              </p>
+            {% endif %}
+
+            {% if saturated_fat %}
+              <p id="zlrecipe-saturated-fat">
+                {% if saturated_fat_label_hide != 'Hide' %}
+                  {% trans %}Saturated fat per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "saturatedFatContent", amp_on) }}>{{ saturated_fat }}</span>
+              </p>
+            {% endif %}
+
+            {% if carbs %}
+              <p id="zlrecipe-carbs">
+                {% if carbs_label_hide != 'Hide' %}
+                  {% trans %}Carbs per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "carbohydrateContent", amp_on) }}>{{ carbs }}</span>
+              </p>
+            {% endif %}
+
+            {% if protein %}
+              <p id="zlrecipe-protein">
+                {% if protein_label_hide != 'Hide' %}
+                  {% trans %}Protein per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "proteinContent", amp_on) }}>{{ protein }}</span>
+              </p>
+            {% endif %}
+
+            {% if fiber %}
+              <p id="zlrecipe-fiber">
+                {% if fiber_label_hide != 'Hide' %}
+                  {% trans %}Fiber per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "fiberContent", amp_on) }}>{{ fiber }}</span>
+              </p>
+            {% endif %}
+
+            {% if sugar %}
+              <p id="zlrecipe-sugar">
+                {% if sugar_label_hide != 'Hide' %}
+                  {% trans %}Sugar per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "sugarContent", amp_on) }}>{{ sugar }}</span>
+              </p>
+            {% endif %}
+
+            {% if sodium %}
+              <p id="zlrecipe-sodium">
+                {% if sodium_label_hide != 'Hide' %}
+                  {% trans %}Sodium per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "sodiumContent", amp_on) }}>{{ sodium }}</span>
+              </p>
+            {% endif %}
+                
+            {% if trans_fat %}
+              <p id="zlrecipe-trans_fat">
+                {% if trans_fat_label_hide != 'Hide' %}
+                  {% trans %}Trans fat per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "transfatContent", amp_on) }}>{{ trans_fat }}</span>
+              </p>
+            {% endif %}
+                
+            {% if cholesterol %}
+              <p id="zlrecipe-cholesterol">
+                {% if cholesterol_label_hide != 'Hide' %}
+                  {% trans %}Cholesterol per serving:{% endtrans %}
+                {% endif %}
+                <span
+                        {{ recipe_props.recipe_attr('itemprop', "cholesterolContent", amp_on) }}>{{ cholesterol }}</span>
+              </p>
+            {% endif %}
+
+          </div>
+        {% endif %}
+
+        {# !! close the second container #}
+      </div>
+      <div class="zlclear">
+      </div>
+    </div>
+
+    {# !! create image and summary container #}
+    {% if image_attributes.url or summary %}
+      <div class="img-desc-wrap">
+          {%  if image_attributes.url %}
+              <p class="t-a-c
+                    {% if image_hide == 'Hide' or is_featured_post_image %}hide-card{% endif %}
+                    {% if image_hide_print == 'Hide' %}hide-print{% endif %}
+                    "
+              >
+                  <img class="photo"
+                          {{ recipe_props.recipe_attr('itemprop', "image", amp_on) }} src="{{ image_attributes.url }}" {% if image_attributes.srcset %}srcset="{{ image_attributes.srcset }}"{% endif %} {% if image_attributes.sizes %}sizes="{{ image_attributes.sizes }}"{% endif %} title="{{ recipe_title }}"
+                          {% if recipe_title %} alt="{{ recipe_title }}" {% endif %}
+                          {% if image_width %}
+                              style="{% if image_width %}width: {{image_width}}px;{% endif %}"
+                          {% endif %} />
+              </p>
+          {% endif %}
+
+          {% if summary %}
+              <div id="zlrecipe-summary"
+                      {{ recipe_props.recipe_attr('itemprop', "description", amp_on) }}>
+                  {{ summary_rich|raw }}
+              </div>
+          {% endif %}
+      </div>
+    {% endif %}
+
+    {# ********************* #}
+    {#       Ingredients     #}
+    {# ********************* #}
+    {% if ingredient_label_hide != "Hide" %}
+      <p id="zlrecipe-ingredients" class="h-4 strong">
+        {% trans %}Ingredients{% endtrans %}
+      </p>
+    {% endif %}
+
+    {% set ingredientsHtmlListElem = ingredient_list_type %}
+    {# one exception is when ingredient_list_type is 'l' #}
+    {% if ingredient_list_type == 'l' %}{% set ingredientsHtmlListElem = 'ul' %}{% endif %}
+    {% if ingredient_list_type == 'p' or ingredient_list_type =='div' %}{% set ingredientsHtmlListElem = 'span' %}{% endif %}
+
+    {% set ingredientsHtmlListChildElem = 'li' %}
+    {% if ingredient_list_type == 'p' %}{% set ingredientsHtmlListChildElem = 'p' %}{% endif %}
+    {% if ingredient_list_type == 'div' %}{% set ingredientsHtmlListChildElem = 'div' %}{% endif %}
+
+    {% for ingredient_list in nested_ingredients %}
+      <{{ ingredientsHtmlListElem }} id="zlrecipe-ingredients-list">
+        {% for ingredient in ingredient_list %}
+          {% if ingredient.type == 'image' %}
+            <img class="{% if image_hide_print %}hide-print{% endif %} {% if image_hide %}hide-card{% endif %}" src="{{ ingredient.attributes.url }}" {% if ingredient.attributes.srcset %}srcset="{{ ingredient.attributes.srcset }}"{% endif %} {% if ingredient.attributes.sizes %}sizes="{{ ingredient.attributes.sizes }}"{% endif %} {% if ingredient.attributes.title %} alt="{{ ingredient.attributes.title }}" {% endif %} />
+          {% elseif ingredient.type == 'subtitle' %}
+            {# no itemprop for sub-titles (aka labels) #}
+            {# subtitles always use div #}
+            <div class="{% if ingredient_list_type == 'l' %}ingredient no-bullet-label{% else %}ingredient-label{% endif %}">
+              {{ ingredient.content|raw }}
+            </div>
+          {% else %}
+            <{{ ingredientsHtmlListChildElem }} class="ingredient {% if ingredient_list_type == 'l' %}no-bullet{% endif %}"
+              {{ recipe_props.recipe_attr('itemprop', "recipeIngredient", amp_on) }}>
+              {{ ingredient.content|raw }}
+            </{{ ingredientsHtmlListChildElem }}>
+          {% endif %}
+        {% endfor %}
+      </{{ ingredientsHtmlListElem }}>
+    {% endfor %}
+
+    {# ********************* #}
+    {#      Instructions     #}
+    {# ********************* #}
+    {% if instruction_label_hide != 'Hide' %}
+      <p id="zlrecipe-instructions" class="h-4 strong">{% trans %}Instructions{% endtrans %}</p>
+    {% endif %}
+
+    {% set instructionsHtmlListElem = instruction_list_type %}
+    {# one exception is when instruction_list_type is 'l' #}
+    {% if instruction_list_type == 'l' %}{% set instructionsHtmlListElem = 'ul' %}{% endif %}
+    {% if instruction_list_type == 'p' or instruction_list_type == 'div' %}{% set instructionsHtmlListElem = 'span' %}{% endif %}
+
+    {# child is always 'li' unless 'div' or 'p' #}
+    {% set instructionsHtmlChildElem = 'li' %}
+    {% if instruction_list_type == 'p' %}{% set instructionsHtmlChildElem = 'p' %}{% endif %}
+    {% if instruction_list_type == 'div' %}{% set instructionsHtmlChildElem = 'div' %}{% endif %}
+
+    {% for instruction_list in nested_instructions %}
+        <{{ instructionsHtmlListElem }} id="zlrecipe-instructions-list" class="instructions">
+        {% for instruction in instruction_list %}
+          {% if instruction.type == 'image' %}
+            <img class="{% if image_hide_print %}hide-print{% endif %} {% if image_hide %}hide-card{% endif %}" src="{{ instruction.attributes.url }}" {% if instruction.attributes.srcset %}srcset="{{ instruction.attributes.srcset }}"{% endif %} {% if instruction.attributes.sizes %}sizes="{{ instruction.attributes.sizes }}"{% endif %} {% if instruction.attributes.title %} alt="{{ instruction.attributes.title }}" {% endif %} />
+          {% elseif instruction.type == 'subtitle' %}
+            {# no itemprop for sub-titles (aka labels) #}
+            {# subtitles always use div #}
+            <div class="{% if instruction_list_type == 'l' %}instruction no-bullet-label{% else %}instruction-label{% endif %}">
+              {{ instruction.content|raw }}
+            </div>
+          {% else %}
+            <{{ instructionsHtmlChildElem }} class="instruction {% if instruction_list_type == 'l' %}no-bullet{% endif %}"
+              {{ recipe_props.recipe_attr('itemprop', "recipeInstructions", amp_on) }}>
+            {{ instruction.content|raw }}
+            </{{ instructionsHtmlChildElem }}>
+          {% endif %}
+        {% endfor %}
+      </{{ instructionsHtmlListElem }}>
+    {% endfor %}
+
+
+    {# !! add notes section #}
+    {% if notes %}
+      {% if notes_label_hide != 'Hide' %}
+        <p id="zlrecipe-notes" class="h-4 strong">{% trans %}Notes{% endtrans %}</p>
+      {% endif %}
+      <div id="zlrecipe-notes-list">
+       {{ formatted_notes|raw }}
+      </div>
+    {% endif %}
+    {{ nutrition_label|raw }}
+
+    {# Zip Recipes attribution and version #}
+    {% if attribution_hide != 'Hide' %}
+      <div class="zl-linkback">Recipe Management Powered by <a title="Zip Recipes Plugin" href="https://www.ziprecipes.net" rel="nofollow" target="_blank">Zip Recipes Plugin</a></div>
+    {% endif %}
+    <div class="ziprecipes-plugin" style="display: none;">{{version}}</div>
+
+    {# Add permalink for printed output before closing the innerdiv #}
+    {% if print_permalink_hide != 'Hide' %}
+      <a id="zl-printed-permalink" href="{{ permalink }}" title="Permalink to Recipe">{{ permalink }}</a>
+    {% endif %}
+  </div>
+
+  {# Add copyright statement for printed output (outside the dotted print line) #}
+  {% if copyright %}
+    <div id="zl-printed-copyright-statement"
+            {{ recipe_props.recipe_attr('itemprop', "copyrightHolder", amp_on) }}>{{ copyright }}</div>
+  {% endif %}
+  </div>
+</div>
+</div>

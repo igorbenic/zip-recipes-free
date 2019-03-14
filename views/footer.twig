@@ -1,0 +1,12 @@
+<style type="text/css" media="screen">
+  #wp_editrecipebtns { position:absolute;display:block;z-index:999998; }
+  #wp_editrecipebtn { margin-right:20px; }
+  #wp_editrecipebtn,#wp_delrecipebtn { cursor:pointer; padding:12px;background:#010101; -moz-border-radius:8px;-khtml-border-radius:8px;-webkit-border-radius:8px;border-radius:8px; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; }
+  #wp_editrecipebtn:hover,#wp_delrecipebtn:hover { background:#000; filter:alpha(opacity=100); -moz-opacity:1; -khtml-opacity: 1; opacity: 1; }
+</style>
+<script>
+    {% autoescape 'js' %}
+    var baseurl = '{{ url }}';          // This variable is used by the editor plugin
+    var plugindir = '{{ pluginurl }}';  // This variable is used by the editor plugin
+    {% endautoescape %}
+</script>

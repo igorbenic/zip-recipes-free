@@ -1,0 +1,252 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Zip Recipes Ltd
+# This file is distributed under the same license as the zip-recipes package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zip-recipes\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2017-04-10 20:00+0400\n"
+"Last-Translator: \n"
+"Language-Team: Dr. Alaa Qashllan <doctor3ala2@gmail.com>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+#, php-format
+msgid "%d day"
+msgstr "%d يوم"
+
+#, php-format
+msgid "%d days"
+msgstr "%d ايام"
+
+#, php-format
+msgid "%d hour"
+msgstr "%d ساعة"
+
+#, php-format
+msgid "%d hours"
+msgstr "%d ساعات"
+
+#, php-format
+msgid "%d minute"
+msgstr "%d دقيقة"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d دقائق"
+
+#, php-format
+msgid "%d month"
+msgstr "%d شهر"
+
+#, php-format
+msgid "%d months"
+msgstr "%d شهراً"
+
+#, php-format
+msgid "%d second"
+msgstr "%d ثانية"
+
+#, php-format
+msgid "%d seconds"
+msgstr "%d ثواني"
+
+#, php-format
+msgid "%d year"
+msgstr "%d سنة"
+
+#, php-format
+msgid "%d years"
+msgstr "%d سنوات"
+
+msgid "Author:"
+msgstr "المؤلف: "
+
+msgid "Calories per serving:"
+msgstr "السعرات الحرارية لكل حصة:"
+
+msgid "Calories:"
+msgstr "الكالوري:"
+
+#, fuzzy
+msgid "Can't create recipe"
+msgstr "قيم هذه الوصفة"
+
+#, fuzzy
+msgid "Can't update recipe"
+msgstr "قيم هذه الوصفة"
+
+msgid "Carbs per serving:"
+msgstr "الكربوهيدرات لكل حصة:"
+
+msgid "Carbs:"
+msgstr "الكربوهيدرات:"
+
+msgid "Category:"
+msgstr ""
+
+#, fuzzy
+msgid "Cholesterol per serving:"
+msgstr "السعرات الحرارية لكل حصة:"
+
+msgid "Cholesterol:"
+msgstr ""
+
+msgid "Cook"
+msgstr "مدة الطبخ: "
+
+msgid "Cook Time:"
+msgstr "مدة الطبخ: "
+
+msgid "Cuisine:"
+msgstr ""
+
+msgid "Fat per serving:"
+msgstr "الدهون لكل حصة:"
+
+msgid "Fat:"
+msgstr "الدهون:"
+
+msgid "Fiber per serving:"
+msgstr "الألياف لكل حصة:"
+
+msgid "Fiber:"
+msgstr "الألياف:"
+
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+
+msgid "Ingredients"
+msgstr "المقادير"
+
+msgid "Instructions"
+msgstr "خطوات التحضير"
+
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr "ملاحظات"
+
+msgid "Prep"
+msgstr "مدة الإعداد: "
+
+msgid "Prep Time:"
+msgstr "مدة الإعداد: "
+
+msgid "Prep:"
+msgstr "مدة الإعداد: "
+
+msgid "Print"
+msgstr "طباعة"
+
+msgid "Print this recipe"
+msgstr "طباعة هذه الوصفة"
+
+msgid "Protein per serving:"
+msgstr "صةالبروتين في لكل حصة:"
+
+msgid "Protein:"
+msgstr "البروتين:"
+
+msgid "Rate this recipe"
+msgstr "قيم هذه الوصفة"
+
+#, fuzzy
+msgid "Rating"
+msgstr "تقييمات"
+
+msgid "Ready in"
+msgstr "جاهزة في"
+
+msgid "Recipe Reviews"
+msgstr ""
+
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
+msgstr ""
+
+msgid "Saturated fat per serving:"
+msgstr "الدهون المشبعة لكل حصة:"
+
+msgid "Saturated fat:"
+msgstr "الدهون المشبعة:"
+
+msgid "Save to BigOven"
+msgstr ""
+
+msgid "Serves:"
+msgstr "الحصص: "
+
+msgid "Serving Size:"
+msgstr "حجم الحصة:"
+
+msgid "Sodium per serving:"
+msgstr "الصوديوم لكل حصة:"
+
+msgid "Sodium:"
+msgstr "الصوديوم:"
+
+msgid "Sugar per serving:"
+msgstr "السكر لكل حصة:"
+
+msgid "Sugar:"
+msgstr "سكر:"
+
+msgid "Total Time:"
+msgstr "الوقت الكلي:"
+
+msgid "Total:"
+msgstr "الوقت الكلي: "
+
+#, fuzzy
+msgid "Trans fat per serving:"
+msgstr "الدهون المشبعة لكل حصة:"
+
+msgid "Trans fat:"
+msgstr ""
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+
+msgid "Yield:"
+msgstr "الحصص:"
+
+#, fuzzy
+msgid "Your rating:"
+msgstr "تقييمات"
+
+msgid "ratings"
+msgstr "تقييمات"
+
+msgid "stars"
+msgstr "نجوم"
+
+#~ msgid "Instructions:"
+#~ msgstr "خطوات التحضير: "
+
+#, fuzzy
+#~ msgid "Ingredients:"
+#~ msgstr "المقادير"
+
+#~ msgid "Ingridients:"
+#~ msgstr "المقادير: "

@@ -1,0 +1,27 @@
+
+@import "../../../../node_modules/bulma/sass/utilities/all";
+$prefix: 'zrdn-';
+// ../../node_modules/bulma/sass/base/all was included but minireset and generics was causing issues with themes
+@import "../../../../node_modules/bulma/sass/base/helpers.sass";
+
+
+@import "../../../../node_modules/bulma/sass/elements/button";
+@import "../../../../node_modules/bulma/sass/elements/form";
+@import "../../../../node_modules/bulma/sass/grid/columns";
+@import "../../../../node_modules/bulma/sass/components/level";
+@import "../../../../node_modules/bulma/sass/elements/notification";
+
+.bottom-bar {
+    background-color: rgb(151, 81, 255);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    justify-content: right;
+    /*padding: 15px;*/
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+}

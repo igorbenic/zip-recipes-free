@@ -1,0 +1,139 @@
+<style>
+  .form-table label { line-height: 2.5; }
+  hr { border: none; border-top: 1px; margin: 30px 0; }
+</style>
+<div class="wrap">
+  <form method="post" action="" id="zlrecipe_settings_form" name="zlrecipe_settings_form">
+    <h2><img src="{{ zrdn_icon }}" /> Zip Recipes Settings</h2>
+      For full customization options, see the <a href="https://www.ziprecipes.net/docs/installing/" target="_blank">Instructions document</a>.
+      {{ extensions_settings|raw }}
+      <table class="form-table">
+        <tr valign="top">
+          <th scope="row">
+            Custom Print Button
+            <br />
+            (Optional)
+          </th>
+          <td>
+            <input type="hidden" name="action" value="update_settings" />
+            <input placeholder="URL to custom Print button image" type="text" name="custom-print-image" value="{{ custom_print_image }}" class="regular-text" />
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">Zip Recipes Plugin Link</th>
+          <td><label><input type="checkbox" name="zrecipe-attribution-hide" value="Hide" {{ zrecipe_attribution_hide|raw }} /> Don't show plugin link</label></td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">Printed Output: Recipe Permalink</th>
+          <td><label><input type="checkbox" name="printed-permalink-hide" value="Hide" {{ printed_permalink_hide|raw }} /> Don't show permalink in printed output</label></td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">Printed Output: Copyright Statement</th>
+          <td><input type="text" name="printed-copyright-statement" value="{{ printed_copyright_statement }}" class="regular-text" /></td>
+        </tr>
+        {{ author_section|raw }}
+      </table>
+
+      <hr />
+      <h3>Recipe Card Look & Feel</h3>
+      <table class="form-table">
+        <tr valign="top">
+          <th scope="row">Stylesheet</th>
+          <td><label><input type="checkbox" name="stylesheet" value="zlrecipe-std" {{ stylesheet|raw }} /> Use Zip Recipes style</label></td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">Recipe Title</th>
+          <td><label><input type="checkbox" name="recipe-title-hide" value="Hide" {{ recipe_title_hide|raw }} /> Don't show Recipe Title in post (still shows in print view)</label></td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">Print Button</th>
+          <td><label><input type="checkbox" name="print-link-hide" value="Hide" {{ print_link_hide|raw }} /> Don't show Print Button</label></td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">Image Width</th>
+          <td><label><input type="text" name="image-width" value="{{ image_width }}" class="regular-text" /> pixels</label></td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">Image Display</th>
+          <td>
+            <label><input type="checkbox" name="image-hide" value="Hide" {{ image_hide|raw }} /> Don't show Image in post</label>
+            <br />
+            <label><input type="checkbox" name="image-hide-print" value="Hide" {{ image_hide_print|raw }} /> Don't show Image in print view</label>
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">Border Style</th>
+          <td>
+            <select name="outer-border-style">{{ obs|raw }}</select>
+          </td>
+        </tr>
+      </table>
+      <hr />
+      <h3>Ingredients</h3>
+      <table class="form-table">
+        <tr valign="top">
+          <th scope="row">'Ingredients' Label</th>
+          <td>
+            <label><input type="checkbox" name="ingredient-label-hide" value="Hide" {{ ingredient_label_hide|raw }} /> Don't show Ingredients label</label>
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">'Ingredients' List Type</th>
+          <td>
+            <input type="radio" id="ingredient-list-type-l" name="ingredient-list-type" value="l" {{ ing_l|raw }} />
+            <label for="ingredient-list-type-l">List</label>
+            <br />
+            <input type="radio" id="ingredient-list-type-ol" name="ingredient-list-type" value="ol" {{ ing_ol|raw }} />
+            <label for="ingredient-list-type-ol">Numbered List</label>
+            <br />
+            <input type="radio" id="ingredient-list-type-ul" name="ingredient-list-type" value="ul" {{ ing_ul|raw }} />
+            <label for="ingredient-list-type-ul">Bulleted List</label>
+            <br />
+            <input type="radio" id="ingredient-list-type-p" name="ingredient-list-type" value="p" {{ ing_p|raw }} />
+            <label for="ingredient-list-type-p">Paragraphs</label>
+            <br />
+            <input type="radio" id="ingredient-list-type-div" name="ingredient-list-type" value="div" {{ ing_div|raw }} />
+            <label for="ingredient-list-type-div">Divs</label>
+          </td>
+        </tr>
+      </table>
+
+      <hr />
+
+      <h3>Instructions</h3>
+      <table class="form-table">
+        <tr valign="top">
+          <th scope="row">'Instructions' Label</th>
+          <td>
+            <label><input type="checkbox" name="instruction-label-hide" value="Hide" {{ instruction_label_hide|raw }} /> Don't show Instructions label</label>
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">'Instructions' List Type</th>
+          <td>
+            <input type="radio" id="instruction-list-type-l" name="instruction-list-type" value="l" {{ ins_l|raw }} />
+            <label for="instruction-list-type-l">List</label>
+            <br />
+            <input type="radio" id="instruction-list-type-ol" name="instruction-list-type" value="ol" {{ ins_ol|raw }} />
+            <label for="instruction-list-type-ol">Numbered List</label>
+            <br />
+            <input type="radio" id="instruction-list-type-ul" name="instruction-list-type" value="ul" {{ ins_ul|raw }} />
+            <label for="instruction-list-type-ul">Bulleted List</label>
+            <br />
+            <input type="radio" id="instruction-list-type-p" name="instruction-list-type" value="p" {{ ins_p|raw }} />
+            <label for="instruction-list-type-p">Paragraphs</label>
+            <br />
+            <input type="radio" id="instruction-list-type-div" name="instruction-list-type" value="div" {{ ins_div|raw }} />
+            <label for="instruction-list-type-div">Divs</label>
+          </td>
+        </tr>
+      </table>
+      <hr />
+      <h3>Other Options</h3>
+      <table class="form-table">
+          {{ other_options|raw }}
+      </table>
+
+      <p><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
+    </form>
+</div>

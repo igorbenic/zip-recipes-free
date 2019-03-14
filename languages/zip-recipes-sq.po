@@ -1,0 +1,261 @@
+# Copyright (C) 2016 zip-recipes
+# This file is distributed under the same license as the zip-recipes package.
+msgid ""
+msgstr ""
+"Project-Id-Version: zip-recipes\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2016-04-19 01:14-0600\n"
+"Last-Translator: Gezim Hoxha <hello@ziprecipes.net>\n"
+"Language-Team: \n"
+"Language: sq\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#, php-format
+msgid "%d day"
+msgstr "%d ditë"
+
+#, php-format
+msgid "%d days"
+msgstr "%d ditë"
+
+#, fuzzy, php-format
+msgid "%d hour"
+msgstr "%d orë"
+
+#, php-format
+msgid "%d hours"
+msgstr "%d orë"
+
+#, php-format
+msgid "%d minute"
+msgstr "%d minutë"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d minuta"
+
+#, php-format
+msgid "%d month"
+msgstr "%d muaj"
+
+#, php-format
+msgid "%d months"
+msgstr "%d muaj"
+
+#, php-format
+msgid "%d second"
+msgstr "%d sekondë"
+
+#, php-format
+msgid "%d seconds"
+msgstr "%d sekonda"
+
+#, php-format
+msgid "%d year"
+msgstr "%d vit"
+
+#, php-format
+msgid "%d years"
+msgstr "%d vite"
+
+msgid "Author:"
+msgstr "Autor:"
+
+msgid "Calories per serving:"
+msgstr "Kalori për racion:"
+
+#, fuzzy
+msgid "Calories:"
+msgstr "Kaloritë:"
+
+#, fuzzy
+msgid "Can't create recipe"
+msgstr "Vlerëso këtë recetë"
+
+#, fuzzy
+msgid "Can't update recipe"
+msgstr "Vlerëso këtë recetë"
+
+msgid "Carbs per serving:"
+msgstr "Karbohidrate për racion:"
+
+msgid "Carbs:"
+msgstr "Karbohidrate:"
+
+msgid "Category:"
+msgstr "Kategori:"
+
+#, fuzzy
+msgid "Cholesterol per serving:"
+msgstr "Kolesterol për racion:"
+
+msgid "Cholesterol:"
+msgstr "Kolesterol:"
+
+msgid "Cook"
+msgstr "Gatimi:"
+
+msgid "Cook Time:"
+msgstr "Koha e gatimit:"
+
+msgid "Cuisine:"
+msgstr "Kuzhina:"
+
+msgid "Fat per serving:"
+msgstr "Yndyrna për racion:"
+
+msgid "Fat:"
+msgstr "Yndyrna:"
+
+msgid "Fiber per serving:"
+msgstr "Fibra për racion:"
+
+msgid "Fiber:"
+msgstr "Fibra:"
+
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+
+msgid "Ingredients"
+msgstr "Përbërësit"
+
+msgid "Instructions"
+msgstr "Hapat"
+
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr "Shënime"
+
+msgid "Prep"
+msgstr "Përgatitje"
+
+msgid "Prep Time:"
+msgstr "Koha e përgatitjes:"
+
+#, fuzzy
+msgid "Prep:"
+msgstr "Koha e përgatitjes:"
+
+msgid "Print"
+msgstr "Printo"
+
+msgid "Print this recipe"
+msgstr "Printo recetën"
+
+msgid "Protein per serving:"
+msgstr "Proteina për racion:"
+
+msgid "Protein:"
+msgstr "Proteina"
+
+msgid "Rate this recipe"
+msgstr "Vlerëso këtë recetë"
+
+#, fuzzy
+msgid "Rating"
+msgstr "Vlerësime"
+
+msgid "Ready in"
+msgstr "Gati për"
+
+msgid "Recipe Reviews"
+msgstr ""
+
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
+msgstr ""
+
+msgid "Saturated fat per serving:"
+msgstr "Yndyrna të ngopura për racion:"
+
+#, fuzzy
+msgid "Saturated fat:"
+msgstr "Yndyrna të ngopura për racion:"
+
+msgid "Save to BigOven"
+msgstr ""
+
+#, fuzzy
+msgid "Serves:"
+msgstr "Racion:"
+
+msgid "Serving Size:"
+msgstr "Racioni për:"
+
+msgid "Sodium per serving:"
+msgstr "Sodium për racion:"
+
+msgid "Sodium:"
+msgstr "Sodium"
+
+msgid "Sugar per serving:"
+msgstr "Sheqerna për racion:"
+
+msgid "Sugar:"
+msgstr "Sheqerna"
+
+msgid "Total Time:"
+msgstr "Koha totale:"
+
+#, fuzzy
+msgid "Total:"
+msgstr "Totali:"
+
+#, fuzzy
+msgid "Trans fat per serving:"
+msgstr "Yndyrna të  ngopura për racion:"
+
+msgid "Trans fat:"
+msgstr "Yndyrna të ngopura"
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+
+msgid "Yield:"
+msgstr "Sasia:"
+
+msgid "Your rating:"
+msgstr "Vlerësimi juaj"
+
+msgid "ratings"
+msgstr "Vlerësime"
+
+msgid "stars"
+msgstr "Yje"
+
+#, fuzzy
+#~ msgid "Instructions:"
+#~ msgstr "Hapat"
+
+#, fuzzy
+#~ msgid "Ingredients:"
+#~ msgstr "Përbërësit"
+
+#, fuzzy
+#~ msgid "Ingridients:"
+#~ msgstr "Përbërësit"

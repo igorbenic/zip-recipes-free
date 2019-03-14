@@ -1,0 +1,81 @@
+{% macro register(wp_version, installed_plugins, home_url, return_to_url) %}
+    <h3>Register Zip Recipes Free</h3>
+    Please register your plugin so we can email you news about updates to Zip Recipes, including tips and tricks on how to use it.
+    Registering also helps us troubleshoot any problems you may encounter. When you register, we will
+    automatically receive your blog's web address, WordPress version, and names of installed plugins.
+    <table class="form-table">
+        <tr valign="top">
+            <th scope="row" style="padding: 0"><label for="first_name">First Name:</label></th>
+            <td style="padding: 0"><input type="text" id="first_name" name="first_name" class="regular-text" required autofocus /></td>
+        </tr>
+        <tr valign="top">
+            <th scope="row" style="padding: 0"><label for="last_name">Last Name:</label></th>
+            <td style="padding: 0"><input type="text" id="last_name" name="last_name" class="regular-text" required /></td>
+        </tr>
+        <tr valign="top">
+            <th scope="row" style="padding: 0"><label for="email">Email:</label></th>
+            <td style="padding: 0">
+                <input type="email" id="email" name="email" class="regular-text" required />
+                <input type="hidden" id="wp-version" name="wp_version" value="{{ wp_version }}" />
+                <input type="hidden" id="plugins" name="plugins" value="{{ installed_plugins }}" />
+                <input type="hidden" id="blog-url" name="blog_url" value="{{ home_url }}" />
+                <input type="hidden" id="return-url" name="return-url" value="{{ return_to_url }}" />
+                <input type="hidden" name="action" value="zrdn-register" />
+            </td>
+        </tr>
+    </table>
+    <p style="text-align: right">
+        <a href="{{ return_to_url|raw }}&skip_registration=1" id="skip-button" class="button-skip"
+           style="border: 0; background: none;cursor: pointer;color:#777777;margin-right:10px;">Skip</a>
+        <input type="submit" id="register_button" class="button-primary" value="Register">
+    </p>
+{% endmacro %}
+
+{% macro scripts(registration_url) %}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            var $form = jQuery("#zlrecipe_settings_form");
+
+            $form.on("submit", function () {
+                var $registerButton = jQuery("#register_button");
+                $registerButton.val("Registering...");
+                $registerButton.attr("disabled", true);
+
+                var postUrl = "{{ registration_url|raw }}";
+
+                jQuery.post(postUrl, $form.serialize(), function (data) {
+                    var jsonData = JSON.parse(data);
+
+                    if (jsonData.status === "failure") {
+                        for (var elementID in jsonData.errors) {
+                            if (jsonData.errors.hasOwnProperty(elementID)) {
+                                var errors = jsonData.errors[elementID];
+                                for (var i = 0; i < errors.length; i++) {
+                                    jQuery("#" + elementID).parent().append("<br/>" + errors[i]);
+                                }
+                            }
+                        }
+
+                        $registerButton.val("Register");
+                        $registerButton.attr("disabled", false);
+                    }
+                    else {
+                        // unbind current event hanlder and resubmit the form
+                        $form.off("submit");
+
+
+                        $form.get(0).submit();
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
+{% endmacro %}
+
+{% macro recipe_attr(attr_name, attr_value, amp_on) %}
+    {% if not amp_on %}
+        {{ attr_name }}{% if attr_value %}="{{ attr_value }}"{% endif %}
+    {% endif %}
+{% endmacro %}

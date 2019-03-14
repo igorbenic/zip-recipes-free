@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('#get-nutrition').on('click', function() {
+            jQuery('#nutrition-promo').show();
+        });
+    });
+</script>
+<div id="nutrition-promo" style="display: none;">
+    {% if remote_promo %}
+        {{ remote_promo|raw }}
+    {% else %}
+        <div style="margin: 16px; color: rgb(239, 108, 0);">
+            <div style="display:block; padding: 5px; border: 1px solid #ccc;">
+                <h3 style="font-size: 1.1em; font-weight: bold;">{{'Nutrition data with one click!zip-recipes'}}</h3>
+                <span style="color: rgb(239, 108, 0); font-size: 13px; line-height: 25px">Automatic Nutrition feature allows you to calculate the nutrition data with one click. <a style="color: rgb(239, 108, 0);" href="https://www.ziprecipes.net/promo/nutrition_missing" target="_blank">Learn more.</a></span>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<div class="zrdn-field">
+    <label class="zrdn-label" for="yield">Yields</label>
+</div>
+<div class="zrdn-field zrdn-has-addons">
+    <p class="zrdn-control">
+        <input class="zrdn-input zrdn-is-small" type='text' id='yield' name='yield' placeholder="Number of servings" value='{{ yield }}' />
+    </p>
+    <p class="zrdn-control">
+        <button class="zrdn-button zrdn-is-small" type="button" id="get-nutrition">
+            <span class="zrdn-icon zrdn-is-small">
+                <i class="fa fa-lock"></i>
+            </span>
+            <span>{{ 'Calculate Nutrition' }}</span>
+        </button>
+    </p>
+</div>

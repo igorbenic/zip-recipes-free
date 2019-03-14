@@ -1,0 +1,253 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, php-format
+msgid "%d day"
+msgstr "%d giorno"
+
+#, php-format
+msgid "%d days"
+msgstr "%d giorni"
+
+#, php-format
+msgid "%d hour"
+msgstr "%d ora"
+
+#, php-format
+msgid "%d hours"
+msgstr "%d ore"
+
+#, php-format
+msgid "%d minute"
+msgstr "%d minuto"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d minuti"
+
+#, php-format
+msgid "%d month"
+msgstr "%d mese"
+
+#, php-format
+msgid "%d months"
+msgstr "%d mesi"
+
+#, php-format
+msgid "%d second"
+msgstr "%d secondo"
+
+#, php-format
+msgid "%d seconds"
+msgstr "%d secondi"
+
+#, php-format
+msgid "%d year"
+msgstr "%d anno"
+
+#, php-format
+msgid "%d years"
+msgstr "%d anni"
+
+msgid "Author:"
+msgstr ""
+
+msgid "Calories per serving:"
+msgstr "Calorie per porzione:"
+
+#, fuzzy
+msgid "Calories:"
+msgstr "Calorie per porzione:"
+
+msgid "Can't create recipe"
+msgstr ""
+
+msgid "Can't update recipe"
+msgstr ""
+
+msgid "Carbs per serving:"
+msgstr "Carboidrati per porzione:"
+
+msgid "Carbs:"
+msgstr ""
+
+msgid "Category:"
+msgstr "Categoria:"
+
+#, fuzzy
+msgid "Cholesterol per serving:"
+msgstr "Calorie per porzione:"
+
+msgid "Cholesterol:"
+msgstr ""
+
+msgid "Cook"
+msgstr ""
+
+msgid "Cook Time:"
+msgstr "Tempo di cottura:"
+
+msgid "Cuisine:"
+msgstr ""
+
+msgid "Fat per serving:"
+msgstr "Grassi per porzione:"
+
+msgid "Fat:"
+msgstr ""
+
+msgid "Fiber per serving:"
+msgstr "Fibre per porzione:"
+
+msgid "Fiber:"
+msgstr ""
+
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+
+msgid "Ingredients"
+msgstr "Ingredienti"
+
+msgid "Instructions"
+msgstr "Istruzioni"
+
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr "Note"
+
+msgid "Prep"
+msgstr ""
+
+msgid "Prep Time:"
+msgstr "Tempo di preparazione:"
+
+#, fuzzy
+msgid "Prep:"
+msgstr "Tempo di preparazione:"
+
+msgid "Print"
+msgstr "Stampa"
+
+msgid "Print this recipe"
+msgstr ""
+
+msgid "Protein per serving:"
+msgstr "Proteine per porzione:"
+
+msgid "Protein:"
+msgstr ""
+
+msgid "Rate this recipe"
+msgstr ""
+
+msgid "Rating"
+msgstr ""
+
+msgid "Ready in"
+msgstr ""
+
+msgid "Recipe Reviews"
+msgstr ""
+
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
+msgstr ""
+
+msgid "Saturated fat per serving:"
+msgstr "Grassi saturi per porzioni:"
+
+#, fuzzy
+msgid "Saturated fat:"
+msgstr "Grassi saturi per porzioni:"
+
+msgid "Save to BigOven"
+msgstr ""
+
+#, fuzzy
+msgid "Serves:"
+msgstr "Porzione:"
+
+msgid "Serving Size:"
+msgstr "Porzione:"
+
+msgid "Sodium per serving:"
+msgstr "Sodio per porzione:"
+
+msgid "Sodium:"
+msgstr ""
+
+msgid "Sugar per serving:"
+msgstr "Zuccheri per porzione:"
+
+msgid "Sugar:"
+msgstr ""
+
+msgid "Total Time:"
+msgstr "Tempo totale:"
+
+#, fuzzy
+msgid "Total:"
+msgstr "Tempo totale:"
+
+#, fuzzy
+msgid "Trans fat per serving:"
+msgstr "Grassi saturi per porzioni:"
+
+msgid "Trans fat:"
+msgstr ""
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+
+msgid "Yield:"
+msgstr "Porzione:"
+
+msgid "Your rating:"
+msgstr ""
+
+msgid "ratings"
+msgstr ""
+
+msgid "stars"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Instructions:"
+#~ msgstr "Istruzioni"
+
+#, fuzzy
+#~ msgid "Ingredients:"
+#~ msgstr "Ingredienti"
+
+#, fuzzy
+#~ msgid "Ingridients:"
+#~ msgstr "Ingredienti"

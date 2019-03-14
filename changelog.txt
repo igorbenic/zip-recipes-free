@@ -1,0 +1,376 @@
+= 4.30 =
+- Fixed a bug for AMP that some users using the default recipe theme may encounter
+
+= 4.29 Vrooom - speed optimizations for better SEO =
+This is a really exciting release for us. Here's a list of the fixes and improvements:
+- New: Image optimizations: we load the appropriate image size for your visitor whether they're on a desktop computer or phone. This ensures optimum speed and better SEO.
+- New: Script/style optimizations: we've compressed our styles so your visitors are not slowed down by anything extra.
+- Better SEO for the [premium recipe card themes](https://www.ziprecipes.net/) by adding H2, H3 tags for recipe title, ingredients, etc.
+- [Automatic Nutrition](https://www.ziprecipes.net/automatic-nutrition-landing-page/): Fixed issue where nutrition labels were not generating on some recipes or only half the label generating.
+- [Automatic Nutrition](https://www.ziprecipes.net/automatic-nutrition-landing-page/): Fixed issue where nutrition labels were sometimes not generating when a recipe is updated.
+- Fixed sorting and other issues for [Recipe Index and Recipe Picture Gallery](https://www.ziprecipes.net/)
+- Fixed an issue where paragraph option for main recipe card theme wasn't working.
+- Fixed issues with [premium recipe card themes](https://www.ziprecipes.net/) for mobile phones
+- Fixed Google AMP issues for [premium recipe card themes](https://www.ziprecipes.net/)
+- Added Danish translation
+- Improved Polish translation
+
+= 4.26 Bug fixes, Slovak translation + premium feature =
+- [(Premium only) Recipe saving to Yummly, Pinterest, Big Oven](https://www.ziprecipes.net/)
+- Prep time, cook time, total time are now aligned properly
+- Removed prep time, cook time, total time maximum limits as they're not helpful
+- Fixed: Cleanup recipe titles on save
+- Fixed: some style issues with some themes
+
+= 4.21 Bug fixes + Automatic Nutrition for Spanish recipes =
+
+You should update to get bug fixes and if you're a premium member (Lover package)
+your Spanish recipe website can now take advantage of our
+auto-magical feature: [Automatic Nutrition](https://www.ziprecipes.net/automatic-nutrition-landing-page)
+
+= 4.20 Create recipes on the go! =
+
+- Now you can create recipes from you tablet, phone or computer!
+- Recipe creation screen has been redesigned and more user friendly.
+- Updated Albanian translation
+- Fixed spacing issue for star ratings
+- Added translation for Swedish
+- (Premium) Fixed issue where wrong recipe would appear in Recipe Grid
+- (Premium) Fixed issue where premium templates were reporting instructions as ingredients
+
+
+= 4.14 JSON-LD support + bug fixes and improvements =
+
+- Added support for JSON-LD. The recommended structured data format by Google. We still support the older format for Pinterest.
+- Premium version: Recipe ratings improvement
+- Premium version: Fixed structured data formatting for authors for premium themes.
+- Support for WordPress 4.8
+
+= 4.13 Greek + bug fixes + automatic nutrition calculator for premium =
+
+- For Zip Recipe Lover plan: Added automatic nutrition calculation! Check it out here: https://www.ziprecipes.net/automatic-nutrition-landing-page/
+- Moved Yields label higher in entry field
+- Fixed a bunch of warnings that may have appeared for some users
+- Improved collapsing and expanding "More options" section of recipe entry box
+- Renamed Yield to Yields
+- Google Accelerated Mobile Pages (AMP) nutrition labels fix
+- Added Greek translation
+- Added promotion for automatic nutrition
+
+= 4.12 For Nicolas: Fix for foreign sites =
+
+* There was a problem for non-Lover packages and Lover packages in non-English
+that prevented a page's text from rendering. This is fixed here.
+* "Your rating:" now translates
+
+= 4.11 For Nicolas: Revered changes  =
+
+* Reverted ratings changes in 4.5.2.16
+* Kept translation and AMP fixes
+
+= 4.10 Greek + bug fixes + automatic nutrition calculator for premium =
+
+- For Zip Recipe Lover plan: Added automatic nutrition calculation!
+- Moved Yields label higher in entry field
+- Added promotion for automatic nutrition
+- Fixed a bunch of warnings that may have appeared for some users
+- Improved collapsing and expanding "More options" section of recipe entry box
+- Renamed Yield to Yields
+- Added Greek translation
+
+= 4.9.1 Finished adding Arabic, Finnish and German =
+
+Thanks to the translators for providing these translations for Finnish, German and Arabic:
+Alaa, Thomas, Faruk, and Kirsi.
+
+= 4.9 Fixed a bug with translations and other changes previously =
+
+* I introduced an error with translations in version 4.8. Fixing this here.
+
+Changes in 4.8:
+
+Ever felt like you couldn't track all your nutritional info? Well, now you can track more than ever.
+We just added *cholesterol* and *trans fat* fields.
+
+Speak of more fields, now you can categorize your recipes as an appetizer, entree, etc.
+In addition, you can specify a cuisine for your recipe such as French, Ethiopian, etc.
+Look for the *Category*  and *Cuisine* fields under *More Options* when you're adding a recipe.
+
+Lastly, you can now add images anywhere in Notes and Summary using the image url syntax (e.g. `%https://i.ytimg.com/vi/P4LhWSN3YSw/maxresdefault.jpg`)!
+
+Oops, that's not all. We've added support for Divi theme and Divi Builder! Rejoice Divi users!
+
+Bug fixes:
+* [Better] We do a better job at trying to write to cache to make things faster
+* [Better] Improved HTTPS support for your blog
+
+
+= 4.8 More nutrition fields, improved notes and summary =
+
+Ever felt like you couldn't track all your nutritional info? Well, now you can track more than ever.
+We just added *cholesterol* and *trans fat* fields.
+
+Speak of more fields, now you can categorize your recipes as an appetizer, entree, etc.
+In addition, you can specify a cuisine for your recipe such as French, Ethiopian, etc.
+Look for the *Category*  and *Cuisine* fields under *More Options* when you're adding a recipe.
+
+Lastly, you can now add images anywhere in Notes and Summary using the image url syntax (e.g. `%https://i.ytimg.com/vi/P4LhWSN3YSw/maxresdefault.jpg`)!
+
+Oops, that's not all. We've added support for Divi theme and Divi Builder! Rejoice Divi users!
+
+Bug fixes:
+* [Better] We do a better job at trying to write to cache to make things faster
+* [Better] Improved HTTPS support for your blog
+
+= 4.7.2.17 More AMP and better Secondary recipes! =
+
+* [Better] Better formatting for Google AMP (Accelerated Mobile Pages)
+* [Better] Removed copyright, permalink and Zip Recipes version from Google AMP view
+* [Better] Secondary recipe number starts at 1 instead of continuing
+* [New] Information about Author feature
+* [Better] WordPress 4.7 support
+
+= 4.5.2.15 Authors and Google Accelerated Mobile Pages =
+
+* Added Google Accelerated Mobile Pages
+* Made registration optional
+
+4.5.2.11 Added new languages
+
+* Added Serbian, Spanish, French, Brazilian Portuguese, and Polish
+
+4.5.2.10 Second attempt at that fix :(
+
+* Some people were experiencing an issue with the install/update. Fixed it. For real, I think!
+
+4.5.2.9 Fixed issue with updating
+
+* Some people were experiencing an issue with the install/update. Fixed it.
+
+4.5.2.8 Bug fixes and improvements
+
+* New: All of the recipe card is translatable to your language
+* Better: Changed the way templates are generated to make updates work for more people
+* Fixed: Recipe Summary was being included in excerpts with no way to remove it
+* Fixed: Settings "Don't show Image in post" and "Don't show Image in print view" were not being respected
+
+4.5.2.7 We speak your language
+
+* New: Zip Recipes now supports Page Builder by SiteOrigin!
+* Better: We made some under the hood changes to the way ingredients and instructions are shown (hint: this is for Recipe Templates feature coming soon!)
+* New: Si parla italiano - Italian support is here!
+* New: Мы говорим по-русски - Russian support is here!
+* New: Kita bercakap melayu - Malay support is here!
+
+4.5.2.6 We speak your language
+
+* New: you can now properly translate duration times (hour, minute, etc.) to any language!
+* New: Added Albanian translation (my mother tongue :))
+* Better: Suppress  Mediavine Publisher Network ads from showing up when printing recipe
+
+4.5.2.4 Better Ratings
+
+* Better: Supports WordPress 4.5
+* Better: Supports PHP 7
+* Fixed: Title was not getting picked up from post title
+* Under the hood improvement: using Twig templates to speed up Zip Recipes
+
+4.4.2.1 Bug fixes and improvements for WP 4.4
+
+* Better: Works better with Wordpress 4.4
+* Better: Lots of infrastructure improvements and minor bug fixes
+* Fixed: Prevent Google from indexing Zip Recipes code and complaining
+* Fixed: Removed author recipe rating feature (it no longer makes sense and had an issue that makes Google angry)
+* Fixed: Spacing issues after first ingredient (some blogs were seeing this)
+
+4.3.1.2 Bug fixes and preparation for WP4.3
+
+* Fixed an issue that made plugin updates not work properly
+* Fixed issue causing "Cheatin' uh?" message to be displayed
+* Made changes to make Zip Recipes compatible with WordPress 4.3
+
+4.2.1.1 Important formatting fix
+
+* Fixed an issue where special characters (e.g. &) and links would not work properly when a recipe was updated
+* Fixed a registration issue
+* Enabled stat collection
+
+
+4.2.1.0 Wonderful update - now easily add images
+
+* You can easily add images using Media Library
+* Improved design of recipe summary and image
+* Improved design for small (mobile phone) screens
+
+4.2.0.23 Fixed over-zealous excerpt generation
+
+* Fixed over-zealous excerpt generation I introduced in v4.2.0.22
+
+4.2.0.22 Bug fix issue
+
+* Fixed issues with how excerpts are generated in search and other pages that use excerpts
+* Fixed issue with sub-lists label formatting
+* Fixed conflict with SEO plugin that affected design
+* Fixed some W3C validation issues
+
+4.2.0.21 Fixed issue with plugin update
+
+* This fixes an issue where plugin update doesn't happen correctly for v4.2.0.20
+
+4.2.0.20 New nutritional info!
+
+* You can now track: carbs, protein, fiber, sugar, saturated fat and sodium
+* Print button label can now be changed
+* Fixed issue where shortcode was being displayed instead of recipe summary in some themes
+* Fixed print button link to ensure Google and other search engines don't get confused by it
+
+4.2.0.19 Updated for WP 4.2!
+
+* Updated to work with WordPress 4.2.
+* Fixed issue with WooCommerce (again).
+
+4.1.0.18 Bug fix
+
+* Fixed conflict that WooCommerce was causing
+* Fixed printed recipes formatting for non-bulleted items
+
+4.1.0.17 Bug Fix
+
+* Fixed bullet and number formatting for ingredient list
+* Fixed formatting in Recipe popup
+* Fixed registration issue
+
+4.1.0.16 *Important* Bug Fix
+
+* Fixed a formatting issues that was introduced in 4.1.0.15
+
+
+4.1.0.15 Bug Fix
+
+* Removed tracking beacon to improve privacy.
+* Fixed some issues with sites that run on HTTPS.
+
+
+4.1.0.14 Bug Fix
+
+* Fixed an issue with recipes not formatting sub-recipes headings properly.
+
+4.1.0.13 Bug Fix
+
+* Fixed an issue where Other Options were not being saved in Zip Recipes Plugin settings page.
+
+4.1.0.12 No need to upgrade. Updated registration messaging.
+
+* Updated messaging about registration.
+* Updated short description of plugin.
+
+4.1.0.11 No need to upgrade. Just added support for version WP 3.1
+
+* Added support for WordPress 3.1.
+* No need to upgrade.
+
+4.1.0.10 Support for 4.1 and database fix
+
+* Fixed issue where database would not be created if it didn't already exist (with prior install of ZipList Recipe Plugin).
+* Updated database schema to v3.2
+
+
+4.0.0.9 Initial release
+
+* First iteration, derived from ZipList Recipe Plugin version 2.6 -- thanks for the jump-start ZipList team!  (http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/)
+* To ensure everything runs smoothly when ZipList website and services go down, we've removed all references to ZipList website
+* Removed Save Recipe functionality since ZipList is discontinuing this service (**worry not, we're working on something much cooler! [Shoot us an email](mailto:hello@ziprecipes.net) and we'll tell you all about it!**)
+
+3.0 Final Release
+
+* Remove Save Recipe button connection to ZipList service
+* Reduce possibility of JS var collision
+* ZipList Recipe plugin release
+
+2.6 Maintenance Release
+
+* Fix for blank Print page in some browsers
+* Support for custom post types
+* Support for SSL - thanks [jspuij!](https://github.com/jspuij)
+* Support for custom content directories - thanks [derekhubbard!](https://github.com/derekhubbard)
+* ZipList Recipe plugin release
+
+2.5 Bugfix Release
+
+* Fixes problem of not properly opening recipe dialog in separate window on some sites
+* Documentation updates for new editing method
+* ZipList Recipe plugin release
+
+2.4 Editor Upgrade, Performance and Bugfix Release
+
+* Simpler, single-button recipe add/edit button in post edit
+* Improved mobile compatibility with mobile-based Add Recipe popup
+* Easier recipe/print button customizations for web output
+* Improved character encoding and handling - thanks [smerriman!](http://github.com/smerriman)
+* Improved blogger site performance with CDN cached assets
+* ZipList Recipe plugin release
+
+2.3 Emergency Fix for WordPress 3.9 upgrade to TinyMCE v4
+
+* Editor disabled, view recipes only
+* Early introductions of v2.4 features
+* ZipList Recipe plugin release
+
+2.1/2.2 Bugfix Releases
+
+* Fixes issues with the recipe placeholder introduced in WordPress v3.5
+* ZipList Recipe plugin release
+
+2.0 Features Release
+
+* Move to Schema.org/Recipe from hrecipe microformat
+* Bold and Italic formatting of ingredients, instructions, summary and notes
+* Confirm stability on WP 3.3.1
+* ZipList Recipe plugin release
+
+1.41 Bugfix Release
+
+* Fix for repeating dbDelta database error
+* UI Improvement to avoid "placeholder" image in post
+* Recipe links now open in new tabs
+* ZipList Recipe plugin release
+
+1.4 Features Release
+
+* Control display of recipe images on both web and print screens without manual styles or degrading SEO
+* Support for optional recipe Notes field with user-definable label
+* Easier partner registration for branded recipe display
+* Iniital RSS/email support
+* Various bugfixes
+* ZipList Recipe plugin release
+
+1.3 Features Release
+
+* Printing support for multiple recipes on a page
+* Button support for multiple recipe posts displayed on a single page
+* User-definable copyright statement or site promotion on print page
+* Optional recipe permalink displayed on print page
+* Support for multiple summary paragraphs
+* ZipList Recipe plugin release
+
+1.2 Features Release
+
+* Support for multiple recipes per page
+* Support for labels in instructions
+* Support for images images in ingredients and instructions
+* Support for hyperlinks in summary, ingredients and instructions
+* Removal of "\" characters introduced by entity encoding
+* ZipList Recipe plugin release
+
+1.1 Address problem with wp-content reachability of the edit form on some blogs.
+
+1.0 Initial Release
+
+* We're now on GitHub at https://github.com/Ziplist/recipe_plugin
+* Recipe print support
+* Improved time formatting
+* Label support for ingredients !tagged with an exclamation point
+* Automatic inclusion of appropriate javascript and css
+* ZipList Recipe plugin release
+
+0.9 First iteration, derived from Recipe SEO 1.3.1 -- thanks for the jump-start Allison!  (http://sushiday.com/recipe-seo-plugin/)

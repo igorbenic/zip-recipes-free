@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Zip Recipes Ltd
+# This file is distributed under the same license as the zip-recipes package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zip-recipes\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2018-05-06 14:28-0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.7\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, php-format
+msgid "%d day"
+msgstr "%d 日"
+
+#, php-format
+msgid "%d days"
+msgstr "%d 日"
+
+#, php-format
+msgid "%d hour"
+msgstr "%d 小时"
+
+#, php-format
+msgid "%d hours"
+msgstr "%d 小时"
+
+#, php-format
+msgid "%d minute"
+msgstr "%d 分钟"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d 分钟"
+
+#, php-format
+msgid "%d month"
+msgstr "%d 月"
+
+#, php-format
+msgid "%d months"
+msgstr "%d 月"
+
+#, php-format
+msgid "%d second"
+msgstr "%d 秒"
+
+#, php-format
+msgid "%d seconds"
+msgstr "%d 秒"
+
+#, php-format
+msgid "%d year"
+msgstr "%d 年"
+
+#, php-format
+msgid "%d years"
+msgstr "%d 年"
+
+msgid "Author:"
+msgstr "作者："
+
+msgid "Calories per serving:"
+msgstr "每份卡路里："
+
+msgid "Calories:"
+msgstr "卡路里："
+
+#, fuzzy
+msgid "Can't create recipe"
+msgstr "为此食谱评分"
+
+#, fuzzy
+msgid "Can't update recipe"
+msgstr "为此食谱评分"
+
+msgid "Carbs per serving:"
+msgstr "每份碳水化合物："
+
+msgid "Carbs:"
+msgstr "碳水化合物："
+
+msgid "Category:"
+msgstr "类别："
+
+msgid "Cholesterol per serving:"
+msgstr "每份胆固醇："
+
+msgid "Cholesterol:"
+msgstr "胆固醇："
+
+msgid "Cook"
+msgstr "烹饪"
+
+msgid "Cook Time:"
+msgstr "烹饪时间："
+
+msgid "Cuisine:"
+msgstr "烹饪法："
+
+msgid "Fat per serving:"
+msgstr "每份脂肪："
+
+msgid "Fat:"
+msgstr "脂肪："
+
+msgid "Fiber per serving:"
+msgstr "每份纤维："
+
+msgid "Fiber:"
+msgstr "纤维："
+
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+
+msgid "Ingredients"
+msgstr "食材"
+
+msgid "Instructions"
+msgstr "说明"
+
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr "笔记"
+
+msgid "Prep"
+msgstr "准备"
+
+msgid "Prep Time:"
+msgstr "准备时间:"
+
+msgid "Prep:"
+msgstr "准备："
+
+msgid "Print"
+msgstr "打印"
+
+msgid "Print this recipe"
+msgstr "打印食谱"
+
+msgid "Protein per serving:"
+msgstr "每份蛋白质："
+
+msgid "Protein:"
+msgstr "蛋白质："
+
+msgid "Rate this recipe"
+msgstr "为此食谱评分"
+
+msgid "Rating"
+msgstr "评分"
+
+msgid "Ready in"
+msgstr "准备好了"
+
+#, fuzzy
+msgid "Recipe Reviews"
+msgstr "食谱评论评级"
+
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
+msgstr ""
+"食谱评论只适用于WordPress评论或Jetpack评论。 <a href=\"https://www."
+"ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">Learn more</a>"
+
+msgid "Saturated fat per serving:"
+msgstr "每份饱和脂肪："
+
+msgid "Saturated fat:"
+msgstr "饱和脂肪："
+
+msgid "Save to BigOven"
+msgstr "保存到BigOven"
+
+msgid "Serves:"
+msgstr "供应："
+
+msgid "Serving Size:"
+msgstr "供应份量："
+
+msgid "Sodium per serving:"
+msgstr "每份钠："
+
+msgid "Sodium:"
+msgstr "钠："
+
+msgid "Sugar per serving:"
+msgstr "每份糖："
+
+msgid "Sugar:"
+msgstr "糖："
+
+msgid "Total Time:"
+msgstr "总时间："
+
+msgid "Total:"
+msgstr "总共："
+
+msgid "Trans fat per serving:"
+msgstr ""
+
+msgid "Trans fat:"
+msgstr "反式脂肪："
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+"《访客评级》和《食谱评论》不能同时处于活动状态。如果您想以匿名评分，请激活"
+"《访客评级》。如果您想要评分，请激活《食谱评论》。"
+
+msgid "Yield:"
+msgstr "产量："
+
+msgid "Your rating:"
+msgstr "您的评分："
+
+msgid "ratings"
+msgstr "评分"
+
+msgid "stars"
+msgstr "星"

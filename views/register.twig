@@ -1,0 +1,33 @@
+{% import 'macros.twig' as macros %}
+{% if iframed_form %}
+<!DOCTYPE html>
+    <!--suppress HtmlUnknownTarget -->
+    <head>
+        <link rel="stylesheet" href="{{ home_url }}/wp-admin/load-styles.php?c=1&dir=ltr&load%5B%5D=dashicons,admin-bar,common,forms,admin-menu,dashboard,list-tables,edit,revisions,media,themes,about,nav-menus,widgets,site-icon,&load%5B%5D=l10n,buttons,wp-auth-check&ver=4.5.4" type="text/css" media="all" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <style>
+            body, html {
+                height: auto;
+            }
+            .register-in-frame form {
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body class="register-in-frame">
+{% else %}
+    <style>
+        #skip-button {
+            display: none;
+        }
+    </style>
+{% endif %}
+{{ macros.scripts(registration_url) }}
+<form method="post" action="{{ registration_action }}"
+      style="max-width: 500px" class="register-page" id="zlrecipe_settings_form" name="zlrecipe_settings_form">
+    {{ macros.register(wp_version, installed_plugins, home_url, return_to_url) }}
+</form>
+{% if iframed_form %}
+        </body>
+</html>
+{% endif %}

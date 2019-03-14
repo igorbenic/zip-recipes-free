@@ -1,0 +1,238 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Zip Recipes Ltd
+# This file is distributed under the same license as the zip-recipes package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zip-recipes\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2018-02-25 20:24+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, php-format
+msgid "%d day"
+msgstr "%d dag"
+
+#, php-format
+msgid "%d days"
+msgstr "%d dage"
+
+#, php-format
+msgid "%d hour"
+msgstr "%d time"
+
+#, php-format
+msgid "%d hours"
+msgstr "%d time"
+
+#, php-format
+msgid "%d minute"
+msgstr "%d minut"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d minutter"
+
+#, php-format
+msgid "%d month"
+msgstr "%d måned"
+
+#, php-format
+msgid "%d months"
+msgstr "%d måneder"
+
+#, php-format
+msgid "%d second"
+msgstr "%d sekund"
+
+#, php-format
+msgid "%d seconds"
+msgstr "%d sekunder"
+
+#, php-format
+msgid "%d year"
+msgstr "%d år"
+
+#, php-format
+msgid "%d years"
+msgstr "%d år"
+
+msgid "Author:"
+msgstr "Forfatter: %s"
+
+msgid "Calories per serving:"
+msgstr "Kalorier per portion:"
+
+msgid "Calories:"
+msgstr "Kalorier:"
+
+#, fuzzy
+msgid "Can't create recipe"
+msgstr "Bedøm denne opskrift:"
+
+#, fuzzy
+msgid "Can't update recipe"
+msgstr "Bedøm denne opskrift:"
+
+msgid "Carbs per serving:"
+msgstr "Kulhydrater per portion:"
+
+msgid "Carbs:"
+msgstr "Kulhydrater:"
+
+msgid "Category:"
+msgstr "Kategori:"
+
+msgid "Cholesterol per serving:"
+msgstr "Kolesterol per portion:"
+
+msgid "Cholesterol:"
+msgstr "Kolesterol: "
+
+msgid "Cook"
+msgstr "Kog"
+
+msgid "Cook Time:"
+msgstr "Kogetid:"
+
+msgid "Cuisine:"
+msgstr "Køkken:"
+
+msgid "Fat per serving:"
+msgstr "Fedt per portion:"
+
+msgid "Fat:"
+msgstr "Fedt:"
+
+msgid "Fiber per serving:"
+msgstr "Fibre per portion:"
+
+msgid "Fiber:"
+msgstr "Fibre:"
+
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+
+msgid "Ingredients"
+msgstr "Ingredienser"
+
+msgid "Instructions"
+msgstr "Instruktion"
+
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr "Noter"
+
+msgid "Prep"
+msgstr "Forberedelse"
+
+msgid "Prep Time:"
+msgstr "Forberedelsestid:"
+
+msgid "Prep:"
+msgstr "Forbered:"
+
+msgid "Print"
+msgstr "Print"
+
+msgid "Print this recipe"
+msgstr "Print denne opskrift"
+
+msgid "Protein per serving:"
+msgstr "Protein per portion:"
+
+msgid "Protein:"
+msgstr "Protein:"
+
+msgid "Rate this recipe"
+msgstr "Bedøm denne opskrift:"
+
+#, fuzzy
+msgid "Rating"
+msgstr "bedømmelser"
+
+msgid "Ready in"
+msgstr "Klar på"
+
+msgid "Recipe Reviews"
+msgstr ""
+
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
+msgstr ""
+
+msgid "Saturated fat per serving:"
+msgstr "Mættet fedt per portion:"
+
+msgid "Saturated fat:"
+msgstr "Mættet fedt:"
+
+msgid "Save to BigOven"
+msgstr "Gem til BigOven"
+
+msgid "Serves:"
+msgstr "Nok til:"
+
+msgid "Serving Size:"
+msgstr "Portion størrelse:"
+
+msgid "Sodium per serving:"
+msgstr "Natrium per portion:"
+
+msgid "Sodium:"
+msgstr "Natrium:"
+
+msgid "Sugar per serving:"
+msgstr "Sukker per portion:"
+
+msgid "Sugar:"
+msgstr "Sukker:"
+
+msgid "Total Time:"
+msgstr "Tid i alt:"
+
+msgid "Total:"
+msgstr "I alt:"
+
+msgid "Trans fat per serving:"
+msgstr "Transfedt per portion:"
+
+msgid "Trans fat:"
+msgstr "Transfedt:"
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+
+msgid "Yield:"
+msgstr "Udbytte:"
+
+msgid "Your rating:"
+msgstr "Din vurdering:"
+
+msgid "ratings"
+msgstr "bedømmelser"
+
+msgid "stars"
+msgstr "stjerner"
