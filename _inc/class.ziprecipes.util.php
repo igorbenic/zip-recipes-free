@@ -111,11 +111,7 @@ class Util {
             'autoescape' => true,
             'auto_reload' => true
         ));
-        // Add some useful functions to Twig.
-//        $funcs = array( 'admin_url', '__', '_e', 'wp_create_nonce' );
-//        foreach ( $funcs as $f ) {
-//            $twig->addFunction( $f, new \Twig_SimpleFunction( $f, $f ) );
-//        }
+
         $twig->addExtension(new TrHelper());
         // This is a total hack. For some reason Twig rendering generates a warning if Twig template file is too large.
 	    // Reported bug here: https://github.com/twigphp/Twig/issues/2673

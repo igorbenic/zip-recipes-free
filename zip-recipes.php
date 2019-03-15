@@ -34,10 +34,7 @@ This code is derived from the 2.6 version build of ZipList Recipe Plugin release
 */
 
 namespace ZRDN;
-
 spl_autoload_register(__NAMESPACE__ . '\zrdn_autoload');
-
-
 
 // Make sure we don't expose any info if called directly
 defined('ABSPATH') or die("Error! Cannot be called directly.");
@@ -49,8 +46,6 @@ define('ZRDN_PLUGIN_DIRECTORY_URL', plugin_dir_url( __FILE__ ));
 define('ZRDN_PLUGIN_BASENAME', plugin_basename(__FILE__));
 define('ZRDN_PLUGIN_URL', sprintf('%s/%s/', plugins_url(), dirname(plugin_basename(__FILE__))));
 define('ZRDN_API_URL', "https://api.ziprecipes.net");
-
-update_option('zrdn_registered', true);
 
 Util::log("Setting up init hooks.");
 
@@ -101,5 +96,3 @@ function zrdn_autoload($className)
         require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 }
 
-
-//load_plugin_textdomain('zip-recipes', FALSE, plugin_dir_path( __FILE__ ) . '/languages/');

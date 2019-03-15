@@ -781,8 +781,7 @@ class ZipRecipes {
         </tr>';
         }
 
-        $settingsParams = array(
-            'zrdn_icon' => $zrdn_icon,
+        $settingsParams = array('zrdn_icon' => $zrdn_icon,
             'registered' => $registered,
             'custom_print_image' => $custom_print_image,
             'zrecipe_attribution_hide' => $zrecipe_attribution_hide,
