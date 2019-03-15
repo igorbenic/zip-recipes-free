@@ -344,11 +344,11 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Response Response object on success, or WP_Error object on failure.
      */
     public function prepare_item_for_response($item, $request) {
+
         $formatted = array(
             'id' => $item->recipe_id,
             'post_id' => $item->post_id,
             'title' => $item->recipe_title,
-            'author' => $item->author,
             'image_url' => $item->recipe_image,
             'is_featured_post_image' => !!$item->is_featured_post_image, // we have to add !! so it's converted to a bool
             'description' => $item->summary,
@@ -360,8 +360,16 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
             'nutrition' => $this->format_nutrition_schema($item),
 	        'notes' => $item->notes,
 	        'serving_size' => $item->serving_size,
-	        'nutrition_label' => $item->nutrition_label
         );
+
+        if (isset($item->author)) {
+            $formatted['author'] = $item->author;
+        }
+
+
+        if (isset($item->nutrition_label)) {
+            $formatted['nutrition_label'] = $item->nutrition_label;
+        }
 
         if ($item->prep_time) {
         	$prepHoursMinutesArray = Util::iso8601toHoursMinutes($item->prep_time);

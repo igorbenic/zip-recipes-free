@@ -5,12 +5,12 @@ Plugin URI: https://www.ziprecipes.net
 License: GPLv3 or later
 Author URI: https://www.really-simple-plugins.com
 Author: Rogier Lankhorst, Mark Wolters
-Donate link: https://www.ziprecipes.net/
-Tags: recipe, recipes, recipe card, recipe box, save recipe, print recipe, schema.org, seo, recipe seo, cooking, food, nutrition
-Requires at least: 3.1
-Tested up to: 5.0
+Donate link: https://www.paypal.me/reallysimplessl
+Tags: recipe, recipes, recipe card, recipe box, print recipe, schema.org, seo, recipe seo, cooking, food, nutrition
+Requires at least: 4.2
+Tested up to: 5.1
 Stable tag: 5.0.5
-Requires PHP: 5.3
+Requires PHP: 5.4
 
 Your goal is to build a food blog that earns money by serving loyal fans with your amazing recipes. We're just here to help you do that. Read on to learn about our 4-step success formula for your blog.
 
@@ -180,6 +180,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 - Fix: Improved backend translatability by loading iframe on admin init hook
 - Fix: improved translatability by adding twig gettext function for __() function
 - Fix: fixed headers already sent error by exiting after loading iframe
+- Fix: error on saving Gutenberg data because of missing properties
 
 = 5.0.4 Bug fixes =
 

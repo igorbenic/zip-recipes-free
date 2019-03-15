@@ -952,6 +952,8 @@ class ZipRecipes {
     public static function get_remote_promos()
     {
         $promos = array();
+        return $promos;
+
         $promo_id_name_map = array(
             1 => 'author',
             2 => 'nutrition'

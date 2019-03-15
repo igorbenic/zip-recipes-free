@@ -443,7 +443,7 @@ registerBlockType ('zip-recipes/recipe-block', {
                     props.setInitialTitle ();
                   }}
                 >
-                  Create Recipe test
+                  Create Recipe
                 </Button>}
             {!props.isFetching && props.attributes.id
               ? <div>

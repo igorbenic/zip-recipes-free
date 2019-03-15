@@ -199,7 +199,7 @@
              * It can go two ways: fail client side validation or it succeeds and closes the modal.
              *
              * This is weird as it probably already saves anything you pass as a recipe before client validation stars.
-             * ***********TODO****: change this shit to use AJAX.
+             * ***********TODO****: change this to use AJAX.
              */
             window.onload = amdZLRecipeSubmitForm;
         </script>
@@ -246,10 +246,11 @@
                 <!-- Title and image end -->
 
                 <div id="ingredients-container" class="zrdn-field">
-                    <label class="zrdn-label" for="ingredients">Ingredientsaa {% trans %}Print{% endtrans%} {{ __('Print','zip-recipes') }}</label>
+                    <label class="zrdn-label" for="ingredients">{{ __('Ingredients','zip-recipes') }}</label>
                     <p class="zrdn-help">
-                        Put each ingredient on a separate line.  There is no need to use bullets for your ingredients.<br />
-                        You can also create labels, hyperlinks, bold/italic effects and even add images!<br />
+                        {{ __('Put each ingredient on a separate line.  There is no need to use bullets for your ingredients.<br />
+                        You can also create labels, hyperlinks, bold/italic effects and even add images!','zip-recipes') }}
+                        <br />
                         <a href="https://www.ziprecipes.net/docs/installing/" target="_blank">Learn how here</a>
                     </p>
                     <div class="zrdn-control">
@@ -258,7 +259,7 @@
                 </div>
 
                 <div class="zrdn-field">
-                    <label class="zrdn-label" for="instructions">Instructions</label>
+                    <label class="zrdn-label" for="instructions">{{ __('Instructions','zip-recipes') }}</label>
                     <p class="zrdn-help">
                         Press return after each instruction. There is no need to number your instructions.<br />
                         You can also create labels, hyperlinks, bold/italic effects and even add images!<br />

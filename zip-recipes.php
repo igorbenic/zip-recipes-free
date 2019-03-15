@@ -11,7 +11,7 @@ Author: RogierLankhorst, markwolters
 Author URI: http://www.really-simple-plugins.com/
 License: GPLv3 or later
 
-Copyright 2018 Rogier Lankhorst
+Copyright 2019 Rogier Lankhorst
 This code is derived from the 2.6 version build of ZipList Recipe Plugin released by ZipList Inc.:
 http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPLv3 or later
 
@@ -110,7 +110,7 @@ function zrdn_autoload($className)
      *
      * */
 
-    function maybe_load_iframe()
+    function zrdn_maybe_load_iframe()
     {
         // Setup query catch for recipe insertion popup.
         if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=z_recipe') && !strpos($_SERVER['REQUEST_URI'], '&wrt=')) {
@@ -124,4 +124,4 @@ function zrdn_autoload($className)
             exit;
         }
     }
-    add_action('admin_init', __NAMESPACE__ . '\maybe_load_iframe', 30);
+    add_action('admin_init', __NAMESPACE__ . '\zrdn_maybe_load_iframe', 30);
