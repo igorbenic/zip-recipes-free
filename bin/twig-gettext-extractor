@@ -2,8 +2,6 @@
 <?php
 
 /**
- *
- * https://github.com/umpirsky/Twig-Gettext-Extractor/blob/master/twig-gettext-extractor
  * This file is part of the Twig Gettext utility.
  *
  *  (c) Саша Стаменковић <umpirsky@gmail.com>
@@ -12,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-require("../_inc/TrHelper.php");
+require_once("../_inc/TrHelper.php");
 
 /**
  * Extracts translations from twig templates.
@@ -31,12 +29,6 @@ $twig = new Twig_Environment(new Twig\Gettext\Loader\Filesystem('/'), array(
     'auto_reload' => true
 ));
 
-// Add some useful functions to Twig.
-$funcs = array( 'admin_url', '__', '_e', 'wp_create_nonce' );
-foreach ( $funcs as $f ) {
-    $twig->addFunction( $f, new \Twig_SimpleFunction( $f, $f ) );
-}
-
 $twig->addExtension(new   Twig_Extensions_Extension_I18n());
 $twig->addExtension(new Symfony\Bridge\Twig\Extension\RoutingExtension(
     new Twig\Gettext\Routing\Generator\UrlGenerator()
@@ -52,7 +44,7 @@ $twig->addExtension(new ZRDN\TrHelper());
 array_shift($_SERVER['argv']);
 $addTemplate = false;
 
-//$extractor = new Twig\Gettext\Extractor($twig);
+$extractor = new Twig\Gettext\Extractor($twig);
 
 foreach ($_SERVER['argv'] as $arg) {
     if ('--files' == $arg) {

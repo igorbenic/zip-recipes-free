@@ -869,6 +869,7 @@ class ZipRecipes {
      */
     public static function zrdn_recipe_install()
     {
+
         global $wpdb, $wp_version;
 
         Util::log("In zrdn_recipe_install");
@@ -994,6 +995,7 @@ class ZipRecipes {
     // Content for the popup iframe when creating or editing a recipe
     public static function zrdn_iframe_content($post_info = null, $get_info = null)
     {
+        //load_plugin_textdomain('zip-recipes', FALSE,  ZRDN_PLUGIN_DIRECTORY.'/languages/');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (Util::get_array_value('action', $_POST) === "zrdn-register") {

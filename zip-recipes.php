@@ -7,13 +7,13 @@ Plugin URI: http://www.ziprecipes.net/
 Plugin GitHub: https://github.com/hgezim/zip-recipes-plugin
 Description: A plugin that adds all the necessary microdata to your recipes, so they will show up in Google's Recipe Search
 Version: 5.0.4
-Author: RogierLankhorst, markwolters
+Author: HappyGezim
 Author URI: http://www.ziprecipes.net/
 License: GPLv3 or later
 
 Copyright 2017 Gezim Hoxha
 This code is derived from the 2.6 version build of ZipList Recipe Plugin released by ZipList Inc.:
-	http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPLv3 or later
+http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPLv3 or later
 */
 
 /*
@@ -47,9 +47,6 @@ define('ZRDN_PLUGIN_BASENAME', plugin_basename(__FILE__));
 define('ZRDN_PLUGIN_URL', sprintf('%s/%s/', plugins_url(), dirname(plugin_basename(__FILE__))));
 define('ZRDN_API_URL', "https://api.ziprecipes.net");
 
-//quickfix to disable registering
-update_option('zrdn_registered', true);
-
 Util::log("Setting up init hooks.");
 
 add_action('upgrader_process_complete', __NAMESPACE__ . '\ZipRecipes::plugin_updated', 10, 2);
@@ -60,16 +57,7 @@ register_activation_hook(__FILE__, __NAMESPACE__ . '\ZipRecipes::init');
 
 ZipRecipes::init();
 
-// Setup query catch for recipe insertion popup.
-if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=z_recipe') && !strpos($_SERVER['REQUEST_URI'], '&wrt='))
-{
-    // pluggable.php is needed for current_user_can
-    require_once(ABSPATH . 'wp-includes/pluggable.php');
-    // user is logged in and can edit posts or pages
-    if (\current_user_can('edit_posts') || \current_user_can('edit_pages')) {
-        ZipRecipes::zrdn_iframe_content($_POST, $_REQUEST);
-    }
-}
+
 
 
 function zrdn_autoload($className)
@@ -99,5 +87,36 @@ function zrdn_autoload($className)
         require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 }
 
+    /**
+     * Load the translation files
+     *
+     *
+     */
+    add_action('init',  __NAMESPACE__ . '\zrdn_new_load_translation', 20);
+    add_action('admin_init',  __NAMESPACE__ . '\zrdn_new_load_translation', 20);
+    function zrdn_new_load_translation()
+    {
 
-//load_plugin_textdomain('zip-recipes', FALSE, plugin_dir_path( __FILE__ ) . '/languages/');
+        load_plugin_textdomain('zip-recipes', FALSE,  ZRDN_PLUGIN_DIRECTORY.'/languages/');
+    }
+
+    /**
+     * Load iframe has to hook into admin init, otherwise languages are not loaded yet.
+     *
+     * */
+
+    function maybe_load_iframe()
+    {
+        // Setup query catch for recipe insertion popup.
+        if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=z_recipe') && !strpos($_SERVER['REQUEST_URI'], '&wrt=')) {
+            // pluggable.php is needed for current_user_can
+            require_once(ABSPATH . 'wp-includes/pluggable.php');
+
+            // user is logged in and can edit posts or pages
+            if (\current_user_can('edit_posts') || \current_user_can('edit_pages')) {
+                ZipRecipes::zrdn_iframe_content($_POST, $_REQUEST);
+            }
+            exit;
+        }
+    }
+    add_action('admin_init', __NAMESPACE__ . '\maybe_load_iframe', 30);

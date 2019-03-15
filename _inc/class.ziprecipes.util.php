@@ -81,13 +81,13 @@ class Util {
             $plugin_name = $class;
         }
 
-        $pluginDir = "";
-        // don't consider core class a plugin
-        if ($plugin_name && $plugin_name !== "ZipRecipes") { // TODO: ZipRecipes is hardcoded and needs to change
-            $pluginDir = "plugins/$plugin_name/";
-        }
+        $pluginDir =trailingslashit(dirname(ZRDN_PLUGIN_DIRECTORY)).basename(ZRDN_PLUGIN_DIRECTORY);
+//        // don't consider core class a plugin
+//        if ($plugin_name && $plugin_name !== "ZipRecipes") { // TODO: ZipRecipes is hardcoded and needs to change
+//            $pluginDir = "plugins/$plugin_name/";
+//        }
 
-        $viewDir = ZRDN_PLUGIN_DIRECTORY . $pluginDir . 'views/';
+        $viewDir = trailingslashit($pluginDir) . 'views/';
 
         $file = $name . '.twig';
 
@@ -111,18 +111,33 @@ class Util {
             'autoescape' => true,
             'auto_reload' => true
         ));
+
+        $twig->addExtension(new TrHelper());
+
         // Add some useful functions to Twig.
 //        $funcs = array( 'admin_url', '__', '_e', 'wp_create_nonce' );
 //        foreach ( $funcs as $f ) {
 //            $twig->addFunction( $f, new \Twig_SimpleFunction( $f, $f ) );
 //        }
-        $twig->addExtension(new TrHelper());
+
+        $twig->addFunction( '__', new \Twig_SimpleFunction( '__', function ( $text ) {
+            return __( $text, 'zip-recipes' );
+        } ) );
         // This is a total hack. For some reason Twig rendering generates a warning if Twig template file is too large.
 	    // Reported bug here: https://github.com/twigphp/Twig/issues/2673
 
 	    // `ob_start()` call here  was messing up theme rendering. It's shit.
 //	    ob_start();
+
         return $twig->render($file, $args);
+///
+
+//        echo  $twig->render($file, $args);
+//        $twig = ob_get_contents();
+//        ob_end_clean();
+//
+//
+//        return $twig;
     }
 
     public static function print_view($name, $args = array()) {

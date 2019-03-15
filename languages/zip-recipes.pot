@@ -1,289 +1,234 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Zip Recipes Ltd
+# This file is distributed under the same license as the zip-recipes package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Zip Recipes\n"
-"POT-Creation-Date: 2019-02-05 09:04+0100\n"
-"PO-Revision-Date: 2019-02-05 09:02+0100\n"
-"Last-Translator: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
-"Language-Team: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
+"Project-Id-Version: zip-recipes\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2019-01-02 10:39-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: zip-recipes.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: class.ziprecipes.php:1467
-#, php-format
-msgid "%d year"
-msgstr ""
-
-#: class.ziprecipes.php:1467
-#, php-format
-msgid "%d years"
-msgstr ""
-
-#: class.ziprecipes.php:1468
-#, php-format
-msgid "%d month"
-msgstr ""
-
-#: class.ziprecipes.php:1468
-#, php-format
-msgid "%d months"
-msgstr ""
-
-#: class.ziprecipes.php:1469
 #, php-format
 msgid "%d day"
 msgstr ""
 
-#: class.ziprecipes.php:1469
 #, php-format
 msgid "%d days"
 msgstr ""
 
-#: class.ziprecipes.php:1470
 #, php-format
 msgid "%d hour"
 msgstr ""
 
-#: class.ziprecipes.php:1470
 #, php-format
 msgid "%d hours"
 msgstr ""
 
-#: class.ziprecipes.php:1471
 #, php-format
 msgid "%d minute"
 msgstr ""
 
-#: class.ziprecipes.php:1471
 #, php-format
 msgid "%d minutes"
 msgstr ""
 
-#: class.ziprecipes.php:1472
+#, php-format
+msgid "%d month"
+msgstr ""
+
+#, php-format
+msgid "%d months"
+msgstr ""
+
 #, php-format
 msgid "%d second"
 msgstr ""
 
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d seconds"
 msgstr ""
 
-#: controllers/EndpointController.php:170
-msgid "Invalid recipe ID or recipe not found"
+#, php-format
+msgid "%d year"
 msgstr ""
 
-#: controllers/EndpointController.php:187
-msgid "Invalid recipe fields"
+#, php-format
+msgid "%d years"
 msgstr ""
 
-#: controllers/EndpointController.php:196
-msgid "Can't create recipe"
+msgid "Author:"
 msgstr ""
 
-#: controllers/EndpointController.php:216
-msgid "Can't update recipe"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:80
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:95
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:80
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:95
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:80
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:95
-#: views/recipe.twig:25 views/recipe.twig:29
-msgid "Print this recipe"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:103
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:103
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:103
-#: views/recipe.twig:30
-msgid "Print"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:151
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:151
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:151
-#: views/recipe.twig:51
-msgid "Prep Time:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:184
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:184
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:184
-#: views/recipe.twig:63
-msgid "Cook Time:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:217
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:217
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:217
-#: views/recipe.twig:75
-msgid "Total Time:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:250
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:250
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:250
-#: views/recipe.twig:87
-msgid "Category:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:284
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:284
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:284
-#: views/recipe.twig:99
-msgid "Cuisine:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:330
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:330
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:330
-#: views/recipe.twig:119
-msgid "Yield:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:373
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:373
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:373
-#: views/recipe.twig:134
-msgid "Serving Size:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:400
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:400
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:400
-#: views/recipe.twig:144
 msgid "Calories per serving:"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:427
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:427
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:427
-#: views/recipe.twig:154
-msgid "Fat per serving:"
+msgid "Calories:"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:454
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:454
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:454
-#: views/recipe.twig:164
-msgid "Saturated fat per serving:"
+msgid "Can't create recipe"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:481
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:481
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:481
-#: views/recipe.twig:174
+msgid "Can't update recipe"
+msgstr ""
+
 msgid "Carbs per serving:"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:508
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:508
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:508
-#: views/recipe.twig:184
-msgid "Protein per serving:"
+msgid "Carbs:"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:535
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:535
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:535
-#: views/recipe.twig:194
-msgid "Fiber per serving:"
+msgid "Category:"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:562
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:562
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:562
-#: views/recipe.twig:204
-msgid "Sugar per serving:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:589
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:589
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:589
-#: views/recipe.twig:214
-msgid "Sodium per serving:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:616
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:616
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:616
-#: views/recipe.twig:224
-msgid "Trans fat per serving:"
-msgstr ""
-
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:643
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:643
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:643
-#: views/recipe.twig:234
 msgid "Cholesterol per serving:"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:778
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:778
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:778
-#: views/recipe.twig:282
-msgid "Ingredients"
+msgid "Cholesterol:"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:935
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:935
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:935
-#: views/recipe.twig:320
-msgid "Instructions"
+msgid "Cook"
 msgstr ""
 
-#: views/cache/86/86f27a62d22a8dc1748611cbdfa0e05b7bf960b3863270c690ece721743b0fad.php:1092
-#: views/cache/bd/bdd7c7dc5d970769c1f44f3d772ef745796e1a513c5a81273337a063c963c029.php:1092
-#: views/cache/be/beb633f5f7a06c40a31b5cc5a89a51952fe6989a2834a3103db7611f26ec605e.php:1092
-#: views/recipe.twig:358
-msgid "Notes"
+msgid "Cook Time:"
 msgstr ""
 
-#: views/default_nutrition.twig:14
-msgid "Nutrition data with one click!"
+msgid "Cuisine:"
 msgstr ""
 
-#: views/default_nutrition.twig:33
-msgid "Calculate Nutrition"
+msgid "Fat per serving:"
 msgstr ""
 
-#: views/notice.twig:2
+msgid "Fat:"
+msgstr ""
+
+msgid "Fiber per serving:"
+msgstr ""
+
+msgid "Fiber:"
+msgstr ""
+
 msgid ""
 "For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
 "extensions installed. Please contact your hosting company and request that "
 "they install ImageMagick or GD PHP extensions for you website."
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "Zip Recipes"
+msgid "Ingredients"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-#. Author URI of the plugin/theme
-msgid "http://www.ziprecipes.net/"
+msgid "Instructions"
 msgstr ""
 
-#. Description of the plugin/theme
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr ""
+
+msgid "Prep"
+msgstr ""
+
+msgid "Prep Time:"
+msgstr ""
+
+msgid "Prep:"
+msgstr ""
+
+msgid "Print"
+msgstr ""
+
+msgid "Print this recipe"
+msgstr ""
+
+msgid "Protein per serving:"
+msgstr ""
+
+msgid "Protein:"
+msgstr ""
+
+msgid "Rate this recipe"
+msgstr ""
+
+msgid "Rating"
+msgstr ""
+
+msgid "Ready in"
+msgstr ""
+
+msgid "Recipe Reviews"
+msgstr ""
+
 msgid ""
-"A plugin that adds all the necessary microdata to your recipes, so they will "
-"show up in Google's Recipe Search"
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "HappyGezim"
+msgid "Saturated fat per serving:"
+msgstr ""
+
+msgid "Saturated fat:"
+msgstr ""
+
+msgid "Save to BigOven"
+msgstr ""
+
+msgid "Serves:"
+msgstr ""
+
+msgid "Serving Size:"
+msgstr ""
+
+msgid "Sodium per serving:"
+msgstr ""
+
+msgid "Sodium:"
+msgstr ""
+
+msgid "Sugar per serving:"
+msgstr ""
+
+msgid "Sugar:"
+msgstr ""
+
+msgid "Total Time:"
+msgstr ""
+
+msgid "Total:"
+msgstr ""
+
+msgid "Trans fat per serving:"
+msgstr ""
+
+msgid "Trans fat:"
+msgstr ""
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+
+msgid "Yield:"
+msgstr ""
+
+msgid "Your rating:"
+msgstr ""
+
+msgid "ratings"
+msgstr ""
+
+msgid "stars"
 msgstr ""
