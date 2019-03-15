@@ -12,7 +12,9 @@
         <div style="margin: 16px; color: rgb(239, 108, 0);">
             <div style="display:block; padding: 5px; border: 1px solid #ccc;">
                 <h3 style="font-size: 1.1em; font-weight: bold;">Nutrition data with one click!</h3>
-                <span style="color: rgb(239, 108, 0); font-size: 13px; line-height: 25px">Automatic Nutrition feature allows you to calculate the nutrition data with one click. <a style="color: rgb(239, 108, 0);" href="https://www.ziprecipes.net/promo/nutrition_missing" target="_blank">Learn more.</a></span>
+                <span style="color: rgb(239, 108, 0); font-size: 13px; line-height: 25px">
+                    {{ __('Calculate Nutrition', 'zip-recipes') }}
+                    Automatic Nutrition feature allows you to calculate the nutrition data with one click. <a style="color: rgb(239, 108, 0);" href="https://www.ziprecipes.net/promo/nutrition_missing" target="_blank">Learn more.</a></span>
             </div>
         </div>
     {% endif %}
@@ -30,7 +32,7 @@
             <span class="zrdn-icon zrdn-is-small">
                 <i class="fa fa-lock"></i>
             </span>
-            <span>Calculate Nutrition</span>
+            <span>{{ __('Calculate Nutrition', 'zip-recipes') }}</span>
         </button>
     </p>
 </div>

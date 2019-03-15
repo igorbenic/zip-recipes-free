@@ -27,7 +27,7 @@
             </a>
           {% else %}
             <a class="butn-link" title="{% trans %}Print this recipe{% endtrans %}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow">
-               {{ __('Print','zip-recipes') }}
+              {% trans %}Print{% endtrans %}
             </a>
           {% endif %}
         </div>

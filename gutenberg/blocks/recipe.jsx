@@ -1,10 +1,10 @@
 const {__} = wp.i18n;
 const {registerBlockType} = wp.blocks;
 
-const { disableAuthorPromo } = require('./promos');
-const {actions} = require ('../store/zip-recipes-store');
-const {onCalculateNutrition} = require('./nutrition_calculator');
-const {Author} = require ('./author');
+const { disableAuthorPromo } = require('./promos.jsx');
+const {actions} = require ('../store/zip-recipes-store.jsx');
+const {onCalculateNutrition} = require('./nutrition_calculator.jsx');
+const {Author} = require ('./author.jsx');
 const {
   TitleAndImage,
   Ingredients,
@@ -24,7 +24,7 @@ const {
   SaturatedFat,
   TransFat,
   Cholesterol,
-} = require ('./components');
+} = require ('./components.jsx');
 
 const {withState} = wp.compose;
 
@@ -374,50 +374,6 @@ registerBlockType ('zip-recipes/recipe-block', {
               marginBo: '20px',
             }}
           >
-            <h2>Register Zip Recipes Free</h2>
-            <small>
-              Please register your plugin so we can email you news about updates to Zip Recipes, including tips and tricks on how to use it.
-              Registering also helps us troubleshoot any problems you may encounter. When you register, we will
-              automatically receive your blog's web address, WordPress version, and names of installed plugins.
-            </small>
-            <div className="zrdn-columns zrdn-is-mobile">
-              <div className="zrdn-column">
-                <div className="zrdn-field">
-                  <label htmlFor="first-name" className="zrdn-label">
-                    First name
-                  </label>
-                  <div className="zrdn-control">
-                    <input
-                      className="zrdn-input zrdn-is-small"
-                      id="first-name"
-                      onChange={({target: {value}}) =>
-                        props.setState ({firstName: value})}
-                      type="text"
-                      name="first-name"
-                      value={props.firstName}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="zrdn-column">
-                <div className="zrdn-field">
-                  <label htmlFor="last-name" className="zrdn-label">
-                    Last name
-                  </label>
-                  <div className="zrdn-control">
-                    <input
-                      className="zrdn-input zrdn-is-small"
-                      onChange={({target: {value}}) =>
-                        props.setState ({lastName: value})}
-                      type="text"
-                      id="last-name"
-                      name="last-name"
-                      value={props.lastName}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
             <div className="zrdn-columns zrdn-is-mobile">
 
               <div className="zrdn-column">
@@ -487,10 +443,11 @@ registerBlockType ('zip-recipes/recipe-block', {
                     props.setInitialTitle ();
                   }}
                 >
-                  Create Recipe
+                  Create Recipe test
                 </Button>}
             {!props.isFetching && props.attributes.id
               ? <div>
+
                   <TitleAndImage
                     title={props.title}
                     recipeId={props.attributes.id}
@@ -625,11 +582,7 @@ registerBlockType ('zip-recipes/recipe-block', {
                   isDismissable={false}
                   onRequestClose={() => props.setState ({isOpen: false})}
                 >
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: props.promos.author,
-                    }}
-                  />
+
                   <TitleAndImage
                     recipeId={props.attributes.id}
                     title={props.title}

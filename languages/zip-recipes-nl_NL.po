@@ -1,15 +1,15 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Zip Recipes\n"
-"POT-Creation-Date: 2019-02-05 09:11+0100\n"
-"PO-Revision-Date: 2019-02-05 09:10+0100\n"
+"POT-Creation-Date: 2019-02-05 09:12+0100\n"
+"PO-Revision-Date: 2019-02-05 09:21+0100\n"
 "Last-Translator: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
 "Language-Team: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -22,191 +22,226 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: class.ziprecipes.php:1466
-#, php-format
+#, fuzzy, php-format
 msgid "%d year"
-msgstr ""
+msgstr "% d jaar"
 
 #: class.ziprecipes.php:1466
-#, php-format
+#, fuzzy, php-format
 msgid "%d years"
-msgstr ""
+msgstr "%d jaren"
 
 #: class.ziprecipes.php:1467
-#, php-format
+#, fuzzy, php-format
 msgid "%d month"
-msgstr ""
+msgstr "% d maand"
 
 #: class.ziprecipes.php:1467
-#, php-format
+#, fuzzy, php-format
 msgid "%d months"
-msgstr ""
+msgstr "%d maanden"
 
 #: class.ziprecipes.php:1468
-#, php-format
+#, fuzzy, php-format
 msgid "%d day"
-msgstr ""
+msgstr "%d dag"
 
 #: class.ziprecipes.php:1468
-#, php-format
+#, fuzzy, php-format
 msgid "%d days"
-msgstr ""
+msgstr "%d dagen"
 
 #: class.ziprecipes.php:1469
-#, php-format
+#, fuzzy, php-format
 msgid "%d hour"
-msgstr ""
+msgstr "%d uur"
 
 #: class.ziprecipes.php:1469
-#, php-format
+#, fuzzy, php-format
 msgid "%d hours"
-msgstr ""
+msgstr "%d uren"
 
 #: class.ziprecipes.php:1470
-#, php-format
+#, fuzzy, php-format
 msgid "%d minute"
-msgstr ""
+msgstr "%d minuut"
 
 #: class.ziprecipes.php:1470
-#, php-format
+#, fuzzy, php-format
 msgid "%d minutes"
-msgstr ""
+msgstr "%d minuten"
 
 #: class.ziprecipes.php:1471
-#, php-format
+#, fuzzy, php-format
 msgid "%d second"
-msgstr ""
+msgstr "%d seconde"
 
 #: class.ziprecipes.php:1471
-#, php-format
+#, fuzzy, php-format
 msgid "%d seconds"
-msgstr ""
+msgstr "%d seconden"
 
 #: controllers/EndpointController.php:170
+#, fuzzy
 msgid "Invalid recipe ID or recipe not found"
-msgstr ""
+msgstr "Ongeldige recept ID of recept niet gevonden"
 
 #: controllers/EndpointController.php:187
+#, fuzzy
 msgid "Invalid recipe fields"
-msgstr ""
+msgstr "Ongeldige recept velden"
 
 #: controllers/EndpointController.php:196
+#, fuzzy
 msgid "Can't create recipe"
-msgstr ""
+msgstr "Kan geen recept maken"
 
 #: controllers/EndpointController.php:216
+#, fuzzy
 msgid "Can't update recipe"
-msgstr ""
+msgstr "Kan geen update recept"
+
+#: views/default_nutrition.twig:33
+msgid "Calculate Nutrition"
+msgstr "Bereken voedingswaarde"
 
 #: views/notice.twig:2
+#, fuzzy
 msgid ""
 "For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
 "extensions installed. Please contact your hosting company and request that "
 "they install ImageMagick or GD PHP extensions for you website."
 msgstr ""
+"Voor de beste prestaties, zip recepten beveelt ImageMagick of GD PHP "
+"extensies geïnstalleerd. Neem contact op met uw hosting bedrijf en verzoeken "
+"dat ze ImageMagick of GD PHP extensies installeren voor je website."
 
 #: views/recipe.twig:25 views/recipe.twig:29
 msgid "Print this recipe"
-msgstr ""
+msgstr "Print dit recept"
 
 #: views/recipe.twig:30
 msgid "Print"
-msgstr ""
+msgstr "Afdrukken"
 
 #: views/recipe.twig:51
 msgid "Prep Time:"
-msgstr ""
+msgstr "Bereidingstijd:"
 
 #: views/recipe.twig:63
+#, fuzzy
 msgid "Cook Time:"
-msgstr ""
+msgstr "Kooktijd"
 
 #: views/recipe.twig:75
 msgid "Total Time:"
-msgstr ""
+msgstr "Totale tijd:"
 
 #: views/recipe.twig:87
 msgid "Category:"
-msgstr ""
+msgstr "Categorie:"
 
 #: views/recipe.twig:99
+#, fuzzy
 msgid "Cuisine:"
-msgstr ""
+msgstr "Keuken:"
 
 #: views/recipe.twig:119
+#, fuzzy
 msgid "Yield:"
-msgstr ""
+msgstr "Genoeg voor:"
 
 #: views/recipe.twig:134
+#, fuzzy
 msgid "Serving Size:"
-msgstr ""
+msgstr "PresenTeren grootte:"
 
 #: views/recipe.twig:144
+#, fuzzy
 msgid "Calories per serving:"
-msgstr ""
+msgstr "Calorieën per portie:"
 
 #: views/recipe.twig:154
+#, fuzzy
 msgid "Fat per serving:"
-msgstr ""
+msgstr "Vet per portie:"
 
 #: views/recipe.twig:164
+#, fuzzy
 msgid "Saturated fat per serving:"
-msgstr ""
+msgstr "Verzadigd vet per portie:"
 
 #: views/recipe.twig:174
+#, fuzzy
 msgid "Carbs per serving:"
-msgstr ""
+msgstr "Koolhydraten per portie:"
 
 #: views/recipe.twig:184
+#, fuzzy
 msgid "Protein per serving:"
-msgstr ""
+msgstr "Eiwit per portie:"
 
 #: views/recipe.twig:194
+#, fuzzy
 msgid "Fiber per serving:"
-msgstr ""
+msgstr "Fiber per portie:"
 
 #: views/recipe.twig:204
+#, fuzzy
 msgid "Sugar per serving:"
-msgstr ""
+msgstr "Suiker per portie:"
 
 #: views/recipe.twig:214
+#, fuzzy
 msgid "Sodium per serving:"
-msgstr ""
+msgstr "Natrium per portie:"
 
 #: views/recipe.twig:224
+#, fuzzy
 msgid "Trans fat per serving:"
-msgstr ""
+msgstr "Transvet (zuur) per portie:"
 
 #: views/recipe.twig:234
+#, fuzzy
 msgid "Cholesterol per serving:"
-msgstr ""
+msgstr "Cholesterol per portie:"
 
 #: views/recipe.twig:282
+#, fuzzy
 msgid "Ingredients"
-msgstr ""
+msgstr "Ingrediënten"
 
 #: views/recipe.twig:320
+#, fuzzy
 msgid "Instructions"
-msgstr ""
+msgstr "Instructies"
 
 #: views/recipe.twig:358
+#, fuzzy
 msgid "Notes"
-msgstr ""
+msgstr "Notities"
 
 #. Plugin Name of the plugin/theme
+#, fuzzy
 msgid "Zip Recipes"
-msgstr ""
+msgstr "Zip recepten"
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme
+#, fuzzy
 msgid "http://www.ziprecipes.net/"
-msgstr ""
+msgstr "http://www.ziprecipes.net/"
 
 #. Description of the plugin/theme
+#, fuzzy
 msgid ""
 "A plugin that adds all the necessary microdata to your recipes, so they will "
 "show up in Google's Recipe Search"
 msgstr ""
+"Een plugin die alle noodzakelijke microdata aan uw recepten toevoegt, zodat "
+"zullen zij in het recept onderzoek van Google verschijnen"
 
 #. Author of the plugin/theme
+#, fuzzy
 msgid "HappyGezim"
-msgstr ""
+msgstr "HappyGezim"
