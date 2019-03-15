@@ -6,14 +6,15 @@ Domain Path: /languages
 Plugin URI: http://www.ziprecipes.net/
 Plugin GitHub: https://github.com/hgezim/zip-recipes-plugin
 Description: A plugin that adds all the necessary microdata to your recipes, so they will show up in Google's Recipe Search
-Version: 5.0.4
-Author: HappyGezim
-Author URI: http://www.ziprecipes.net/
+Version: 5.0.5
+Author: RogierLankhorst, markwolters
+Author URI: http://www.really-simple-plugins.com/
 License: GPLv3 or later
 
-Copyright 2017 Gezim Hoxha
+Copyright 2018 Rogier Lankhorst
 This code is derived from the 2.6 version build of ZipList Recipe Plugin released by ZipList Inc.:
 http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPLv3 or later
+
 */
 
 /*
