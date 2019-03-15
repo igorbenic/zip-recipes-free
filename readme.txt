@@ -1,10 +1,10 @@
 === Recipe Cards For Your Food Blog from Zip Recipes ===
-Contributors: hgezim
+Contributors: hgezim, RogierLankhorst, markwolters
 Plugin Name: Recipe Cards For Your Food Blog from Zip Recipes (with Gutenberg support)
 Plugin URI: https://www.ziprecipes.net
 License: GPLv3 or later
-Author URI: https://www.ziprecipes.net
-Author: Gezim Hoxha
+Author URI: https://www.really-simple-plugins.com
+Author: Rogier Lankhorst, Mark Wolters
 Donate link: https://www.ziprecipes.net/
 Tags: recipe, recipes, recipe card, recipe box, save recipe, print recipe, schema.org, seo, recipe seo, cooking, food, nutrition
 Requires at least: 3.1
@@ -25,7 +25,7 @@ We help you do that through our 4-step formula:
 3. Help You Build a Following
 4. Help You Make Money
 
-Still got questions? [Go to our website for live chat support](https://www.ziprecipes.net/) or [email us](mailto:hello@ziprecipes.net).
+Still got questions? [Go to our website for support](https://www.ziprecipes.net/support) or [email us](mailto:support@ziprecipes.net).
 
 ## Get More Readers to Your Blog
 ### Better SEO
@@ -144,7 +144,7 @@ Currently we have translations for:
  * Slovak
  * Spanish
  * Swedish
- * Is your language missing from this list? No problem, [email us and help us translate Zip Recipes!](mailto:hello@ziprecipes.net)
+ * Is your language missing from this list? No problem, [email us and help us translate Zip Recipes!](mailto:support@ziprecipes.net)
 
 = Do you have a premium version? =
 
@@ -175,6 +175,10 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 5. Copy your recipes directly from Microsoft Word, Adobe PDF, etc.
 
 == Changelog ==
+= 5.0.5 =
+- Changed author: plugin development taken over by Really Simple Plugins
+- Fix: Improved backend translatability by loading iframe on admin init hook
+- Fix: fixed headers already sent error by exiting after loading iframe
 
 = 5.0.4 Bug fixes =
 
