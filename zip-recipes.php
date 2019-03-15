@@ -48,6 +48,10 @@ define('ZRDN_PLUGIN_BASENAME', plugin_basename(__FILE__));
 define('ZRDN_PLUGIN_URL', sprintf('%s/%s/', plugins_url(), dirname(plugin_basename(__FILE__))));
 define('ZRDN_API_URL', "https://api.ziprecipes.net");
 
+//quick fix to disable registration requirement
+update_option('zrdn_registered', true);
+
+
 Util::log("Setting up init hooks.");
 
 add_action('upgrader_process_complete', __NAMESPACE__ . '\ZipRecipes::plugin_updated', 10, 2);
