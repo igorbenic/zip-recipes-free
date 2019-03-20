@@ -1,0 +1,259 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Zip Recipes Ltd
+# This file is distributed under the same license as the zip-recipes package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: zip-recipes\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2019-03-20 10:27+0100\n"
+"PO-Revision-Date: 2019-03-20 09:43+0000\n"
+"Last-Translator: rogier <rogierlankhorst@gmail.com>\n"
+"Language-Team: Swedish\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Loco-Version: 2.2.1; wp-5.1.1"
+
+#: class.ziprecipes.php:1470
+#, php-format
+msgid "%d year"
+msgstr "%d år"
+
+#: class.ziprecipes.php:1470
+#, php-format
+msgid "%d years"
+msgstr "%d år"
+
+#: class.ziprecipes.php:1471
+#, php-format
+msgid "%d month"
+msgstr "%d månad"
+
+#: class.ziprecipes.php:1471
+#, php-format
+msgid "%d months"
+msgstr "%d månader"
+
+#: class.ziprecipes.php:1472
+#, php-format
+msgid "%d day"
+msgstr "%d dag"
+
+#: class.ziprecipes.php:1472
+#, php-format
+msgid "%d days"
+msgstr "%d dagar"
+
+#: class.ziprecipes.php:1473
+#, php-format
+msgid "%d hour"
+msgstr "%d timme"
+
+#: class.ziprecipes.php:1473
+#, php-format
+msgid "%d hours"
+msgstr "%d timmar"
+
+#: class.ziprecipes.php:1474
+#, php-format
+msgid "%d minute"
+msgstr "%d minut"
+
+#: class.ziprecipes.php:1474
+#, php-format
+msgid "%d minutes"
+msgstr "%d minuter"
+
+#: class.ziprecipes.php:1475
+#, php-format
+msgid "%d second"
+msgstr "%d sekund"
+
+#: class.ziprecipes.php:1475
+#, php-format
+msgid "%d seconds"
+msgstr "%d sekunder"
+
+#: controllers/EndpointController.php:170
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+#: controllers/EndpointController.php:187
+msgid "Invalid recipe fields"
+msgstr ""
+
+#: controllers/EndpointController.php:196
+#, fuzzy
+msgid "Can't create recipe"
+msgstr "Betygsätt detta recept"
+
+#: controllers/EndpointController.php:216
+#, fuzzy
+msgid "Can't update recipe"
+msgstr "Betygsätt detta recept"
+
+#: views/create-update-recipe.twig:249 views/recipe.twig:282
+msgid "Ingredients"
+msgstr "Ingredienser"
+
+#: views/create-update-recipe.twig:251
+msgid ""
+"Put each ingredient on a separate line.  There is no need to use bullets for "
+"your ingredients.<br />\n"
+"                        You can also create labels, hyperlinks, bold/italic "
+"effects and even add images!"
+msgstr ""
+
+#: views/create-update-recipe.twig:262 views/recipe.twig:320
+msgid "Instructions"
+msgstr "Instruktioner"
+
+#: views/default_nutrition.twig:34
+msgid "Calculate Nutrition"
+msgstr ""
+
+#: views/notice.twig:2
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+
+#: views/recipe.twig:25 views/recipe.twig:29
+msgid "Print this recipe"
+msgstr "Skriva ut recept"
+
+#: views/recipe.twig:30
+msgid "Print"
+msgstr "Utskrift"
+
+#: views/recipe.twig:51
+msgid "Prep Time:"
+msgstr "Förberedelsetid:"
+
+#: views/recipe.twig:63
+msgid "Cook Time:"
+msgstr "Tillagningstid:"
+
+#: views/recipe.twig:75
+msgid "Total Time:"
+msgstr "Total Tid:"
+
+#: views/recipe.twig:87
+msgid "Category:"
+msgstr "Kategori:"
+
+#: views/recipe.twig:99
+msgid "Cuisine:"
+msgstr "Kök:"
+
+#: views/recipe.twig:119
+msgid "Yield:"
+msgstr "Ger:"
+
+#: views/recipe.twig:134
+msgid "Serving Size:"
+msgstr "Portionsstorlek:"
+
+#: views/recipe.twig:144
+msgid "Calories per serving:"
+msgstr "Kalorier per portion:"
+
+#: views/recipe.twig:154
+msgid "Fat per serving:"
+msgstr "Fett per portion:"
+
+#: views/recipe.twig:164
+msgid "Saturated fat per serving:"
+msgstr "Mättat fett per portion:"
+
+#: views/recipe.twig:174
+msgid "Carbs per serving:"
+msgstr "Kolhydrater per portion:"
+
+#: views/recipe.twig:184
+msgid "Protein per serving:"
+msgstr "Protein per portion:"
+
+#: views/recipe.twig:194
+msgid "Fiber per serving:"
+msgstr "Fibrer per portion:"
+
+#: views/recipe.twig:204
+msgid "Sugar per serving:"
+msgstr "Socker per portion:"
+
+#: views/recipe.twig:214
+msgid "Sodium per serving:"
+msgstr "Natrium per portion:"
+
+#: views/recipe.twig:224
+msgid "Trans fat per serving:"
+msgstr "Transfett per portion:"
+
+#: views/recipe.twig:234
+msgid "Cholesterol per serving:"
+msgstr "Kolesterol per portion:"
+
+#: views/recipe.twig:358
+msgid "Notes"
+msgstr "Anteckningar"
+
+#: views/settings.twig:20
+msgid "Like the plugin, or need more features? Check out the premium features:"
+msgstr ""
+
+#: views/settings.twig:22
+msgid "Cool looking themes"
+msgstr ""
+
+#: views/settings.twig:23
+msgid "Author setting for Google"
+msgstr ""
+
+#: views/settings.twig:24
+msgid "Ratings"
+msgstr ""
+
+#: views/settings.twig:25
+msgid "Recipe index"
+msgstr ""
+
+#: views/settings.twig:26
+msgid "Nutrition calculation"
+msgstr ""
+
+#: views/settings.twig:27
+msgid "Search by ingredients"
+msgstr ""
+
+#: views/settings.twig:28
+msgid "Recipe picture gallery"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Zip Recipes"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.ziprecipes.net/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A plugin that adds all the necessary microdata to your recipes, so they will "
+"show up in Google's Recipe Search"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "RogierLankhorst, markwolters"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.really-simple-plugins.com/"
+msgstr ""
