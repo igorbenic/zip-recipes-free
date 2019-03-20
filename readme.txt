@@ -9,7 +9,7 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, recipe card, recipe box, print recipe, schema.org, seo, recipe seo, cooking, food, nutrition
 Requires at least: 4.2
 Tested up to: 5.1
-Stable tag: 5.0.5
+Stable tag: 5.0.6
 Requires PHP: 5.4
 
 Your goal is to build a food blog that earns money by serving loyal fans with your amazing recipes. We're just here to help you do that. Read on to learn about our 4-step success formula for your blog.
@@ -175,6 +175,10 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 5. Copy your recipes directly from Microsoft Word, Adobe PDF, etc.
 
 == Changelog ==
+= 5.0.6 =
+* Fix: compatibility issue with MailPoet
+* Tweak: Changed cached directory
+
 = 5.0.5 =
 - Changed author: plugin development taken over by Really Simple Plugins
 - Fix: Improved backend translatability by loading iframe on admin init hook
