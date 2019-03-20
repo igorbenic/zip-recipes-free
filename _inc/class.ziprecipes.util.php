@@ -83,17 +83,29 @@ class Util {
 
         $pluginDir =trailingslashit(dirname(ZRDN_PLUGIN_DIRECTORY)).basename(ZRDN_PLUGIN_DIRECTORY);
 //        // don't consider core class a plugin
-//        if ($plugin_name && $plugin_name !== "ZipRecipes") { // TODO: ZipRecipes is hardcoded and needs to change
-//            $pluginDir = "plugins/$plugin_name/";
-//        }
+        if ($plugin_name && $plugin_name !== "ZipRecipes") { // TODO: ZipRecipes is hardcoded and needs to change
+            $pluginDir = "plugins/$plugin_name/";
+        }
+
 
         $viewDir = trailingslashit($pluginDir) . 'views/';
 
         $file = $name . '.twig';
 
-        $tempDir = get_temp_dir();
-        $cacheDir = "${tempDir}zip-recipes/cache";
+        $tempDir = trailingslashit(get_temp_dir());
+        $uploads = wp_upload_dir();
+        $tempDir = is_writable($tempDir) ? $tempDir : trailingslashit($uploads['basedir']);
 
+        if (!file_exists($tempDir . 'zip-recipes/')){
+            mkdir($tempDir . 'zip-recipes/');
+        }
+
+        if (!file_exists($tempDir . 'zip-recipes/cache/')){
+            mkdir($tempDir . 'zip-recipes/cache/');
+        }
+
+        $cacheDir = $tempDir . 'zip-recipes/cache';
+        
         // Prefer to write to views dir, if possible. More people can write to views dir than temp from experience.
         // If views is not writable, try to give it read/write permission to user and group
         // Perhaps in the future disable caching if neither is writable?!
