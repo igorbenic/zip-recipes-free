@@ -112,7 +112,7 @@ class Util {
             'auto_reload' => true
         ));
 
-        $twig->addExtension(new TrHelper());
+        //$twig->addExtension(new TrHelper());
 
         // Add some useful functions to Twig.
 //        $funcs = array( 'admin_url', '__', '_e', 'wp_create_nonce' );
