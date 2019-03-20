@@ -105,7 +105,7 @@ class Util {
         }
 
         $cacheDir = $tempDir . 'zip-recipes/cache';
-        
+
         // Prefer to write to views dir, if possible. More people can write to views dir than temp from experience.
         // If views is not writable, try to give it read/write permission to user and group
         // Perhaps in the future disable caching if neither is writable?!
@@ -124,32 +124,11 @@ class Util {
             'auto_reload' => true
         ));
 
-        //$twig->addExtension(new TrHelper());
-
-        // Add some useful functions to Twig.
-//        $funcs = array( 'admin_url', '__', '_e', 'wp_create_nonce' );
-//        foreach ( $funcs as $f ) {
-//            $twig->addFunction( $f, new \Twig_SimpleFunction( $f, $f ) );
-//        }
-
         $twig->addFunction( '__', new \Twig_SimpleFunction( '__', function ( $text ) {
             return __( $text, 'zip-recipes' );
         } ) );
-        // This is a total hack. For some reason Twig rendering generates a warning if Twig template file is too large.
-	    // Reported bug here: https://github.com/twigphp/Twig/issues/2673
-
-	    // `ob_start()` call here  was messing up theme rendering. It's shit.
-//	    ob_start();
-
         return $twig->render($file, $args);
-///
 
-//        echo  $twig->render($file, $args);
-//        $twig = ob_get_contents();
-//        ob_end_clean();
-//
-//
-//        return $twig;
     }
 
     public static function print_view($name, $args = array()) {
