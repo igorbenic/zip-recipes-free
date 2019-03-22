@@ -91,9 +91,9 @@ class Util {
 
         $file = $name . '.twig';
 
-        $tempDir = trailingslashit(get_temp_dir());
+        //$tempDir = trailingslashit(get_temp_dir());
         $uploads = wp_upload_dir();
-        $tempDir = is_writable($tempDir) ? $tempDir : trailingslashit($uploads['basedir']);
+        $tempDir = trailingslashit($uploads['basedir']);
 
         if (!file_exists($tempDir . 'zip-recipes/')){
             mkdir($tempDir . 'zip-recipes/');
