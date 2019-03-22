@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Zip Recipes\n"
-"POT-Creation-Date: 2019-02-05 09:11+0100\n"
-"PO-Revision-Date: 2019-02-05 09:10+0100\n"
+"POT-Creation-Date: 2019-03-20 10:27+0100\n"
+"PO-Revision-Date: 2019-03-20 10:25+0100\n"
 "Last-Translator: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
 "Language-Team: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,62 +21,62 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: class.ziprecipes.php:1466
+#: class.ziprecipes.php:1470
 #, php-format
 msgid "%d year"
 msgstr ""
 
-#: class.ziprecipes.php:1466
+#: class.ziprecipes.php:1470
 #, php-format
 msgid "%d years"
 msgstr ""
 
-#: class.ziprecipes.php:1467
+#: class.ziprecipes.php:1471
 #, php-format
 msgid "%d month"
 msgstr ""
 
-#: class.ziprecipes.php:1467
+#: class.ziprecipes.php:1471
 #, php-format
 msgid "%d months"
 msgstr ""
 
-#: class.ziprecipes.php:1468
+#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d day"
 msgstr ""
 
-#: class.ziprecipes.php:1468
+#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d days"
 msgstr ""
 
-#: class.ziprecipes.php:1469
+#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hour"
 msgstr ""
 
-#: class.ziprecipes.php:1469
+#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hours"
 msgstr ""
 
-#: class.ziprecipes.php:1470
+#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minute"
 msgstr ""
 
-#: class.ziprecipes.php:1470
+#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minutes"
 msgstr ""
 
-#: class.ziprecipes.php:1471
+#: class.ziprecipes.php:1475
 #, php-format
 msgid "%d second"
 msgstr ""
 
-#: class.ziprecipes.php:1471
+#: class.ziprecipes.php:1475
 #, php-format
 msgid "%d seconds"
 msgstr ""
@@ -95,6 +95,26 @@ msgstr ""
 
 #: controllers/EndpointController.php:216
 msgid "Can't update recipe"
+msgstr ""
+
+#: views/create-update-recipe.twig:249 views/recipe.twig:282
+msgid "Ingredients"
+msgstr ""
+
+#: views/create-update-recipe.twig:251
+msgid ""
+"Put each ingredient on a separate line.  There is no need to use bullets for "
+"your ingredients.<br />\n"
+"                        You can also create labels, hyperlinks, bold/italic "
+"effects and even add images!"
+msgstr ""
+
+#: views/create-update-recipe.twig:262 views/recipe.twig:320
+msgid "Instructions"
+msgstr ""
+
+#: views/default_nutrition.twig:34
+msgid "Calculate Nutrition"
 msgstr ""
 
 #: views/notice.twig:2
@@ -180,16 +200,40 @@ msgstr ""
 msgid "Cholesterol per serving:"
 msgstr ""
 
-#: views/recipe.twig:282
-msgid "Ingredients"
-msgstr ""
-
-#: views/recipe.twig:320
-msgid "Instructions"
-msgstr ""
-
 #: views/recipe.twig:358
 msgid "Notes"
+msgstr ""
+
+#: views/settings.twig:20
+msgid "Like the plugin, or need more features? Check out the premium features:"
+msgstr ""
+
+#: views/settings.twig:22
+msgid "Cool looking themes"
+msgstr ""
+
+#: views/settings.twig:23
+msgid "Author setting for Google"
+msgstr ""
+
+#: views/settings.twig:24
+msgid "Ratings"
+msgstr ""
+
+#: views/settings.twig:25
+msgid "Recipe index"
+msgstr ""
+
+#: views/settings.twig:26
+msgid "Nutrition calculation"
+msgstr ""
+
+#: views/settings.twig:27
+msgid "Search by ingredients"
+msgstr ""
+
+#: views/settings.twig:28
+msgid "Recipe picture gallery"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -197,7 +241,6 @@ msgid "Zip Recipes"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-#. Author URI of the plugin/theme
 msgid "http://www.ziprecipes.net/"
 msgstr ""
 
@@ -208,5 +251,9 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "HappyGezim"
+msgid "RogierLankhorst, markwolters"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.really-simple-plugins.com/"
 msgstr ""
