@@ -91,29 +91,44 @@ class Util {
 
         $file = $name . '.twig';
 
-        $tempDir = trailingslashit(get_temp_dir());
+        //$tempDir = trailingslashit(get_temp_dir());
         $uploads = wp_upload_dir();
-        $tempDir = is_writable($tempDir) ? $tempDir : trailingslashit($uploads['basedir']);
+        $uploads_dir = trailingslashit($uploads['basedir']);
 
-        if (!file_exists($tempDir . 'zip-recipes/')){
-            mkdir($tempDir . 'zip-recipes/');
+        if (!file_exists($uploads_dir . 'zip-recipes/')){
+            mkdir($uploads_dir . 'zip-recipes/');
         }
 
-        if (!file_exists($tempDir . 'zip-recipes/cache/')){
-            mkdir($tempDir . 'zip-recipes/cache/');
+        if (!file_exists($uploads_dir . 'zip-recipes/cache/')) {
+            mkdir($uploads_dir . 'zip-recipes/cache/');
         }
 
-        $cacheDir = $tempDir . 'zip-recipes/cache';
+        $cacheDir = false;
+        if (is_writable($uploads_dir . 'zip-recipes/cache')) {
+            $cacheDir = $uploads_dir . 'zip-recipes/cache';
+        }
+
+        //fallback own plugin directory
+        if (!$cacheDir) {
+            if (is_writable($viewDir) || chmod($viewDir, 0660)) {
+                $cacheDir = "${viewDir}cache";
+            }
+        }
 
         Util::log("Looking for template in dir:" . $viewDir);
         Util::log("Template name:" . $file);
 
         $loader = new \Twig_Loader_Filesystem(array($viewDir, ZRDN_PLUGIN_DIRECTORY . 'views/'));
-        $twig = new \Twig_Environment($loader, array(
-            'cache' => $cacheDir,
+
+        //$cacheDir=false;
+
+        $twig_settings = array(
             'autoescape' => true,
             'auto_reload' => true
-        ));
+        );
+        if ($cacheDir) $twig_settings['cache'] = $cacheDir;
+
+        $twig = new \Twig_Environment($loader, $twig_settings);
 
         $twig->addFunction( '__', new \Twig_SimpleFunction( '__', function ( $text ) {
             return __( $text, 'zip-recipes' );
