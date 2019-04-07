@@ -94,10 +94,11 @@ class Util
 
         $file = $name . '.twig';
 
+        //$tempDir = trailingslashit(get_temp_dir());
         $uploads = wp_upload_dir();
         $uploads_dir = trailingslashit($uploads['basedir']);
 
-        if (!file_exists($uploads_dir . 'zip-recipes/')) {
+        if (!file_exists($uploads_dir . 'zip-recipes/')){
             mkdir($uploads_dir . 'zip-recipes/');
         }
 
@@ -120,12 +121,12 @@ class Util
         Util::log("Looking for template in dir:" . $viewDir);
         Util::log("Template name:" . $file);
 
+        $loader = new \Twig_Loader_Filesystem(array($viewDir, ZRDN_PLUGIN_DIRECTORY . 'views/'));
         $twig_settings = array(
             'autoescape' => true,
             'auto_reload' => true
         );
         if ($cacheDir) $twig_settings['cache'] = $cacheDir;
-        $loader = new \Twig_Loader_Filesystem(array($viewDir, ZRDN_PLUGIN_DIRECTORY . 'views/'));
         $twig = new \Twig_Environment($loader, $twig_settings);
 
         $twig->addFunction('__', new \Twig_SimpleFunction('__', function ($text) {
