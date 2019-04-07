@@ -1748,7 +1748,6 @@ class ZipRecipes {
         if (isset($matches[0]) && !empty($matches[0])) {
             foreach ($matches[0] as $image) {
                 $attributes = self::zrdn_get_responsive_image_attributes(str_replace('%', '', $image));
-                $html = '<img class="" src="' . $attributes['url'] . '"';
 	            $html = "<img class='' src='{$attributes['url']}";
                 if (!empty($attributes['srcset'])) {
                     $html .= " srcset='{$attributes['srcset']}";
@@ -1757,13 +1756,14 @@ class ZipRecipes {
                     $html .= " sizes='{$attributes['sizes']}'";
                 }
                 if (!empty($attributes['title'])) {
-                    $html .= " alt='{$attributes['title']}'";
+                    $html .= " alt='{$attributes['alt']}'";
                 }
                 $html .= ' />';
                 $item = str_replace($image, $html, $item);
             }
         }
-        return $item;
+
+        return apply_filters('zrdn_image_html' , $item);
     }
 
     /**
@@ -1786,16 +1786,19 @@ class ZipRecipes {
         $attributes['sizes'] = '';
         $attributes['title'] = '';
         if ($attachment_id) {
+
             $attributes['url'] = wp_get_attachment_image_url($attachment_id, 'full');
             $image_meta = wp_get_attachment_metadata($attachment_id);
-            $attributes['title'] = isset($image_meta['image_meta']['title']) ? esc_attr($image_meta['image_meta']['title']) : '';
-            // $attributes['meta'] = esc_attr($image_meta); // may need in future for alt, meta title
+
+            $attributes['alt'] = get_post_meta($attachment_id, '_wp_attachment_image_alt', TRUE);
+            $attributes['title'] = get_the_title($attachment_id);
             $img_srcset = wp_get_attachment_image_srcset($attachment_id, 'full', $image_meta);
             $attributes['srcset'] = esc_attr($img_srcset);
             $img_sizes = wp_get_attachment_image_sizes($attachment_id, 'full');
             $attributes['sizes'] = esc_attr($img_sizes);
         }
-        return $attributes;
+
+        return apply_filters('zrdn_image_attributes', $attributes);
     }
 
     /**

@@ -11,10 +11,12 @@ namespace ZRDN;
 
 require_once(ZRDN_PLUGIN_DIRECTORY . 'vendor/autoload.php');
 
-class Util {
+class Util
+{
     /* Send debug code to the Javascript console */
 
-    public static function zrdn_debug_to_console($data) {
+    public static function zrdn_debug_to_console($data)
+    {
         if (is_array($data) || is_object($data)) {
             echo("<script>console.log('PHP: " . json_encode($data) . "');</script>");
         } else {
@@ -22,46 +24,46 @@ class Util {
         }
     }
 
-	public static function timeToISO8601($hours, $minutes) {
-		$time = '';
-		if ($hours || $minutes) {
-			$time = 'P';
-			if (isset($hours) || isset($minutes)) {
-				$time .= 'T';
-			}
-			if (isset($hours)) {
-				if ($minutes && $hours == '') { // if there's minutes and not hours set hours to 0 ..
-					$time .= '0H';
-				}
-				else {
-					$time .= $hours . 'H';
-				}
-			}
-			if (isset($minutes)) {
-				if ($hours && $minutes == '') { // if there's hours and but not minutes, set minutes to 0..
-					$time .=  '0M';
-				}
-				else {
-					$time .= $minutes . 'M';
-				}
-			}
-		}
-		return $time;
-	}
+    public static function timeToISO8601($hours, $minutes)
+    {
+        $time = '';
+        if ($hours || $minutes) {
+            $time = 'P';
+            if (isset($hours) || isset($minutes)) {
+                $time .= 'T';
+            }
+            if (isset($hours)) {
+                if ($minutes && $hours == '') { // if there's minutes and not hours set hours to 0 ..
+                    $time .= '0H';
+                } else {
+                    $time .= $hours . 'H';
+                }
+            }
+            if (isset($minutes)) {
+                if ($hours && $minutes == '') { // if there's hours and but not minutes, set minutes to 0..
+                    $time .= '0M';
+                } else {
+                    $time .= $minutes . 'M';
+                }
+            }
+        }
+        return $time;
+    }
 
-	public static function iso8601toHoursMinutes($time) {
-		try {
-			if ($time) {
-				$date = new \DateInterval($time);
-				$minutes = $date->i;
-				$hours = $date->h;
-			}
+    public static function iso8601toHoursMinutes($time)
+    {
+        try {
+            if ($time) {
+                $date = new \DateInterval($time);
+                $minutes = $date->i;
+                $hours = $date->h;
+            }
 
-			return array($hours, $minutes);
-		} catch (\Exception $e) {
-			return null;
-		}
-	}
+            return array($hours, $minutes);
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
 
     /**
      * Render view and echo it.
@@ -70,7 +72,8 @@ class Util {
      * @param array $args object View context parameters.
      * @return string Rendered view.
      */
-    public static function _view($name, $args = array()) {
+    public static function _view($name, $args = array())
+    {
         $trace = debug_backtrace();
         $caller = $trace[2]; // 0 here is direct caller of _view, 1 would be our Util class so we want 2
 
@@ -81,7 +84,7 @@ class Util {
             $plugin_name = $class;
         }
 
-        $pluginDir =trailingslashit(dirname(ZRDN_PLUGIN_DIRECTORY)).basename(ZRDN_PLUGIN_DIRECTORY);
+        $pluginDir = trailingslashit(dirname(ZRDN_PLUGIN_DIRECTORY)) . basename(ZRDN_PLUGIN_DIRECTORY);
 //       don't consider core class a plugin
         if ($plugin_name && $plugin_name !== "ZipRecipes") { // TODO: ZipRecipes is hardcoded and needs to change
             $pluginDir = "plugins/$plugin_name/";
@@ -91,46 +94,59 @@ class Util {
 
         $file = $name . '.twig';
 
-        $tempDir = trailingslashit(get_temp_dir());
         $uploads = wp_upload_dir();
-        $tempDir = is_writable($tempDir) ? $tempDir : trailingslashit($uploads['basedir']);
+        $uploads_dir = trailingslashit($uploads['basedir']);
 
-        if (!file_exists($tempDir . 'zip-recipes/')){
-            mkdir($tempDir . 'zip-recipes/');
+        if (!file_exists($uploads_dir . 'zip-recipes/')) {
+            mkdir($uploads_dir . 'zip-recipes/');
         }
 
-        if (!file_exists($tempDir . 'zip-recipes/cache/')){
-            mkdir($tempDir . 'zip-recipes/cache/');
+        if (!file_exists($uploads_dir . 'zip-recipes/cache/')) {
+            mkdir($uploads_dir . 'zip-recipes/cache/');
         }
 
-        $cacheDir = $tempDir . 'zip-recipes/cache';
+        $cacheDir = false;
+        if (is_writable($uploads_dir . 'zip-recipes/cache')) {
+            $cacheDir = $uploads_dir . 'zip-recipes/cache';
+        }
+
+        //fallback own plugin directory
+        if (!$cacheDir) {
+            if (is_writable($viewDir) || chmod($viewDir, 0660)) {
+                $cacheDir = "${viewDir}cache";
+            }
+        }
 
         Util::log("Looking for template in dir:" . $viewDir);
         Util::log("Template name:" . $file);
 
-        $loader = new \Twig_Loader_Filesystem(array($viewDir, ZRDN_PLUGIN_DIRECTORY . 'views/'));
-        $twig = new \Twig_Environment($loader, array(
-            'cache' => $cacheDir,
+        $twig_settings = array(
             'autoescape' => true,
             'auto_reload' => true
-        ));
+        );
+        if ($cacheDir) $twig_settings['cache'] = $cacheDir;
+        $loader = new \Twig_Loader_Filesystem(array($viewDir, ZRDN_PLUGIN_DIRECTORY . 'views/'));
+        $twig = new \Twig_Environment($loader, $twig_settings);
 
-        $twig->addFunction( '__', new \Twig_SimpleFunction( '__', function ( $text ) {
-            return __( $text, 'zip-recipes' );
-        } ) );
+        $twig->addFunction('__', new \Twig_SimpleFunction('__', function ($text) {
+            return __($text, 'zip-recipes');
+        }));
         return $twig->render($file, $args);
 
     }
 
-    public static function print_view($name, $args = array()) {
+    public static function print_view($name, $args = array())
+    {
         echo self::_view($name, $args);
     }
 
-    public static function view($name, $args = array()) {
+    public static function view($name, $args = array())
+    {
         return self::_view($name, $args);
     }
 
-    public static function get_charset_collate() {
+    public static function get_charset_collate()
+    {
         global $wpdb;
 
         $charset_collate = '';
@@ -145,7 +161,8 @@ class Util {
 
     // Get value of an array key
     // Used to suppress warnings if key doesn't exist
-    public static function get_array_value($key, $array) {
+    public static function get_array_value($key, $array)
+    {
         if (isset($array[$key])) {
             return $array[$key];
         }
@@ -156,7 +173,8 @@ class Util {
     /**
      * Get list of installed plugins as a string. Each plugin is separated with ;
      */
-    public static function zrdn_get_installed_plugins() {
+    public static function zrdn_get_installed_plugins()
+    {
         $pluginsString = '';
         $plugins = get_plugins();
         foreach ($plugins as $path => $pluginData) {
@@ -171,7 +189,8 @@ class Util {
      * Log messages if WP_DEBUG is set.
      * @param $message String Message to log.
      */
-    public static function log($message) {
+    public static function log($message)
+    {
         if (!WP_DEBUG) {
             return;
         }
@@ -214,26 +233,25 @@ class Util {
  * @param $arr
  * @param bool $keys_are_objects If array keys are objects. Default: false.
  */
-function array_by_key($key, $arr, $keys_are_objects=false) {
-	return array_reduce(
-		$arr,
-		function ($carry, $recipe) use ($keys_are_objects, $key) {
-			if ($keys_are_objects) {
-				$needle =  $recipe->{ $key };
-			}
-			else {
-				$needle = $recipe[ $key ];
-			}
+function array_by_key($key, $arr, $keys_are_objects = false)
+{
+    return array_reduce(
+        $arr,
+        function ($carry, $recipe) use ($keys_are_objects, $key) {
+            if ($keys_are_objects) {
+                $needle = $recipe->{$key};
+            } else {
+                $needle = $recipe[$key];
+            }
 
-			if (array_key_exists($needle, $carry)) {
-				$carry[ $needle ][ ] = $recipe;
-			}
-			else {
-				$carry[ $needle ] = array($recipe);
-			}
+            if (array_key_exists($needle, $carry)) {
+                $carry[$needle][] = $recipe;
+            } else {
+                $carry[$needle] = array($recipe);
+            }
 
-			return $carry;
-		},
-		array()
-	);
+            return $carry;
+        },
+        array()
+    );
 }

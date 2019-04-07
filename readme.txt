@@ -131,6 +131,7 @@ Currently we have translations for:
  * Arabic
  * Chinese
  * Danish
+ * Dutch
  * Finnish
  * French
  * German
@@ -176,6 +177,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 
 == Changelog ==
 = 5.0.6 =
+* Tweak: use alt attribute if available in image
 * Fix: compatibility issue with MailPoet
 * Tweak: Changed cached directory
 
