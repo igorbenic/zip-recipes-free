@@ -258,7 +258,11 @@
               >
                   <img class="photo"
                           {{ recipe_props.recipe_attr('itemprop', "image", amp_on) }} src="{{ image_attributes.url }}" {% if image_attributes.srcset %}srcset="{{ image_attributes.srcset }}"{% endif %} {% if image_attributes.sizes %}sizes="{{ image_attributes.sizes }}"{% endif %} title="{{ recipe_title }}"
-                          {% if recipe_title %} alt="{{ recipe_title }}" {% endif %}
+                          {% if image_attributes.alt %}
+                              alt="{{ image_attributes.alt }}"
+                          {% else %}
+                              alt="{{ recipe_title }}"
+                          {% endif %}
                           {% if image_width %}
                               style="{% if image_width %}width: {{image_width}}px;{% endif %}"
                           {% endif %} />
