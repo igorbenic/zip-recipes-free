@@ -1748,8 +1748,9 @@ class ZipRecipes {
         if (isset($matches[0]) && !empty($matches[0])) {
             foreach ($matches[0] as $image) {
                 $attributes = self::zrdn_get_responsive_image_attributes(str_replace('%', '', $image));
-                $html = '<img class="" src="' . $attributes['url'] . '"';
-                $html = "<img class='' src='{$attributes['url']}";
+
+	             $html = "<img class='' src='{$attributes['url']}";
+
                 if (!empty($attributes['srcset'])) {
                     $html .= " srcset='{$attributes['srcset']}";
                 }
@@ -1757,13 +1758,14 @@ class ZipRecipes {
                     $html .= " sizes='{$attributes['sizes']}'";
                 }
                 if (!empty($attributes['title'])) {
-                    $html .= " alt='{$attributes['title']}'";
+                    $html .= " alt='{$attributes['alt']}'";
                 }
                 $html .= ' />';
                 $item = str_replace($image, $html, $item);
             }
         }
-        return $item;
+
+        return apply_filters('zrdn_image_html' , $item);
     }
 
     /**

@@ -184,6 +184,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 * Tweak: cache directory moved to uploads folder
 
 = 5.0.6 =
+* Tweak: use alt attribute if available in image
 * Fix: compatibility issue with MailPoet
 * Tweak: Changed cached directory
 
