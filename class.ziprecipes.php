@@ -1748,7 +1748,9 @@ class ZipRecipes {
         if (isset($matches[0]) && !empty($matches[0])) {
             foreach ($matches[0] as $image) {
                 $attributes = self::zrdn_get_responsive_image_attributes(str_replace('%', '', $image));
-	            $html = "<img class='' src='{$attributes['url']}";
+
+	             $html = "<img class='' src='{$attributes['url']}";
+
                 if (!empty($attributes['srcset'])) {
                     $html .= " srcset='{$attributes['srcset']}";
                 }
@@ -1768,9 +1770,9 @@ class ZipRecipes {
 
     /**
      * Get Responsive Image attributes from URL
-     * 
+     *
      * It checks image is not external and return images attributes like srcset, sized etc.
-     * 
+     *
      * @param type $url
      * @return type
      */

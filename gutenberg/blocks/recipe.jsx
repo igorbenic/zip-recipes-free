@@ -296,7 +296,6 @@ registerBlockType ('zip-recipes/recipe-block', {
         }
       },
     };
-
     dispatchMethods.onCalculateNutrition = onCalculateNutrition;
 
     return dispatchMethods;
@@ -357,6 +356,7 @@ registerBlockType ('zip-recipes/recipe-block', {
       
       return selected;
     }) (
+
       withState ({
         isOpen: false,
         firstName: '',
@@ -366,62 +366,12 @@ registerBlockType ('zip-recipes/recipe-block', {
         showNutritionPromo: false,
         showAuthorPromo: false,
       }) (props => {
-        const renderRegister = () => (
-          <div
-            style={{
-              backgroundColor: 'rgb(246, 243, 251)',
-              padding: '20px',
-              marginBo: '20px',
-            }}
-          >
-            <div className="zrdn-columns zrdn-is-mobile">
-
-              <div className="zrdn-column">
-                <div className="zrdn-field">
-                  <label htmlFor="recipe-title" className="zrdn-label">
-                    Email
-                  </label>
-                  <div className="zrdn-control" id="title-container">
-                    <input
-                      id="recipe-title"
-                      name="recipe-title"
-                      className="zrdn-input"
-                      type="email"
-                      value={props.email}
-                      onChange={({target: {value}}) =>
-                        props.setState ({email: value})}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="zrdn-columns zrdn-is-mobile zrdn-is-pulled-right zrdn-is-clearfix">
-              <Button
-                isPrimary
-                isBusy={props.isRegistering}
-                onClick={props.onRegister.bind (
-                  null,
-                  props.settings.registration_endpoint,
-                  props.firstName,
-                  props.lastName,
-                  props.email,
-                  props.settings.wp_version,
-                  props.settings.blog_url
-                )}
-              >
-                Register
-              </Button>
-            </div>
-          </div>
-        );
-
         let calculateButtonClasses = props.isNutritionCalculating
           ? 'zrdn-button zrdn-is-primary zrdn-is-loading'
           : 'zrdn-button zrdn-is-primary';
 
         return (
           <div>
-            {props.settings.registered ? '' : renderRegister ()}
             {props.attributes.id
               ? <Button
                   isPrimary
@@ -683,11 +633,7 @@ registerBlockType ('zip-recipes/recipe-block', {
                         Automatically Calculate Nutrition
                       </button>
                       {props.showNutritionPromo
-                        ? <div
-                            dangerouslySetInnerHTML={{
-                              __html: props.promos.nutrition,
-                            }}
-                          />
+                          ? <div style={{border: '1px solid #f343a0',padding:'5px',margin:'5px'}}>Read more about <a target="_blank" href="https://ziprecipes.net/automatic-nutrition-for-your-recipes/">automatic nutrition calculation</a></div>
                         : ''}
                     </div>
                   </div>

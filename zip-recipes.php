@@ -6,7 +6,7 @@ Domain Path: /languages
 Plugin URI: http://www.ziprecipes.net/
 Plugin GitHub: https://github.com/hgezim/zip-recipes-plugin
 Description: A plugin that adds all the necessary microdata to your recipes, so they will show up in Google's Recipe Search
-Version: 5.0.7
+Version: 5.0.8
 Author: RogierLankhorst, markwolters
 Author URI: http://www.really-simple-plugins.com/
 License: GPLv3 or later
@@ -42,6 +42,7 @@ defined('ABSPATH') or die("Error! Cannot be called directly.");
 
 // Define constants
 define('ZRDN_VERSION_NUM', '5.0');
+define('ZRDN_FREE', true);
 define('ZRDN_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ));
 define('ZRDN_PLUGIN_DIRECTORY_URL', plugin_dir_url( __FILE__ ));
 define('ZRDN_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -61,9 +62,6 @@ add_action('upgrader_process_complete', __NAMESPACE__ . '\ZipRecipes::plugin_upd
 register_activation_hook(__FILE__, __NAMESPACE__ . '\ZipRecipes::init');
 
 ZipRecipes::init();
-
-
-
 
 function zrdn_autoload($className)
 {
