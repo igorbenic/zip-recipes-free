@@ -133,7 +133,9 @@ const actions = {
 
   *fetchNutritionData (
     endpoint,
-    token,
+    website_url,
+    website_name,
+    license,
     title,
     ingredients,
     servings,
@@ -143,7 +145,9 @@ const actions = {
     const data = yield {
       type: FETCH_NUTRITION_DATA,
       endpoint,
-      token,
+      website_url,
+      website_name,
+      license,
       title,
       ingredients,
       servings,
@@ -945,18 +949,19 @@ registerStore ('zip-recipes-store', {
 
   controls: {
     async FETCH_PROMOS(action) {
-      let response = await window.fetch (`${action.endpoint}?blog_url=${action.blogUrl}`, {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, cors, *same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-      });
+      // let response = await window.fetch (`${action.endpoint}?blog_url=${action.blogUrl}`, {
+      //   method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      //   mode: 'cors', // no-cors, cors, *same-origin
+      //   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      //   credentials: 'same-origin', // include, *same-origin, omit
+      // });
 
       try {
-        let json = await response.json ();
-        let author = json.results.filter(promo => promo.id == 3).map(promo => promo.html)[0];
-        let nutrition = json.results.filter(promo => promo.id == 4).map(promo => promo.html)[0];
-        let promos = {author, nutrition}
+        // let json = await response.json ();
+        // let author = json.results.filter(promo => promo.id == 3).map(promo => promo.html)[0];
+        // let nutrition = json.results.filter(promo => promo.id == 4).map(promo => promo.html)[0];
+        //let promos = {author, nutrition}
+        let promos = {}
 
         return promos;
       }
@@ -971,7 +976,7 @@ registerStore ('zip-recipes-store', {
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
-          Authorization: 'Token ' + action.token,
+          // Authorization: 'Token ' + action.token,
           'Content-Type': 'application/json; charset=UTF-8',
           // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         },
@@ -981,6 +986,9 @@ registerStore ('zip-recipes-store', {
           servings: action.servings,
           servings_unit: action.servingsSize,
           language: action.locale,
+          website_url: action.website_url,
+          website_name: action.website_name,
+          license: action.license,
         }), // body data type must match "Content-Type" header
       });
 

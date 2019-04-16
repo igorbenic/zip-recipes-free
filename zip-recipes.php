@@ -42,6 +42,7 @@ defined('ABSPATH') or die("Error! Cannot be called directly.");
 
 // Define constants
 define('ZRDN_VERSION_NUM', '5.0');
+define('ZRDN_FREE', true);
 define('ZRDN_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ));
 define('ZRDN_PLUGIN_DIRECTORY_URL', plugin_dir_url( __FILE__ ));
 define('ZRDN_PLUGIN_BASENAME', plugin_basename(__FILE__));

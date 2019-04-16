@@ -120,8 +120,6 @@ class Util {
 
         $loader = new \Twig_Loader_Filesystem(array($viewDir, ZRDN_PLUGIN_DIRECTORY . 'views/'));
 
-        //$cacheDir=false;
-
         $twig_settings = array(
             'autoescape' => true,
             'auto_reload' => true
