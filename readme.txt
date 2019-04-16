@@ -9,7 +9,7 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, recipe card, recipe box, print recipe, schema.org, seo, recipe seo, cooking, food, nutrition
 Requires at least: 4.2
 Tested up to: 5.1
-Stable tag: 5.0.7
+Stable tag: 5.0.8
 Requires PHP: 5.4
 
 Your goal is to build a food blog that earns money by serving loyal fans with your amazing recipes. We're just here to help you do that. Read on to learn about our 4-step success formula for your blog.
@@ -131,6 +131,7 @@ Currently we have translations for:
  * Arabic
  * Chinese
  * Danish
+ * Dutch
  * Finnish
  * French
  * German
@@ -148,7 +149,7 @@ Currently we have translations for:
 
 = Do you have a premium version? =
 
-Yes, we do! You can learn about our premium features here: [https://www.ziprecipes.net](https://www.ziprecipes.net)
+Yes, we do! You can learn about our premium features here: [https://www.ziprecipes.net/premium](https://www.ziprecipes.net/)
 
 = How do I edit a recipe with the Zip Recipes plugin? =
 
@@ -175,6 +176,9 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 5. Copy your recipes directly from Microsoft Word, Adobe PDF, etc.
 
 == Changelog ==
+= 5.0.8 =
+* Fix: Gutenberg could cause an error in some situations
+
 = 5.0.7 =
 * Tweak: cache directory moved to uploads folder
 
