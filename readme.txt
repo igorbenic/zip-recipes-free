@@ -178,6 +178,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 == Changelog ==
 = 5.0.8 =
 * Fix: Gutenberg could cause an error in some situations
+* Tweak: Use alt for image when available
 
 = 5.0.7 =
 * Tweak: cache directory moved to uploads folder
