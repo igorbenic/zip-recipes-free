@@ -127,7 +127,7 @@ class Util
             'autoescape' => true,
             'auto_reload' => true
         );
-        if ($cacheDir) $twig_settings['cache'] = $cacheDir;
+//        if ($cacheDir) $twig_settings['cache'] = $cacheDir;
         $twig = new \Twig_Environment($loader, $twig_settings);
 
         $twig->addFunction('__', new \Twig_SimpleFunction('__', function ($text) {
