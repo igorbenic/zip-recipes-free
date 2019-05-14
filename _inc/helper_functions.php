@@ -39,3 +39,23 @@ function clean_jsonld($arr) {
 
     return $cleaned_crap;
 }
+
+/**
+ * @param string $msg
+ * @param string $type notice | warning | success
+ * @param bool $hide
+ * @param bool $echo
+ * @return string|void
+ */
+function notice($msg, $type = 'notice', $hide = false, $echo = true)
+{
+    if ($msg == '') return;
+
+    $hide_class = $hide ? "cmplz-hide" : "";
+    $html = '<div class="cmplz-panel cmplz-' . $type . ' ' . $hide_class . '">' . $msg . '</div>';
+    if ($echo) {
+        echo $html;
+    } else {
+        return $html;
+    }
+}

@@ -130,20 +130,24 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
 
     public function get_settings(WP_REST_Request $request) {
 	    global $wp_version;
-	    return ZRDN_REST_Response::success(array(
+	    $arr = ZRDN_REST_Response::success(array(
 	    	'wp_version' => $wp_version,
+            'registered' => true,
 		    'blog_url' => get_bloginfo('wpurl'),
 	    	// zrdn_registered can be an array (if user registered nutrition feature) or boolean
-	    	'registered' => is_bool(get_option('zrdn_registered', false)) ? get_option('zrdn_registered', false) :  get_option('zrdn_registered'),
 		    'registration_endpoint' => ZRDN_API_URL . "/installation/register/",
-		    'recipes_endpoint' => ZRDN_API_URL . '/v2/recipes/',
+		    'recipes_endpoint' => ZRDN_API_URL . '/v4/recipes/',
 		    'promos_endpoint' => ZRDN_API_URL . '/v2/promos/',
 		    'wp_ajax_endpoint' => admin_url('admin-ajax.php'),
-		    'locale' => substr(get_locale(), 0, 2),
-		    'authors' => get_option('zrdn_authors_list', array()),
+		    'locale' => apply_filters('zrdn_get_locale', 'en'),
+		    'authors' => apply_filters('zrdn_author_list', array()),
 		    'default_author' => get_option('zrdn_authors_default_author', ''),
+            "website_name" => get_bloginfo('name'),
+            "website_url" => get_bloginfo('url'),
+            "license" => get_option('zrdn_license_key'),
 	        'success_icon_url' => plugins_url('../gutenberg/assets/images/checkbox.png', __FILE__),
 	    ));
+	    return $arr;
     }
 
     public function create_registration(WP_REST_Request $request) {
@@ -265,6 +269,7 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
         }
 	    if(Util::get_array_value('author', $parameters)) {
 		    $sanitize['author'] = Util::get_array_value('author', $parameters);
+		    if ($sanitize['author'] === '...') $sanitize['author'] = get_option('zrdn_authors_default_author', '');
 	    }
 
         if(Util::get_array_value('description', $parameters)) {
@@ -344,11 +349,11 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Response Response object on success, or WP_Error object on failure.
      */
     public function prepare_item_for_response($item, $request) {
-
         $formatted = array(
             'id' => $item->recipe_id,
             'post_id' => $item->post_id,
             'title' => $item->recipe_title,
+            'author' => $item->author,
             'image_url' => $item->recipe_image,
             'is_featured_post_image' => !!$item->is_featured_post_image, // we have to add !! so it's converted to a bool
             'description' => $item->summary,
@@ -360,16 +365,8 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
             'nutrition' => $this->format_nutrition_schema($item),
 	        'notes' => $item->notes,
 	        'serving_size' => $item->serving_size,
+	        'nutrition_label' => $item->nutrition_label
         );
-
-        if (isset($item->author)) {
-            $formatted['author'] = $item->author;
-        }
-
-
-        if (isset($item->nutrition_label)) {
-            $formatted['nutrition_label'] = $item->nutrition_label;
-        }
 
         if ($item->prep_time) {
         	$prepHoursMinutesArray = Util::iso8601toHoursMinutes($item->prep_time);
