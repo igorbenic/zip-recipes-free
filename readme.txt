@@ -9,7 +9,7 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, recipe card, recipe box, print recipe, schema.org, seo, recipe seo, cooking, food, nutrition
 Requires at least: 4.2
 Tested up to: 5.1
-Stable tag: 5.0.10
+Stable tag: 5.0.11
 Requires PHP: 5.4
 
 Your goal is to build a food blog that earns money by serving loyal fans with your amazing recipes. We're just here to help you do that. Read on to learn about our 4-step success formula for your blog.
@@ -176,8 +176,14 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 5. Copy your recipes directly from Microsoft Word, Adobe PDF, etc.
 
 == Changelog ==
+
+= 5.0.11 =
+* Changed recipe image to large instead of full
+* Updated Twig library, fixing some compatibility issues with other twig using plugins, and lowering install size
+* Fix possible time parsing issue when time is entered as 1/2h instead of 0h30m
+
 = 5.0.10 =
-* Fix: roll back of dynamic version detection, as this seems to cause issues on some installs
+* Fix: roll back of dynamic version detection
 
 = 5.0.9 =
 * Fix: dropped caching twig files

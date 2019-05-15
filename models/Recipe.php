@@ -182,19 +182,118 @@ class Recipe {
 	 */
 	public $created_at;
 
+    /**
+     * varchar(50)
+     * @var string
+     */
+    public $vitamin_a;
+
+    /**
+     * varchar(50)
+     * @var string
+     */
+    public $vitamin_c;
+
+    /**
+     * varchar(50)
+     * @var string
+     */
+    public $iron;
+
+    /**
+     * varchar(50)
+     * @var string
+     */
+    public $calcium;
+
+
 
     /**
      * Get a recipe from the db
      *
      * @global \ZRDN\Array $wpdb
-     * @param type $recipe_id
-     * @return type
+     * @param int $recipe_id
+     * @return object $recipe
      */
     public static function db_select($recipe_id) {
         global $wpdb;
         $table = $wpdb->prefix . self::TABLE_NAME;
         $selectStatement = sprintf("SELECT * FROM `%s` WHERE recipe_id=%d", $table, $recipe_id);
-        return $wpdb->get_row($selectStatement);
+        $recipe =  $wpdb->get_row($selectStatement);
+        return $recipe;
+    }
+
+    public function load(){
+        $recipe_data = false;
+        if ($this->recipe_id){
+            $recipe_data = $this->db_select($this->recipe_id);
+        }
+
+        if (!$recipe_data && $this->post_id){
+            $recipe_data = $this->db_select_by_post_id($this->post_id);
+            $this->recipe_id = $recipe_data->recipe_id;
+        }
+
+        if ($recipe_data) {
+            $recipe = get_object_vars($recipe_data);
+            foreach ($recipe as $fieldname => $value) {
+                $this->{$fieldname} = $value;
+            }
+        }
+    }
+
+    public function save(){
+        global $wpdb;
+        $table = $wpdb->prefix . self::TABLE_NAME;
+        $update_arr = array(
+            'post_id' => intval($this->post_id),
+            'recipe_title' => sanitize_text_field($this->recipe_title),
+            'recipe_image' => sanitize_text_field($this->recipe_image),
+            'summary' => wp_kses_post($this->summary),
+            'prep_time' => $this->prep_time,
+            'cook_time' => $this->cook_time,
+            'yield' => sanitize_text_field($this->yield),
+            'serving_size' => sanitize_text_field($this->serving_size),
+            'calories' => sanitize_text_field($this->calories),
+            'fat' => sanitize_text_field($this->fat),
+            'carbs' => sanitize_text_field($this->carbs),
+            'protein' => sanitize_text_field($this->protein),
+            'fiber' => sanitize_text_field($this->fiber),
+            'sugar' => sanitize_text_field($this->sugar),
+            'saturated_fat' => sanitize_text_field($this->saturated_fat),
+            'sodium' => sanitize_text_field($this->sodium),
+            'ingredients' => wp_kses_post($this->ingredients),
+            'instructions' => wp_kses_post($this->instructions),
+            'notes' => wp_kses_post($this->notes),
+            'category' => sanitize_text_field($this->category),
+            'cuisine' => sanitize_text_field($this->cuisine),
+            'trans_fat' =>sanitize_text_field( $this->trans_fat),
+            'cholesterol' => sanitize_text_field($this->cholesterol),
+            'vitamin_a' => sanitize_text_field($this->vitamin_a),
+            'vitamin_c' => sanitize_text_field($this->vitamin_c),
+            'calcium' => sanitize_text_field($this->calcium),
+            'iron' => sanitize_text_field($this->iron),
+        );
+        $wpdb->update(
+            $table,
+            $update_arr,
+            array('recipe_id' => $this->recipe_id)
+        );
+    }
+
+    /**
+     * Get a recipe from the db by post_id
+     *
+     * @global \ZRDN\Array $wpdb
+     * @param int $post_id
+     * @return object $recipe
+     */
+    public static function db_select_by_post_id($post_id) {
+        global $wpdb;
+        $table = $wpdb->prefix . self::TABLE_NAME;
+        $selectStatement = sprintf("SELECT * FROM %s WHERE post_id=%s", $table, intval($post_id));
+        $recipe =  $wpdb->get_row($selectStatement);
+        return $recipe;
     }
 
     /**
@@ -225,8 +324,19 @@ class Recipe {
         }
         global $wpdb;
         $table = $wpdb->prefix . self::TABLE_NAME;
-        $wpdb->insert($table, $recipe);
-        return $wpdb->insert_id;
+
+        //check if we already have a recipe for this post id
+        //when switching from gutenberg to classic and vice versa, this could otherwise cause double entries.
+        global $wpdb;
+        $sql = $wpdb->prepare("select recipe_id from $table where post_id = %s", $recipe->post_id);
+        $recipe_id = $wpdb->get_var($sql);
+        if ($recipe_id){
+            $wpdb->update($table, $recipe, array('post_id' => $recipe->post_id));
+        } else {
+            $wpdb->insert($table, $recipe);
+            $recipe_id = $wpdb->insert_id;
+        }
+        return $recipe_id;
     }
 
     /**

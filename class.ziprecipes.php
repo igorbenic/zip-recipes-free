@@ -3,7 +3,9 @@
 namespace ZRDN;
 
 use ZRDN\Recipe as RecipeModel;
-class ZipRecipes {
+
+class ZipRecipes
+{
 
     const PLUGIN_OPTION_NAME = "zrdn__plugins";
     const MAIN_CSS_SCRIPT = "zrdn-recipes";
@@ -44,7 +46,7 @@ class ZipRecipes {
                 $pluginPath = "$fileOrFolder/$pluginName.php";
                 Util::log("Attempting to load plugin:" . $pluginsPath);
                 // Sometimes plugin folders end up non-empty and then a hard crash happens when the file is required
-                if (! is_readable($pluginPath)) {
+                if (!is_readable($pluginPath)) {
                     Util::log("Plugin couldn't be loaded. Main plugin file is missing.");
                     continue;
                 }
@@ -64,7 +66,7 @@ class ZipRecipes {
                      * We don't want Recipe Reviews to activated by default
                      * Because Visitor rating activated by default
                      */
-                    $default_activated  = ($fullPluginName === 'ZRDN\RecipeReviews') ? false: true;
+                    $default_activated = ($fullPluginName === 'ZRDN\RecipeReviews') ? false : true;
                     $pluginOptions[$fullPluginName] = array("active" => $default_activated, "description" => $pluginInstance::DESCRIPTION);
                 }
                 update_option(self::PLUGIN_OPTION_NAME, $pluginOptions);
@@ -167,11 +169,11 @@ class ZipRecipes {
             ?>
             <script type="text/javascript">
                 var post_id = '<?php
-            global $post;
-            if (isset($post)) {
-                echo $post->ID;
-            }
-            ?>';
+                    global $post;
+                    if (isset($post)) {
+                        echo $post->ID;
+                    }
+                    ?>';
             </script>
             <?php
         }
@@ -254,18 +256,18 @@ class ZipRecipes {
         self::load_assets();
         $nutritional_info = false;
         if (
-                $recipe->yield != null ||
-                $recipe->serving_size != null ||
-                $recipe->calories != null ||
-                $recipe->fat != null ||
-                $recipe->carbs != null ||
-                $recipe->protein != null ||
-                $recipe->fiber != null ||
-                $recipe->sugar != null ||
-                $recipe->saturated_fat != null ||
-                $recipe->cholesterol != null ||
-                $recipe->sodium != null ||
-                $recipe->trans_fat
+            $recipe->yield != null ||
+            $recipe->serving_size != null ||
+            $recipe->calories != null ||
+            $recipe->fat != null ||
+            $recipe->carbs != null ||
+            $recipe->protein != null ||
+            $recipe->fiber != null ||
+            $recipe->sugar != null ||
+            $recipe->saturated_fat != null ||
+            $recipe->cholesterol != null ||
+            $recipe->sodium != null ||
+            $recipe->trans_fat
         ) {
             $nutritional_info = true;
         }
@@ -289,6 +291,7 @@ class ZipRecipes {
             error_log("Error encoding recipe to JSON:" . json_last_error());
         }
         $image_attributes = self::zrdn_get_responsive_image_attributes($recipe->recipe_image);
+
         $total_time_raw = self::zrdn_calculate_total_time_raw($recipe->prep_time, $recipe->cook_time);
         $viewParams = array(
             'ZRDN_PLUGIN_URL' => ZRDN_PLUGIN_URL,
@@ -499,7 +502,7 @@ class ZipRecipes {
         $parent_slug = $is_registered ? $menu_slug : $reg_menu_slug;
 
         add_menu_page(
-                $page_title, $menu_title, $capability, $parent_slug, $is_registered ? $function : $reg_function, 'dashicons-carrot'
+            $page_title, $menu_title, $capability, $parent_slug, $is_registered ? $function : $reg_function, 'dashicons-carrot'
         );
 
         if (!$is_registered) {
@@ -508,23 +511,23 @@ class ZipRecipes {
 
             $register_title = "Register";
             add_submenu_page(
-                    $parent_slug, // parent_slug
-                    $page_reg_title, // page_title
-                    $register_title, // menu_title
-                    $capability, // capability
-                    $reg_menu_slug, // menu_slug
-                    $reg_function // callback function
+                $parent_slug, // parent_slug
+                $page_reg_title, // page_title
+                $register_title, // menu_title
+                $capability, // capability
+                $reg_menu_slug, // menu_slug
+                $reg_function // callback function
             );
         }
 
         $settings_title = "Settings";
         add_submenu_page(
-                $parent_slug, // parent_slug
-                $page_title, // page_title
-                $settings_title, // menu_title
-                $capability, // capability
-                $menu_slug, // menu_slug
-                $function // callback function
+            $parent_slug, // parent_slug
+            $page_title, // page_title
+            $settings_title, // menu_title
+            $capability, // capability
+            $menu_slug, // menu_slug
+            $function // callback function
         );
 
         do_action("zrdn__menu_page", array(
@@ -847,7 +850,7 @@ class ZipRecipes {
 
         // if this plugin is being updated, call zrdn_recipe_install method
         if (is_array($data) && $data['action'] === 'update' && $data['type'] === 'plugin' &&
-                is_array($data['plugins']) &&
+            is_array($data['plugins']) &&
             in_array(ZRDN_PLUGIN_BASENAME, $data['plugins'])
         ) {
             self::init();
@@ -869,72 +872,79 @@ class ZipRecipes {
      */
     public static function zrdn_recipe_install()
     {
-
         global $wpdb, $wp_version;
 
         Util::log("In zrdn_recipe_install");
 
 
         // Setup gutenberg
-	    if (\is_plugin_active('gutenberg/gutenberg.php') || version_compare( $wp_version, '5.0', '>=' ) ) {
-		    require_once(ZRDN_PLUGIN_DIRECTORY . "gutenberg/RecipeBlock.php");
-	    }
-
-        $recipes_table = $wpdb->prefix . RecipeModel::TABLE_NAME;
-
-        $charset_collate = Util::get_charset_collate();
-
-        // Each column for create table statement is an array element
-        $columns = array(
-            'recipe_id bigint(20) unsigned NOT NULL AUTO_INCREMENT  PRIMARY KEY',
-            'post_id bigint(20) unsigned NOT NULL',
-            'recipe_title text',
-            'recipe_image text',
-            'summary text',
-            'prep_time text',
-            'cook_time text',
-            'yield text',
-            'serving_size varchar(50)',
-            'calories varchar(50)',
-            'fat varchar(50)',
-            'carbs varchar(50)',
-            'protein varchar(50)',
-            'fiber varchar(50)',
-            'sugar varchar(50)',
-            'saturated_fat varchar(50)',
-            'sodium varchar(50)',
-            'ingredients text',
-            'instructions text',
-            'notes text',
-            'category varchar(100)',
-            'cuisine varchar(50)',
-            'trans_fat varchar(50)',
-            'cholesterol varchar(50)',
-            'is_featured_post_image tinyint(1) NOT NULL DEFAULT 0',
-            'created_at timestamp DEFAULT NOW()'
-        );
-
-        $all_columns = apply_filters('zrdn__db_recipe_columns', $columns);
-
-        // For dbDelta to detect different columns, they have to be split using \n (newline).
-        // The comma is part of SQL syntax.
-        $columns_string = implode(",\n", $all_columns);
-        $sql_command = "CREATE TABLE `$recipes_table` ($columns_string) $charset_collate;";
-
-        /**
-         * dbDelta is smart enough not to make changes if they're not needed so we don't need to have table
-         *  version checks.
-         * Also, dbDelta will not drop columns from a table, it only adds new ones.
-         */
-        if (! function_exists('dbDelta')) {
-	        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        if (\is_plugin_active('gutenberg/gutenberg.php') || version_compare($wp_version, '5.0', '>=')) {
+            require_once(ZRDN_PLUGIN_DIRECTORY . "gutenberg/RecipeBlock.php");
         }
-        dbDelta($sql_command); // run SQL script
 
-        Util::log("Calling db_setup() action");
+        if (get_option('zrdn_table_version', 1) !== ZRDN_VERSION_NUM) {
 
-        do_action("zrdn__db_setup", RecipeModel::TABLE_NAME);
+            $recipes_table = $wpdb->prefix . RecipeModel::TABLE_NAME;
 
+            $charset_collate = Util::get_charset_collate();
+
+            // Each column for create table statement is an array element
+            $columns = array(
+                'recipe_id bigint(20) unsigned NOT NULL AUTO_INCREMENT  PRIMARY KEY',
+                'post_id bigint(20) unsigned NOT NULL',
+                'recipe_title text',
+                'recipe_image text',
+                'summary text',
+                'prep_time text',
+                'cook_time text',
+                'yield text',
+                'serving_size varchar(50)',
+                'calories varchar(50)',
+                'fat varchar(50)',
+                'carbs varchar(50)',
+                'protein varchar(50)',
+                'fiber varchar(50)',
+                'sugar varchar(50)',
+                'saturated_fat varchar(50)',
+                'sodium varchar(50)',
+                'vitamin_a varchar(50)',
+                'vitamin_c varchar(50)',
+                'iron varchar(50)',
+                'calcium varchar(50)',
+                'ingredients text',
+                'instructions text',
+                'notes text',
+                'category varchar(100)',
+                'cuisine varchar(50)',
+                'trans_fat varchar(50)',
+                'cholesterol varchar(50)',
+                'is_featured_post_image tinyint(1) NOT NULL DEFAULT 0',
+                'created_at timestamp DEFAULT NOW()'
+            );
+
+            $all_columns = apply_filters('zrdn__db_recipe_columns', $columns);
+
+            // For dbDelta to detect different columns, they have to be split using \n (newline).
+            // The comma is part of SQL syntax.
+            $columns_string = implode(",\n", $all_columns);
+            $sql_command = "CREATE TABLE `$recipes_table` ($columns_string) $charset_collate;";
+
+            /**
+             * dbDelta is smart enough not to make changes if they're not needed so we don't need to have table
+             *  version checks.
+             * Also, dbDelta will not drop columns from a table, it only adds new ones.
+             */
+            if (!function_exists('dbDelta')) {
+                require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            }
+            error_log('run db update');
+            dbDelta($sql_command); // run SQL script
+
+            Util::log("Calling db_setup() action");
+
+            do_action("zrdn__db_setup", RecipeModel::TABLE_NAME);
+            update_option('zrdn_table_version', ZRDN_VERSION_NUM);
+        }
         /**
          * Loading translations
          */
@@ -952,8 +962,6 @@ class ZipRecipes {
     public static function get_remote_promos()
     {
         $promos = array();
-        return $promos;
-
         $promo_id_name_map = array(
             1 => 'author',
             2 => 'nutrition'
@@ -997,7 +1005,6 @@ class ZipRecipes {
     // Content for the popup iframe when creating or editing a recipe
     public static function zrdn_iframe_content($post_info = null, $get_info = null)
     {
-        //load_plugin_textdomain('zip-recipes', FALSE,  ZRDN_PLUGIN_DIRECTORY.'/languages/');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (Util::get_array_value('action', $_POST) === "zrdn-register") {
@@ -1056,8 +1063,8 @@ class ZipRecipes {
             }
 
             if (isset($get_info["recipe_post_id"]) &&
-                    !isset($get_info["add-recipe-button"]) &&
-                    strpos($get_info["recipe_post_id"], '-') !== false
+                !isset($get_info["add-recipe-button"]) &&
+                strpos($get_info["recipe_post_id"], '-') !== false
             ) { // EDIT recipe
                 $recipe_id = preg_replace('/[0-9]*?\-/i', '', $get_info["recipe_post_id"]);
                 $recipe = RecipeModel::db_select($recipe_id);
@@ -1067,23 +1074,23 @@ class ZipRecipes {
                 $summary = $recipe->summary;
                 $notes = $recipe->notes;
                 $ss = array();
-                    try {
-                        if ($recipe->prep_time) {
-                            $prep_time = new \DateInterval($recipe->prep_time);
-                            $prep_time_minutes = $prep_time->i;
-                            $prep_time_hours = $prep_time->h;
-                        }
-                } catch (\Exception $e) {
-                        }
-
-                    try {
-                        if ($recipe->cook_time) {
-                            $cook_time = new \DateInterval($recipe->cook_time);
-                            $cook_time_minutes = $cook_time->i;
-                            $cook_time_hours = $cook_time->h;
-                        }
-                } catch (\Exception $e) {
+                try {
+                    if ($recipe->prep_time) {
+                        $prep_time = new \DateInterval($recipe->prep_time);
+                        $prep_time_minutes = $prep_time->i;
+                        $prep_time_hours = $prep_time->h;
                     }
+                } catch (\Exception $e) {
+                }
+
+                try {
+                    if ($recipe->cook_time) {
+                        $cook_time = new \DateInterval($recipe->cook_time);
+                        $cook_time_minutes = $cook_time->i;
+                        $cook_time_hours = $cook_time->h;
+                    }
+                } catch (\Exception $e) {
+                }
 
                 $yield = $recipe->yield;
                 $serving_size = $recipe->serving_size;
@@ -1116,8 +1123,8 @@ class ZipRecipes {
                 $recipe_image = isset($post_info["recipe_image"]) ? $post_info["recipe_image"] : '';
                 // if recipe image is set, we don't use featured image
                 if ($recipe_image) {
-	                $is_featured_post_image = false;
-	                $post_info["is_featured_post_image"] = false;
+                    $is_featured_post_image = false;
+                    $post_info["is_featured_post_image"] = false;
                 }
                 $summary = isset($post_info["summary"]) ? $post_info["summary"] : '';
                 $notes = isset($post_info["notes"]) ? $post_info["notes"] : '';
@@ -1200,7 +1207,7 @@ class ZipRecipes {
             if (!$skip_registration || (isset($_GET['register']) && $_GET['register'] == 1)) {
                 global $wp_version;
                 $settings_page_url = admin_url('admin.php?page=' . 'zrdn-register');
-	            $url = isset($_SERVER['HTTPS']) ? "https" : "http" . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                $url = isset($_SERVER['HTTPS']) ? "https" : "http" . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                 $settingsParams = array(
                     'settings_url' => $settings_page_url,
                     'registration_url' => self::$registration_url,
@@ -1218,7 +1225,6 @@ class ZipRecipes {
         }
 
         $header_tags = apply_filters('zrdn__create_update_header_tags', '');
-
         // Get promos
         $author_section = apply_filters('zrdn__authors_recipe_create_update', '', $recipe, $post_info);
         $yield_section = apply_filters('zrdn__automatic_nutrition_recipe_create_update', '', $recipe, $post_info);
@@ -1303,16 +1309,16 @@ class ZipRecipes {
         global $wpdb;
         $recipe_id = Util::get_array_value("recipe_id", $post_info);
 
-	    $prep_time = Util::timeToISO8601(
-	            Util::get_array_value("prep_time_hours", $post_info),
-                Util::get_array_value("prep_time_minutes", $post_info)
+        $prep_time = Util::timeToISO8601(
+            Util::get_array_value("prep_time_hours", $post_info),
+            Util::get_array_value("prep_time_minutes", $post_info)
         );
 
 
-	    $cook_time = Util::timeToISO8601(
-		    Util::get_array_value("cook_time_hours", $post_info),
-		    Util::get_array_value("cook_time_minutes", $post_info)
-	    );
+        $cook_time = Util::timeToISO8601(
+            Util::get_array_value("cook_time_hours", $post_info),
+            Util::get_array_value("cook_time_minutes", $post_info)
+        );
 
         // Build array to be sent to db query call
         $clean_fields = array(
@@ -1355,7 +1361,6 @@ class ZipRecipes {
         $recipe['prep_time'] = $prep_time;
         $recipe['cook_time'] = $cook_time;
 
-
         if (RecipeModel::db_select($recipe_id) == null) {
             $recipe["post_id"] = Util::get_array_value("recipe_post_id", $post_info); // set only during record creation
             $recipe_id = RecipeModel::db_insert($recipe);
@@ -1369,31 +1374,44 @@ class ZipRecipes {
         return $recipe_id;
     }
 
+
+    public static function matches_time_pattern($str)
+    {
+        $pattern = "/PT[0-9]{1,2}H[0-9]{1,2}M/i";
+
+        return preg_match($pattern, $str, $matches) === 1 && $matches[0] === $str;
+    }
+
     /**
      * Extract Time from Raw time
      *
-     * @param $formatted_time
+     * @param string $formatted_time
      *
-     * @return array
+     * @return array time
      */
-    public static function zrdn_extract_time( $formatted_time)
+    public static function zrdn_extract_time($formatted_time)
     {
-        if (! $formatted_time) {
-	        return array(
-		        'time_hours'=> false,
-		        'time_minutes'=> false
-	        );
+        if (!$formatted_time) {
+            return array(
+                'time_hours' => false,
+                'time_minutes' => false
+            );
         }
 
+        if (!self::matches_time_pattern($formatted_time)) $formatted_time = 'PT0H0M';
         // In 5.0 we introduced a bug that can end up saving hours as blank which causes an exception.
         // This fixed that scenario.
-        $cleaned_foratted_time = preg_replace('/^PTH/','PT0H', $formatted_time);
+        $cleaned_formatted_time = preg_replace('/^PTH/', 'PT0H', $formatted_time);
 
-        $dateInterval = new \DateInterval( $cleaned_foratted_time);
-
+        try {
+            $dateInterval = new \DateInterval($cleaned_formatted_time);
+        } catch (Exception $e) {
+            $cleaned_formatted_time = 'PT0H0M';
+            $dateInterval = new \DateInterval($cleaned_formatted_time);
+        }
         return array(
-            'time_hours'=>$dateInterval->h,
-            'time_minutes'=>$dateInterval->i
+            'time_hours' => $dateInterval->h,
+            'time_minutes' => $dateInterval->i
         );
     }
 
@@ -1443,8 +1461,8 @@ class ZipRecipes {
         $css = get_option('zlrecipe_stylesheet');
         Util::print_view('header', array(
                 'ZRDN_PLUGIN_URL' => ZRDN_PLUGIN_URL,
-            'css' => $css,
-            'suffix' => self::$suffix
+                'css' => $css,
+                'suffix' => self::$suffix
             )
         );
     }
@@ -1477,23 +1495,23 @@ class ZipRecipes {
 
         $results_array = array();
 
-            try {
-                $result_object = new \DateInterval($duration);
-                foreach ($date_abbr as $abbr => $name_data) {
-                    $current_part = '';
-                    if ($result_object->$abbr > 0) {
-                        $current_part = sprintf($name_data['singular'], $result_object->$abbr);
-                        if ($result_object->$abbr > 1) {
-                            $current_part = sprintf($name_data['plural'], $result_object->$abbr);
-                        }
-                    }
-
-                    if ($current_part) {
-                        array_push($results_array, $current_part);
+        try {
+            $result_object = new \DateInterval($duration);
+            foreach ($date_abbr as $abbr => $name_data) {
+                $current_part = '';
+                if ($result_object->$abbr > 0) {
+                    $current_part = sprintf($name_data['singular'], $result_object->$abbr);
+                    if ($result_object->$abbr > 1) {
+                        $current_part = sprintf($name_data['plural'], $result_object->$abbr);
                     }
                 }
-        } catch (\Exception $e) {
+
+                if ($current_part) {
+                    array_push($results_array, $current_part);
+                }
             }
+        } catch (\Exception $e) {
+        }
 
         return join(", ", $results_array);
     }
@@ -1502,9 +1520,9 @@ class ZipRecipes {
     public static function zrdn_plugin_footer()
     {
         wp_enqueue_script(
-                'zrdn-admin-script', plugins_url('scripts/admin' . self::$suffix . '.js', __FILE__), array('jquery'), // deps
-                false, // ver
-                true // in_footer
+            'zrdn-admin-script', plugins_url('scripts/admin' . self::$suffix . '.js', __FILE__), array('jquery'), // deps
+            false, // ver
+            true // in_footer
         );
 
         Util::print_view('footer', array('url' => site_url(),
@@ -1565,9 +1583,9 @@ class ZipRecipes {
             "recipeYield" => $recipe->yield
         );
 
-	    $total_time = self::zrdn_calculate_total_time_raw($recipe->prep_time, $recipe->cook_time);
-	    if ($total_time) {
-	        $recipe_json_ld["totalTime"] = $total_time;
+        $total_time = self::zrdn_calculate_total_time_raw($recipe->prep_time, $recipe->cook_time);
+        if ($total_time) {
+            $recipe_json_ld["totalTime"] = $total_time;
         }
 
         $cleaned_recipe_json_ld = clean_jsonld($recipe_json_ld);
@@ -1580,7 +1598,7 @@ class ZipRecipes {
                 "name" => $author
             );
         }
-        $rating_data = apply_filters('zrdn__ratings_format_amp', '',$recipe->recipe_id, $recipe->post_id);
+        $rating_data = apply_filters('zrdn__ratings_format_amp', '', $recipe->recipe_id, $recipe->post_id);
         if ($rating_data) {
             $cleaned_recipe_json_ld["aggregateRating"] = (object)array(
                 "bestRating" => $rating_data['max'],
@@ -1690,7 +1708,7 @@ class ZipRecipes {
         .zlrecipe-print-link {float: right;  margin-top: 5px;}
         #zlrecipe-container-178{ padding:10px}
 
-		.zlrecipe-print-link  a { background: url(<?php echo ZRDN_PLUGIN_URL . "images/print-icon.png"; ?> ) no-repeat scroll 0 4px transparent;
+        .zlrecipe-print-link  a { background: url(<?php echo ZRDN_PLUGIN_URL . "images/print-icon.png"; ?> ) no-repeat scroll 0 4px transparent;
         cursor: pointer;
         padding: 0 0 0 20px;
         display: block;
@@ -1738,7 +1756,7 @@ class ZipRecipes {
 
     /**
      * Convert Image URL to image tag
-     * 
+     *
      * @param String $item
      * @return String
      */
@@ -1748,24 +1766,24 @@ class ZipRecipes {
         if (isset($matches[0]) && !empty($matches[0])) {
             foreach ($matches[0] as $image) {
                 $attributes = self::zrdn_get_responsive_image_attributes(str_replace('%', '', $image));
-
-	             $html = "<img class='' src='{$attributes['url']}";
-
+                $html = "<img class='' src='{$attributes['url']}";
                 if (!empty($attributes['srcset'])) {
                     $html .= " srcset='{$attributes['srcset']}";
                 }
                 if (!empty($attributes['sizes'])) {
                     $html .= " sizes='{$attributes['sizes']}'";
                 }
-                if (!empty($attributes['title'])) {
+                if (!empty($attributes['alt'])) {
                     $html .= " alt='{$attributes['alt']}'";
+                } else if (!empty($attributes['title'])) {
+                    $html .= " alt='{$attributes['title']}'";
                 }
                 $html .= ' />';
                 $item = str_replace($image, $html, $item);
             }
         }
 
-        return apply_filters('zrdn_image_html' , $item);
+        return apply_filters('zrdn_image_html', $item);
     }
 
     /**
@@ -1783,7 +1801,8 @@ class ZipRecipes {
          */
         $attributes = array();
         $attributes['url'] = $url;
-        $attributes['attachment_id'] = $attachment_id = attachment_url_to_postid($url);
+        $attributes['attachment_id'] = $attachment_id = get_post_thumbnail_id();
+        //$attributes['attachment_id'] = $attachment_id = attachment_url_to_postid($url);
         $attributes['srcset'] = '';
         $attributes['sizes'] = '';
         $attributes['title'] = '';
@@ -1804,9 +1823,9 @@ class ZipRecipes {
     }
 
     /**
-     * Show Notice 
-     * 
-     * If GD or ImageMagick not installed it will show messages 
+     * Show Notice
+     *
+     * If GD or ImageMagick not installed it will show messages
      */
     public static function zrdn_check_image_editing_support()
     {
@@ -1816,7 +1835,7 @@ class ZipRecipes {
         } else {
             Util::log("Attempting to get responsive image: ImageMagick or GD PHP extensions not installed.");
             Util::print_view("notice");
-    }
+        }
     }
 
     /**
@@ -1850,22 +1869,22 @@ class ZipRecipes {
         $table = $wpdb->prefix . RecipeModel::TABLE_NAME;
         $featured_img = NULL;
         $featured_img = wp_get_attachment_url(get_post_thumbnail_id($post_id));
-	    $update = array();
+        $update = array();
 
         if ($featured_img) {
-	        // only set featured post image to recipe image if it's currently a featured image or empty
+            // only set featured post image to recipe image if it's currently a featured image or empty
             if ($recipe->is_featured_post_image || empty($recipe->recipe_image)) {
-	            $update['recipe_image'] = $featured_img;
-	            $update['is_featured_post_image'] = true;
+                $update['recipe_image'] = $featured_img;
+                $update['is_featured_post_image'] = true;
             }
         } else if ($recipe->is_featured_post_image) { // post has no featured image so clean up
-	        $update['is_featured_post_image'] = false;
-	        $update['recipe_image'] = null;
+            $update['is_featured_post_image'] = false;
+            $update['recipe_image'] = null;
         }
 
         // run update if need be
         if ($update) {
-	        $wpdb->update( $table, $update, array( 'recipe_id' => $recipe->recipe_id ) );
+            $wpdb->update($table, $update, array('recipe_id' => $recipe->recipe_id));
         }
     }
 
@@ -1881,6 +1900,6 @@ class ZipRecipes {
         $table = $wpdb->prefix . RecipeModel::TABLE_NAME;;
         $selectStatement = $wpdb->prepare("SELECT * FROM {$table} WHERE post_id=%d", $post_id);
         return $wpdb->get_results($selectStatement);
-}
+    }
 
 }
