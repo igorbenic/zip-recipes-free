@@ -181,6 +181,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 * Changed recipe image to large instead of full
 * Updated Twig library, fixing some compatibility issues with other twig using plugins, and lowering install size
 * Fix possible time parsing issue when time is entered as 1/2h instead of 0h30m
+* Fixes some untranslatable strings
 
 = 5.0.10 =
 * Fix: roll back of dynamic version detection
