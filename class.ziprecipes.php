@@ -1801,21 +1801,27 @@ class ZipRecipes
          */
         $attributes = array();
         $attributes['url'] = $url;
-        $attributes['attachment_id'] = $attachment_id = get_post_thumbnail_id();
-        //$attributes['attachment_id'] = $attachment_id = attachment_url_to_postid($url);
+
+        //first, try to get from url
+        $attachment_id = attachment_url_to_postid($url);
+        if (!$attachment_id) $attachment_id = get_post_thumbnail_id();
+        $attributes['attachment_id'] = $attachment_id;
         $attributes['srcset'] = '';
         $attributes['sizes'] = '';
         $attributes['title'] = '';
+
         if ($attachment_id) {
 
-            $attributes['url'] = wp_get_attachment_image_url($attachment_id, 'full');
+            $attributes['url'] = wp_get_attachment_image_url($attachment_id, 'large');
             $image_meta = wp_get_attachment_metadata($attachment_id);
 
             $attributes['alt'] = get_post_meta($attachment_id, '_wp_attachment_image_alt', TRUE);
             $attributes['title'] = get_the_title($attachment_id);
-            $img_srcset = wp_get_attachment_image_srcset($attachment_id, 'full', $image_meta);
+            $img_srcset = wp_get_attachment_image_srcset($attachment_id, 'large', $image_meta);
+
             $attributes['srcset'] = esc_attr($img_srcset);
-            $img_sizes = wp_get_attachment_image_sizes($attachment_id, 'full');
+
+            $img_sizes = wp_get_attachment_image_sizes($attachment_id, 'large');
             $attributes['sizes'] = esc_attr($img_sizes);
         }
 
