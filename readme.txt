@@ -179,7 +179,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 
 = 5.0.11 =
 * Changed recipe image to large instead of full
-* Updated Twig library
+* Updated Twig library, fixing some compatibility issues with other twig using plugins, and lowering install size
 * Fix possible time parsing issue when time is entered as 1/2h instead of 0h30m
 
 = 5.0.10 =
