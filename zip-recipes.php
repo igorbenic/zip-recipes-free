@@ -41,10 +41,7 @@ spl_autoload_register(__NAMESPACE__ . '\zrdn_autoload');
 defined('ABSPATH') or die("Error! Cannot be called directly.");
 
 // Define constants
-require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-$plugin_data = get_plugin_data(__FILE__);
-$debug = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? time() : '';
-define('ZRDN_VERSION_NUM', $plugin_data['Version'] . $debug);
+define('ZRDN_VERSION_NUM', '5.0.11');
 
 define('ZRDN_FREE', true);
 define('ZRDN_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ));
