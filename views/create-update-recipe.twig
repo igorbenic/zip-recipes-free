@@ -209,9 +209,6 @@
 <body id="amd-zlrecipe-uploader">
     {% autoescape false %}
         <form id="recipe-form" class="entry-wrapper" enctype='multipart/form-data' method='post' action='' name='recipe_form'>
-            {% if registration_required %}
-                <h3 >Please <a href="{{ recipe_url|raw }}&register=1">register</a> ZipRecipes plugin, it is free.</h3>
-            {% endif %}
             <div id="recipe-form-elements">
                 <input type='hidden' name='recipe_post_id' value='{{ id }}' />
                 <input type='hidden' name='recipe_id' value='{{ recipe_id }}' />
@@ -225,7 +222,6 @@
                                 <input class="zrdn-input zrdn-is-small" type="text" id="recipe-title" name='recipe_title' value='{{ recipe_title }}' placeholder="Recipe title">
                             </div>
                         </div>
-                        {{ author_section|raw }}
                     </div>
                     <div class="zrdn-column">
                         <label class="zrdn-label">Image</label>

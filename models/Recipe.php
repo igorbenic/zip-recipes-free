@@ -296,6 +296,9 @@ class Recipe {
         return $recipe;
     }
 
+
+
+
     /**
      * Delete review row from table
      *
@@ -324,19 +327,8 @@ class Recipe {
         }
         global $wpdb;
         $table = $wpdb->prefix . self::TABLE_NAME;
-
-        //check if we already have a recipe for this post id
-        //when switching from gutenberg to classic and vice versa, this could otherwise cause double entries.
-        global $wpdb;
-        $sql = $wpdb->prepare("select recipe_id from $table where post_id = %s", $recipe->post_id);
-        $recipe_id = $wpdb->get_var($sql);
-        if ($recipe_id){
-            $wpdb->update($table, $recipe, array('post_id' => $recipe->post_id));
-        } else {
-            $wpdb->insert($table, $recipe);
-            $recipe_id = $wpdb->insert_id;
-        }
-        return $recipe_id;
+        $wpdb->insert($table, $recipe);
+        return $wpdb->insert_id;
     }
 
     /**
