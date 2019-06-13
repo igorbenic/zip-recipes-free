@@ -34,16 +34,12 @@ jQuery(document).ready(function ($) {
     var content = $('#zrdn-preview').html();
     //first, remove the json
     var json_matches = content.match(/{"@context".*?}}/g, '');
-
-    content = content.replace(json_matches[0], '');
-    var regex = /(?<!"){([a-zA-Z_].*)_value}/g;
-    var matches = content.match(regex);
-    for (var i = 0; i < matches.length; i++) {
-        var placeholder = matches[i];
-        content = content.replace(/(?<!="){([a-zA-Z_].*)_value}/i, '<span id="zrdn_placeholder_' + '$1' + '"></span>');
+    if (json_matches) {
+        content = content.replace(json_matches[0], '');
     }
 
-
+    //replace to spans
+    content = content.replace(/(?<!="){([a-zA-Z_].*)_value}/g, '<span id="zrdn_placeholder_' + '$1' + '"></span>');
     $('#zrdn-preview').html(content);
 
     //time

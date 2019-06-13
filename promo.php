@@ -9,8 +9,13 @@ add_filter('zrdn__settings_promo', __NAMESPACE__.'\zrdn_settings_promo', 10, 1);
  */
 
 function zrdn_settings_promo($output) {
-    $html =  Util::view('settings_promo', array());
-    $html = zrdn_discount().$html;
+
+    $discount = zrdn_discount();
+    if (strlen($discount)>0) {
+        $html = $discount;
+    } else {
+        $html = Util::view('settings_promo', array());
+    }
     return $html;
 }
 

@@ -60,7 +60,7 @@ add_action('upgrader_process_complete', __NAMESPACE__ . '\ZipRecipes::plugin_upd
 
 // Leaving register_activation_hook here because it's using __FILE__ and it needs to use the main plugin file, which is
 //  this file.
-register_activation_hook(__FILE__, __NAMESPACE__ . '\ZipRecipes::init');
+//register_activation_hook(__FILE__, __NAMESPACE__ . '\ZipRecipes::init');
 
 ZipRecipes::init();
 
@@ -80,10 +80,9 @@ function zrdn_autoload($className)
     require_once(ZRDN_PLUGIN_DIRECTORY . 'RecipeTable/RecipeMenu.php');
     if (is_admin()){
         require_once(ZRDN_PLUGIN_DIRECTORY . 'upgrade-zip.php');
-        require_once(ZRDN_PLUGIN_DIRECTORY . 'class-field.php');
-        //free
+        //free only
         require_once(ZRDN_PLUGIN_DIRECTORY . 'promo.php');
-
+        require_once(ZRDN_PLUGIN_DIRECTORY . 'class-field.php');
     }
 
     /**

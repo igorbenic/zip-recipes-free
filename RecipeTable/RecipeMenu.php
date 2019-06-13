@@ -22,6 +22,18 @@ function zrdn_save_post($post_id, $post_data){
     }
 }
 
+/**
+ * If a post is deleted, we should update the recipe table as well to make sure no recipes are linked anymore to this post
+ */
+
+add_action('delete_post', __NAMESPACE__ . '\zrdn_unlink_post_from_recipe', 10, 1);
+function zrdn_unlink_post_from_recipe($post_id){
+    global $wpdb;
+    $table = $wpdb->prefix . 'amd_zlrecipe_recipes';
+    $sql = $wpdb->prepare("UPDATE ".$table." SET post_id = 0 WHERE post_id = %s", $post_id);
+    return $wpdb->query($sql);
+}
+
 
 add_action('wp_ajax_zrdn_delete_recipe', __NAMESPACE__ . '\zrdn_delete_recipe');
 function zrdn_delete_recipe(){
