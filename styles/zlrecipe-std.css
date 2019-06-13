@@ -351,13 +351,15 @@ Copyright 2011, 2012 ZipList, Inc.
   font-size: 12px;
   line-height: 1.4;
 }
+#zrdn-nutrition-label .nutrition-container {
+  margin: auto auto;
+}
 #zrdn-nutrition-label p {
   margin: 0;
 }
 #zrdn-nutrition-label .nutrition-facts {
   border: 1px solid black;
   margin: 20px;
-  margin: auto auto;
   width: 280px;
   padding: 8px;
 }

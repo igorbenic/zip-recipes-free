@@ -2,261 +2,251 @@
 # Copyright (C) YEAR Zip Recipes Ltd
 # This file is distributed under the same license as the zip-recipes package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
-"POT-Creation-Date: 2019-03-20 10:27+0100\n"
-"PO-Revision-Date: 2019-03-20 09:43+0000\n"
-"Last-Translator: rogier <rogierlankhorst@gmail.com>\n"
-"Language-Team: Arabic\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2017-04-10 20:00+0400\n"
+"Last-Translator: \n"
+"Language-Team: Dr. Alaa Qashllan <doctor3ala2@gmail.com>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 1.8.12\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
-"X-Loco-Version: 2.2.1; wp-5.1.1"
 
-#: class.ziprecipes.php:1470
-#, php-format
-msgid "%d year"
-msgstr "%d سنة"
-
-#: class.ziprecipes.php:1470
-#, php-format
-msgid "%d years"
-msgstr "%d سنوات"
-
-#: class.ziprecipes.php:1471
-#, php-format
-msgid "%d month"
-msgstr "%d شهر"
-
-#: class.ziprecipes.php:1471
-#, php-format
-msgid "%d months"
-msgstr "%d شهراً"
-
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d day"
 msgstr "%d يوم"
 
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d days"
 msgstr "%d ايام"
 
-#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hour"
 msgstr "%d ساعة"
 
-#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hours"
 msgstr "%d ساعات"
 
-#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minute"
 msgstr "%d دقيقة"
 
-#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minutes"
 msgstr "%d دقائق"
 
-#: class.ziprecipes.php:1475
+#, php-format
+msgid "%d month"
+msgstr "%d شهر"
+
+#, php-format
+msgid "%d months"
+msgstr "%d شهراً"
+
 #, php-format
 msgid "%d second"
 msgstr "%d ثانية"
 
-#: class.ziprecipes.php:1475
 #, php-format
 msgid "%d seconds"
 msgstr "%d ثواني"
 
-#: controllers/EndpointController.php:170
-msgid "Invalid recipe ID or recipe not found"
-msgstr ""
+#, php-format
+msgid "%d year"
+msgstr "%d سنة"
 
-#: controllers/EndpointController.php:187
-msgid "Invalid recipe fields"
-msgstr ""
+#, php-format
+msgid "%d years"
+msgstr "%d سنوات"
 
-#: controllers/EndpointController.php:196
+msgid "Author:"
+msgstr "المؤلف: "
+
+msgid "Calories per serving:"
+msgstr "السعرات الحرارية لكل حصة:"
+
+msgid "Calories:"
+msgstr "الكالوري:"
+
 #, fuzzy
 msgid "Can't create recipe"
 msgstr "قيم هذه الوصفة"
 
-#: controllers/EndpointController.php:216
 #, fuzzy
 msgid "Can't update recipe"
 msgstr "قيم هذه الوصفة"
 
-#: views/create-update-recipe.twig:249 views/recipe.twig:282
-msgid "Ingredients"
-msgstr "المقادير"
+msgid "Carbs per serving:"
+msgstr "الكربوهيدرات لكل حصة:"
 
-#: views/create-update-recipe.twig:251
-msgid ""
-"Put each ingredient on a separate line.  There is no need to use bullets for "
-"your ingredients.<br />\n"
-"                        You can also create labels, hyperlinks, bold/italic "
-"effects and even add images!"
+msgid "Carbs:"
+msgstr "الكربوهيدرات:"
+
+msgid "Category:"
 msgstr ""
 
-#: views/create-update-recipe.twig:262 views/recipe.twig:320
-msgid "Instructions"
-msgstr "خطوات التحضير"
+#, fuzzy
+msgid "Cholesterol per serving:"
+msgstr "السعرات الحرارية لكل حصة:"
 
-#: views/default_nutrition.twig:34
-msgid "Calculate Nutrition"
+msgid "Cholesterol:"
 msgstr ""
 
-#: views/notice.twig:2
+msgid "Cook"
+msgstr "مدة الطبخ: "
+
+msgid "Cook Time:"
+msgstr "مدة الطبخ: "
+
+msgid "Cuisine:"
+msgstr ""
+
+msgid "Fat per serving:"
+msgstr "الدهون لكل حصة:"
+
+msgid "Fat:"
+msgstr "الدهون:"
+
+msgid "Fiber per serving:"
+msgstr "الألياف لكل حصة:"
+
+msgid "Fiber:"
+msgstr "الألياف:"
+
 msgid ""
 "For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
 "extensions installed. Please contact your hosting company and request that "
 "they install ImageMagick or GD PHP extensions for you website."
 msgstr ""
 
-#: views/recipe.twig:25 views/recipe.twig:29
-msgid "Print this recipe"
-msgstr "طباعة هذه الوصفة"
+msgid "Ingredients"
+msgstr "المقادير"
 
-#: views/recipe.twig:30
-msgid "Print"
-msgstr "طباعة"
+msgid "Instructions"
+msgstr "خطوات التحضير"
 
-#: views/recipe.twig:51
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr "ملاحظات"
+
+msgid "Prep"
+msgstr "مدة الإعداد: "
+
 msgid "Prep Time:"
 msgstr "مدة الإعداد: "
 
-#: views/recipe.twig:63
-msgid "Cook Time:"
-msgstr "مدة الطبخ: "
+msgid "Prep:"
+msgstr "مدة الإعداد: "
 
-#: views/recipe.twig:75
-msgid "Total Time:"
-msgstr "الوقت الكلي:"
+msgid "Print"
+msgstr "طباعة"
 
-#: views/recipe.twig:87
-msgid "Category:"
-msgstr ""
+msgid "Print this recipe"
+msgstr "طباعة هذه الوصفة"
 
-#: views/recipe.twig:99
-msgid "Cuisine:"
-msgstr ""
-
-#: views/recipe.twig:119
-msgid "Yield:"
-msgstr "الحصص:"
-
-#: views/recipe.twig:134
-msgid "Serving Size:"
-msgstr "حجم الحصة:"
-
-#: views/recipe.twig:144
-msgid "Calories per serving:"
-msgstr "السعرات الحرارية لكل حصة:"
-
-#: views/recipe.twig:154
-msgid "Fat per serving:"
-msgstr "الدهون لكل حصة:"
-
-#: views/recipe.twig:164
-msgid "Saturated fat per serving:"
-msgstr "الدهون المشبعة لكل حصة:"
-
-#: views/recipe.twig:174
-msgid "Carbs per serving:"
-msgstr "الكربوهيدرات لكل حصة:"
-
-#: views/recipe.twig:184
 msgid "Protein per serving:"
 msgstr "صةالبروتين في لكل حصة:"
 
-#: views/recipe.twig:194
-msgid "Fiber per serving:"
-msgstr "الألياف لكل حصة:"
+msgid "Protein:"
+msgstr "البروتين:"
 
-#: views/recipe.twig:204
-msgid "Sugar per serving:"
-msgstr "السكر لكل حصة:"
+msgid "Rate this recipe"
+msgstr "قيم هذه الوصفة"
 
-#: views/recipe.twig:214
+#, fuzzy
+msgid "Rating"
+msgstr "تقييمات"
+
+msgid "Ready in"
+msgstr "جاهزة في"
+
+msgid "Recipe Reviews"
+msgstr ""
+
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
+msgstr ""
+
+msgid "Saturated fat per serving:"
+msgstr "الدهون المشبعة لكل حصة:"
+
+msgid "Saturated fat:"
+msgstr "الدهون المشبعة:"
+
+msgid "Save to BigOven"
+msgstr ""
+
+msgid "Serves:"
+msgstr "الحصص: "
+
+msgid "Serving Size:"
+msgstr "حجم الحصة:"
+
 msgid "Sodium per serving:"
 msgstr "الصوديوم لكل حصة:"
 
-#: views/recipe.twig:224
+msgid "Sodium:"
+msgstr "الصوديوم:"
+
+msgid "Sugar per serving:"
+msgstr "السكر لكل حصة:"
+
+msgid "Sugar:"
+msgstr "سكر:"
+
+msgid "Total Time:"
+msgstr "الوقت الكلي:"
+
+msgid "Total:"
+msgstr "الوقت الكلي: "
+
 #, fuzzy
 msgid "Trans fat per serving:"
 msgstr "الدهون المشبعة لكل حصة:"
 
-#: views/recipe.twig:234
-#, fuzzy
-msgid "Cholesterol per serving:"
-msgstr "السعرات الحرارية لكل حصة:"
-
-#: views/recipe.twig:358
-msgid "Notes"
-msgstr "ملاحظات"
-
-#: views/settings.twig:20
-msgid "Like the plugin, or need more features? Check out the premium features:"
+msgid "Trans fat:"
 msgstr ""
 
-#: views/settings.twig:22
-msgid "Cool looking themes"
-msgstr ""
-
-#: views/settings.twig:23
-msgid "Author setting for Google"
-msgstr ""
-
-#: views/settings.twig:24
-msgid "Ratings"
-msgstr ""
-
-#: views/settings.twig:25
-msgid "Recipe index"
-msgstr ""
-
-#: views/settings.twig:26
-msgid "Nutrition calculation"
-msgstr ""
-
-#: views/settings.twig:27
-msgid "Search by ingredients"
-msgstr ""
-
-#: views/settings.twig:28
-msgid "Recipe picture gallery"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Zip Recipes"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://www.ziprecipes.net/"
-msgstr ""
-
-#. Description of the plugin/theme
 msgid ""
-"A plugin that adds all the necessary microdata to your recipes, so they will "
-"show up in Google's Recipe Search"
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "RogierLankhorst, markwolters"
-msgstr ""
+msgid "Yield:"
+msgstr "الحصص:"
 
-#. Author URI of the plugin/theme
-msgid "http://www.really-simple-plugins.com/"
-msgstr ""
+#, fuzzy
+msgid "Your rating:"
+msgstr "تقييمات"
+
+msgid "ratings"
+msgstr "تقييمات"
+
+msgid "stars"
+msgstr "نجوم"
+
+#~ msgid "Instructions:"
+#~ msgstr "خطوات التحضير: "
+
+#, fuzzy
+#~ msgid "Ingredients:"
+#~ msgstr "المقادير"
+
+#~ msgid "Ingridients:"
+#~ msgstr "المقادير: "

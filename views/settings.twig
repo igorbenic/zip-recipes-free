@@ -6,29 +6,7 @@
   <form method="post" action="" id="zlrecipe_settings_form" name="zlrecipe_settings_form">
     <h2><img src="{{ zrdn_icon }}" /> Zip Recipes Settings</h2>
       For full customization options, see the <a href="https://www.ziprecipes.net/docs/installing/" target="_blank">Instructions document</a>.
-      <style>
-        .zrdn-promo {
-          background-color:white;
-          padding:30px;
-          margin:20px;
-        }
-        .zrdn-promo ul {
-          list-style-type: circle;
-          margin-left: 30px;}
-      </style>
-      <div class="zrdn-promo">
-        <h3>{{ __('Like the plugin, or need more features? Check out the premium features:','zip-recipes') }}</h3>
-        <ul>
-          <li>{{ __('Cool looking themes','zip-recipes') }}</li>
-          <li>{{ __('Author setting for Google','zip-recipes') }}</li>
-          <li>{{ __('Ratings','zip-recipes') }}</li>
-          <li>{{ __('Recipe index','zip-recipes') }}</li>
-          <li>{{ __('Nutrition calculation','zip-recipes') }}</li>
-          <li>{{ __('Search by ingredients','zip-recipes') }}</li>
-          <li>{{ __('Recipe picture gallery','zip-recipes') }}</li>
-      </ul>
-        <a target="_blank" href="https://ziprecipes.net/premium" class="button button-primary">Check premium</a>
-      </div>
+      {{ settings_promo|raw  }}
       {{ extensions_settings|raw }}
       <table class="form-table">
         <tr valign="top">
@@ -44,11 +22,11 @@
         </tr>
         <tr valign="top">
           <th scope="row">Zip Recipes Plugin Link</th>
-          <td><label><input type="checkbox" name="zrecipe-attribution-hide" value="Hide" {{ zrecipe_attribution_hide|raw }} /> Don't show plugin link</label></td>
+          <td><label><input type="checkbox" name="zrecipe-attribution-hide" value="Hide" {{ zrecipe_attribution_hide|raw }} /> Hide plugin link</label></td>
         </tr>
         <tr valign="top">
           <th scope="row">Printed Output: Recipe Permalink</th>
-          <td><label><input type="checkbox" name="printed-permalink-hide" value="Hide" {{ printed_permalink_hide|raw }} /> Don't show permalink in printed output</label></td>
+          <td><label><input type="checkbox" name="printed-permalink-hide" value="Hide" {{ printed_permalink_hide|raw }} /> Hide permalink in printed output</label></td>
         </tr>
         <tr valign="top">
           <th scope="row">Printed Output: Copyright Statement</th>
@@ -66,11 +44,11 @@
         </tr>
         <tr valign="top">
           <th scope="row">Recipe Title</th>
-          <td><label><input type="checkbox" name="recipe-title-hide" value="Hide" {{ recipe_title_hide|raw }} /> Don't show Recipe Title in post (still shows in print view)</label></td>
+          <td><label><input type="checkbox" name="recipe-title-hide" value="Hide" {{ recipe_title_hide|raw }} /> Hide Recipe Title in post (still shows in print view)</label></td>
         </tr>
         <tr valign="top">
           <th scope="row">Print Button</th>
-          <td><label><input type="checkbox" name="print-link-hide" value="Hide" {{ print_link_hide|raw }} /> Don't show Print Button</label></td>
+          <td><label><input type="checkbox" name="print-link-hide" value="Hide" {{ print_link_hide|raw }} /> Hide Print Button</label></td>
         </tr>
         <tr valign="top">
           <th scope="row">Image Width</th>
@@ -79,9 +57,9 @@
         <tr valign="top">
           <th scope="row">Image Display</th>
           <td>
-            <label><input type="checkbox" name="image-hide" value="Hide" {{ image_hide|raw }} /> Don't show Image in post</label>
+            <label><input type="checkbox" name="image-hide" value="Hide" {{ image_hide|raw }} /> Hide Image in post</label>
             <br />
-            <label><input type="checkbox" name="image-hide-print" value="Hide" {{ image_hide_print|raw }} /> Don't show Image in print view</label>
+            <label><input type="checkbox" name="image-hide-print" value="Hide" {{ image_hide_print|raw }} /> Hide Image in print view</label>
           </td>
         </tr>
         <tr valign="top">
@@ -97,7 +75,7 @@
         <tr valign="top">
           <th scope="row">'Ingredients' Label</th>
           <td>
-            <label><input type="checkbox" name="ingredient-label-hide" value="Hide" {{ ingredient_label_hide|raw }} /> Don't show Ingredients label</label>
+            <label><input type="checkbox" name="ingredient-label-hide" value="Hide" {{ ingredient_label_hide|raw }} /> Hide Ingredients label</label>
           </td>
         </tr>
         <tr valign="top">
@@ -128,7 +106,7 @@
         <tr valign="top">
           <th scope="row">'Instructions' Label</th>
           <td>
-            <label><input type="checkbox" name="instruction-label-hide" value="Hide" {{ instruction_label_hide|raw }} /> Don't show Instructions label</label>
+            <label><input type="checkbox" name="instruction-label-hide" value="Hide" {{ instruction_label_hide|raw }} /> Hide Instructions label</label>
           </td>
         </tr>
         <tr valign="top">

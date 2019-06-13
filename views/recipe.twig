@@ -18,20 +18,26 @@
     {% endif %}
     <div class="item b-b">
 
-      {# Add the print button #}
-      {% if print_hide != "Hide" %}
-        <div class="zlrecipe-print-link fl-r">
-          {% if custom_print_image %}
-            <a class="print-link" title="{{ __('Print this recipe','zip-recipes') }}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow">
-              <img src="{{ custom_print_image }}">
-            </a>
-          {% else %}
-            <a class="butn-link" title="{{ __('Print this recipe','zip-recipes') }}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow">
-              {{ __('Print','zip-recipes') }}
-            </a>
+      {# Add the print button, but not for amp, as the print button requires javascript
+        https://github.com/ampproject/amphtml/blob/master/examples/standard-actions.amp.html
+      #}
+        {% if amp_on %}
+            <button on="tap:AMP.print">{{ __('Print', 'zip-recipes') }}</button>
+        {% else %}
+            {% if print_hide != "Hide" %}
+            <div class="zlrecipe-print-link fl-r">
+              {% if custom_print_image %}
+                <a class="print-link" title="{{ __('Print this recipe','zip-recipes') }}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow">
+                  <img src="{{ custom_print_image }}">
+                </a>
+              {% else %}
+                <a class="butn-link" title="{{ __('Print this recipe','zip-recipes') }}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow">
+                  {{ __('Print','zip-recipes') }}
+                </a>
+              {% endif %}
+            </div>
           {% endif %}
-        </div>
-      {% endif %}
+        {% endif %}
 
       {# add the title and close the item class #}
       <div id="zlrecipe-title"
@@ -50,7 +56,7 @@
             {% if prep_time_label_hide != 'Hide' %}
               {{ __('Prep Time:','zip-recipes') }}
             {% endif %}
-            <span
+            <span class="prep_time"
                 {{ recipe_props.recipe_attr('itemprop', "prepTime", amp_on) }}
                 {{ recipe_props.recipe_attr('content', prep_time_raw, amp_on) }}
             >{{ prep_time }}</span>
@@ -62,7 +68,7 @@
             {% if cook_time_label_hide != 'Hide' %}
               {{ __('Cook Time:','zip-recipes') }}
             {% endif %}
-            <span
+            <span class="cook_time"
                 {{ recipe_props.recipe_attr('itemprop', "cookTime", amp_on) }}
                 {{ recipe_props.recipe_attr('content', cook_time_raw, amp_on) }}
             >{{ cook_time }}</span>
@@ -256,7 +262,7 @@
                     {% if image_hide_print == 'Hide' %}hide-print{% endif %}
                     "
               >
-                  <img class="photo"
+                  <img class="photo zrdn-recipe-image"
                           {{ recipe_props.recipe_attr('itemprop', "image", amp_on) }} src="{{ image_attributes.url }}" {% if image_attributes.srcset %}srcset="{{ image_attributes.srcset }}"{% endif %} {% if image_attributes.sizes %}sizes="{{ image_attributes.sizes }}"{% endif %} title="{{ recipe_title }}"
                           {% if image_attributes.alt %}
                               alt="{{ image_attributes.alt }}"
@@ -369,7 +375,7 @@
 
     {# Zip Recipes attribution and version #}
     {% if attribution_hide != 'Hide' %}
-      <div class="zl-linkback">Recipe Management Powered by <a title="Zip Recipes Plugin" href="https://www.ziprecipes.net" rel="nofollow" target="_blank">Zip Recipes Plugin</a></div>
+      <div class="zl-linkback">Powered by <a title="Zip Recipes" href="https://ziprecipes.net" rel="nofollow" target="_blank">Zip Recipes</a></div>
     {% endif %}
     <div class="ziprecipes-plugin" style="display: none;">{{version}}</div>
 

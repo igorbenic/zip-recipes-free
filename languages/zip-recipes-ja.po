@@ -2,261 +2,246 @@
 # Copyright (C) YEAR Zip Recipes Ltd
 # This file is distributed under the same license as the zip-recipes package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
-"POT-Creation-Date: 2019-03-20 10:27+0100\n"
-"PO-Revision-Date: 2019-03-20 09:44+0000\n"
-"Last-Translator: rogier <rogierlankhorst@gmail.com>\n"
-"Language-Team: Japanese\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2018-10-26 15:41+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Loco-Version: 2.2.1; wp-5.1.1"
 
-#: class.ziprecipes.php:1470
-#, php-format
-msgid "%d year"
-msgstr "%d 年"
-
-#: class.ziprecipes.php:1470
-#, php-format
-msgid "%d years"
-msgstr "%d 年"
-
-#: class.ziprecipes.php:1471
-#, php-format
-msgid "%d month"
-msgstr "%d 月"
-
-#: class.ziprecipes.php:1471
-#, php-format
-msgid "%d months"
-msgstr "%d ヶ月"
-
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d day"
 msgstr "%d 日"
 
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d days"
 msgstr "%d 日"
 
-#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hour"
 msgstr "%d 時間"
 
-#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hours"
 msgstr "%d 時間"
 
-#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minute"
 msgstr "%d 分"
 
-#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minutes"
 msgstr "%d 分"
 
-#: class.ziprecipes.php:1475
+#, php-format
+msgid "%d month"
+msgstr "%d 月"
+
+#, php-format
+msgid "%d months"
+msgstr "%d ヶ月"
+
 #, php-format
 msgid "%d second"
 msgstr "%d 秒"
 
-#: class.ziprecipes.php:1475
 #, php-format
 msgid "%d seconds"
 msgstr "%d 秒"
 
-#: controllers/EndpointController.php:170
-msgid "Invalid recipe ID or recipe not found"
-msgstr ""
+#, php-format
+msgid "%d year"
+msgstr "%d 年"
 
-#: controllers/EndpointController.php:187
-msgid "Invalid recipe fields"
-msgstr ""
+#, php-format
+msgid "%d years"
+msgstr "%d 年"
 
-#: controllers/EndpointController.php:196
+msgid "Author:"
+msgstr "投稿者："
+
+msgid "Calories per serving:"
+msgstr "一食当たりのカロリー："
+
+msgid "Calories:"
+msgstr "カロリー："
+
 #, fuzzy
 msgid "Can't create recipe"
 msgstr "このレシピを評価"
 
-#: controllers/EndpointController.php:216
 #, fuzzy
 msgid "Can't update recipe"
 msgstr "このレシピを評価"
 
-#: views/create-update-recipe.twig:249 views/recipe.twig:282
-msgid "Ingredients"
-msgstr "材料"
+msgid "Carbs per serving:"
+msgstr "一食当たりの炭水化物："
 
-#: views/create-update-recipe.twig:251
-msgid ""
-"Put each ingredient on a separate line.  There is no need to use bullets for "
-"your ingredients.<br />\n"
-"                        You can also create labels, hyperlinks, bold/italic "
-"effects and even add images!"
-msgstr ""
+msgid "Carbs:"
+msgstr "炭水化物："
 
-#: views/create-update-recipe.twig:262 views/recipe.twig:320
-msgid "Instructions"
-msgstr "作り方"
+msgid "Category:"
+msgstr "カテゴリー："
 
-#: views/default_nutrition.twig:34
-msgid "Calculate Nutrition"
-msgstr ""
+msgid "Cholesterol per serving:"
+msgstr "一食当たりのコレステロール："
 
-#: views/notice.twig:2
+msgid "Cholesterol:"
+msgstr "コレステロール："
+
+msgid "Cook"
+msgstr "調理"
+
+msgid "Cook Time:"
+msgstr "調理時間："
+
+msgid "Cuisine:"
+msgstr "料理："
+
+msgid "Fat per serving:"
+msgstr "一食当たりの脂肪："
+
+msgid "Fat:"
+msgstr "脂肪："
+
+msgid "Fiber per serving:"
+msgstr "一食当たりの繊維質："
+
+msgid "Fiber:"
+msgstr "繊維質："
+
 msgid ""
 "For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
 "extensions installed. Please contact your hosting company and request that "
 "they install ImageMagick or GD PHP extensions for you website."
 msgstr ""
-"最高のパフォーマンスを得るためには、Zip RecipesはImageMagickかGD "
-"PHPエクステンションのインストールをお勧めします。あなたのウェブサイトにImageMagickかGD "
-"PHPエクステンションをインストールしてくれるようホスティング会社に依頼してください。"
+"最高のパフォーマンスを得るためには、Zip RecipesはImageMagickかGD PHPエクステ"
+"ンションのインストールをお勧めします。あなたのウェブサイトにImageMagickかGD "
+"PHPエクステンションをインストールしてくれるようホスティング会社に依頼してくだ"
+"さい。"
 
-#: views/recipe.twig:25 views/recipe.twig:29
-msgid "Print this recipe"
-msgstr "このレシピを印刷"
+msgid "Ingredients"
+msgstr "材料"
 
-#: views/recipe.twig:30
-msgid "Print"
-msgstr "印刷"
+msgid "Instructions"
+msgstr "作り方"
 
-#: views/recipe.twig:51
-msgid "Prep Time:"
-msgstr "準備時間："
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
 
-#: views/recipe.twig:63
-msgid "Cook Time:"
-msgstr "調理時間："
+msgid "Invalid recipe fields"
+msgstr ""
 
-#: views/recipe.twig:75
-msgid "Total Time:"
-msgstr "全調理時間："
-
-#: views/recipe.twig:87
-msgid "Category:"
-msgstr "カテゴリー："
-
-#: views/recipe.twig:99
-msgid "Cuisine:"
-msgstr "料理："
-
-#: views/recipe.twig:119
-msgid "Yield:"
-msgstr "調理後の量："
-
-#: views/recipe.twig:134
-msgid "Serving Size:"
-msgstr "一人分："
-
-#: views/recipe.twig:144
-msgid "Calories per serving:"
-msgstr "一食当たりのカロリー："
-
-#: views/recipe.twig:154
-msgid "Fat per serving:"
-msgstr "一食当たりの脂肪："
-
-#: views/recipe.twig:164
-msgid "Saturated fat per serving:"
-msgstr "一食当たりの飽和脂肪酸："
-
-#: views/recipe.twig:174
-msgid "Carbs per serving:"
-msgstr "一食当たりの炭水化物："
-
-#: views/recipe.twig:184
-msgid "Protein per serving:"
-msgstr "一食当たりのタンパク質："
-
-#: views/recipe.twig:194
-msgid "Fiber per serving:"
-msgstr "一食当たりの繊維質："
-
-#: views/recipe.twig:204
-msgid "Sugar per serving:"
-msgstr "一食当たりの砂糖："
-
-#: views/recipe.twig:214
-msgid "Sodium per serving:"
-msgstr "一食当たりのナトリウム："
-
-#: views/recipe.twig:224
-msgid "Trans fat per serving:"
-msgstr "一食当たりのトランス脂肪酸："
-
-#: views/recipe.twig:234
-msgid "Cholesterol per serving:"
-msgstr "一食当たりのコレステロール："
-
-#: views/recipe.twig:358
 msgid "Notes"
 msgstr "メモ"
 
-#: views/settings.twig:20
-msgid "Like the plugin, or need more features? Check out the premium features:"
-msgstr ""
+msgid "Prep"
+msgstr "準備"
 
-#: views/settings.twig:22
-msgid "Cool looking themes"
-msgstr ""
+msgid "Prep Time:"
+msgstr "準備時間："
 
-#: views/settings.twig:23
-msgid "Author setting for Google"
-msgstr ""
+msgid "Prep:"
+msgstr "準備："
 
-#: views/settings.twig:24
-msgid "Ratings"
-msgstr ""
+msgid "Print"
+msgstr "印刷"
 
-#: views/settings.twig:25
-msgid "Recipe index"
-msgstr ""
+msgid "Print this recipe"
+msgstr "このレシピを印刷"
 
-#: views/settings.twig:26
-msgid "Nutrition calculation"
-msgstr ""
+msgid "Protein per serving:"
+msgstr "一食当たりのタンパク質："
 
-#: views/settings.twig:27
-msgid "Search by ingredients"
-msgstr ""
+msgid "Protein:"
+msgstr "タンパク質："
 
-#: views/settings.twig:28
-msgid "Recipe picture gallery"
-msgstr ""
+msgid "Rate this recipe"
+msgstr "このレシピを評価"
 
-#. Plugin Name of the plugin/theme
-msgid "Zip Recipes"
-msgstr ""
+msgid "Rating"
+msgstr "評価"
 
-#. Plugin URI of the plugin/theme
-msgid "http://www.ziprecipes.net/"
-msgstr ""
+msgid "Ready in"
+msgstr "調理時間"
 
-#. Description of the plugin/theme
+msgid "Recipe Reviews"
+msgstr "レシピの感想"
+
 msgid ""
-"A plugin that adds all the necessary microdata to your recipes, so they will "
-"show up in Google's Recipe Search"
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
 msgstr ""
+"レシピの感想はWordPressのコメントまたはJetpackのコメントでのみ書き込めます。"
+"<a href=“https://www.ziprecipes.net/docs/recipe-reviews/“ target=“_blank”>詳"
+"しく読む</a>"
 
-#. Author of the plugin/theme
-msgid "RogierLankhorst, markwolters"
-msgstr ""
+msgid "Saturated fat per serving:"
+msgstr "一食当たりの飽和脂肪酸："
 
-#. Author URI of the plugin/theme
-msgid "http://www.really-simple-plugins.com/"
+msgid "Saturated fat:"
+msgstr "飽和脂肪酸："
+
+msgid "Save to BigOven"
+msgstr "BigOvenに保存"
+
+msgid "Serves:"
+msgstr "人数："
+
+msgid "Serving Size:"
+msgstr "一人分："
+
+msgid "Sodium per serving:"
+msgstr "一食当たりのナトリウム："
+
+msgid "Sodium:"
+msgstr "ナトリウム："
+
+msgid "Sugar per serving:"
+msgstr "一食当たりの砂糖："
+
+msgid "Sugar:"
+msgstr "砂糖："
+
+msgid "Total Time:"
+msgstr "全調理時間："
+
+msgid "Total:"
+msgstr "総計"
+
+msgid "Trans fat per serving:"
+msgstr "一食当たりのトランス脂肪酸："
+
+msgid "Trans fat:"
+msgstr "トランス脂肪酸："
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
 msgstr ""
+"ビジターの評価とレシピの感想は同時に書き込めません。もし匿名評価をしたい時は"
+"ビジターの評価を起動してください。もしレシピ感想を書きたいときはレシピの感想"
+"を起動してください。"
+
+msgid "Yield:"
+msgstr "調理後の量："
+
+msgid "Your rating:"
+msgstr "あなたの評価："
+
+msgid "ratings"
+msgstr "評価"
+
+msgid "stars"
+msgstr "星"

@@ -2,261 +2,257 @@
 # Copyright (C) YEAR Zip Recipes Ltd
 # This file is distributed under the same license as the zip-recipes package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
-"POT-Creation-Date: 2019-03-20 10:27+0100\n"
-"PO-Revision-Date: 2019-03-20 09:43+0000\n"
-"Last-Translator: rogier <rogierlankhorst@gmail.com>\n"
-"Language-Team: Portuguese (Brazil)\n"
-"Language: pt_BR\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2016-06-14 14:40-0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Loco-Version: 2.2.1; wp-5.1.1"
 
-#: class.ziprecipes.php:1470
-#, php-format
-msgid "%d year"
-msgstr "%d ano"
-
-#: class.ziprecipes.php:1470
-#, php-format
-msgid "%d years"
-msgstr "%d anos"
-
-#: class.ziprecipes.php:1471
-#, php-format
-msgid "%d month"
-msgstr "%d mês"
-
-#: class.ziprecipes.php:1471
-#, php-format
-msgid "%d months"
-msgstr "%d meses"
-
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d day"
 msgstr "%d dia"
 
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d days"
 msgstr "%d dias"
 
-#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hour"
 msgstr "%d hora"
 
-#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hours"
 msgstr "%d horas"
 
-#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minute"
 msgstr "%d minuto"
 
-#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minutes"
 msgstr "%d minutos"
 
-#: class.ziprecipes.php:1475
+#, php-format
+msgid "%d month"
+msgstr "%d mês"
+
+#, php-format
+msgid "%d months"
+msgstr "%d meses"
+
 #, php-format
 msgid "%d second"
 msgstr "%d segundo"
 
-#: class.ziprecipes.php:1475
 #, php-format
 msgid "%d seconds"
 msgstr "%d segundos"
 
-#: controllers/EndpointController.php:170
-msgid "Invalid recipe ID or recipe not found"
-msgstr ""
+#, php-format
+msgid "%d year"
+msgstr "%d ano"
 
-#: controllers/EndpointController.php:187
-msgid "Invalid recipe fields"
-msgstr ""
+#, php-format
+msgid "%d years"
+msgstr "%d anos"
 
-#: controllers/EndpointController.php:196
+msgid "Author:"
+msgstr "Autor:"
+
+msgid "Calories per serving:"
+msgstr "Calorias por porção:"
+
+#, fuzzy
+msgid "Calories:"
+msgstr "Calorias por porção:"
+
 #, fuzzy
 msgid "Can't create recipe"
 msgstr "Avalie esta receita"
 
-#: controllers/EndpointController.php:216
 #, fuzzy
 msgid "Can't update recipe"
 msgstr "Avalie esta receita"
 
-#: views/create-update-recipe.twig:249 views/recipe.twig:282
-msgid "Ingredients"
-msgstr "Ingredientes"
-
-#: views/create-update-recipe.twig:251
-msgid ""
-"Put each ingredient on a separate line.  There is no need to use bullets for "
-"your ingredients.<br />\n"
-"                        You can also create labels, hyperlinks, bold/italic "
-"effects and even add images!"
+msgid "Carbs per serving:"
 msgstr ""
 
-#: views/create-update-recipe.twig:262 views/recipe.twig:320
-msgid "Instructions"
-msgstr "Modo de preparo"
-
-#: views/default_nutrition.twig:34
-msgid "Calculate Nutrition"
+msgid "Carbs:"
 msgstr ""
 
-#: views/notice.twig:2
+msgid "Category:"
+msgstr ""
+
+#, fuzzy
+msgid "Cholesterol per serving:"
+msgstr "Calorias por porção:"
+
+msgid "Cholesterol:"
+msgstr ""
+
+msgid "Cook"
+msgstr ""
+
+msgid "Cook Time:"
+msgstr "Cozimento:"
+
+msgid "Cuisine:"
+msgstr ""
+
+msgid "Fat per serving:"
+msgstr ""
+
+msgid "Fat:"
+msgstr ""
+
+msgid "Fiber per serving:"
+msgstr ""
+
+msgid "Fiber:"
+msgstr ""
+
 msgid ""
 "For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
 "extensions installed. Please contact your hosting company and request that "
 "they install ImageMagick or GD PHP extensions for you website."
 msgstr ""
 
-#: views/recipe.twig:25 views/recipe.twig:29
+msgid "Ingredients"
+msgstr "Ingredientes"
+
+msgid "Instructions"
+msgstr "Modo de preparo"
+
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
+
+msgid "Invalid recipe fields"
+msgstr ""
+
+msgid "Notes"
+msgstr "Notas"
+
+msgid "Prep"
+msgstr ""
+
+msgid "Prep Time:"
+msgstr "Preparo:"
+
+#, fuzzy
+msgid "Prep:"
+msgstr "Preparo:"
+
+msgid "Print"
+msgstr "Imprimir"
+
 #, fuzzy
 msgid "Print this recipe"
 msgstr "Avalie esta receita"
 
-#: views/recipe.twig:30
-msgid "Print"
-msgstr "Imprimir"
-
-#: views/recipe.twig:51
-msgid "Prep Time:"
-msgstr "Preparo:"
-
-#: views/recipe.twig:63
-msgid "Cook Time:"
-msgstr "Cozimento:"
-
-#: views/recipe.twig:75
-msgid "Total Time:"
-msgstr "Pronto em:"
-
-#: views/recipe.twig:87
-msgid "Category:"
-msgstr ""
-
-#: views/recipe.twig:99
-msgid "Cuisine:"
-msgstr ""
-
-#: views/recipe.twig:119
-msgid "Yield:"
-msgstr "Rende:"
-
-#: views/recipe.twig:134
-msgid "Serving Size:"
-msgstr "Porção:"
-
-#: views/recipe.twig:144
-msgid "Calories per serving:"
-msgstr "Calorias por porção:"
-
-#: views/recipe.twig:154
-msgid "Fat per serving:"
-msgstr ""
-
-#: views/recipe.twig:164
-msgid "Saturated fat per serving:"
-msgstr ""
-
-#: views/recipe.twig:174
-msgid "Carbs per serving:"
-msgstr ""
-
-#: views/recipe.twig:184
 msgid "Protein per serving:"
 msgstr ""
 
-#: views/recipe.twig:194
-msgid "Fiber per serving:"
+msgid "Protein:"
 msgstr ""
 
-#: views/recipe.twig:204
-msgid "Sugar per serving:"
+msgid "Rate this recipe"
+msgstr "Avalie esta receita"
+
+#, fuzzy
+msgid "Rating"
+msgstr "voto(s)"
+
+msgid "Ready in"
 msgstr ""
 
-#: views/recipe.twig:214
+msgid "Recipe Reviews"
+msgstr ""
+
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
+msgstr ""
+
+msgid "Saturated fat per serving:"
+msgstr ""
+
+msgid "Saturated fat:"
+msgstr ""
+
+msgid "Save to BigOven"
+msgstr ""
+
+#, fuzzy
+msgid "Serves:"
+msgstr "Porção:"
+
+msgid "Serving Size:"
+msgstr "Porção:"
+
 msgid "Sodium per serving:"
 msgstr ""
 
-#: views/recipe.twig:224
+msgid "Sodium:"
+msgstr ""
+
+msgid "Sugar per serving:"
+msgstr ""
+
+msgid "Sugar:"
+msgstr ""
+
+msgid "Total Time:"
+msgstr "Pronto em:"
+
+#, fuzzy
+msgid "Total:"
+msgstr "Pronto em:"
+
 #, fuzzy
 msgid "Trans fat per serving:"
 msgstr "Calorias por porção:"
 
-#: views/recipe.twig:234
-#, fuzzy
-msgid "Cholesterol per serving:"
-msgstr "Calorias por porção:"
-
-#: views/recipe.twig:358
-msgid "Notes"
-msgstr "Notas"
-
-#: views/settings.twig:20
-msgid "Like the plugin, or need more features? Check out the premium features:"
+msgid "Trans fat:"
 msgstr ""
 
-#: views/settings.twig:22
-msgid "Cool looking themes"
-msgstr ""
-
-#: views/settings.twig:23
-msgid "Author setting for Google"
-msgstr ""
-
-#: views/settings.twig:24
-msgid "Ratings"
-msgstr ""
-
-#: views/settings.twig:25
-msgid "Recipe index"
-msgstr ""
-
-#: views/settings.twig:26
-msgid "Nutrition calculation"
-msgstr ""
-
-#: views/settings.twig:27
-msgid "Search by ingredients"
-msgstr ""
-
-#: views/settings.twig:28
-msgid "Recipe picture gallery"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Zip Recipes"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://www.ziprecipes.net/"
-msgstr ""
-
-#. Description of the plugin/theme
 msgid ""
-"A plugin that adds all the necessary microdata to your recipes, so they will "
-"show up in Google's Recipe Search"
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "RogierLankhorst, markwolters"
-msgstr ""
+msgid "Yield:"
+msgstr "Rende:"
 
-#. Author URI of the plugin/theme
-msgid "http://www.really-simple-plugins.com/"
-msgstr ""
+#, fuzzy
+msgid "Your rating:"
+msgstr "voto(s)"
+
+msgid "ratings"
+msgstr "voto(s)"
+
+msgid "stars"
+msgstr "estrela(s)"
+
+#, fuzzy
+#~ msgid "Instructions:"
+#~ msgstr "Modo de preparo"
+
+#, fuzzy
+#~ msgid "Ingredients:"
+#~ msgstr "Ingredientes"
+
+#, fuzzy
+#~ msgid "Ingridients:"
+#~ msgstr "Ingredientes"
