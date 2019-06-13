@@ -9,5 +9,4 @@
  * Webpack is compiling as the input file.
  */
 
-//import './block/block.js';
-import '../gutenberg/blocks/recipe.jsx';
+import './block/block.js';

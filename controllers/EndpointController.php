@@ -1,7 +1,6 @@
 <?php
 
 namespace ZRDN;
-
 /**
  * Zip Recipes API endpoint
  *
@@ -12,9 +11,8 @@ namespace ZRDN;
  *
  * @package    Zip Recipes
  * @author     Mudassar Ali <sahil_bwp@yahoo.com>
- * @copyright  2017 Gezim Hoxha
+ * @copyright  2019 Rogier Lankhorst
  * @version 1.0
- * @link https://github.com/hgezim/zip-recipes-plugin Zip Recipes
  * @example  wp-json/zip-recipes/v1/recipe
  */
 use WP_REST_Server;
@@ -32,12 +30,12 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
      *  constant
      */
 
-    protected $version = 1;
-    protected $namespace = 'zip-recipes/v';
+    protected $namespace = 'zip-recipes/v1';
+    protected $namespace_v2 = 'zip-recipes/v2';
     protected $rest_base = 'recipe';
 
     public function __construct() {
-        $this->namespace = $this->namespace . $this->version;
+
     }
 
     /**
@@ -51,6 +49,7 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
      * Register routs
      */
     public function register_routes() {
+
         register_rest_route($this->namespace, '/' . $this->rest_base, array(
             array(
                 'methods' => WP_REST_Server::READABLE,
@@ -96,6 +95,36 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
             ),
         ));
 
+
+        register_rest_route($this->namespace_v2, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_recipe_v2'),
+                'permission_callback' => array($this, 'is_logged_in_check'),
+                'args' => array(
+                    'id' => array(
+                        'validate_callback' => array($this, 'validate_numeric')
+                    )
+                ),
+            ),
+            array(
+                'methods' => WP_REST_Server::EDITABLE,
+                'callback' => array($this, 'update_recipe'),
+                'permission_callback' => array($this, 'is_logged_in_check'),
+                'args' => $this->get_endpoint_args_for_item_schema(false),
+            ),
+            array(
+                'methods' => WP_REST_Server::DELETABLE,
+                'callback' => array($this, 'delete_recipe'),
+                'permission_callback' => array($this, 'is_logged_in_check'),
+                'args' => array(
+                    'id' => array(
+                        'validate_callback' => array($this, 'validate_numeric')
+                    )
+                ),
+            ),
+        ));
+
 	    register_rest_route($this->namespace, '/settings', array(
 		    array(
 			    'methods' => WP_REST_Server::READABLE,
@@ -104,6 +133,15 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
 			    'args' => array(),
 		    ),
 	    ));
+
+        register_rest_route($this->namespace, '/recipes', array(
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_recipes'),
+                'permission_callback' => array($this, 'is_logged_in_check'),
+                'args' => array(),
+            ),
+        ));
 
 	    register_rest_route($this->namespace, '/register', array(
 		    array(
@@ -124,8 +162,20 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Response
      */
+
     public function get_recipes(WP_REST_Request $request) {
-        return ZRDN_REST_Response::error('Not Implemented Yet.',WP_Http::NOT_IMPLEMENTED);
+        global $wpdb;
+        $table = $wpdb->prefix . "amd_zlrecipe_recipes";
+        $recipes = $wpdb->get_results("SELECT * FROM $table");
+        foreach ($recipes as $recipe) {
+            $output[] =
+                array(
+                    'id' => $recipe->recipe_id,
+                    'title' => $recipe->recipe_title,
+                    'post_id' => $recipe->post_id,
+                );
+        }
+        return ZRDN_REST_Response::success($output);
     }
 
     public function get_settings(WP_REST_Request $request) {
@@ -140,8 +190,8 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
 		    'promos_endpoint' => ZRDN_API_URL . '/v2/promos/',
 		    'wp_ajax_endpoint' => admin_url('admin-ajax.php'),
 		    'locale' => apply_filters('zrdn_get_locale', 'en'),
-		    'authors' => apply_filters('zrdn_author_list', array()),
-		    'default_author' => get_option('zrdn_authors_default_author', ''),
+		    //'authors' => apply_filters('zrdn_author_list', array()),
+		    //'default_author' => get_option('zrdn_authors_default_author', ''),
             "website_name" => get_bloginfo('name'),
             "website_url" => get_bloginfo('url'),
             "license" => get_option('zrdn_license_key'),
@@ -167,6 +217,7 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Response
      */
+
     public function get_recipe(WP_REST_Request $request) {
         $recipe_id = (int) $request['id'];
         $recipe = RecipeModel::db_select($recipe_id);
@@ -176,6 +227,21 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
         $data = $this->prepare_item_for_response($recipe, $request);
         return ZRDN_REST_Response::success($data);
     }
+
+    public function get_recipe_v2(WP_REST_Request $request) {
+        $recipe_id = (int) $request['id'];
+        $recipe = new Recipe($recipe_id);
+        if (empty($recipe_id) || !isset($recipe->recipe_id)) {
+            return ZRDN_REST_Response::error(__('Invalid recipe ID or recipe not found', 'zip-recipes'));
+        }
+        $html =  ZipRecipes::zrdn_format_recipe($recipe);
+        $output['content'] =$html;
+
+        return ZRDN_REST_Response::success($output);
+    }
+
+
+
 
     /**
      * Create one recipe from the collection
@@ -229,8 +295,8 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
      */
     public function delete_recipe(WP_REST_Request $request) {
         $recipe_id = (int) $request['id'];
-
-        $result = RecipeModel::db_delete(array('recipe_id' => $recipe_id));
+        $recipe = new Recipe($recipe_id);
+        $result = $recipe->delete();
         if (!$result) {
             return ZRDN_REST_Response::error('The resource cannot be deleted.', 'zip-recipes');
         }

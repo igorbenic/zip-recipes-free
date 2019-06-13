@@ -2,258 +2,237 @@
 # Copyright (C) YEAR Zip Recipes Ltd
 # This file is distributed under the same license as the zip-recipes package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
-"POT-Creation-Date: 2019-03-20 10:27+0100\n"
-"PO-Revision-Date: 2019-03-20 09:44+0000\n"
-"Last-Translator: rogier <rogierlankhorst@gmail.com>\n"
-"Language-Team: Greek\n"
-"Language: el\n"
+"POT-Creation-Date: 2018-12-24 00:54-0700\n"
+"PO-Revision-Date: 2017-04-22 08:28+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: el_GR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Loco-Version: 2.2.1; wp-5.1.1"
 
-#: class.ziprecipes.php:1470
-#, php-format
-msgid "%d year"
-msgstr "%d χρόνο"
-
-#: class.ziprecipes.php:1470
-#, php-format
-msgid "%d years"
-msgstr "%d χρόνια"
-
-#: class.ziprecipes.php:1471
-#, php-format
-msgid "%d month"
-msgstr "%d μήνα"
-
-#: class.ziprecipes.php:1471
-#, php-format
-msgid "%d months"
-msgstr "%d μήνες"
-
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d day"
 msgstr "%d ημέρα"
 
-#: class.ziprecipes.php:1472
 #, php-format
 msgid "%d days"
 msgstr "%d ημέρες"
 
-#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hour"
 msgstr "%d ώρα"
 
-#: class.ziprecipes.php:1473
 #, php-format
 msgid "%d hours"
 msgstr "%d ώρες"
 
-#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minute"
 msgstr "%d λεπτό"
 
-#: class.ziprecipes.php:1474
 #, php-format
 msgid "%d minutes"
 msgstr "%d λεπτά"
 
-#: class.ziprecipes.php:1475
+#, php-format
+msgid "%d month"
+msgstr "%d μήνα"
+
+#, php-format
+msgid "%d months"
+msgstr "%d μήνες"
+
 #, php-format
 msgid "%d second"
 msgstr "%d δευτερόλεπτο"
 
-#: class.ziprecipes.php:1475
 #, php-format
 msgid "%d seconds"
 msgstr "%d δευτερόλεπτα"
 
-#: controllers/EndpointController.php:170
-msgid "Invalid recipe ID or recipe not found"
-msgstr ""
+#, php-format
+msgid "%d year"
+msgstr "%d χρόνο"
 
-#: controllers/EndpointController.php:187
-msgid "Invalid recipe fields"
-msgstr ""
+#, php-format
+msgid "%d years"
+msgstr "%d χρόνια"
 
-#: controllers/EndpointController.php:196
+msgid "Author:"
+msgstr "Συγγραφέας:"
+
+msgid "Calories per serving:"
+msgstr "Θερμίδες ανά μερίδα:"
+
+msgid "Calories:"
+msgstr "Θερμίδες:"
+
 #, fuzzy
 msgid "Can't create recipe"
 msgstr "Βαθμολογήστε τη συνταγή"
 
-#: controllers/EndpointController.php:216
 #, fuzzy
 msgid "Can't update recipe"
 msgstr "Βαθμολογήστε τη συνταγή"
 
-#: views/create-update-recipe.twig:249 views/recipe.twig:282
-msgid "Ingredients"
-msgstr "Υλικά"
+msgid "Carbs per serving:"
+msgstr "Υδατάνθρακες ανά μερίδα:"
 
-#: views/create-update-recipe.twig:251
-msgid ""
-"Put each ingredient on a separate line.  There is no need to use bullets for "
-"your ingredients.<br />\n"
-"                        You can also create labels, hyperlinks, bold/italic "
-"effects and even add images!"
-msgstr ""
+msgid "Carbs:"
+msgstr "Υδατάνθρακες:"
 
-#: views/create-update-recipe.twig:262 views/recipe.twig:320
-msgid "Instructions"
-msgstr "Εκτέλεση"
+msgid "Category:"
+msgstr "Κατηγορία:"
 
-#: views/default_nutrition.twig:34
-msgid "Calculate Nutrition"
-msgstr ""
+msgid "Cholesterol per serving:"
+msgstr "Χοληστερόλη ανά μερίδα:"
 
-#: views/notice.twig:2
+msgid "Cholesterol:"
+msgstr "Χοληστερόλη:"
+
+msgid "Cook"
+msgstr "Μαγείρεμα"
+
+msgid "Cook Time:"
+msgstr "Χρόνος Μαγειρέματος:"
+
+msgid "Cuisine:"
+msgstr "Κουζίνα:"
+
+msgid "Fat per serving:"
+msgstr "Λιπαρά ανά μερίδα:"
+
+msgid "Fat:"
+msgstr "Λιπαρά:"
+
+msgid "Fiber per serving:"
+msgstr "Φυτικές ίνες ανά μερίδα:"
+
+msgid "Fiber:"
+msgstr "Φυτικές ίνες:"
+
 msgid ""
 "For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
 "extensions installed. Please contact your hosting company and request that "
 "they install ImageMagick or GD PHP extensions for you website."
 msgstr ""
 
-#: views/recipe.twig:25 views/recipe.twig:29
-msgid "Print this recipe"
-msgstr "Εκτύπωση συνταγής"
+msgid "Ingredients"
+msgstr "Υλικά"
 
-#: views/recipe.twig:30
-msgid "Print"
-msgstr "Εκτύπωση"
+msgid "Instructions"
+msgstr "Εκτέλεση"
 
-#: views/recipe.twig:51
-msgid "Prep Time:"
-msgstr "Χρόνος ετοιμασίας:"
+msgid "Invalid recipe ID or recipe not found"
+msgstr ""
 
-#: views/recipe.twig:63
-msgid "Cook Time:"
-msgstr "Χρόνος Μαγειρέματος:"
+msgid "Invalid recipe fields"
+msgstr ""
 
-#: views/recipe.twig:75
-msgid "Total Time:"
-msgstr "Ολικός χρόνος:"
-
-#: views/recipe.twig:87
-msgid "Category:"
-msgstr "Κατηγορία:"
-
-#: views/recipe.twig:99
-msgid "Cuisine:"
-msgstr "Κουζίνα:"
-
-#: views/recipe.twig:119
-msgid "Yield:"
-msgstr "Γίνονται:"
-
-#: views/recipe.twig:134
-msgid "Serving Size:"
-msgstr "Μέγεθος μερίδας:"
-
-#: views/recipe.twig:144
-msgid "Calories per serving:"
-msgstr "Θερμίδες ανά μερίδα:"
-
-#: views/recipe.twig:154
-msgid "Fat per serving:"
-msgstr "Λιπαρά ανά μερίδα:"
-
-#: views/recipe.twig:164
-msgid "Saturated fat per serving:"
-msgstr "Κορεσμένα λιπαρά ανά μερίδα:"
-
-#: views/recipe.twig:174
-msgid "Carbs per serving:"
-msgstr "Υδατάνθρακες ανά μερίδα:"
-
-#: views/recipe.twig:184
-msgid "Protein per serving:"
-msgstr "Πρωτεΐνη ανά μερίδα:"
-
-#: views/recipe.twig:194
-msgid "Fiber per serving:"
-msgstr "Φυτικές ίνες ανά μερίδα:"
-
-#: views/recipe.twig:204
-msgid "Sugar per serving:"
-msgstr "Ζάχαρη ανά μερίδα:"
-
-#: views/recipe.twig:214
-msgid "Sodium per serving:"
-msgstr "Νάτριο ανά μερίδα:"
-
-#: views/recipe.twig:224
-msgid "Trans fat per serving:"
-msgstr "Ακόρεστα λιπαρά ανά μερίδα:"
-
-#: views/recipe.twig:234
-msgid "Cholesterol per serving:"
-msgstr "Χοληστερόλη ανά μερίδα:"
-
-#: views/recipe.twig:358
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: views/settings.twig:20
-msgid "Like the plugin, or need more features? Check out the premium features:"
+msgid "Prep"
+msgstr "Ετοιμασία"
+
+msgid "Prep Time:"
+msgstr "Χρόνος ετοιμασίας:"
+
+msgid "Prep:"
+msgstr "Ετοιμασία:"
+
+msgid "Print"
+msgstr "Εκτύπωση"
+
+msgid "Print this recipe"
+msgstr "Εκτύπωση συνταγής"
+
+msgid "Protein per serving:"
+msgstr "Πρωτεΐνη ανά μερίδα:"
+
+msgid "Protein:"
+msgstr "Πρωτεΐνη:"
+
+msgid "Rate this recipe"
+msgstr "Βαθμολογήστε τη συνταγή"
+
+#, fuzzy
+msgid "Rating"
+msgstr "βαθμολογίες"
+
+msgid "Ready in"
+msgstr "Έτοιμο σε"
+
+msgid "Recipe Reviews"
 msgstr ""
 
-#: views/settings.twig:22
-msgid "Cool looking themes"
-msgstr ""
-
-#: views/settings.twig:23
-msgid "Author setting for Google"
-msgstr ""
-
-#: views/settings.twig:24
-msgid "Ratings"
-msgstr ""
-
-#: views/settings.twig:25
-msgid "Recipe index"
-msgstr ""
-
-#: views/settings.twig:26
-msgid "Nutrition calculation"
-msgstr ""
-
-#: views/settings.twig:27
-msgid "Search by ingredients"
-msgstr ""
-
-#: views/settings.twig:28
-msgid "Recipe picture gallery"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Zip Recipes"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://www.ziprecipes.net/"
-msgstr ""
-
-#. Description of the plugin/theme
 msgid ""
-"A plugin that adds all the necessary microdata to your recipes, so they will "
-"show up in Google's Recipe Search"
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
+"\">Learn more</a>"
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "RogierLankhorst, markwolters"
+msgid "Saturated fat per serving:"
+msgstr "Κορεσμένα λιπαρά ανά μερίδα:"
+
+msgid "Saturated fat:"
+msgstr "Κορεσμένα λιπαρα:"
+
+msgid "Save to BigOven"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "http://www.really-simple-plugins.com/"
+msgid "Serves:"
+msgstr "Μερίδες:"
+
+msgid "Serving Size:"
+msgstr "Μέγεθος μερίδας:"
+
+msgid "Sodium per serving:"
+msgstr "Νάτριο ανά μερίδα:"
+
+msgid "Sodium:"
+msgstr "Νάτριο:"
+
+msgid "Sugar per serving:"
+msgstr "Ζάχαρη ανά μερίδα:"
+
+msgid "Sugar:"
+msgstr "Ζάχαρη"
+
+msgid "Total Time:"
+msgstr "Ολικός χρόνος:"
+
+msgid "Total:"
+msgstr "Συνολικά:"
+
+msgid "Trans fat per serving:"
+msgstr "Ακόρεστα λιπαρά ανά μερίδα:"
+
+msgid "Trans fat:"
+msgstr "Ακόρεστα λιπαρά:"
+
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
 msgstr ""
+
+msgid "Yield:"
+msgstr "Γίνονται:"
+
+msgid "Your rating:"
+msgstr "Η βαθμολογία σας:"
+
+msgid "ratings"
+msgstr "βαθμολογίες"
+
+msgid "stars"
+msgstr "αστέρια"

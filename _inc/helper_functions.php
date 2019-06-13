@@ -47,12 +47,38 @@ function clean_jsonld($arr) {
  * @param bool $echo
  * @return string|void
  */
-function notice($msg, $type = 'notice', $hide = false, $echo = true)
+function notice($msg, $type = 'notice', $echo = true, $include_css=false)
 {
     if ($msg == '') return;
-
-    $hide_class = $hide ? "cmplz-hide" : "";
-    $html = '<div class="cmplz-panel cmplz-' . $type . ' ' . $hide_class . '">' . $msg . '</div>';
+    $html = "";
+    if ($include_css){
+        $html .= "<style>
+            .zrdn-panel {
+              color: #383d41;
+              background-color: #e2e3e5;
+              border: 1px solid #d6d8db;
+              padding: 10px 15px;
+              border-radius: 0.25rem;
+              margin: 10px 0;
+            }
+            .zrdn-panel.zrdn-notice {
+              background-color: #d9edf7;
+              border-color: #bcdff1;
+              color: #31708f;
+            }
+            .zrdn-panel.zrdn-success {
+              background-color: #dff0d8;
+              border-color: #d0e9c6;
+              color: #3c763d;
+            }
+            .zrdn-panel.zrdn-warning {
+              color: #856404;
+              background-color: #fff3cd;
+              border-color: #ffeeba;
+            }
+            </style>";
+    }
+    $html .= '<div class="zrdn-panel zrdn-' . $type . ' ">' . $msg . '</div>';
     if ($echo) {
         echo $html;
     } else {
