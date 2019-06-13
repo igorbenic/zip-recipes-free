@@ -7,41 +7,96 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+<<<<<<< Updated upstream
 "POT-Creation-Date: 2018-12-24 00:54-0700\n"
 "PO-Revision-Date: 2016-06-14 13:25-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
+=======
+"POT-Creation-Date: 2019-04-17 10:51+0200\n"
+"PO-Revision-Date: 2019-05-21 17:30+0000\n"
+"Last-Translator: chomon <clubblogueras@gmail.com>\n"
+"Language-Team: Español\n"
+"Language: es-ES\n"
+>>>>>>> Stashed changes
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+<<<<<<< Updated upstream
 
+=======
+"X-Loco-Version: 2.2.2; wp-5.2"
+
+#: class.ziprecipes.php:1466
+#, php-format
+msgid "%d year"
+msgstr "%d año"
+
+#: class.ziprecipes.php:1466
+#, php-format
+msgid "%d years"
+msgstr "%d años"
+
+#: class.ziprecipes.php:1467
+#, php-format
+msgid "%d month"
+msgstr "%d mes"
+
+#: class.ziprecipes.php:1467
+#, php-format
+msgid "%d months"
+msgstr "%d meses"
+
+#: class.ziprecipes.php:1468
+>>>>>>> Stashed changes
 #, php-format
 msgid "%d day"
 msgstr "%d día"
 
+<<<<<<< Updated upstream
+=======
+#: class.ziprecipes.php:1468
+>>>>>>> Stashed changes
 #, php-format
 msgid "%d days"
 msgstr "%d días"
 
+<<<<<<< Updated upstream
+=======
+#: class.ziprecipes.php:1469
+>>>>>>> Stashed changes
 #, php-format
 msgid "%d hour"
 msgstr "%d hora"
 
+<<<<<<< Updated upstream
+=======
+#: class.ziprecipes.php:1469
+>>>>>>> Stashed changes
 #, php-format
 msgid "%d hours"
 msgstr "%d horas"
 
+<<<<<<< Updated upstream
+=======
+#: class.ziprecipes.php:1470
+>>>>>>> Stashed changes
 #, php-format
 msgid "%d minute"
 msgstr "%d minuto"
 
+<<<<<<< Updated upstream
+=======
+#: class.ziprecipes.php:1470
+>>>>>>> Stashed changes
 #, php-format
 msgid "%d minutes"
 msgstr "%d minutos"
 
+<<<<<<< Updated upstream
 #, php-format
 msgid "%d month"
 msgstr "%d mes"
@@ -50,14 +105,22 @@ msgstr "%d mes"
 msgid "%d months"
 msgstr "%d meses"
 
+=======
+#: class.ziprecipes.php:1471
+>>>>>>> Stashed changes
 #, php-format
 msgid "%d second"
 msgstr "%d segundo"
 
+<<<<<<< Updated upstream
+=======
+#: class.ziprecipes.php:1471
+>>>>>>> Stashed changes
 #, php-format
 msgid "%d seconds"
 msgstr "%d segundos"
 
+<<<<<<< Updated upstream
 #, php-format
 msgid "%d year"
 msgstr "%d año"
@@ -76,20 +139,54 @@ msgstr "Calorías:"
 msgid "Calories:"
 msgstr "Calorías:"
 
+=======
+#: controllers/EndpointController.php:174
+msgid "Invalid recipe ID or recipe not found"
+msgstr "recipe ID invalida o receta no encontrada"
+
+#: controllers/EndpointController.php:191
+msgid "Invalid recipe fields"
+msgstr "Campos de receta invalidos"
+
+#: controllers/EndpointController.php:200
+>>>>>>> Stashed changes
 #, fuzzy
 msgid "Can't create recipe"
 msgstr "Califica esta receta"
 
+<<<<<<< Updated upstream
+=======
+#: controllers/EndpointController.php:220
+>>>>>>> Stashed changes
 #, fuzzy
 msgid "Can't update recipe"
 msgstr "Califica esta receta"
 
+<<<<<<< Updated upstream
 msgid "Carbs per serving:"
 msgstr "Carbohidratos:"
 
 msgid "Carbs:"
-msgstr ""
+=======
+#: plugins/Authors/views/cache/2e/2efbd8c541ef037ca3740b2a6cfee231c86fc6598bcdb60ab028380a8e2272d5.php:28
+#:
+#: plugins/Authors/views/cache/38/3896d677ada94d404cbe146b996813493df534fca98c28bd7489e5640a2556f5.php:28
+#:
+#: plugins/Authors/views/cache/53/534ac76f3300a32d6dfb672824952358758ee8f3fee568a5dbac214a0c7f4451.php:28
+#:  plugins/Authors/views/render.twig:3
+msgid "Author:"
+msgstr "Autor"
 
+#: plugins/Licensing/EDD_SL_Plugin_Updater.php:198
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+>>>>>>> Stashed changes
+msgstr ""
+"Esta es una nueva version de %1$s available. %2$sView version %3$s "
+"details%4$s."
+
+<<<<<<< Updated upstream
 msgid "Category:"
 msgstr "Categoría:"
 
@@ -119,14 +216,69 @@ msgid "Fiber per serving:"
 msgstr "Fibra:"
 
 msgid "Fiber:"
-msgstr ""
-
+=======
+#: plugins/Licensing/EDD_SL_Plugin_Updater.php:206
+#, php-format
 msgid ""
-"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
-"extensions installed. Please contact your hosting company and request that "
-"they install ImageMagick or GD PHP extensions for you website."
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
 msgstr ""
+"Esta es una nueva version de %1$s available. %2$sView version %3$s "
+"details%4$s or %5$supdate now%6$s."
 
+#: plugins/Licensing/EDD_SL_Plugin_Updater.php:396
+msgid "You do not have permission to install plugin updates"
+msgstr "No tienes permiso para instalar actualizaciones del plugin"
+
+#: plugins/Licensing/EDD_SL_Plugin_Updater.php:396
+msgid "Error"
+msgstr "Error"
+
+#: plugins/Licensing/licensing.php:65 plugins/Licensing/licensing.php:66
+#: plugins/Licensing/licensing.php:160
+msgid "License"
+msgstr "Licencia"
+
+#: plugins/Licensing/licensing.php:85
+msgid ""
+"You haven't activated your Zip Recipes license yet. To get all future "
+"updates, enter your license on the settings page."
+>>>>>>> Stashed changes
+msgstr ""
+"Aún no has activado tu licencia de  Zip Recipes. Para obtener todas las "
+"actualizaciones futuras, ingrese su licencia en la página de configuración."
+
+<<<<<<< Updated upstream
+=======
+#: plugins/Licensing/licensing.php:86
+#, php-format
+msgid "Go to the %ssettings page%s or %spurchase a license%s"
+msgstr "Go to the %ssettings page%s or %spurchase a license%s"
+
+#: plugins/Licensing/licensing.php:165
+msgid "Could not connect to ziprecipes.net. Please try again later."
+msgstr "No puedes conectar con ziprecipes.net. Por favor intentalo de nuevo"
+
+#: plugins/Licensing/licensing.php:168
+msgid "a 5 sites or unlimited sites license"
+msgstr "para 5 sites o ilimitadas licencias"
+
+#: plugins/Licensing/licensing.php:168
+msgid "an unlimited sites license"
+msgstr "Licencias Ilimitadas"
+
+#: plugins/Licensing/licensing.php:171
+#, php-format
+>>>>>>> Stashed changes
+msgid ""
+"You have 0 activations left on your %s sites license. If you need more "
+"activations you can upgrade your current license to %s on your %saccount%s"
+msgstr ""
+"\n"
+"Le quedan 0 activaciones en su licencia de % s sites. Si necesita más "
+"activaciones, puede actualizar su licencia actual a% s en su %saccount%s"
+
+<<<<<<< Updated upstream
 msgid "Ingredients"
 msgstr "Ingredientes"
 
@@ -231,8 +383,343 @@ msgid ""
 "VisitorRating and RecipeReviews cannot be active at the same time. If you "
 "want to allow anonymous ratings, activate VisitorRating. If you want to "
 "require comments with ratings activate RecipeReviews."
-msgstr ""
+=======
+#: plugins/Licensing/licensing.php:179
+msgid "Your license is valid, but not activated on this site"
+msgstr "Tu licencia es valida, pero no esta activada en este site"
 
+#: plugins/Licensing/licensing.php:181
+msgid "Your license does not seem to be valid. Please check your license key"
+msgstr "tu licencia no es valida. Por favor chequea tu license key"
+
+#: plugins/Licensing/licensing.php:185
+#, php-format
+msgid "Your license is valid, and expires on: %s"
+msgstr "Tu licencia es valida y expira en: %s"
+
+#: plugins/Licensing/licensing.php:187
+msgid "Enter your license here so you keep receiving updates and support."
+msgstr ""
+"\n"
+"Ingrese su licencia aquí para que siga recibiendo actualizaciones y soporte."
+
+#: plugins/Licensing/licensing.php:201
+msgid "License Key"
+msgstr "License Key"
+
+#: plugins/Licensing/licensing.php:208
+msgid "active"
+msgstr "activado"
+
+#: plugins/Licensing/licensing.php:210
+msgid "Deactivate License"
+msgstr "Licencia Desactivada"
+
+#: plugins/Licensing/licensing.php:213
+msgid "Activate License"
+msgstr "Licencia Activada"
+
+#: plugins/Licensing/licensing.php:221
+msgid "Enter your license key"
+msgstr "Introduce tu license Key"
+
+#: plugins/Licensing/licensing.php:242
+msgid "This is not a valid license"
+msgstr "Esta licencia no es valida"
+
+#: plugins/Licensing/licensing.php:247
+msgid "Your license is expired. Please renew your license at %ziprecipes.net%s"
+msgstr "Su licencia ha caducado. Renueve su licencia en %ziprecipes.net%s"
+
+#: plugins/Licensing/licensing.php:250
+#, php-format
+msgid "Your license has been revoked. Please contact %ssupport%s"
+msgstr ""
+"Su licencia ha sido revocada. Por favor, póngase en contacto con% ssupport% s"
+
+#: plugins/Licensing/licensing.php:253
+#, php-format
+msgid ""
+"Your license could not be found in the database. Please contact %ssupport%s"
+msgstr ""
+"Su licencia no ha sido encontrada en nuestra base de datos. Por Favor "
+"contacta con  %ssupport%s\n"
+
+#: plugins/Licensing/licensing.php:257
+msgid "Your license has not yet been activated for this domain."
+msgstr "Su licencia aun no esta activada para este dominio"
+
+#: plugins/Licensing/licensing.php:260
+msgid "Your license key appears to be invalid."
+msgstr ""
+"\n"
+"Su licencia parece ser inválida"
+
+#: plugins/Licensing/licensing.php:263
+msgid ""
+"You have no activations left on your license. Please upgrade your license at "
+"%ziprecipes.net%s"
+msgstr ""
+"No le quedan activaciones en su licencia. Por favor actualice su licencia "
+"en% ziprecipes.net% s"
+
+#: plugins/Licensing/licensing.php:270
+msgid "Your license is valid, but has not yet been activated for this domain."
+msgstr "Su licencia es válida, pero aún no se ha activado para este dominio."
+
+#: plugins/Licensing/licensing.php:279
+msgid "license data error"
+msgstr "error en lu licencia de datos"
+
+#: plugins/Licensing/licensing.php:328 plugins/Licensing/licensing.php:383
+msgid "An error occurred while updating the license data, please try again."
+msgstr ""
+"\n"
+"Se produjo un error al actualizar los datos de la licencia, inténtalo de "
+"nuevo."
+
+#: plugins/RecipeReviews/RecipeReviews.php:164
+#: plugins/VisitorRating/VisitorRating.php:131
+#: plugins/RecipeReviews/views/render.twig:15
+#: plugins/VisitorRating/views/render.twig:15
+#, fuzzy
+msgid "Your rating:"
+msgstr "calificación(s)"
+
+#: plugins/RecipeReviews/RecipeReviews.php:606
+msgid "Recipe Reviews"
+msgstr "Recipe Reviews"
+
+#: plugins/CustomTemplates/views/_blocks.twig:35 views/recipe.twig:30
+msgid "Print"
+msgstr "Imprimir"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:43
+#: plugins/CustomTemplates/views/_template_canada.twig:46
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:46
+#: plugins/CustomTemplates/views/_template_vanilla.twig:45
+#: plugins/CustomTemplates/views/_template_vera.twig:111 views/recipe.twig:87
+msgid "Category:"
+msgstr "Categoría:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:55
+#: plugins/CustomTemplates/views/_template_canada.twig:58
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:58
+#: plugins/CustomTemplates/views/_template_vanilla.twig:57
+#: plugins/CustomTemplates/views/_template_vera.twig:123 views/recipe.twig:99
+msgid "Cuisine:"
+msgstr "Cocina:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:85
+#: plugins/CustomTemplates/views/_template_canada.twig:251
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:100
+#: plugins/CustomTemplates/views/_template_vera.twig:152 views/recipe.twig:286
+msgid "Ingredients"
+msgstr "Ingredientes"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:122
+#: plugins/CustomTemplates/views/_template_canada.twig:259
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:108
+#: plugins/CustomTemplates/views/_template_vera.twig:160 views/recipe.twig:324
+msgid "Instructions"
+msgstr "Preparación"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:131
+msgid "Prep"
+msgstr "Prep"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:143
+msgid "Cook"
+msgstr "cocinar:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:155
+msgid "Ready in"
+msgstr "Preparado en"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:171
+#: plugins/CustomTemplates/views/_template_canada.twig:270
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:118
+#: plugins/CustomTemplates/views/_template_vera.twig:169 views/recipe.twig:362
+msgid "Notes"
+msgstr "Notas"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:184
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:131
+#: plugins/CustomTemplates/views/_template_vera.twig:181
+msgid "Nutrition information"
+msgstr "Informacion Nutricional"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:190
+#: plugins/CustomTemplates/views/_template_canada.twig:126
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:148
+#: plugins/CustomTemplates/views/_template_vanilla.twig:144
+#: plugins/CustomTemplates/views/_template_vera.twig:186 views/recipe.twig:134
+msgid "Serving Size:"
+msgstr "Porción:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:198
+#: plugins/CustomTemplates/views/_template_vanilla.twig:152
+#: plugins/CustomTemplates/views/_template_vera.twig:194 views/recipe.twig:144
+msgid "Calories per serving:"
+msgstr "Calorías:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:206
+#: plugins/CustomTemplates/views/_template_vanilla.twig:160
+#: plugins/CustomTemplates/views/_template_vera.twig:202 views/recipe.twig:154
+msgid "Fat per serving:"
+msgstr "Grasa:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:214
+#: plugins/CustomTemplates/views/_template_vanilla.twig:168
+#: plugins/CustomTemplates/views/_template_vera.twig:210 views/recipe.twig:164
+msgid "Saturated fat per serving:"
+msgstr "Grasa saturada:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:222
+#: plugins/CustomTemplates/views/_template_vanilla.twig:176
+#: plugins/CustomTemplates/views/_template_vera.twig:218 views/recipe.twig:174
+msgid "Carbs per serving:"
+msgstr "Carbohidratos:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:230
+#: plugins/CustomTemplates/views/_template_vanilla.twig:184
+#: plugins/CustomTemplates/views/_template_vera.twig:226 views/recipe.twig:184
+#, fuzzy
+msgid "Protein per serving:"
+msgstr "Proteína:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:238
+#: plugins/CustomTemplates/views/_template_vanilla.twig:192
+#: plugins/CustomTemplates/views/_template_vera.twig:234 views/recipe.twig:194
+msgid "Fiber per serving:"
+msgstr "Fibra:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:246
+#: plugins/CustomTemplates/views/_template_vanilla.twig:200
+#: plugins/CustomTemplates/views/_template_vera.twig:242 views/recipe.twig:204
+msgid "Sugar per serving:"
+msgstr "Azúcar:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:254
+#: plugins/CustomTemplates/views/_template_vanilla.twig:208
+#: plugins/CustomTemplates/views/_template_vera.twig:250 views/recipe.twig:214
+msgid "Sodium per serving:"
+msgstr "Sodio:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:262
+#: plugins/CustomTemplates/views/_template_vanilla.twig:216
+#: plugins/CustomTemplates/views/_template_vera.twig:258 views/recipe.twig:224
+#, fuzzy
+msgid "Trans fat per serving:"
+msgstr "Grasa saturada:"
+
+#: plugins/CustomTemplates/views/_template_autumn.twig:269
+#: plugins/CustomTemplates/views/_template_vanilla.twig:223
+#: plugins/CustomTemplates/views/_template_vera.twig:265 views/recipe.twig:234
+#, fuzzy
+msgid "Cholesterol per serving:"
+msgstr "Calorías:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:87
+#, fuzzy
+msgid "Total:"
+msgstr "Tiempo total:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:99
+#, fuzzy
+msgid "Prep:"
+msgstr "Tiempo de preparación:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:111
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:138
+#, fuzzy
+msgid "Serves:"
+msgstr "Porción:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:137
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:159
+msgid "Calories:"
+msgstr "Calorías:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:148
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:170
+msgid "Fat:"
+msgstr "Grasas:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:159
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:181
+#, fuzzy
+msgid "Saturated fat:"
+msgstr "Grasa saturada:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:170
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:192
+msgid "Carbs:"
+msgstr "Hidratos:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:181
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:203
+msgid "Protein:"
+msgstr "Proteina"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:192
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:214
+msgid "Fiber:"
+msgstr "Fibra:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:203
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:225
+msgid "Sugar:"
+msgstr "Azucar:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:213
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:235
+msgid "Sodium:"
+msgstr "Sodio:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:224
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:246
+msgid "Trans fat:"
+msgstr "Acido Graso Trans:"
+
+#: plugins/CustomTemplates/views/_template_canada.twig:235
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:257
+msgid "Cholesterol:"
+msgstr "Colesterol:"
+
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:69
+#: plugins/CustomTemplates/views/_template_vanilla.twig:104
+#: plugins/CustomTemplates/views/_template_vera.twig:46 views/recipe.twig:51
+msgid "Prep Time:"
+msgstr "Tiempo de preparación:"
+
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:79
+#: plugins/CustomTemplates/views/_template_vanilla.twig:116
+#: plugins/CustomTemplates/views/_template_vera.twig:58 views/recipe.twig:63
+msgid "Cook Time:"
+msgstr "Tiempo de cocción:"
+
+#: plugins/CustomTemplates/views/_template_vanilla.twig:127
+#: plugins/CustomTemplates/views/_template_vera.twig:102 views/recipe.twig:119
+msgid "Yield:"
+msgstr "Rinde:"
+
+#: plugins/CustomTemplates/views/_template_vera.twig:70 views/recipe.twig:75
+msgid "Total Time:"
+msgstr "Tiempo total:"
+
+#: plugins/PluginManagement/views/notice-comments.twig:2
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">"
+"Learn more</a>"
+>>>>>>> Stashed changes
+msgstr ""
+"Recipe Reviews solo funciona con WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">"
+"Aprende mas..</a>"
+
+<<<<<<< Updated upstream
 msgid "Yield:"
 msgstr "Rinde:"
 
@@ -257,3 +744,81 @@ msgstr "estrella(s)"
 #, fuzzy
 #~ msgid "Ingridients:"
 #~ msgstr "Ingredientes"
+=======
+#: plugins/PluginManagement/views/notice.twig:2
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+"VisitorRating y RecipeReviews no pueden estar activas al mismo tiempo. Si "
+"desea permitir clasificaciones anónimas, active VisitorRating. Si desea "
+"solicitar comentarios con calificaciones, active RecipeReviews."
+
+#: plugins/RecipeActions/views/recipe_actions.twig:9
+msgid "Save to BigOven"
+msgstr "grabar a BigOven"
+
+#: plugins/RecipeReviews/views/comment_meta_box.twig:1
+#: plugins/RecipeReviews/views/comments_modify.twig:1
+#, fuzzy
+msgid "Rating"
+msgstr "calificación(s)"
+
+#: plugins/RecipeReviews/views/comments_fields.twig:2
+#: plugins/RecipeReviews/views/render.twig:20
+#: plugins/VisitorRating/views/render.twig:20
+msgid "Rate this recipe"
+msgstr "Califica esta receta"
+
+#: plugins/RecipeReviews/views/render.twig:5
+#: plugins/VisitorRating/views/render.twig:5
+msgid "stars"
+msgstr "estrella(s)"
+
+#: plugins/RecipeReviews/views/render.twig:5
+#: plugins/RecipeReviews/views/render.twig:38
+#: plugins/RecipeReviews/views/render.twig:40
+#: plugins/VisitorRating/views/render.twig:5
+#: plugins/VisitorRating/views/render.twig:38
+#: plugins/VisitorRating/views/render.twig:40
+msgid "ratings"
+msgstr "calificación(s)"
+
+#: views/notice.twig:2
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+"Para obtener el mejor rendimiento, Zip Recipes recomienda que se instalen "
+"las extensiones ImageMagick o GD PHP. Póngase en contacto con su empresa de "
+"alojamiento y solicite que instalen las extensiones ImageMagick o GD PHP "
+"para su sitio web."
+
+#: views/recipe.twig:25 views/recipe.twig:29
+#, fuzzy
+msgid "Print this recipe"
+msgstr "Califica esta receta"
+
+#. Plugin Name of the plugin/theme
+msgid "Zip Recipes Lover"
+msgstr "Zip Recipes Lover"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://www.ziprecipes.net/"
+msgstr "http://www.ziprecipes.net/"
+
+#. Description of the plugin/theme
+msgid ""
+"A plugin that adds all the necessary microdata to your recipes, so they will "
+"show up in Google's Recipe Search"
+msgstr ""
+"Un plugin que agrega todos los microdatos necesarios a sus recetas, para que "
+"aparezcan en la búsqueda de recetas de Google."
+
+#. Author of the plugin/theme
+msgid "RogierLankhorst"
+msgstr "RogierLankhorst"
+>>>>>>> Stashed changes
