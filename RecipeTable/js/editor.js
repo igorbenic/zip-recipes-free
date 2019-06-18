@@ -152,7 +152,7 @@ jQuery(document).ready(function ($) {
             if (element.substring(0, 1) === '!') {
                 placeholderHtml += '</' + parentTag + '><b>' + element.substring(1) + '</b><' + parentTag + '>';
 
-            //images
+                //images
             } else if (element.substring(0, 1) === '%') {
 
                 var regex = /(?:%)([http|https?:\/\/=?\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.\/]+[a-zA-N])/g;

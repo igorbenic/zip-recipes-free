@@ -98,7 +98,7 @@ function zrdn_recipe_admin_menu()
         'manage_options',
         'zrdn-recipes',
         __NAMESPACE__ . '\zrdn_recipe_overview',
-        ZRDN_PLUGIN_URL . 'images/recipe-icon.png',
+        ZRDN_PLUGIN_URL . 'images/recipe-icon.svg',
         apply_filters('zrdn_menu_position', 50)
     );
 }

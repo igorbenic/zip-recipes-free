@@ -8,7 +8,6 @@ if (isset($_GET['id'])) {
     $recipe_id = intval($_GET['id']);
 }
 
-
 /**
  * If a post_id is passed, we will link this recipe to this post id.
  *
@@ -174,14 +173,21 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                 <div id="general" class="zrdn-tabcontent active">
 
                     <h3><?php _e("General", 'zip-recipes') ?></h3>
-                    <?php //offer option to go to post if post_id is linked.
-                    ?>
-                    <?php if ($recipe->post_id) { ?>
-                        <a class="button button-default"
-                           href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
-                        <a class="button button-default"
-                           href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action'=>'unlink'), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
-                    <?php } ?>
+                    <?php //offer option to go to post if post_id is linked.?>
+                    <?php if ($recipe->post_id) {
+                        if (get_post_status($recipe->post_id)==='trash'){
+                            notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
+                        } else {
+                            ?>
+                            <a class="button button-default"
+                               href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
+                            <a class="button button-default"
+                               href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink'), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
+                            <a class="button button-default" target="_blank"
+                               href="<?php echo get_preview_post_link($recipe->post_id) ?>"><?php _e("Preview", "zip-recipes") ?></a>
+                            <?php
+                            }
+                        } ?>
                     <?php
                     if ($recipe->is_featured_post_image){
                         notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"), 'warning');
@@ -259,7 +265,7 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                         ),
                         array(
                             'type' => 'number',
-                            'required' => true,
+                            //'required' => true,
                             'fieldname' => 'yield',
                             'value' => $recipe->yield,
                             'label' => __("Yields", 'zip-recipes'),
