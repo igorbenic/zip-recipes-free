@@ -288,7 +288,6 @@ class ZipRecipes {
         $summary_rich = self::zrdn_break('<p class="summary italic">', self::zrdn_richify_item(self::zrdn_format_image($recipe->summary), 'summary'), '</p>');
         $formatted_notes = self::zrdn_break('<p class="notes">', self::zrdn_richify_item(self::zrdn_format_image($recipe->notes), 'notes'), '</p>');
 
-        do_action('zrdn__usage_stats');
         $amp_on = false;
         if (function_exists('is_amp_endpoint')) {
             $amp_on = is_amp_endpoint();
@@ -1464,7 +1463,7 @@ class ZipRecipes {
     public static function zrdn_get_all_recipes_by_post_db($post_id)
     {
         global $wpdb;
-        $table = $wpdb->prefix . RecipeModel::TABLE_NAME;;
+        $table = $wpdb->prefix . RecipeModel::TABLE_NAME;
         $selectStatement = $wpdb->prepare("SELECT * FROM {$table} WHERE post_id=%d", $post_id);
         return $wpdb->get_results($selectStatement);
     }

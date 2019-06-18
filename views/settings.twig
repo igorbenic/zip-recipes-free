@@ -1,12 +1,33 @@
 <style>
   .form-table label { line-height: 2.5; }
   hr { border: none; border-top: 1px; margin: 30px 0; }
+
+  .zrdn-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    border-top: 0;
+  }
+  .zrdn-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding:30px;
+
+  }
+  .zrdn-column-3 {
+    flex-grow: 3;
+  }
+
 </style>
 <div class="wrap">
   <form method="post" action="" id="zlrecipe_settings_form" name="zlrecipe_settings_form">
     <h2><img src="{{ zrdn_icon }}" /> Zip Recipes Settings</h2>
       For full customization options, see the <a href="https://www.ziprecipes.net/docs/installing/" target="_blank">Instructions document</a>.
-      {{ settings_promo|raw  }}
+
+    <div class="zrdn-container">
+      <div class="zrdn-column zrdn-column-3">
       {{ extensions_settings|raw }}
       <table class="form-table">
         <tr valign="top">
@@ -136,5 +157,9 @@
       </table>
 
       <p><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
-    </form>
+    </div><div class="zrdn-column">
+        {{ settings_promo|raw  }}
+      </div>
+    </div>
+  </form>
 </div>
