@@ -167,6 +167,7 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
         global $wpdb;
         $table = $wpdb->prefix . "amd_zlrecipe_recipes";
         $recipes = $wpdb->get_results("SELECT * FROM $table");
+        if (!$recipes || count($recipes)==0) $output = array();
         foreach ($recipes as $recipe) {
             $output[] =
                 array(

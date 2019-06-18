@@ -8,7 +8,6 @@ if (isset($_GET['id'])) {
     $recipe_id = intval($_GET['id']);
 }
 
-
 /**
  * If a post_id is passed, we will link this recipe to this post id.
  *
@@ -156,11 +155,17 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
             <input type="hidden" value="<?php echo $link_to_post_id ?>" name="post_id">
         <?php } ?>
 
+
+        <?php
+        $active_tab =  isset($_POST['zrdn_active_tab']) ? sanitize_title($_POST['zrdn_active_tab']) : 'general';
+        ?>
+        <input type="hidden" value="<?php echo $active_tab?>" name="zrdn_active_tab">
+
         <div class="zrdn-tab">
-            <button class="zrdn-tablinks active" type="button"
+            <button class="zrdn-tablinks <?php if ($active_tab=='general') echo 'active'?>" type="button"
                     data-tab="general"><?php _e("General", 'zip-recipes') ?></button>
 
-            <button class="zrdn-tablinks" type="button" data-tab="nutrition">
+            <button class="zrdn-tablinks <?php if ($active_tab=='nutrition') echo 'active'?>" type="button" data-tab="nutrition">
                 <?php _e("Nutrition", 'zip-recipes') ?>
             </button>
         </div>
@@ -171,17 +176,24 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                 <div class="zrdn-recipe-save-button">
                     <input type="submit" class="button button-primary" value="<?php _e('Save', 'zip-recipes') ?>">
                 </div>
-                <div id="general" class="zrdn-tabcontent active">
+                <div id="general" class="zrdn-tabcontent <?php if ($active_tab=='general') echo 'active'?>">
 
                     <h3><?php _e("General", 'zip-recipes') ?></h3>
-                    <?php //offer option to go to post if post_id is linked.
-                    ?>
-                    <?php if ($recipe->post_id) { ?>
-                        <a class="button button-default"
-                           href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
-                        <a class="button button-default"
-                           href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action'=>'unlink'), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
-                    <?php } ?>
+                    <?php //offer option to go to post if post_id is linked.?>
+                    <?php if ($recipe->post_id) {
+                        if (get_post_status($recipe->post_id)==='trash'){
+                            notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
+                        } else {
+                            ?>
+                            <a class="button button-default"
+                               href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
+                            <a class="button button-default"
+                               href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink'), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
+                            <a class="button button-default" target="_blank"
+                               href="<?php echo get_preview_post_link($recipe->post_id) ?>"><?php _e("Preview", "zip-recipes") ?></a>
+                            <?php
+                            }
+                        } ?>
                     <?php
                     if ($recipe->is_featured_post_image){
                         notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"), 'warning');
@@ -259,7 +271,7 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                         ),
                         array(
                             'type' => 'number',
-                            'required' => true,
+                            //'required' => true,
                             'fieldname' => 'yield',
                             'value' => $recipe->yield,
                             'label' => __("Yields", 'zip-recipes'),
@@ -281,7 +293,7 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                 </div>
 
                 <!-- Tab content -->
-                <div id="nutrition" class="zrdn-tabcontent">
+                <div id="nutrition" class="zrdn-tabcontent <?php if ($active_tab=='nutrition') echo 'active'?>">
 
                     <h3><?php _e("Nutrition", 'zip-recipes') ?></h3>
 
@@ -371,6 +383,13 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                             'fieldname' => 'calcium',
                             'value' => $recipe->calcium,
                             'label' => __("Calcium", 'zip-recipes'),
+                        ),
+
+                        array(
+                            'type' => 'hidden',
+                            'fieldname' => 'nutrition_label',
+                            'value' => $recipe->nutrition_label,
+                            //'label' => __("Nutrition label", 'zip-recipes'),
                         )
                     );
 

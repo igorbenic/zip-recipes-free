@@ -1,18 +1,18 @@
 === Recipe Cards For Your Food Blog from Zip Recipes ===
 Contributors: hgezim, RogierLankhorst, markwolters
-Plugin Name: Recipe Cards For Your Food Blog from Zip Recipes (with Gutenberg support)
+Plugin Name: Recipe Cards For Your Food Blog from Zip Recipes
 Plugin URI: https://www.ziprecipes.net
 License: GPLv3 or later
 Author URI: https://www.really-simple-plugins.com
 Author: Rogier Lankhorst, Mark Wolters
 Donate link: https://www.paypal.me/reallysimplessl
-Tags: recipe, recipes, recipe card, recipe box, print recipe, schema.org, seo, recipe seo, cooking, food, nutrition
+Tags: recipe, food, schema.org, nutrition, recipe card, seo, recipe seo, cooking, food, nutrition
 Requires at least: 4.2
 Tested up to: 5.1
 Stable tag: 6.0.0
 Requires PHP: 5.4
 
-Your goal is to build a food blog that earns money by serving loyal fans with your amazing recipes. We're just here to help you do that. Read on to learn about our 4-step success formula for your blog.
+Zip Recipes helps you to create a food blog with all the microdata to get found by Google. Schema.org and AMP compatible.
 
 == Description ==
 
@@ -155,7 +155,7 @@ Yes, we do! You can learn about our premium features here: [https://www.ziprecip
 
 = How do I edit a recipe with the Zip Recipes plugin? =
 
-To edit or create a recipe, click the spoon and fork icon on the visual editor toolbar.
+To edit or create a recipe, click the Zip Recipes icon on the visual editor toolbar, or in Gutenberg, type in "zip", then click the Zip Recipes icon.
 
 = Can I use the plugin to add multiple recipes to one post or page? =
 
@@ -163,7 +163,11 @@ There should only be one recipe per post or page. The plugin does allow for comp
 
 = When I use Zip Recipe plugin where are the recipes stored? =
 
-Your recipes are always stored on your own website. With Zip Recipes plugin, your recipes are stored safely in a separate database table in your main WordPress database. The recipe table is named wp_amd_zlrecipe_recipes and you can take a look at it yourself using any WordPress database tools at your disposal.
+Your recipes are always stored on your own website. With Zip Recipes, your recipes are stored safely in a separate database table in your main WordPress database. The recipe table is named wp_amd_zlrecipe_recipes and you can take a look at it yourself using any WordPress database tools at your disposal.
+
+= How about Intellectual Property? =
+
+Your recipes are yours only! They're stored on your own server. Zip Recipes is only a tool to server your recipes on the internet.
 
 = Why do you put a placeholder image into my Edit Post page, instead of my actual recipe? =
 
@@ -179,7 +183,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 
 == Changelog ==
 = 6.0.0 =
-* Completely reworked User Interface
+* User interface redesign
 
 = 5.0.11 =
 * Changed recipe image to large instead of full

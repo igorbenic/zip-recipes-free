@@ -2,103 +2,427 @@
 # Copyright (C) YEAR Zip Recipes Ltd
 # This file is distributed under the same license as the zip-recipes package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
-"POT-Creation-Date: 2019-05-18 21:57+0200\n"
-"PO-Revision-Date: 2019-05-18 22:07+0200\n"
-"Last-Translator: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2019-06-18 09:22+0200\n"
+"PO-Revision-Date: 2019-06-18 07:36+0000\n"
+"Last-Translator: rogier <rogierlankhorst@gmail.com>\n"
+"Language-Team: Chinese (China)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Loco https://localise.biz/\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Loco-Version: 2.2.2; wp-5.2.1"
 
-#: class.ziprecipes.php:1163
+#: RecipeTable/RecipeMenu.php:96 RecipeTable/RecipeMenu.php:97
+#: RecipeTable/RecipeMenu.php:187 RecipeTable/class-recipe-table.php:73
+msgid "Recipes"
+msgstr ""
+
+#: RecipeTable/RecipeMenu.php:116
+msgid "Click to edit this image"
+msgstr ""
+
+#: RecipeTable/RecipeMenu.php:117
+msgid "minutes"
+msgstr ""
+
+#: RecipeTable/RecipeMenu.php:118
+msgid "hours"
+msgstr ""
+
+#: RecipeTable/RecipeMenu.php:189
+msgid "Add recipe"
+msgstr ""
+
+#: RecipeTable/RecipeMenu.php:198
+msgid "Filter"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:72 RecipeTable/metabox.php:17
+msgid "Recipe"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:118
+msgid "name"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:142
+msgid "Unnamed recipe"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:146
+msgid "Edit"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:151 RecipeTable/edit.php:191
+msgid "Unlink from post"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:152
+#: RecipeTable/class-recipe-table.php:156
+msgid "Delete"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:153
+msgid "View post"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:172
+msgid "Name"
+msgstr ""
+
+#: RecipeTable/edit.php:166 RecipeTable/edit.php:181
+msgid "General"
+msgstr ""
+
+#: RecipeTable/edit.php:169 RecipeTable/edit.php:298
+msgid "Nutrition"
+msgstr ""
+
+#: RecipeTable/edit.php:177 class-field.php:736
+msgid "Save"
+msgstr ""
+
+#: RecipeTable/edit.php:185
+msgid ""
+"This recipe is linked to a post, but this post has been trashed. You can "
+"untrash the post, or link the recipe to another post or page"
+msgstr ""
+
+#: RecipeTable/edit.php:189
+msgid "Edit linked post"
+msgstr ""
+
+#: RecipeTable/edit.php:193
+msgid "Preview"
+msgstr ""
+
+#: RecipeTable/edit.php:199
+msgid ""
+"Your recipe image is the same as your post image. The image will be hidden "
+"on the front end."
+msgstr ""
+
+#: RecipeTable/edit.php:219
+msgid "Title"
+msgstr ""
+
+#: RecipeTable/edit.php:226
+#: plugins/CustomTemplates/views/_template_autumn.twig:85
+#: plugins/CustomTemplates/views/_template_canada.twig:251
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:100
+#: plugins/CustomTemplates/views/_template_vera.twig:152
+#: views/create-update-recipe.twig:245 views/recipe.twig:292
+msgid "Ingredients"
+msgstr "食材"
+
+#: RecipeTable/edit.php:232
+#: plugins/CustomTemplates/views/_template_autumn.twig:122
+#: plugins/CustomTemplates/views/_template_canada.twig:259
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:108
+#: plugins/CustomTemplates/views/_template_vera.twig:160
+#: views/create-update-recipe.twig:258 views/recipe.twig:330
+msgid "Instructions"
+msgstr "说明"
+
+#: RecipeTable/edit.php:238
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:46
+msgid "Category"
+msgstr ""
+
+#: RecipeTable/edit.php:244
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:58
+msgid "Cuisine"
+msgstr ""
+
+#: RecipeTable/edit.php:250
+msgid "Description"
+msgstr ""
+
+#: RecipeTable/edit.php:257
+msgid "Prep time"
+msgstr ""
+
+#: RecipeTable/edit.php:263
+msgid "Cook time"
+msgstr ""
+
+#: RecipeTable/edit.php:269
+#: plugins/CustomTemplates/views/_template_autumn.twig:171
+#: plugins/CustomTemplates/views/_template_canada.twig:270
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:118
+#: plugins/CustomTemplates/views/_template_vera.twig:169 views/recipe.twig:368
+msgid "Notes"
+msgstr "笔记"
+
+#: RecipeTable/edit.php:277
+msgid "Yields"
+msgstr ""
+
+#: RecipeTable/edit.php:283
+msgid "Serving size"
+msgstr ""
+
+#: RecipeTable/edit.php:307 plugins/AutomaticNutrition/views/label.twig:32
+#, fuzzy
+msgid "Calories"
+msgstr "卡路里："
+
+#: RecipeTable/edit.php:313
+msgid "Carbs"
+msgstr ""
+
+#: RecipeTable/edit.php:319 plugins/AutomaticNutrition/views/label.twig:123
+#, fuzzy
+msgid "Protein"
+msgstr "蛋白质："
+
+#: RecipeTable/edit.php:325
+msgid "Fiber"
+msgstr ""
+
+#: RecipeTable/edit.php:331
+msgid "Sugar"
+msgstr ""
+
+#: RecipeTable/edit.php:337 plugins/AutomaticNutrition/views/label.twig:84
+#, fuzzy
+msgid "Sodium"
+msgstr "钠："
+
+#: RecipeTable/edit.php:343
+msgid "Fat"
+msgstr ""
+
+#: RecipeTable/edit.php:349
+msgid "Saturated fat"
+msgstr ""
+
+#: RecipeTable/edit.php:355
+msgid "Trans fat"
+msgstr ""
+
+#: RecipeTable/edit.php:361 plugins/AutomaticNutrition/views/label.twig:75
+#, fuzzy
+msgid "Cholesterol"
+msgstr "胆固醇："
+
+#: RecipeTable/edit.php:367 plugins/AutomaticNutrition/views/label.twig:140
+msgid "Vitamin C"
+msgstr ""
+
+#: RecipeTable/edit.php:373 plugins/AutomaticNutrition/views/label.twig:136
+msgid "Vitamin A"
+msgstr ""
+
+#: RecipeTable/edit.php:379 plugins/AutomaticNutrition/views/label.twig:150
+msgid "Iron"
+msgstr ""
+
+#: RecipeTable/edit.php:385 plugins/AutomaticNutrition/views/label.twig:146
+msgid "Calcium"
+msgstr ""
+
+#: class-field.php:17 plugins/AutomaticNutrition/class-shortcode.php:13
+#, php-format
+msgid "%s is a singleton class and you cannot create a second instance."
+msgstr ""
+
+#: class-field.php:180
+msgid "This field is required. Please complete the question before continuing"
+msgstr ""
+
+#: class-field.php:651
+msgid "Choose an option"
+msgstr ""
+
+#: class-field.php:722
+msgid "Start"
+msgstr ""
+
+#: class.ziprecipes.php:1029
 #, php-format
 msgid "%d year"
 msgstr "%d 年"
 
-#: class.ziprecipes.php:1163
+#: class.ziprecipes.php:1029
 #, php-format
 msgid "%d years"
 msgstr "%d 年"
 
-#: class.ziprecipes.php:1164
+#: class.ziprecipes.php:1030
 #, php-format
 msgid "%d month"
 msgstr "%d 月"
 
-#: class.ziprecipes.php:1164
+#: class.ziprecipes.php:1030
 #, php-format
 msgid "%d months"
 msgstr "%d 月"
 
-#: class.ziprecipes.php:1165
+#: class.ziprecipes.php:1031
 #, php-format
 msgid "%d day"
 msgstr "%d 日"
 
-#: class.ziprecipes.php:1165
+#: class.ziprecipes.php:1031
 #, php-format
 msgid "%d days"
 msgstr "%d 日"
 
-#: class.ziprecipes.php:1166
+#: class.ziprecipes.php:1032
 #, php-format
 msgid "%d hour"
 msgstr "%d 小时"
 
-#: class.ziprecipes.php:1166
+#: class.ziprecipes.php:1032
 #, php-format
 msgid "%d hours"
 msgstr "%d 小时"
 
-#: class.ziprecipes.php:1167
+#: class.ziprecipes.php:1033
 #, php-format
 msgid "%d minute"
 msgstr "%d 分钟"
 
-#: class.ziprecipes.php:1167
+#: class.ziprecipes.php:1033
 #, php-format
 msgid "%d minutes"
 msgstr "%d 分钟"
 
-#: class.ziprecipes.php:1168
+#: class.ziprecipes.php:1034
 #, php-format
 msgid "%d second"
 msgstr "%d 秒"
 
-#: class.ziprecipes.php:1168
+#: class.ziprecipes.php:1034
 #, php-format
 msgid "%d seconds"
 msgstr "%d 秒"
 
-#: controllers/EndpointController.php:187
+#: controllers/EndpointController.php:225
+#: controllers/EndpointController.php:235
 msgid "Invalid recipe ID or recipe not found"
 msgstr ""
 
-#: controllers/EndpointController.php:204
+#: controllers/EndpointController.php:257
 msgid "Invalid recipe fields"
 msgstr ""
 
-#: controllers/EndpointController.php:213
+#: controllers/EndpointController.php:266
 #, fuzzy
 msgid "Can't create recipe"
 msgstr "为此食谱评分"
 
-#: controllers/EndpointController.php:233
+#: controllers/EndpointController.php:286
 #, fuzzy
 msgid "Can't update recipe"
 msgstr "为此食谱评分"
 
-#: plugins/AutomaticNutrition/class-shortcode.php:13
+#: plugins/Authors/Authors.php:70
+msgid "Author"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:101
+msgid "Use separate ingredients list for nutrition generation"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:102
+msgid ""
+"If you're not using English or Spanish, or you just want te exclude some "
+"ingredients from the nutrition generation, you can use this field, which is "
+"used for the nutrition data only"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:108
+msgid "Ingredients for nutrition generation"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:123
+msgid "You do not have edit permissions."
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:128
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:336
+msgid "An unexpected error has occurred. Please try again"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:133
+msgid ""
+"Your PHP is mis-configured. It's missing CURL extension. Please contact your "
+"host."
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:143
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:347
+msgid "Recipe not found. Please save your recipe first."
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:150
+msgid ""
+"Your license is not activated. Please activate your license to be able to "
+"use the Nutrition Generator."
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:188
+msgid "No response from Zip Recipes Nutrition API"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:206
 #, php-format
-msgid "%s is a singleton class and you cannot create a second instance."
+msgid "The %s field should not be empty"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:217
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:235
+msgid ""
+"We had trouble understanding your ingredients. Please try removing some to "
+"see if any are not recognized by the API. If needed, you can create a "
+"separte API ingredients field, by checking the option below."
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:296
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:304
+msgid "Did not receive nutrition image url"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:314
+msgid "Successfully generated nutrition data"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:389
+msgid "Successfully cleared nutrition data"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:622
+msgid "Automatic Nutrition generation"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:626
+msgid "To generate the Nutrition data, you should save the recipe first"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:631
+msgid "Update"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:631
+msgid "Generate label"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:632
+msgid "Clear label"
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:667
+#, php-format
+msgid "Nutrition label for %s"
 msgstr ""
 
 #: plugins/AutomaticNutrition/widget.php:16
@@ -251,24 +575,52 @@ msgstr ""
 msgid "An error occurred while updating the license data, please try again."
 msgstr ""
 
-#: plugins/RecipeReviews/RecipeReviews.php:164
-#: plugins/VisitorRating/VisitorRating.php:131
+#: plugins/RecipeReviews/RecipeReviews.php:178
+#: plugins/VisitorRating/VisitorRating.php:64
 #: plugins/RecipeReviews/views/render.twig:15
 #: plugins/VisitorRating/views/render.twig:15
 msgid "Your rating:"
 msgstr "您的评分："
 
-#: plugins/RecipeReviews/RecipeReviews.php:606
+#: plugins/RecipeReviews/RecipeReviews.php:619
 #, fuzzy
 msgid "Recipe Reviews"
 msgstr "食谱评论评级"
 
-#: views/toolbar.php:95
-msgid "Select existing recipe"
+#: src/block.php:87
+msgid "Recipe not found"
 msgstr ""
 
-#: views/toolbar.php:96
+#: views/toolbar.php:123
+msgid "Recipe selection updated. Time to save!"
+msgstr ""
+
+#: views/toolbar.php:124
+msgid ""
+"Selecting a recipe that is linked to another post will unlink it from that "
+"post!"
+msgstr ""
+
+#: views/toolbar.php:125
+msgid "Show only recipes without post"
+msgstr ""
+
+#: views/toolbar.php:128 views/toolbar.php:136
+msgid "No recipe selected"
+msgstr ""
+
+#: views/toolbar.php:148
+msgid "Edit recipe"
+msgstr ""
+
+#: views/toolbar.php:155
 msgid "Create and insert new recipe"
+msgstr ""
+
+#: views/toolbar.php:158
+msgid ""
+"Creating and inserting a new recipe will unlink the current recipe from this "
+"post."
 msgstr ""
 
 #: plugins/Authors/views/render.twig:3
@@ -281,21 +633,13 @@ msgstr ""
 
 #: plugins/AutomaticNutrition/views/label.twig:19
 #, fuzzy
-#| msgid "Serves:"
 msgid "Serves"
 msgstr "供应："
 
 #: plugins/AutomaticNutrition/views/label.twig:25
 #, fuzzy
-#| msgid "Sodium per serving:"
 msgid "Amount Per Serving"
 msgstr "每份钠："
-
-#: plugins/AutomaticNutrition/views/label.twig:32
-#, fuzzy
-#| msgid "Calories:"
-msgid "Calories"
-msgstr "卡路里："
 
 #: plugins/AutomaticNutrition/views/label.twig:40
 msgid "% Daily Value*"
@@ -303,33 +647,18 @@ msgstr ""
 
 #: plugins/AutomaticNutrition/views/label.twig:45
 #, fuzzy
-#| msgid "Total:"
 msgid "Total Fat"
 msgstr "总共："
 
 #: plugins/AutomaticNutrition/views/label.twig:56
 #, fuzzy
-#| msgid "Saturated fat:"
 msgid "Saturated Fat"
 msgstr "饱和脂肪："
 
 #: plugins/AutomaticNutrition/views/label.twig:67
 #, fuzzy
-#| msgid "Trans fat:"
 msgid "Trans Fat"
 msgstr "反式脂肪："
-
-#: plugins/AutomaticNutrition/views/label.twig:75
-#, fuzzy
-#| msgid "Cholesterol:"
-msgid "Cholesterol"
-msgstr "胆固醇："
-
-#: plugins/AutomaticNutrition/views/label.twig:84
-#, fuzzy
-#| msgid "Sodium:"
-msgid "Sodium"
-msgstr "钠："
 
 #: plugins/AutomaticNutrition/views/label.twig:93
 msgid "Total Carbohydrate"
@@ -341,31 +670,8 @@ msgstr ""
 
 #: plugins/AutomaticNutrition/views/label.twig:115
 #, fuzzy
-#| msgid "Sugar:"
 msgid "Sugars"
 msgstr "糖："
-
-#: plugins/AutomaticNutrition/views/label.twig:123
-#, fuzzy
-#| msgid "Protein:"
-msgid "Protein"
-msgstr "蛋白质："
-
-#: plugins/AutomaticNutrition/views/label.twig:136
-msgid "Vitamin A"
-msgstr ""
-
-#: plugins/AutomaticNutrition/views/label.twig:140
-msgid "Vitamin C"
-msgstr ""
-
-#: plugins/AutomaticNutrition/views/label.twig:146
-msgid "Calcium"
-msgstr ""
-
-#: plugins/AutomaticNutrition/views/label.twig:150
-msgid "Iron"
-msgstr ""
 
 #: plugins/AutomaticNutrition/views/label.twig:157
 msgid ""
@@ -380,7 +686,6 @@ msgstr "打印"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:43
 #: plugins/CustomTemplates/views/_template_canada.twig:46
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:46
 #: plugins/CustomTemplates/views/_template_vanilla.twig:45
 #: plugins/CustomTemplates/views/_template_vera.twig:111 views/recipe.twig:93
 msgid "Category:"
@@ -388,27 +693,10 @@ msgstr "类别："
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:55
 #: plugins/CustomTemplates/views/_template_canada.twig:58
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:58
 #: plugins/CustomTemplates/views/_template_vanilla.twig:57
 #: plugins/CustomTemplates/views/_template_vera.twig:123 views/recipe.twig:105
 msgid "Cuisine:"
 msgstr "烹饪法："
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:85
-#: plugins/CustomTemplates/views/_template_canada.twig:251
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:100
-#: plugins/CustomTemplates/views/_template_vera.twig:152
-#: views/create-update-recipe.twig:246 views/recipe.twig:292
-msgid "Ingredients"
-msgstr "食材"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:122
-#: plugins/CustomTemplates/views/_template_canada.twig:259
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:108
-#: plugins/CustomTemplates/views/_template_vera.twig:160
-#: views/create-update-recipe.twig:259 views/recipe.twig:330
-msgid "Instructions"
-msgstr "说明"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:131
 msgid "Prep"
@@ -421,13 +709,6 @@ msgstr "烹饪"
 #: plugins/CustomTemplates/views/_template_autumn.twig:155
 msgid "Ready in"
 msgstr "准备好了"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:171
-#: plugins/CustomTemplates/views/_template_canada.twig:270
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:118
-#: plugins/CustomTemplates/views/_template_vera.twig:169 views/recipe.twig:368
-msgid "Notes"
-msgstr "笔记"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:184
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:131
@@ -567,12 +848,18 @@ msgid "Cholesterol:"
 msgstr "胆固醇："
 
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:69
+msgid "Prep Time"
+msgstr ""
+
+#: plugins/CustomTemplates/views/_template_cozy_orange.twig:79
+msgid "Cook Time"
+msgstr ""
+
 #: plugins/CustomTemplates/views/_template_vanilla.twig:104
 #: plugins/CustomTemplates/views/_template_vera.twig:46 views/recipe.twig:57
 msgid "Prep Time:"
 msgstr "准备时间:"
 
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:79
 #: plugins/CustomTemplates/views/_template_vanilla.twig:116
 #: plugins/CustomTemplates/views/_template_vera.twig:58 views/recipe.twig:69
 msgid "Cook Time:"
@@ -590,20 +877,18 @@ msgstr "总时间："
 #: plugins/PluginManagement/views/notice-comments.twig:2
 msgid ""
 "Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
-"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank"
-"\">Learn more</a>"
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">"
+"Learn more</a>"
 msgstr ""
-"食谱评论只适用于WordPress评论或Jetpack评论。 <a href=\"https://www."
-"ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">Learn more</a>"
+"食谱评论只适用于WordPress评论或Jetpack评论。 <a href=\"https://www.ziprecipes."
+"net/docs/recipe-reviews/\" target=\"_blank\">Learn more</a>"
 
 #: plugins/PluginManagement/views/notice.twig:2
 msgid ""
 "VisitorRating and RecipeReviews cannot be active at the same time. If you "
 "want to allow anonymous ratings, activate VisitorRating. If you want to "
 "require comments with ratings activate RecipeReviews."
-msgstr ""
-"《访客评级》和《食谱评论》不能同时处于活动状态。如果您想以匿名评分，请激活"
-"《访客评级》。如果您想要评分，请激活《食谱评论》。"
+msgstr "《访客评级》和《食谱评论》不能同时处于活动状态。如果您想以匿名评分，请激活《访客评级》。如果您想要评分，请激活《食谱评论》。"
 
 #: plugins/RecipeActions/views/recipe_actions.twig:9
 msgid "Save to BigOven"
@@ -634,7 +919,7 @@ msgstr "星"
 msgid "ratings"
 msgstr "评分"
 
-#: views/create-update-recipe.twig:248
+#: views/create-update-recipe.twig:247
 msgid ""
 "Put each ingredient on a separate line.  There is no need to use bullets for "
 "your ingredients.<br />\n"
@@ -644,6 +929,24 @@ msgstr ""
 
 #: views/default_nutrition.twig:34
 msgid "Calculate Nutrition"
+msgstr ""
+
+#: views/discount.twig:57
+msgid ""
+"Like this plugin? The premium version includes lots of cool extra features, "
+"your "
+msgstr ""
+
+#: views/discount.twig:58
+msgid "20% fast adapter discount"
+msgstr ""
+
+#: views/discount.twig:59
+msgid " is still valid!"
+msgstr ""
+
+#: views/discount.twig:64
+msgid "dismiss"
 msgstr ""
 
 #: views/notice.twig:2
@@ -656,6 +959,54 @@ msgstr ""
 #: views/recipe.twig:30 views/recipe.twig:34
 msgid "Print this recipe"
 msgstr "打印食谱"
+
+#: views/settings_promo.twig:12
+msgid "Like the plugin, or need more features?"
+msgstr ""
+
+#: views/settings_promo.twig:14
+msgid "Optimized for Google"
+msgstr ""
+
+#: views/settings_promo.twig:15
+msgid "Cool looking themes"
+msgstr ""
+
+#: views/settings_promo.twig:16
+msgid "Automatic serving adjustment"
+msgstr ""
+
+#: views/settings_promo.twig:17
+msgid "Author setting for Google"
+msgstr ""
+
+#: views/settings_promo.twig:18
+msgid "Ratings and reviews"
+msgstr ""
+
+#: views/settings_promo.twig:19
+msgid "Save recipes on social media"
+msgstr ""
+
+#: views/settings_promo.twig:20
+msgid "Recipe index"
+msgstr ""
+
+#: views/settings_promo.twig:21
+msgid "Automatic nutrition calculation"
+msgstr ""
+
+#: views/settings_promo.twig:22
+msgid "Search by ingredients"
+msgstr ""
+
+#: views/settings_promo.twig:23
+msgid "Recipe picture gallery"
+msgstr ""
+
+#: views/settings_promo.twig:24
+msgid "Mobile friendly"
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Zip Recipes Lover"

@@ -8,16 +8,15 @@ msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
 "POT-Creation-Date: 2019-06-18 09:22+0200\n"
-"PO-Revision-Date: 2019-06-18 07:34+0000\n"
+"PO-Revision-Date: 2019-06-18 07:36+0000\n"
 "Last-Translator: rogier <rogierlankhorst@gmail.com>\n"
-"Language-Team: Arabic\n"
-"Language: ar\n"
+"Language-Team: Swedish\n"
+"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Loco-Version: 2.2.2; wp-5.2.1"
 
 #: RecipeTable/RecipeMenu.php:96 RecipeTable/RecipeMenu.php:97
@@ -121,7 +120,7 @@ msgstr ""
 #: plugins/CustomTemplates/views/_template_vera.twig:152
 #: views/create-update-recipe.twig:245 views/recipe.twig:292
 msgid "Ingredients"
-msgstr "المقادير"
+msgstr "Ingredienser"
 
 #: RecipeTable/edit.php:232
 #: plugins/CustomTemplates/views/_template_autumn.twig:122
@@ -130,7 +129,7 @@ msgstr "المقادير"
 #: plugins/CustomTemplates/views/_template_vera.twig:160
 #: views/create-update-recipe.twig:258 views/recipe.twig:330
 msgid "Instructions"
-msgstr "خطوات التحضير"
+msgstr "Instruktioner"
 
 #: RecipeTable/edit.php:238
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:46
@@ -160,7 +159,7 @@ msgstr ""
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:118
 #: plugins/CustomTemplates/views/_template_vera.twig:169 views/recipe.twig:368
 msgid "Notes"
-msgstr "ملاحظات"
+msgstr "Anteckningar"
 
 #: RecipeTable/edit.php:277
 msgid "Yields"
@@ -173,7 +172,7 @@ msgstr ""
 #: RecipeTable/edit.php:307 plugins/AutomaticNutrition/views/label.twig:32
 #, fuzzy
 msgid "Calories"
-msgstr "الكالوري:"
+msgstr "Kalorier"
 
 #: RecipeTable/edit.php:313
 msgid "Carbs"
@@ -182,7 +181,7 @@ msgstr ""
 #: RecipeTable/edit.php:319 plugins/AutomaticNutrition/views/label.twig:123
 #, fuzzy
 msgid "Protein"
-msgstr "البروتين:"
+msgstr "Protein:"
 
 #: RecipeTable/edit.php:325
 msgid "Fiber"
@@ -195,7 +194,7 @@ msgstr ""
 #: RecipeTable/edit.php:337 plugins/AutomaticNutrition/views/label.twig:84
 #, fuzzy
 msgid "Sodium"
-msgstr "الصوديوم:"
+msgstr "Natrium:"
 
 #: RecipeTable/edit.php:343
 msgid "Fat"
@@ -212,7 +211,7 @@ msgstr ""
 #: RecipeTable/edit.php:361 plugins/AutomaticNutrition/views/label.twig:75
 #, fuzzy
 msgid "Cholesterol"
-msgstr "السعرات الحرارية لكل حصة:"
+msgstr "Kolesterol:"
 
 #: RecipeTable/edit.php:367 plugins/AutomaticNutrition/views/label.twig:140
 msgid "Vitamin C"
@@ -250,62 +249,62 @@ msgstr ""
 #: class.ziprecipes.php:1029
 #, php-format
 msgid "%d year"
-msgstr "%d سنة"
+msgstr "%d år"
 
 #: class.ziprecipes.php:1029
 #, php-format
 msgid "%d years"
-msgstr "%d سنوات"
+msgstr "%d år"
 
 #: class.ziprecipes.php:1030
 #, php-format
 msgid "%d month"
-msgstr "%d شهر"
+msgstr "%d månad"
 
 #: class.ziprecipes.php:1030
 #, php-format
 msgid "%d months"
-msgstr "%d شهراً"
+msgstr "%d månader"
 
 #: class.ziprecipes.php:1031
 #, php-format
 msgid "%d day"
-msgstr "%d يوم"
+msgstr "%d dag"
 
 #: class.ziprecipes.php:1031
 #, php-format
 msgid "%d days"
-msgstr "%d ايام"
+msgstr "%d dagar"
 
 #: class.ziprecipes.php:1032
 #, php-format
 msgid "%d hour"
-msgstr "%d ساعة"
+msgstr "%d timme"
 
 #: class.ziprecipes.php:1032
 #, php-format
 msgid "%d hours"
-msgstr "%d ساعات"
+msgstr "%d timmar"
 
 #: class.ziprecipes.php:1033
 #, php-format
 msgid "%d minute"
-msgstr "%d دقيقة"
+msgstr "%d minut"
 
 #: class.ziprecipes.php:1033
 #, php-format
 msgid "%d minutes"
-msgstr "%d دقائق"
+msgstr "%d minuter"
 
 #: class.ziprecipes.php:1034
 #, php-format
 msgid "%d second"
-msgstr "%d ثانية"
+msgstr "%d sekund"
 
 #: class.ziprecipes.php:1034
 #, php-format
 msgid "%d seconds"
-msgstr "%d ثواني"
+msgstr "%d sekunder"
 
 #: controllers/EndpointController.php:225
 #: controllers/EndpointController.php:235
@@ -319,12 +318,12 @@ msgstr ""
 #: controllers/EndpointController.php:266
 #, fuzzy
 msgid "Can't create recipe"
-msgstr "قيم هذه الوصفة"
+msgstr "Betygsätt detta recept"
 
 #: controllers/EndpointController.php:286
 #, fuzzy
 msgid "Can't update recipe"
-msgstr "قيم هذه الوصفة"
+msgstr "Betygsätt detta recept"
 
 #: plugins/Authors/Authors.php:70
 msgid "Author"
@@ -580,9 +579,8 @@ msgstr ""
 #: plugins/VisitorRating/VisitorRating.php:64
 #: plugins/RecipeReviews/views/render.twig:15
 #: plugins/VisitorRating/views/render.twig:15
-#, fuzzy
 msgid "Your rating:"
-msgstr "تقييمات"
+msgstr "Ditt betyg:"
 
 #: plugins/RecipeReviews/RecipeReviews.php:619
 msgid "Recipe Reviews"
@@ -626,7 +624,7 @@ msgstr ""
 
 #: plugins/Authors/views/render.twig:3
 msgid "Author:"
-msgstr "المؤلف: "
+msgstr "Författare:"
 
 #: plugins/AutomaticNutrition/views/label.twig:13
 msgid "Nutrition Facts"
@@ -635,12 +633,12 @@ msgstr ""
 #: plugins/AutomaticNutrition/views/label.twig:19
 #, fuzzy
 msgid "Serves"
-msgstr "الحصص: "
+msgstr "Portioner:"
 
 #: plugins/AutomaticNutrition/views/label.twig:25
 #, fuzzy
 msgid "Amount Per Serving"
-msgstr "الصوديوم لكل حصة:"
+msgstr "Natrium per portion:"
 
 #: plugins/AutomaticNutrition/views/label.twig:40
 msgid "% Daily Value*"
@@ -649,16 +647,17 @@ msgstr ""
 #: plugins/AutomaticNutrition/views/label.twig:45
 #, fuzzy
 msgid "Total Fat"
-msgstr "الوقت الكلي: "
+msgstr "Total:"
 
 #: plugins/AutomaticNutrition/views/label.twig:56
 #, fuzzy
 msgid "Saturated Fat"
-msgstr "الدهون المشبعة:"
+msgstr "Mättat fett:"
 
 #: plugins/AutomaticNutrition/views/label.twig:67
+#, fuzzy
 msgid "Trans Fat"
-msgstr ""
+msgstr "Transfett:"
 
 #: plugins/AutomaticNutrition/views/label.twig:93
 msgid "Total Carbohydrate"
@@ -671,7 +670,7 @@ msgstr ""
 #: plugins/AutomaticNutrition/views/label.twig:115
 #, fuzzy
 msgid "Sugars"
-msgstr "سكر:"
+msgstr "Socker:"
 
 #: plugins/AutomaticNutrition/views/label.twig:157
 msgid ""
@@ -682,33 +681,33 @@ msgstr ""
 #: plugins/CustomTemplates/views/_blocks.twig:35 views/recipe.twig:25
 #: views/recipe.twig:35
 msgid "Print"
-msgstr "طباعة"
+msgstr "Utskrift"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:43
 #: plugins/CustomTemplates/views/_template_canada.twig:46
 #: plugins/CustomTemplates/views/_template_vanilla.twig:45
 #: plugins/CustomTemplates/views/_template_vera.twig:111 views/recipe.twig:93
 msgid "Category:"
-msgstr ""
+msgstr "Kategori:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:55
 #: plugins/CustomTemplates/views/_template_canada.twig:58
 #: plugins/CustomTemplates/views/_template_vanilla.twig:57
 #: plugins/CustomTemplates/views/_template_vera.twig:123 views/recipe.twig:105
 msgid "Cuisine:"
-msgstr ""
+msgstr "Kök:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:131
 msgid "Prep"
-msgstr "مدة الإعداد: "
+msgstr "Förberedelse"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:143
 msgid "Cook"
-msgstr "مدة الطبخ: "
+msgstr "Laga mat:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:155
 msgid "Ready in"
-msgstr "جاهزة في"
+msgstr "Färdigt om"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:184
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:131
@@ -722,132 +721,130 @@ msgstr ""
 #: plugins/CustomTemplates/views/_template_vanilla.twig:144
 #: plugins/CustomTemplates/views/_template_vera.twig:186 views/recipe.twig:140
 msgid "Serving Size:"
-msgstr "حجم الحصة:"
+msgstr "Portionsstorlek:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:198
 #: plugins/CustomTemplates/views/_template_vanilla.twig:152
 #: plugins/CustomTemplates/views/_template_vera.twig:194 views/recipe.twig:150
 msgid "Calories per serving:"
-msgstr "السعرات الحرارية لكل حصة:"
+msgstr "Kalorier per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:206
 #: plugins/CustomTemplates/views/_template_vanilla.twig:160
 #: plugins/CustomTemplates/views/_template_vera.twig:202 views/recipe.twig:160
 msgid "Fat per serving:"
-msgstr "الدهون لكل حصة:"
+msgstr "Fett per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:214
 #: plugins/CustomTemplates/views/_template_vanilla.twig:168
 #: plugins/CustomTemplates/views/_template_vera.twig:210 views/recipe.twig:170
 msgid "Saturated fat per serving:"
-msgstr "الدهون المشبعة لكل حصة:"
+msgstr "Mättat fett per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:222
 #: plugins/CustomTemplates/views/_template_vanilla.twig:176
 #: plugins/CustomTemplates/views/_template_vera.twig:218 views/recipe.twig:180
 msgid "Carbs per serving:"
-msgstr "الكربوهيدرات لكل حصة:"
+msgstr "Kolhydrater per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:230
 #: plugins/CustomTemplates/views/_template_vanilla.twig:184
 #: plugins/CustomTemplates/views/_template_vera.twig:226 views/recipe.twig:190
 msgid "Protein per serving:"
-msgstr "صةالبروتين في لكل حصة:"
+msgstr "Protein per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:238
 #: plugins/CustomTemplates/views/_template_vanilla.twig:192
 #: plugins/CustomTemplates/views/_template_vera.twig:234 views/recipe.twig:200
 msgid "Fiber per serving:"
-msgstr "الألياف لكل حصة:"
+msgstr "Fibrer per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:246
 #: plugins/CustomTemplates/views/_template_vanilla.twig:200
 #: plugins/CustomTemplates/views/_template_vera.twig:242 views/recipe.twig:210
 msgid "Sugar per serving:"
-msgstr "السكر لكل حصة:"
+msgstr "Socker per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:254
 #: plugins/CustomTemplates/views/_template_vanilla.twig:208
 #: plugins/CustomTemplates/views/_template_vera.twig:250 views/recipe.twig:220
 msgid "Sodium per serving:"
-msgstr "الصوديوم لكل حصة:"
+msgstr "Natrium per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:262
 #: plugins/CustomTemplates/views/_template_vanilla.twig:216
 #: plugins/CustomTemplates/views/_template_vera.twig:258 views/recipe.twig:230
-#, fuzzy
 msgid "Trans fat per serving:"
-msgstr "الدهون المشبعة لكل حصة:"
+msgstr "Transfett per portion:"
 
 #: plugins/CustomTemplates/views/_template_autumn.twig:269
 #: plugins/CustomTemplates/views/_template_vanilla.twig:223
 #: plugins/CustomTemplates/views/_template_vera.twig:265 views/recipe.twig:240
-#, fuzzy
 msgid "Cholesterol per serving:"
-msgstr "السعرات الحرارية لكل حصة:"
+msgstr "Kolesterol per portion:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:87
 msgid "Total:"
-msgstr "الوقت الكلي: "
+msgstr "Total:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:99
 msgid "Prep:"
-msgstr "مدة الإعداد: "
+msgstr "Förberedelse:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:111
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:138
 msgid "Serves:"
-msgstr "الحصص: "
+msgstr "Portioner:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:137
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:159
 msgid "Calories:"
-msgstr "الكالوري:"
+msgstr "Kalorier"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:148
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:170
 msgid "Fat:"
-msgstr "الدهون:"
+msgstr "Fett:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:159
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:181
 msgid "Saturated fat:"
-msgstr "الدهون المشبعة:"
+msgstr "Mättat fett:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:170
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:192
 msgid "Carbs:"
-msgstr "الكربوهيدرات:"
+msgstr "Kolhydrater:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:181
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:203
 msgid "Protein:"
-msgstr "البروتين:"
+msgstr "Protein:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:192
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:214
 msgid "Fiber:"
-msgstr "الألياف:"
+msgstr "Fibrer:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:203
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:225
 msgid "Sugar:"
-msgstr "سكر:"
+msgstr "Socker:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:213
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:235
 msgid "Sodium:"
-msgstr "الصوديوم:"
+msgstr "Natrium:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:224
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:246
 msgid "Trans fat:"
-msgstr ""
+msgstr "Transfett:"
 
 #: plugins/CustomTemplates/views/_template_canada.twig:235
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:257
 msgid "Cholesterol:"
-msgstr ""
+msgstr "Kolesterol:"
 
 #: plugins/CustomTemplates/views/_template_cozy_orange.twig:69
 msgid "Prep Time"
@@ -860,21 +857,21 @@ msgstr ""
 #: plugins/CustomTemplates/views/_template_vanilla.twig:104
 #: plugins/CustomTemplates/views/_template_vera.twig:46 views/recipe.twig:57
 msgid "Prep Time:"
-msgstr "مدة الإعداد: "
+msgstr "Förberedelsetid:"
 
 #: plugins/CustomTemplates/views/_template_vanilla.twig:116
 #: plugins/CustomTemplates/views/_template_vera.twig:58 views/recipe.twig:69
 msgid "Cook Time:"
-msgstr "مدة الطبخ: "
+msgstr "Tillagningstid:"
 
 #: plugins/CustomTemplates/views/_template_vanilla.twig:127
 #: plugins/CustomTemplates/views/_template_vera.twig:102 views/recipe.twig:125
 msgid "Yield:"
-msgstr "الحصص:"
+msgstr "Ger:"
 
 #: plugins/CustomTemplates/views/_template_vera.twig:70 views/recipe.twig:81
 msgid "Total Time:"
-msgstr "الوقت الكلي:"
+msgstr "Total Tid:"
 
 #: plugins/PluginManagement/views/notice-comments.twig:2
 msgid ""
@@ -898,18 +895,18 @@ msgstr ""
 #: plugins/RecipeReviews/views/comments_modify.twig:1
 #, fuzzy
 msgid "Rating"
-msgstr "تقييمات"
+msgstr "betyg"
 
 #: plugins/RecipeReviews/views/comments_fields.twig:2
 #: plugins/RecipeReviews/views/render.twig:20
 #: plugins/VisitorRating/views/render.twig:20
 msgid "Rate this recipe"
-msgstr "قيم هذه الوصفة"
+msgstr "Betygsätt detta recept"
 
 #: plugins/RecipeReviews/views/render.twig:5
 #: plugins/VisitorRating/views/render.twig:5
 msgid "stars"
-msgstr "نجوم"
+msgstr "stjärnor"
 
 #: plugins/RecipeReviews/views/render.twig:5
 #: plugins/RecipeReviews/views/render.twig:38
@@ -918,7 +915,7 @@ msgstr "نجوم"
 #: plugins/VisitorRating/views/render.twig:38
 #: plugins/VisitorRating/views/render.twig:40
 msgid "ratings"
-msgstr "تقييمات"
+msgstr "betyg"
 
 #: views/create-update-recipe.twig:247
 msgid ""
@@ -959,7 +956,7 @@ msgstr ""
 
 #: views/recipe.twig:30 views/recipe.twig:34
 msgid "Print this recipe"
-msgstr "طباعة هذه الوصفة"
+msgstr "Skriva ut recept"
 
 #: views/settings_promo.twig:12
 msgid "Like the plugin, or need more features?"
