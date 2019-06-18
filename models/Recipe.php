@@ -318,6 +318,7 @@ class Recipe {
     public $carbs_daily;
     public $fiber_daily;
     public $has_nutrition_data = false;
+    public $preview = false;
 
 
 
@@ -397,9 +398,10 @@ class Recipe {
             }
         }
 
-        //check if this post is still valid
+        //check if the connected post is a valid post
         $post = get_post($this->post_id);
         if (!$post || get_post_type($this->post_id)==='revision') $this->post_id = false;
+
 
         //check if we should load the nutrition label
         if ($this->nutrition_label_id>0){
@@ -455,12 +457,15 @@ class Recipe {
         }
     }
 
+    /**
+     * Load recipe with placeholders instead of actual data
+     */
+
     public function load_placeholders(){
 
         $recipe = get_object_vars($this);
 
         foreach ($recipe as $fieldname => $value) {
-//            if ($fieldname==='has_nutrition_data') continue;
             $this->{$fieldname} = '{' . $fieldname . '_value}';
         }
 
@@ -478,9 +483,13 @@ class Recipe {
         global $wpdb;
         $table = $wpdb->prefix . self::TABLE_NAME;
         $recipe_id =  $wpdb->get_var("SELECT max(recipe_id) FROM $table");
-
+        $this->preview = true;
         $this->recipe_id = $recipe_id;
     }
+
+    /**
+     * Save recipe to database
+     */
 
     public function save(){
         if (!current_user_can('edit_posts')) return;
@@ -623,6 +632,9 @@ class Recipe {
         return $recipe;
     }
 
+
+
+
     /**
      * Delete recipe from table
      *
@@ -658,19 +670,8 @@ class Recipe {
         }
         global $wpdb;
         $table = $wpdb->prefix . self::TABLE_NAME;
-
-        //check if we already have a recipe for this post id
-        //when switching from gutenberg to classic and vice versa, this could otherwise cause double entries.
-        global $wpdb;
-        $sql = $wpdb->prepare("select recipe_id from $table where post_id = %s", $recipe->post_id);
-        $recipe_id = $wpdb->get_var($sql);
-        if ($recipe_id){
-            $wpdb->update($table, $recipe, array('post_id' => $recipe->post_id));
-        } else {
-            $wpdb->insert($table, $recipe);
-            $recipe_id = $wpdb->insert_id;
-        }
-        return $recipe_id;
+        $wpdb->insert($table, $recipe);
+        return $wpdb->insert_id;
     }
 
     /**

@@ -155,11 +155,17 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
             <input type="hidden" value="<?php echo $link_to_post_id ?>" name="post_id">
         <?php } ?>
 
+
+        <?php
+        $active_tab =  isset($_POST['zrdn_active_tab']) ? sanitize_title($_POST['zrdn_active_tab']) : 'general';
+        ?>
+        <input type="hidden" value="<?php echo $active_tab?>" name="zrdn_active_tab">
+
         <div class="zrdn-tab">
-            <button class="zrdn-tablinks active" type="button"
+            <button class="zrdn-tablinks <?php if ($active_tab=='general') echo 'active'?>" type="button"
                     data-tab="general"><?php _e("General", 'zip-recipes') ?></button>
 
-            <button class="zrdn-tablinks" type="button" data-tab="nutrition">
+            <button class="zrdn-tablinks <?php if ($active_tab=='nutrition') echo 'active'?>" type="button" data-tab="nutrition">
                 <?php _e("Nutrition", 'zip-recipes') ?>
             </button>
         </div>
@@ -170,7 +176,7 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                 <div class="zrdn-recipe-save-button">
                     <input type="submit" class="button button-primary" value="<?php _e('Save', 'zip-recipes') ?>">
                 </div>
-                <div id="general" class="zrdn-tabcontent active">
+                <div id="general" class="zrdn-tabcontent <?php if ($active_tab=='general') echo 'active'?>">
 
                     <h3><?php _e("General", 'zip-recipes') ?></h3>
                     <?php //offer option to go to post if post_id is linked.?>
@@ -287,7 +293,7 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                 </div>
 
                 <!-- Tab content -->
-                <div id="nutrition" class="zrdn-tabcontent">
+                <div id="nutrition" class="zrdn-tabcontent <?php if ($active_tab=='nutrition') echo 'active'?>">
 
                     <h3><?php _e("Nutrition", 'zip-recipes') ?></h3>
 
@@ -377,6 +383,13 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                             'fieldname' => 'calcium',
                             'value' => $recipe->calcium,
                             'label' => __("Calcium", 'zip-recipes'),
+                        ),
+
+                        array(
+                            'type' => 'hidden',
+                            'fieldname' => 'nutrition_label',
+                            'value' => $recipe->nutrition_label,
+                            //'label' => __("Nutrition label", 'zip-recipes'),
                         )
                     );
 
