@@ -92,7 +92,7 @@ class Util {
 
         //even if on gutenberg, with elementor we have to use classic shortcodes.
         if (Util::uses_gutenberg() && !Util::uses_elementor()){
-            return '/<!-- wp:zip-recipes/recipe-block {"id":"'.$recipe_id.'"} /-->/i';
+            return '<!-- wp:zip-recipes/recipe-block {"id":"'.$recipe_id.'"} /-->';
         } else {
             return '[amd-zlrecipe-recipe:'.$recipe_id.']';
 
@@ -123,13 +123,14 @@ class Util {
      * get the shortcode or block for a page type
      *
      * @param string $type
+     * @param boolean empty, to get pattern for gutenberg shortcode without recipeid
      * @return string $shortcode
      *
      *
      */
 
 
-    public static function get_shortcode_pattern($recipe_id=false)
+    public static function get_shortcode_pattern($recipe_id=false, $match_all=false)
     {
 
         //even if on gutenberg, with elementor we have to use classic shortcodes.
@@ -137,10 +138,16 @@ class Util {
             if ($recipe_id){
                 return '/<!-- wp:zip-recipes\/recipe-block {"id":"'.$recipe_id.'"} \/-->/i';
             }
-            return '/<!-- wp:zip-recipes\/recipe-block {"id":"([0-9]\d*)".*?} \/-->/i';
+            if ($match_all){
+                return '/(<!-- wp:zip-recipes\/recipe-block {.*?} \/-->)/i';
+            }
+            return '/<!-- wp:zip-recipes\/recipe-block {.*?"id":"([0-9]\d*)".*?} \/-->/i';
         } else {
             if ($recipe_id){
                 return '/(\[amd-zlrecipe-recipe:'.$recipe_id.'\])/i';
+            }
+            if ($match_all){
+                return '/(\[amd-zlrecipe-recipe:.*?\])/i';
             }
             return '/\[amd-zlrecipe-recipe:([0-9]\d*).*?\]/i';
         }

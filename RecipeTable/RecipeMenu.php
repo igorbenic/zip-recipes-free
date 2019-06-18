@@ -154,8 +154,6 @@ function zrdn_recipe_overview(){
                     if (action==='delete'){
                         btn.closest('tr').css('background-color', 'red');
                     }
-                    console.log(recipe_id);
-
 
                     $.ajax({
                         type: "POST",
@@ -202,6 +200,119 @@ function zrdn_recipe_overview(){
             </form>
         </div>
         <?php
+    }
+}
+
+
+add_action('init', __NAMESPACE__.'\zrdn_process_update_recipe');
+function zrdn_process_update_recipe(){
+
+    /**
+     * unlink from post
+     */
+
+    if ((isset($_GET['action']) && $_GET['action']=='unlink')) {
+        zrdn_unlink_recipe_from_post(intval($_GET['id']));
+    }
+
+    /**
+     * Saving and adding
+     */
+
+
+    if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recipe'], 'zrdn_save_recipe')) {
+
+        /**
+         * adding new recipe
+         */
+
+        if (isset($_POST['zrdn_add_new']) || (isset($_GET['action']) && $_GET['action']=='new')) {
+            if (isset($_POST['post_id'])){
+                $post_id = intval($_POST['post_id']);
+                $recipe = new Recipe(false, $post_id);
+            } else {
+                $recipe = new Recipe();
+            }
+
+            $recipe->save();
+            $recipe_id = $recipe->recipe_id;
+
+            /**
+             * if a new recipe is created and post id is passed, we make sure it is inserted in the current post.
+             * Because we don't have a recipe ID yet, we have to store the post_id and post_type in a hidden field, and process this on update.
+             *
+             * Two options:
+             *  1) there already is a recipe, and it needs to be replaced, and unlinked in the database
+             *  2) No recipe yet. Just insert the shortcode, and link to this post.
+             */
+            if (isset($_POST['post_id'])) {
+                //update the shortcode in this post, if necessary.
+                $post = get_post(intval($_POST['post_id']));
+                if (Util::has_shortcode($post_id, $post)) {
+                    //we have a linked recipe
+                    $pattern = Util::get_shortcode_pattern();
+                    $entire_pattern = Util::get_shortcode_pattern(false, true);
+                    if (preg_match($pattern, $post->post_content, $matches)) {
+                        $old_recipe_id = $matches[1];
+                        $old_recipe = new Recipe($old_recipe_id);
+                        $old_recipe->post_id = false;
+                        $old_recipe->save();
+                        $content = preg_replace($pattern, $recipe_id, $post->post_content, 1);
+                    } elseif (preg_match($entire_pattern, $post->post_content, $matches)){
+                        $shortcode = Util::get_shortcode($recipe_id);
+                        $content = preg_replace($entire_pattern, $shortcode, $post->post_content, 1);
+                    } else {
+                        $content = $post->post_content;
+                    }
+                } else {
+                    //no recipe yet. Just insert it
+                    $content = Util::get_shortcode($recipe_id) . $post->post_content;
+                }
+
+                $post = array(
+                    'ID' => $post_id,
+                    'post_content' => $content,
+                );
+                wp_update_post($post);
+
+                //update link to post in DB
+                //the recipe is by this time already linked to this post, but this call will also make sure not other recipes are linked to this post
+                ZipRecipes::link_recipe_to_post($post_id, $recipe_id);
+            }
+        } else {
+            $recipe_id = intval($_POST['zrdn_recipe_id']);
+        }
+
+
+        /**
+         * Saving the recipe
+         */
+        $recipe = new Recipe($recipe_id);
+        //save all recipe fields here.
+        foreach ($recipe as $fieldname => $value) {
+
+            //sanitization in recipe class
+            if (isset($_POST['zrdn_'.$fieldname]) && $fieldname!=="recipe_id") {
+                $recipe->{$fieldname} = $_POST['zrdn_'.$fieldname];
+            }
+
+            //time
+            if (isset($_POST['zrdn_'.$fieldname."_hours"]) && isset($_POST['zrdn_'.$fieldname."_minutes"])) {
+                $recipe->{$fieldname} = 'PT'.intval($_POST['zrdn_'.$fieldname.'_hours']).'H'.intval($_POST['zrdn_'.$fieldname."_minutes"]).'M';
+            }
+
+            $recipe = apply_filters('zrdn_save_recipe', $recipe);
+        }
+
+
+        $recipe->save();
+
+        //if recipe was just created, redirect to single edit page
+        if (isset($_POST['zrdn_add_new']) || (isset($_GET['action']) && $_GET['action']=='new')) {
+            $url = add_query_arg(array('page'=>'zrdn-recipes','id'=>$recipe_id), admin_url('admin.php'));
+            wp_redirect($url);
+            exit;
+        }
     }
 }
 
