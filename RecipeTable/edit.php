@@ -30,102 +30,11 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
 }
 
 
-/**
- * unlink from post
- */
 
-if ((isset($_GET['action']) && $_GET['action']=='unlink')) {
-    zrdn_unlink_recipe_from_post(intval($_GET['id']));
-}
-
-/**
- * Saving and adding
- */
-
-
-if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recipe'], 'zrdn_save_recipe')) {
-
-
-        /**
-         * adding new recipe
-         */
-
-    if (isset($_POST['zrdn_add_new']) || (isset($_GET['action']) && $_GET['action']=='new')) {
-        if (isset($_POST['post_id'])){
-            $post_id = intval($_GET['post_id']);
-            $recipe = new Recipe(false, $post_id);
-        } else {
-            $recipe = new Recipe();
-        }
-
-        $recipe->save();
-        $recipe_id = $recipe->recipe_id;
-
-        /**
-         * if a new recipe is created and post id is passed, we make sure it is inserted in the current post.
-         * Because we don't have a recipe ID yet, we have to store the post_id and post_type in a hidden field, and process this on update.
-         *
-         * Two options:
-         *  1) there already is a recipe, and it needs to be replaced, and unlinked in the database
-         *  2) No recipe yet. Just insert the shortcode, and link to this post.
-         */
-        if (isset($_POST['post_id'])) {
-            //update the shortcode in this post, if necessary.
-            $post = get_post($post_id);
-            if (strpos($post->post_content, 'amd-zlrecipe-recipe') !== FALSE) {
-                //we have a linked recipe
-                $pattern = '/\[amd-zlrecipe-recipe:([0-9]\d*).*\]/i';
-
-                if (preg_match($pattern, $post->post_content, $matches)) {
-
-                    $old_recipe_id = $matches[1];
-                    $old_recipe = new Recipe($old_recipe_id);
-                    $old_recipe->post_id = false;
-                    $old_recipe->save();
-                    $content = preg_replace($pattern, $recipe_id, $post->post_content, 1);
-                }
-            } else {
-                //no recipe yet. Just insert it
-                $content = '[amd-zlrecipe-recipe:' . $recipe_id . ']' . $post->post_content;
-            }
-
-            $post = array(
-                'ID' => $post_id,
-                'post_content' => $content,
-            );
-            wp_update_post($post);
-
-            //update link to post in DB
-            //the recipe is by this time already linked to this post, but this call will also make sure not other recipes are linked to this post
-            ZipRecipes::link_recipe_to_post($post_id, $recipe_id);
-        }
-
-    } else {
-        $recipe_id = intval($_POST['zrdn_recipe_id']);
-    }
-
-    /**
-     * Saving the recipe
-     */
-
-    $recipe = new Recipe($recipe_id);
-
-    //save all recipe fields here.
-    foreach ($recipe as $fieldname => $value) {
-        //sanitization in recipe class
-        if (isset($_POST['zrdn_'.$fieldname])) $recipe->{$fieldname} = $_POST['zrdn_'.$fieldname];
-    }
-
-
-    $recipe->save();
-
-}
 
 /**
  * - nutrition data generatie testen met !, *, _
  * - Test review metabox ivm enqueue_assets hook changes
- * - regex die alt="Nutrition label for {recipe_title_value}" title="Nutrition label for {recipe_title_value}">
- * niet replaced
 
  * - discount code 24 hours in free
  * - upsell author
@@ -136,7 +45,11 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
 <div class="wrap">
     <?php
     //load the recipe
+    if (isset($_GET['recipe_id'])) $recipe_id = intval($_GET['recipe_id']);
+    if (isset($_POST['zrdn_recipe_id'])) $recipe_id = intval($_POST['zrdn_recipe_id']);
+
     $recipe = new Recipe($recipe_id);
+    if (strlen($recipe->recipe_title)==0) $recipe->recipe_title = __("New recipe", "zip-recipes");
     $field = ZipRecipes::$field;
 
     ?>
@@ -203,7 +116,7 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                         array(
                             'type' => 'hidden',
                             'fieldname' => 'recipe_image',
-                            'value'
+                            'value'=> $recipe->recipe_image,
                         ),
 
                         array(
@@ -281,7 +194,7 @@ if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recip
                             'fieldname' => 'serving_size',
                             'value' => $recipe->serving_size,
                             'label' => __("Serving size", 'zip-recipes'),
-                        )
+                        ),
                     );
                     $fields = apply_filters('zrdn_edit_fields', $fields, $recipe);
                     foreach ($fields as $field_args) {

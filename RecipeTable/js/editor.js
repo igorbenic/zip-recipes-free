@@ -62,11 +62,18 @@ jQuery(document).ready(function ($) {
         $('#' + fieldname).html($(this).val());
     });
 
+    /**
+     * time
+     */
+    $('input[type=number]').each(function () {
+        console.log($(this));
+        zrdn_parse_time($(this));
+    });
+
+
+
     $('.zrdn-field-textarea').each(function () {
         zrdn_parse_textarea($(this));
-        // var name = $(this).attr("name");
-        // var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
-        // $('#' + fieldname).html($(this).val());
     });
 
     if ($('input[name=zrdn_recipe_image]').val().length >0){
@@ -92,7 +99,19 @@ jQuery(document).ready(function ($) {
      */
 
     $(document).on('keyup mouseup', 'input[type=number]', function (e) {
-        var name = $(this).attr("name");
+        zrdn_parse_time($(this));
+    });
+
+    /**
+     * Textarea's are lists, so we split in arrays for lists here
+     */
+
+    $(document).on('keyup', 'textarea', function (e) {
+        zrdn_parse_textarea($(this));
+    });
+
+    function zrdn_parse_time(obj){
+        var name = obj.attr("name");
         if (name.indexOf('zrdn_')===-1) return;
 
         //when this field is changed, we also need to get the other, hour or minute
@@ -114,15 +133,7 @@ jQuery(document).ready(function ($) {
         }
 
         $('#' + fieldname).html(timeString);
-    });
-
-    /**
-     * Textarea's are lists, so we split in arrays for lists here
-     */
-
-    $(document).on('keyup', 'textarea', function (e) {
-        zrdn_parse_textarea($(this));
-    });
+    }
 
     function zrdn_parse_textarea(obj) {
 

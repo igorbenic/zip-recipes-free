@@ -107,7 +107,6 @@ class Recipe {
 		if ($image_url) {
 			$this->recipe_image = $image_url;
 		}
-
 		if ($this->recipe_id || $this->post_id){
 		    $this->load();
         }
@@ -127,6 +126,11 @@ class Recipe {
 	 * @var string
 	 */
 	public $recipe_title;
+
+    /**
+     * @var string
+     */
+    public $author;
 
 	/**
 	 * @var string
@@ -392,10 +396,13 @@ class Recipe {
         }
 
         if ($recipe_data) {
-            $recipe = get_object_vars($recipe_data);
-            foreach ($recipe as $fieldname => $value) {
-                $this->{$fieldname} = $value;
+            $db_recipe = get_object_vars($recipe_data);
+            foreach ($this as $fieldname => $value) {
+                if (isset($db_recipe[$fieldname])){
+                    $this->{$fieldname} = $db_recipe[$fieldname];
+                }
             }
+
         }
 
         //check if the connected post is a valid post
@@ -501,6 +508,7 @@ class Recipe {
             'post_id' => intval($this->post_id),
             'nutrition_label_id' => intval($this->nutrition_label_id),
             'recipe_title' => sanitize_text_field($this->recipe_title),
+            'author' => sanitize_text_field($this->author),
             'recipe_image' => sanitize_text_field($this->recipe_image),
             'recipe_image_id' => sanitize_text_field($this->recipe_image_id),
             'summary' => wp_kses_post($this->summary),
