@@ -53,7 +53,8 @@ function zrdn_update_recipe_table(){
             'trans_fat varchar(50)',
             'cholesterol varchar(50)',
             'is_featured_post_image tinyint(1) NOT NULL DEFAULT 0',
-            'created_at timestamp DEFAULT NOW()'
+            'created_at timestamp DEFAULT NOW()',
+            'author varchar(50)',
         );
 
         $all_columns = apply_filters('zrdn__db_recipe_columns', $columns);
