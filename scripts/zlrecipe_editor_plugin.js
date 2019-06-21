@@ -1,30 +1,4 @@
-/*
- License: GPLv3 or later
- 
- Copyright 2014 Gezim Hoxha
- This code is derived from the 2.6 version build of ZipList Recipe Plugin released by ZipList Inc.:
- http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPLv3 or later
- */
-
-/*
- This file is part of Zip Recipes Plugin.
- 
- Zip Recipes Plugin is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
- 
- Zip Recipes Plugin is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with Zip Recipes Plugin. If not, see <http://www.gnu.org/licenses/>.
- */
-
 (function () {
-
     tinymce.create('tinymce.plugins.zrdnEditRecipe', {
         init: function (editor, url) {
             var t = this;
@@ -80,7 +54,7 @@
                 author: 'RogierLankhorst',
                 authorurl: 'https://ziprecipes.net/',
                 infourl: 'https://ziprecipes.net/',
-                version: "5.0"
+                version: "6.0"
             };
         }
     });
