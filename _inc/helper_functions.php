@@ -47,7 +47,7 @@ function clean_jsonld($arr) {
  * @param bool $echo
  * @return string|void
  */
-function notice($msg, $type = 'notice', $echo = true, $include_css=false)
+function zrdn_notice($msg, $type = 'notice', $echo = true, $include_css=false)
 {
     if ($msg == '') return;
     $html = "";

@@ -480,8 +480,8 @@ class Recipe {
         $this->prep_time = 'PT99H99M';
         $this->cook_time = 'PT99H99M';
 
-        //mismatch in property names
-        $this->summary = '{description_value}';
+//        //mismatch in property names
+//        $this->summary = '{description_value}';
 
         $this->nutrition_label = ZRDN_PLUGIN_URL . '/images/s.png';
         $this->recipe_image = ZRDN_PLUGIN_URL.'/images/recipe-default-bw.png';
@@ -492,6 +492,7 @@ class Recipe {
         $table = $wpdb->prefix . self::TABLE_NAME;
         $recipe_id =  $wpdb->get_var("SELECT max(recipe_id) FROM $table");
         $this->preview = true;
+        error_log(print_r($this,true));
         $this->recipe_id = $recipe_id;
     }
 

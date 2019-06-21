@@ -350,6 +350,8 @@ if (!class_exists("ZRDN_Field")) {
                     min="0" max="48"
                     value="<?php echo esc_html($hours) ?>"
                     name="<?php echo esc_html($fieldname) ?>_hours">
+            <?php _e("(h)","zip-recipes")?>
+
             <input <?php if ($args['required']) echo 'required'; ?>
                     class="validation zrdn-field-minute <?php if ($args['required']) echo 'is-required'; ?>"
                     placeholder="<?php echo esc_html($args['placeholder']) ?>"
@@ -357,6 +359,7 @@ if (!class_exists("ZRDN_Field")) {
                     min="0" max="59"
                     value="<?php echo esc_html($minutes) ?>"
                     name="<?php echo esc_html($fieldname) ?>_minutes">
+            <?php _e("(m)","zip-recipes")?>
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
@@ -627,8 +630,6 @@ if (!class_exists("ZRDN_Field")) {
         public
         function notice($args)
         {
-            if (!$this->show_field($args)) return;
-
             do_action('zrdn_before_label', $args);
             zrdn_notice($args['label']);
             do_action('zrdn_after_label', $args);

@@ -66,7 +66,6 @@ jQuery(document).ready(function ($) {
      * time
      */
     $('input[type=number]').each(function () {
-        console.log($(this));
         zrdn_parse_time($(this));
     });
 
@@ -253,10 +252,13 @@ jQuery(document).ready(function ($) {
             for(var iii = 0; iii < length; iii++)
             {
                 var thumbnail_id = images[iii].id;
+                var image;
                 if (images[iii].attributes.sizes.hasOwnProperty('zrdn_recipe_image')) {
-                    var image = images[iii].attributes.sizes['page-image'];
+                    image = images[iii].attributes.sizes['zrdn_recipe_image'];
+                } else if(images[iii].attributes.sizes.hasOwnProperty('large')) {
+                    image = images[iii].attributes.sizes['large'];
                 } else {
-                    var image = images[iii].attributes.sizes['full'];
+                    image = images[iii].attributes.sizes['full'];
                 }
                 var image_url = image['url'];
 
@@ -278,7 +280,9 @@ jQuery(document).ready(function ($) {
                 // Update HTML view textarea (that is the one used to send the data to server).
                 //ed.save();
                 var name = ed.id;
+                console.log(name);
                 var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
+                console.log(fieldname);
                 $('#' + fieldname).html(ed.getContent());
             });
 
@@ -286,7 +290,11 @@ jQuery(document).ready(function ($) {
                 // Update HTML view textarea (that is the one used to send the data to server).
                 //ed.save();
                 var name = ed.id;
+                console.log(name);
+
                 var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
+                console.log(fieldname);
+
                 $('#' + fieldname).html(ed.getContent());
             });
         }

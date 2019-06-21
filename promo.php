@@ -63,6 +63,5 @@ function zrdn_set_activation_time(){
 
 add_action('wp_ajax_zrdn_dismiss_discount_notice', __NAMESPACE__.'\zrdn_dismiss_discount');
 function zrdn_dismiss_discount(){
-    error_log("dismiss discount");
     update_option('zrdn_discount_dismissed', true);
 }

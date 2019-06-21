@@ -160,6 +160,7 @@ class ZipRecipes {
         add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
 
         add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets');
+
     }
 
 
@@ -168,6 +169,9 @@ class ZipRecipes {
             add_image_size( 'zrdn_recipe_image',   800,  500, true);
         }
     }
+
+
+
 
 
     /**
@@ -254,7 +258,9 @@ class ZipRecipes {
 
         wp_register_script(self::MAIN_PRINT_SCRIPT, plugins_url('scripts/zlrecipe_print' . self::$suffix . '.js', __FILE__), array('jquery'), ZRDN_VERSION_NUM, true);
         wp_enqueue_script(self::MAIN_PRINT_SCRIPT);
+
     }
+
 
     /**
      * Formats the recipe for output
@@ -324,7 +330,7 @@ class ZipRecipes {
             'total_time_label_hide' => get_option('zlrecipe_total_time_label_hide'),
             'yield' => $recipe->yield,
             'yield_label_hide' => get_option('zlrecipe_yield_label_hide'),
-            'nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide') ? false : $nutritional_info,
+            'nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide', true) ? false : $nutritional_info,
             'serving_size' => $recipe->serving_size,
             'serving_size_label_hide' => get_option('zlrecipe_serving_size_label_hide'),
             'calories' => $recipe->calories,
@@ -574,7 +580,7 @@ class ZipRecipes {
 
         // load other option values in to variables. These variables are used to load saved values through variable variables
         $notes_label_hide = get_option('zlrecipe_notes_label_hide');
-        $nutrition_info_label_hide = get_option('zlrecipe_nutrition_info_label_hide');
+        $nutrition_info_label_hide = get_option('zlrecipe_nutrition_info_label_hide',true);
         $prep_time_label_hide = get_option('zlrecipe_prep_time_label_hide');
         $cook_time_label_hide = get_option('zlrecipe_cook_time_label_hide');
         $total_time_label_hide = get_option('zlrecipe_total_time_label_hide');
