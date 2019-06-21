@@ -46,6 +46,8 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
 ?>
 <div class="wrap">
     <?php
+
+
     //load the recipe
     if (isset($_GET['recipe_id'])) $recipe_id = intval($_GET['recipe_id']);
     if (isset($_POST['zrdn_recipe_id'])) $recipe_id = intval($_POST['zrdn_recipe_id']);
@@ -105,7 +107,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
 //                                $preview_url = post_preview();
 
                                 if ( get_post_type($recipe->post_id) === 'trash') {
-                                    notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
+                                    zrdn_notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
                                 } else {
                                     ?>
                                     <a class="button button-default"
@@ -122,7 +124,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                         } ?>
                     <?php
                     if ($recipe->is_featured_post_image){
-                        notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"), 'warning');
+                        zrdn_notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"), 'warning');
                     }
 
                     $fields = array(
@@ -145,11 +147,38 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'label' => __("Title", 'zip-recipes'),
                         ),
                         array(
+                            'type' => 'time',
+                            'fieldname' => 'prep_time',
+                            'value' => $recipe->prep_time,
+                            'label' => __("Prep time", 'zip-recipes'),
+                        ),
+                        array(
+                            'type' => 'time',
+                            'fieldname' => 'cook_time',
+                            'value' => $recipe->cook_time,
+                            'label' => __("Cook time", 'zip-recipes'),
+                        ),
+                        array(
+                            'type' => 'number',
+                            //'required' => true,
+                            'fieldname' => 'yield',
+                            'value' => $recipe->yield,
+                            'label' => __("Yields", 'zip-recipes'),
+                        ),
+                        array(
+                            'type' => 'text',
+                            'fieldname' => 'serving_size',
+                            'value' => $recipe->serving_size,
+                            'label' => __("Serving size", 'zip-recipes'),
+                        ),
+
+                        array(
                             'type' => 'textarea',
                             'required' => true,
                             'fieldname' => 'ingredients',
                             'value' => $recipe->ingredients,
                             'label' => __("Ingredients", 'zip-recipes'),
+                            'help' =>sprintf(__("To read more about the formatting options you have, please read %sthis article%s", 'zip-recipes'),'<a href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
                         ),
                         array(
                             'type' => 'textarea',
@@ -169,25 +198,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'value' => $recipe->cuisine,
                             'label' => __("Cuisine", 'zip-recipes'),
                         ),
-                        array(
-                            'type' => 'editor',
-                            'fieldname' => 'summary',
-                            'value' => $recipe->summary,
-                            'label' => __("Description", 'zip-recipes'),
-                            'media' => false,
-                        ),
-                        array(
-                            'type' => 'time',
-                            'fieldname' => 'prep_time',
-                            'value' => $recipe->prep_time,
-                            'label' => __("Prep time", 'zip-recipes'),
-                        ),
-                        array(
-                            'type' => 'time',
-                            'fieldname' => 'cook_time',
-                            'value' => $recipe->cook_time,
-                            'label' => __("Cook time", 'zip-recipes'),
-                        ),
+
                         array(
                             'type' => 'editor',
                             'fieldname' => 'notes',
@@ -195,18 +206,13 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'label' => __("Notes", 'zip-recipes'),
                             'media' => false,
                         ),
+
                         array(
-                            'type' => 'number',
-                            //'required' => true,
-                            'fieldname' => 'yield',
-                            'value' => $recipe->yield,
-                            'label' => __("Yields", 'zip-recipes'),
-                        ),
-                        array(
-                            'type' => 'text',
-                            'fieldname' => 'serving_size',
-                            'value' => $recipe->serving_size,
-                            'label' => __("Serving size", 'zip-recipes'),
+                            'type' => 'editor',
+                            'fieldname' => 'summary',
+                            'value' => $recipe->summary,
+                            'label' => __("Description", 'zip-recipes'),
+                            'media' => false,
                         ),
                     );
                     $fields = apply_filters('zrdn_edit_fields', $fields, $recipe);
@@ -226,6 +232,11 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                     <?php do_action('zrdn_nutrition_fields', $recipe) ?>
 
                     <?php $nutrition_fields = array(
+                        'nutrition_promo' => array(
+                            'type' => 'notice',
+                            'fieldname' => 'nutrition_upgrade',
+                            'label' => sprintf(__('Tired of looking up all nutrition data? You can generate the nutrition data automatically with %sZip Recipes Lover%s','zip-recipes'),'<a href="https://ziprecipes.net/premium">','</a>'),
+                        ),
                         array(
                             'type' => 'text',
                             'fieldname' => 'calories',

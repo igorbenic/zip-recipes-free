@@ -120,8 +120,8 @@
         $unlinked_recipes = $wpdb->get_results($wpdb->prepare("SELECT * FROM $table where post_id = NULL or post_id = 0 or post_id = %s", $post_id));
         $unlinked_recipes = wp_list_pluck($unlinked_recipes, 'recipe_title', 'recipe_id');
         ?>
-        <div id="zrdn_update_feedback" style="display:none"><?php notice(__("Recipe selection updated. Time to save!","zip-recipes"), 'success', true, true)?></div>
-        <div id="zrdn_unlink_warning" style="display:none"><?php notice(__("Selecting a recipe that is linked to another post will unlink it from that post!","zip-recipes"), 'warning', true, true)?></div>
+        <div id="zrdn_update_feedback" style="display:none"><?php zrdn_notice(__("Recipe selection updated. Time to save!","zip-recipes"), 'success', true, true)?></div>
+        <div id="zrdn_unlink_warning" style="display:none"><?php zrdn_notice(__("Selecting a recipe that is linked to another post will unlink it from that post!","zip-recipes"), 'warning', true, true)?></div>
         <label><input id="zrdn_selection_type" type="checkbox" value="1" checked><?php _e("Show only recipes without post","zip-recipes")?></label>
         <div>
         <select id="zrdn_active_recipe" style="display:none">

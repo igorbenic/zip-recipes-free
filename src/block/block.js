@@ -208,7 +208,7 @@ const iconEl =
                 if (!this.props.isSelected){
                     output = __('No recipe selected. Click this block to show the recipe controls in the sidebar', 'zip-recipes');
                 } else {
-                    output = __('Create a new recipe, or select a recipe from the dropdownlist', 'zip-recipes');
+                    output =  sprintf(__('%sCreate a new recipe%s, or select a recipe from the dropdownlist', 'zip-recipes'),'<a href="'+this.getCreateRecipeURL()+'">','</a>');
                 }
                 this.state.recipes.forEach((recipe) => {
 

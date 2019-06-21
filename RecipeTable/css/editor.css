@@ -1,3 +1,60 @@
+.zrdn-help-modal {
+  font-style: italic;
+}
+/*
+    cool checkbox sliders
+*/
+.zrdn-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 21px;
+}
+.zrdn-switch input {
+  display: none;
+}
+.zrdn-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.zrdn-slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.zrdn-slider.zrdn-round {
+  border-radius: 20px;
+}
+.zrdn-slider.zrdn-round:before {
+  border-radius: 50%;
+}
+input:checked + .zrdn-slider {
+  background-color: #F343A0;
+}
+input:checked + .zrdn-slider:before {
+  -webkit-transform: translateX(17px);
+  -ms-transform: translateX(17px);
+  transform: translateX(17px);
+}
+input:disabled + .zrdn-slider {
+  background-color: #fcd3e9;
+}
+input:focus + .zrdn-slider {
+  box-shadow: 0 0 1px #F343A0;
+}
 #wpcontent {
   background-color: #fff;
 }

@@ -114,8 +114,8 @@ function zrdn_enqueue_style($hook){
     if (strpos($hook, 'zrdn') === FALSE) return;
 
     if ((isset($_GET['page']) && $_GET['page']=='zrdn-recipes')) {
-        wp_register_style('zrdn-recipes', ZRDN_PLUGIN_URL."RecipeTable/css/recipes.css", array(), ZRDN_VERSION_NUM, 'all');
-        wp_enqueue_style('zrdn-recipes');
+        wp_register_style('zrdn-recipes-overview', ZRDN_PLUGIN_URL."RecipeTable/css/recipes.css", array(), ZRDN_VERSION_NUM, 'all');
+        wp_enqueue_style('zrdn-recipes-overview');
     }
 
     if (!isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new') ) return;
