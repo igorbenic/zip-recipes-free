@@ -49,12 +49,6 @@ class Recipe_Table extends \WP_List_Table {
      */
     public $args = array();
 
-    /**
-     * If true, only one banner is shown, without the "default" column
-     * @var bool
-     */
-
-    private $show_default_only = false;
 
     /**
      * Get things started
@@ -99,7 +93,7 @@ class Recipe_Table extends \WP_List_Table {
 
         <p class="search-box">
             <label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
-
+            <input type="text" value="" name="s">
             <?php submit_button( $text, 'button', false, false, array('ID' => 'search-submit') ); ?>
         </p>
         <?php
@@ -115,7 +109,7 @@ class Recipe_Table extends \WP_List_Table {
      * @return string Name of the primary column.
      */
     protected function get_primary_column_name() {
-        return __('name','zip-recipes');
+        return __('Title','zip-recipes');
     }
 
     /**
@@ -131,8 +125,8 @@ class Recipe_Table extends \WP_List_Table {
     public function column_default( $item, $column_name ) {
         $value='';
 
-        if ($column_name === 'request_date') {
-            $value = date_i18n(get_option('date_format'), strtotime($item['request_date']));
+        if ($column_name === 'ID') {
+            $value = $item['ID'];
         }
 
         return apply_filters( 'zrdn_recipe_column_' . $column_name, $value, $item['ID'] );
@@ -169,6 +163,7 @@ class Recipe_Table extends \WP_List_Table {
      */
     public function get_columns() {
         $columns = array(
+            'ID'          => __( 'ID', 'zip-recipes'),
             'name'          => __( 'Name', 'zip-recipes'),
         );
 
@@ -184,7 +179,8 @@ class Recipe_Table extends \WP_List_Table {
      */
     public function get_sortable_columns() {
         $columns = array(
-            'name'          => array( 'name', true ),
+            'ID'          => array( 'recipe_id', true ),
+            'name'          => array( 'recipe_title', true ),
         );
 
         return $columns;
@@ -247,23 +243,18 @@ class Recipe_Table extends \WP_List_Table {
         $paged   = $this->get_paged();
         $offset  = $this->per_page * ( $paged - 1 );
         $search  = $this->get_search();
-        $status  = $this->get_status();
         $order   = isset( $_GET['order'] )   ? sanitize_text_field( $_GET['order'] )   : 'DESC';
-        $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( $_GET['orderby'] ) : 'id';
+        $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( $_GET['orderby'] ) : 'recipe_id';
 
         $args    = array(
             'number'  => $this->per_page,
             'offset'  => $offset,
             'order'   => $order,
             'orderby' => $orderby,
-            'status'  => $status,
         );
 
-        $args['name']  = $search;
+        $args['search']  = $search;
 
-        if ($this->show_default_only){
-            $args['default'] = true;
-        }
 
         $this->args = $args;
         $recipes  = Util::get_recipes( $args );
@@ -291,7 +282,10 @@ class Recipe_Table extends \WP_List_Table {
 
         $this->items = $this->reports_data();
 
-        $this->total = Util::count_recipes();
+        $search  = $this->get_search();
+
+        $args['search']  = $search;
+        $this->total = Util::count_recipes($args);
 
         // Add condition to be sure we don't divide by zero.
         // If $this->per_page is 0, then set total pages to 1.
