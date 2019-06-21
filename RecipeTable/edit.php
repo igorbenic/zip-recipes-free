@@ -1,7 +1,7 @@
 <?php
 namespace ZRDN;
 
-if (!current_user_can('edit_posts')) wp_die("You do not have permission to do this");
+//if (!current_user_can('edit_posts')) wp_die("You do not have permission to do this");
 
 $recipe_id = false;
 if (isset($_GET['id'])) {
@@ -26,6 +26,8 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
             'post_type' => $post_type,
         );
         $link_to_post_id = wp_insert_post($args);
+
+
     }
 }
 
@@ -94,18 +96,29 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                     <h3><?php _e("General", 'zip-recipes') ?></h3>
                     <?php //offer option to go to post if post_id is linked.?>
                     <?php if ($recipe->post_id) {
-                        if (get_post_status($recipe->post_id)==='trash'){
-                            notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
-                        } else {
-                            ?>
-                            <a class="button button-default"
-                               href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
-                            <a class="button button-default"
-                               href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink'), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
-                            <a class="button button-default" target="_blank"
-                               href="<?php echo get_preview_post_link($recipe->post_id) ?>"><?php _e("Preview", "zip-recipes") ?></a>
-                            <?php
-                            }
+                            //$post = get_post($recipe->post_id);
+                            //if ($post) {
+                                //little hack to get the preview working.
+//                                $_POST['post_ID'] = $recipe->post_id;
+//                                $_POST['post_type'] = get_post_type($recipe->post_id);
+//                                //$_POST['post_type'] = $post->post_type;
+//                                $preview_url = post_preview();
+
+                                if ( get_post_type($recipe->post_id) === 'trash') {
+                                    notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
+                                } else {
+                                    ?>
+                                    <a class="button button-default"
+                                       href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
+                                    <a class="button button-default"
+                                       href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink'), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
+                                   <?php /*
+                                    <a class="button button-default" target="_blank"
+                                       href="<?php echo $preview_url ?>"><?php _e("Preview", "zip-recipes") ?></a>
+                                         */?>
+                                    <?php
+                                }
+                                //}
                         } ?>
                     <?php
                     if ($recipe->is_featured_post_image){

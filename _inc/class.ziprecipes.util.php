@@ -130,19 +130,12 @@ class Util {
      */
 
 
-    public static function get_shortcode_pattern($recipe_id=false, $match_all=false)
+    public static function get_shortcode_pattern($recipe_id=false, $match_all=false, $force_classic=false)
     {
-
         //even if on gutenberg, with elementor we have to use classic shortcodes.
-        if (Util::uses_gutenberg() && !Util::uses_elementor()){
-            if ($recipe_id){
-                return '/<!-- wp:zip-recipes\/recipe-block {"id":"'.$recipe_id.'"} \/-->/i';
-            }
-            if ($match_all){
-                return '/(<!-- wp:zip-recipes\/recipe-block {.*?} \/-->)/i';
-            }
-            return '/<!-- wp:zip-recipes\/recipe-block {.*?"id":"([0-9]\d*)".*?} \/-->/i';
-        } else {
+        $gutenberg = Util::uses_gutenberg() && !Util::uses_elementor();
+        $classic = !$gutenberg;
+        if ($force_classic || $classic) {
             if ($recipe_id){
                 return '/(\[amd-zlrecipe-recipe:'.$recipe_id.'\])/i';
             }
@@ -150,6 +143,14 @@ class Util {
                 return '/(\[amd-zlrecipe-recipe:.*?\])/i';
             }
             return '/\[amd-zlrecipe-recipe:([0-9]\d*).*?\]/i';
+        } else {
+            if ($recipe_id){
+                return '/<!-- wp:zip-recipes\/recipe-block {"id":"'.$recipe_id.'"} \/-->/i';
+            }
+            if ($match_all){
+                return '/(<!-- wp:zip-recipes\/recipe-block {.*?} \/-->)/i';
+            }
+            return '/<!-- wp:zip-recipes\/recipe-block {.*?"id":"([0-9]\d*)".*?} \/-->/i';
         }
     }
 
@@ -206,10 +207,19 @@ class Util {
      * @return int
      */
 
-    public static function count_recipes(){
-	    global $wpdb;
+    public static function count_recipes($args){
+        $default_args = array(
+            'search' =>'',
+        );
+        $args = wp_parse_args($args, $default_args);
+
+        global $wpdb;
+        $search_sql = '';
+        if (strlen($args['search'])>0){
+            $search_sql = $wpdb->prepare(" AND recipe_title like %s", $args['search']);
+        }
         $table = $wpdb->prefix . "amd_zlrecipe_recipes";
-        $count = $wpdb->get_var("SELECT count(*) as count FROM $table");
+        $count = $wpdb->get_var("SELECT count(*) FROM $table WHERE 1=1 $search_sql ");
         return intval($count);
     }
 
@@ -368,12 +378,24 @@ class Util {
     public static function get_recipes($args){
         $default_args = array(
           'post_id'=>false,
+            'offset' => 0,
+            'number' =>20,
+            'order_by' => 'recipe_title',
+            'order'=> 'ASC',
+            'search' =>'',
         );
         $args = wp_parse_args($args, $default_args);
-
+        $pagesize = $args['number'];
+        $offset = $args['offset'];
+        $orderby = $args['orderby'];
+        $order = $args['order'];
         global $wpdb;
+        $search_sql = '';
+        if (strlen($args['search'])>0){
+            $search_sql = " AND recipe_title like '%".sanitize_text_field($args['search'])."%'";
+        }
         $table = $wpdb->prefix . "amd_zlrecipe_recipes";
-        $recipes = $wpdb->get_results("SELECT * FROM $table");
+        $recipes = $wpdb->get_results("SELECT * FROM $table WHERE 1=1 $search_sql ORDER BY $orderby $order LIMIT $offset, $pagesize ");
         return $recipes;
     }
 

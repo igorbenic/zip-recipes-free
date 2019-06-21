@@ -5,18 +5,24 @@ require_once(dirname(__FILE__).'/metabox.php');
  * If a post is saved, we will link this recipe to this post id.
  *
  * At the same time we wil unlink this recipe from any other post.
+ *
+ * Does not work for classic shortcodes in Gutenberg.
  */
 
 add_action('edit_post', __NAMESPACE__ . '\zrdn_save_post', 10, 2);
 add_action('save_post', __NAMESPACE__ . '\zrdn_save_post', 10, 2);
 function zrdn_save_post($post_id, $post_data){
     if (Util::has_shortcode($post_id, $post_data)){
-        $pattern = Util::get_shortcode_pattern();
 
+        $pattern = Util::get_shortcode_pattern();
+        $classic_pattern = Util::get_shortcode_pattern(false, false, true);
         if (preg_match($pattern, $post_data->post_content, $matches)) {
             $recipe_id = intval($matches[1]);
             //check if this post is already linked to another recipe. If so, unlink it.
             //then link to current post.
+            ZipRecipes::link_recipe_to_post($post_id, $recipe_id);
+        } elseif (preg_match($classic_pattern, $post_data->post_content, $matches)) {
+            $recipe_id = $matches[1];
             ZipRecipes::link_recipe_to_post($post_id, $recipe_id);
         }
     }
@@ -107,8 +113,12 @@ add_action('admin_enqueue_scripts', __NAMESPACE__ . '\zrdn_enqueue_style');
 function zrdn_enqueue_style($hook){
     if (strpos($hook, 'zrdn') === FALSE) return;
 
+    if ((isset($_GET['page']) && $_GET['page']=='zrdn-recipes')) {
+        wp_register_style('zrdn-recipes', ZRDN_PLUGIN_URL."RecipeTable/css/recipes.css", array(), ZRDN_VERSION_NUM, 'all');
+        wp_enqueue_style('zrdn-recipes');
+    }
 
-    if (!isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new')) return;
+    if (!isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new') ) return;
 
     wp_enqueue_script("zrdn-editor", ZRDN_PLUGIN_URL."RecipeTable/js/editor.js",  array('jquery'), ZRDN_VERSION_NUM);
     wp_enqueue_script("zrdn-conditions", ZRDN_PLUGIN_URL."RecipeTable/js/conditions.js",  array('jquery'), ZRDN_VERSION_NUM);
@@ -190,13 +200,13 @@ function zrdn_recipe_overview(){
 
 
             <form id="zrdn-recipe-filter" method="get"
-                  action="">
+                  action="<?php echo add_query_arg(array('page'=>'zrdn-recipes'),admin_url('admin.php'))?>">
 
                 <?php
                 $recipes_table->search_box(__('Filter', 'zip-recipes'), 'zrdn-recipe');
                 $recipes_table->display();
                 ?>
-                <input type="hidden" name="page" value="zrdn-recipe"/>
+                <input type="hidden" name="page" value="zrdn-recipes"/>
             </form>
         </div>
         <?php
@@ -229,14 +239,12 @@ function zrdn_process_update_recipe(){
         if (isset($_POST['zrdn_add_new']) || (isset($_GET['action']) && $_GET['action']=='new')) {
             if (isset($_POST['post_id'])){
                 $post_id = intval($_POST['post_id']);
-                $recipe = new Recipe(false, $post_id);
-            } else {
-                $recipe = new Recipe();
             }
+
+            $recipe = new Recipe();
 
             $recipe->save();
             $recipe_id = $recipe->recipe_id;
-
             /**
              * if a new recipe is created and post id is passed, we make sure it is inserted in the current post.
              * Because we don't have a recipe ID yet, we have to store the post_id and post_type in a hidden field, and process this on update.
@@ -252,15 +260,26 @@ function zrdn_process_update_recipe(){
                     //we have a linked recipe
                     $pattern = Util::get_shortcode_pattern();
                     $entire_pattern = Util::get_shortcode_pattern(false, true);
+                    $classic_pattern = Util::get_shortcode_pattern(false, false, true);
                     if (preg_match($pattern, $post->post_content, $matches)) {
                         $old_recipe_id = $matches[1];
                         $old_recipe = new Recipe($old_recipe_id);
                         $old_recipe->post_id = false;
                         $old_recipe->save();
-                        $content = preg_replace($pattern, $recipe_id, $post->post_content, 1);
+                        $new_shortcode = Util::get_shortcode($recipe_id);
+                        $content = preg_replace($pattern, $new_shortcode, $post->post_content, 1);
                     } elseif (preg_match($entire_pattern, $post->post_content, $matches)){
                         $shortcode = Util::get_shortcode($recipe_id);
                         $content = preg_replace($entire_pattern, $shortcode, $post->post_content, 1);
+
+                        //if nothing matched yet, this might be classic shortcode
+                    } elseif (preg_match($classic_pattern, $post->post_content, $matches)) {
+                        $old_recipe_id = $matches[1];
+                        $old_recipe = new Recipe($old_recipe_id);
+                        $old_recipe->post_id = false;
+                        $old_recipe->save();
+                        $new_shortcode = Util::get_shortcode($recipe_id);
+                        $content = preg_replace($pattern, $new_shortcode, $post->post_content, 1);
                     } else {
                         $content = $post->post_content;
                     }
