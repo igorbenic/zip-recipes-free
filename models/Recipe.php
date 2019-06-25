@@ -492,7 +492,6 @@ class Recipe {
         $table = $wpdb->prefix . self::TABLE_NAME;
         $recipe_id =  $wpdb->get_var("SELECT max(recipe_id) FROM $table");
         $this->preview = true;
-        error_log(print_r($this,true));
         $this->recipe_id = $recipe_id;
     }
 
@@ -700,15 +699,13 @@ class Recipe {
         return $wpdb->update($table, $recipe, $where);
     }
 
-
-
 }
 
 
 function zrdn_unlink_recipe_from_post($recipe_id){
     if (!current_user_can('edit_posts')) return;
-
     $recipe = new Recipe($recipe_id);
+
     $post_id = $recipe->post_id;
     if ($post_id){
         $post = get_post($post_id);
@@ -724,6 +721,7 @@ function zrdn_unlink_recipe_from_post($recipe_id){
                 );
                 wp_update_post($post);
             }
+
         }
     }
 

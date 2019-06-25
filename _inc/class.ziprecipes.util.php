@@ -145,7 +145,7 @@ class Util {
             return '/\[amd-zlrecipe-recipe:([0-9]\d*).*?\]/i';
         } else {
             if ($recipe_id){
-                return '/<!-- wp:zip-recipes\/recipe-block {"id":"'.$recipe_id.'"} \/-->/i';
+                return '/<!-- wp:zip-recipes\/recipe-block {"id":"'.$recipe_id.'".*?} \/-->/i';
             }
             if ($match_all){
                 return '/(<!-- wp:zip-recipes\/recipe-block {.*?} \/-->)/i';
