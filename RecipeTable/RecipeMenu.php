@@ -25,7 +25,11 @@ function zrdn_save_post($post_id, $post_data){
             $recipe_id = $matches[1];
             ZipRecipes::link_recipe_to_post($post_id, $recipe_id);
         }
+    } else {
+        //no shortcode, make sure there is no recipe attached.
+        zrdn_unlink_post_from_recipe($post_id);
     }
+
 }
 
 /**
