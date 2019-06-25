@@ -139,12 +139,12 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'fieldname' => 'recipe_image_id',
                             'value' => $recipe->recipe_image_id,
                         ),
-
                         array(
                             'type' => 'text',
                             'fieldname' => 'recipe_title',
                             'value' => $recipe->recipe_title,
                             'label' => __("Title", 'zip-recipes'),
+                            'placeholder' => __('My recipe','zip-recipes'),
                         ),
                         array(
                             'type' => 'time',
@@ -158,18 +158,21 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'value' => $recipe->cook_time,
                             'label' => __("Cook time", 'zip-recipes'),
                         ),
+
+                        array(
+                            'type' => 'text',
+                            'fieldname' => 'serving_size',
+                            'value' => $recipe->serving_size,
+                            'label' => __("Serving size", 'zip-recipes'),
+                            'placeholder' => __('1 slice','zip-recipes'),
+                        ),
+
                         array(
                             'type' => 'number',
                             //'required' => true,
                             'fieldname' => 'yield',
                             'value' => $recipe->yield,
                             'label' => __("Yields", 'zip-recipes'),
-                        ),
-                        array(
-                            'type' => 'text',
-                            'fieldname' => 'serving_size',
-                            'value' => $recipe->serving_size,
-                            'label' => __("Serving size", 'zip-recipes'),
                         ),
 
                         array(
@@ -178,7 +181,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'fieldname' => 'ingredients',
                             'value' => $recipe->ingredients,
                             'label' => __("Ingredients", 'zip-recipes'),
-                            'help' =>sprintf(__("To read more about the formatting options you have, please read %sthis article%s", 'zip-recipes'),'<a href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
+                            'help' =>sprintf(__("Put each ingredient on a separate line. There is no need to use bullets for your ingredients. You can also create labels, hyperlinks, bold/italic effects and even add images! %sRead more%s", 'zip-recipes'),'<a href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
                         ),
                         array(
                             'type' => 'textarea',
@@ -191,12 +194,16 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'fieldname' => 'category',
                             'value' => $recipe->category,
                             'label' => __("Category", 'zip-recipes'),
+                            'placeholder' => __('Bread','zip-recipes'),
                         ),
+
                         array(
                             'type' => 'text',
                             'fieldname' => 'cuisine',
                             'value' => $recipe->cuisine,
                             'label' => __("Cuisine", 'zip-recipes'),
+                            'placeholder' => __('French','zip-recipes'),
+
                         ),
 
                         array(

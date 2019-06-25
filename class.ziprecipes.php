@@ -160,7 +160,6 @@ class ZipRecipes {
         add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
 
         add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets');
-
     }
 
 
@@ -169,9 +168,6 @@ class ZipRecipes {
             add_image_size( 'zrdn_recipe_image',   800,  500, true);
         }
     }
-
-
-
 
 
     /**
@@ -258,9 +254,7 @@ class ZipRecipes {
 
         wp_register_script(self::MAIN_PRINT_SCRIPT, plugins_url('scripts/zlrecipe_print' . self::$suffix . '.js', __FILE__), array('jquery'), ZRDN_VERSION_NUM, true);
         wp_enqueue_script(self::MAIN_PRINT_SCRIPT);
-
     }
-
 
     /**
      * Formats the recipe for output
