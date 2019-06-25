@@ -181,7 +181,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'fieldname' => 'ingredients',
                             'value' => $recipe->ingredients,
                             'label' => __("Ingredients", 'zip-recipes'),
-                            'help' =>sprintf(__("Put each ingredient on a separate line. There is no need to use bullets for your ingredients. You can also create labels, hyperlinks, bold/italic effects and even add images! %sRead more%s", 'zip-recipes'),'<a href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
+                            'help' =>sprintf(__("Put each ingredient on a separate line. There is no need to use bullets for your ingredients. You can also create labels, hyperlinks, bold/italic effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
                         ),
                         array(
                             'type' => 'textarea',
@@ -242,7 +242,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                         'nutrition_promo' => array(
                             'type' => 'notice',
                             'fieldname' => 'nutrition_upgrade',
-                            'label' => sprintf(__('Tired of looking up all nutrition data? You can generate the nutrition data automatically with %sZip Recipes Lover%s','zip-recipes'),'<a href="https://ziprecipes.net/premium">','</a>'),
+                            'label' => sprintf(__('Tired of looking up all nutrition data? You can generate the nutrition data automatically with %sZip Recipes Lover%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/premium">','</a>'),
                         ),
                         array(
                             'type' => 'text',
