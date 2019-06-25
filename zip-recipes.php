@@ -49,6 +49,8 @@ define('ZRDN_PLUGIN_DIRECTORY_URL', plugin_dir_url( __FILE__ ));
 define('ZRDN_PLUGIN_BASENAME', plugin_basename(__FILE__));
 define('ZRDN_PLUGIN_URL', sprintf('%s/%s/', plugins_url(), dirname(plugin_basename(__FILE__))));
 define('ZRDN_API_URL', "https://api.ziprecipes.net");
+define('ZRDN_FREE', true);
+
 
 //quick fix to disable registration requirement
 update_option('zrdn_registered', true);

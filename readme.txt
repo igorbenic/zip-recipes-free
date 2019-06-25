@@ -16,14 +16,12 @@ Zip Recipes helps you to create a food blog with all the microdata to get found 
 
 == Description ==
 
-Your goal is to build a food blog that earns money by serving loyal fans with your amazing recipes.
+Easy to use recipe plugin that adds microdata and schema.org json ld to your recipes, so Google can understand your recipes. AMP compatible.
 
-We help you do that through our 4-step formula:
-
-1. Get More Readers to Your Blog
-2. Make Your Blog Look Professional
-3. Help You Build a Following
-4. Help You Make Money
+1. Easy to use
+2. Professional look
+3. Google friendly (schema.org compatible)
+4. Integrates with ad networks
 
 Still got questions? [Go to our website for support](https://www.ziprecipes.net/support) or [email us](mailto:support@ziprecipes.net).
 
