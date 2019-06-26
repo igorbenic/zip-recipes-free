@@ -301,7 +301,6 @@ class ZipRecipes {
         }
         $image_attributes = self::zrdn_get_responsive_image_attributes($recipe->recipe_image);
 
-        $total_time_raw = self::zrdn_calculate_total_time_raw($recipe->prep_time, $recipe->cook_time);
         $viewParams = array(
             'ZRDN_PLUGIN_URL' => ZRDN_PLUGIN_URL,
             'permalink' => get_permalink(),
@@ -319,8 +318,8 @@ class ZipRecipes {
             'cook_time' => self::zrdn_format_duration($recipe->cook_time),
             'cook_time_raw' => $recipe->cook_time,
             'cook_time_label_hide' => get_option('zlrecipe_cook_time_label_hide'),
-            'total_time' => self::zrdn_format_duration($total_time_raw),
-            'total_time_raw' => $total_time_raw,
+            'total_time' => self::zrdn_format_duration($recipe->total_time),
+            'total_time_raw' => $recipe->total_time,
             'total_time_label_hide' => get_option('zlrecipe_total_time_label_hide'),
             'yield' => $recipe->yield,
             'yield_label_hide' => get_option('zlrecipe_yield_label_hide'),
@@ -955,35 +954,6 @@ class ZipRecipes {
         );
     }
 
-    /**
-     * Calculate Total time in raw format
-     *
-     * @param $prep_time
-     * @param $cook_time
-     * @return false|null|string
-     */
-    public static function zrdn_calculate_total_time_raw($prep_time, $cook_time)
-    {
-        $total_time = NULL;
-        $prep = self::zrdn_extract_time($prep_time);
-        $cook = self::zrdn_extract_time($cook_time);
-        $prep_time_hours = $prep['time_hours'];
-        $prep_time_minutes = $prep['time_minutes'];
-        $cook_time_hours = $cook['time_hours'];
-        $cook_time_minutes = $cook['time_minutes'];
-        if ($prep_time_hours || $prep_time_minutes || $cook_time_hours || $cook_time_minutes) {
-            $prep_time_total =
-
-            $prep_time_total = sprintf("%02d", $prep_time_hours) . ':' . sprintf("%02d", $prep_time_minutes) . ':00';
-            $cook_time_total = sprintf("%02d", $cook_time_hours) . ':' . sprintf("%02d", $cook_time_minutes) . ':00';
-            $total_time = date("H:i:s", strtotime($prep_time_total) + strtotime($cook_time_total));
-            $time = explode(':', $total_time);
-            // converting 01 to 1 using int
-            return 'PT' . (int)$time[0] . 'H' . (int)$time[1] . 'M';
-        }
-        return $total_time;
-    }
-
     // Pulls a recipe from the db
     public static function zrdn_select_recipe_db($recipe_id)
     {
@@ -1123,9 +1093,8 @@ class ZipRecipes {
             "recipeYield" => $recipe->yield
         );
 
-        $total_time = self::zrdn_calculate_total_time_raw($recipe->prep_time, $recipe->cook_time);
-        if ($total_time) {
-            $recipe_json_ld["totalTime"] = $total_time;
+        if ($recipe->total_time) {
+            $recipe_json_ld["totalTime"] = $recipe->total_time;
         }
 
         $cleaned_recipe_json_ld = clean_jsonld($recipe_json_ld);
