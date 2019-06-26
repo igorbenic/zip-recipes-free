@@ -406,6 +406,8 @@ class Recipe {
 
         }
 
+        $this->total_time = $this->calculate_total_time_raw($this->prep_time, $this->cook_time);
+
         //check if the connected post is a valid post
         $post = get_post($this->post_id);
         if (!$post || get_post_type($this->post_id)==='revision') $this->post_id = false;
@@ -477,11 +479,14 @@ class Recipe {
             $this->{$fieldname} = '{' . $fieldname . '_value}';
         }
 
+        $this->total_time = NULL;
+        if (isset($_GET['id'])){
+            $actual_recipe = new Recipe(intval($_GET['id']));
+            $this->total_time = $this->calculate_total_time_raw($actual_recipe->prep_time, $actual_recipe->cook_time);
+        }
+
         $this->prep_time = 'PT99H99M';
         $this->cook_time = 'PT99H99M';
-
-//        //mismatch in property names
-//        $this->summary = '{description_value}';
 
         $this->nutrition_label = ZRDN_PLUGIN_URL . '/images/s.png';
         $this->recipe_image = ZRDN_PLUGIN_URL.'/images/recipe-default-bw.png';
@@ -493,6 +498,7 @@ class Recipe {
         $recipe_id =  $wpdb->get_var("SELECT max(recipe_id) FROM $table");
         $this->preview = true;
         $this->recipe_id = $recipe_id;
+
     }
 
     /**
@@ -663,6 +669,37 @@ class Recipe {
             return $wpdb->delete($table, $args);
         }
         return FALSE;
+    }
+
+    /**
+     * Calculate Total time in raw format
+     *
+     * @param $prep_time
+     * @param $cook_time
+     * @return false|null|string
+     */
+    public function calculate_total_time_raw($prep_time, $cook_time)
+    {
+        $prep = ZipRecipes::zrdn_extract_time($prep_time);
+        $cook = ZipRecipes::zrdn_extract_time($cook_time);
+        $prep_time_hours = $prep['time_hours'];
+        $prep_time_minutes = $prep['time_minutes'];
+        $cook_time_hours = $cook['time_hours'];
+        $cook_time_minutes = $cook['time_minutes'];
+
+        if ($prep_time_hours || $prep_time_minutes || $cook_time_hours || $cook_time_minutes) {
+            $hours_total = $prep_time_hours+$cook_time_hours;
+
+            $minutes_total = $cook_time_minutes + $prep_time_minutes + ($hours_total * 60);
+            //minutes should not be over 59
+            $hours = floor($minutes_total / 60);
+            $minutes = ($minutes_total % 60);
+
+            // converting 01 to 1 using int
+            return 'PT' . (int)$hours . 'H' . (int)$minutes . 'M';
+        }
+
+        return NULL;
     }
 
 
