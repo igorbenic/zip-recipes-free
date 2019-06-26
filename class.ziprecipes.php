@@ -794,7 +794,7 @@ class ZipRecipes {
             is_array($data['plugins']) &&
             in_array(ZRDN_PLUGIN_BASENAME, $data['plugins'])
         ) {
-            self::init();
+            //self::init();
         }
     }
 
