@@ -168,11 +168,11 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                         ),
 
                         array(
-                            'type' => 'number',
-                            //'required' => true,
+                            'type' => 'text',
                             'fieldname' => 'yield',
                             'value' => $recipe->yield,
                             'label' => __("Yields", 'zip-recipes'),
+                            'placeholder' => __('4 persons','zip-recipes'),
                         ),
 
                         array(
