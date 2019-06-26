@@ -508,11 +508,11 @@ class Recipe {
         $update_arr = array(
             'post_id' => intval($this->post_id),
             'nutrition_label_id' => intval($this->nutrition_label_id),
-            'recipe_title' => sanitize_text_field($this->recipe_title),
+            'recipe_title' => stripslashes(sanitize_text_field($this->recipe_title)),
             'author' => sanitize_text_field($this->author),
             'recipe_image' => sanitize_text_field($this->recipe_image),
             'recipe_image_id' => sanitize_text_field($this->recipe_image_id),
-            'summary' => wp_kses_post($this->summary),
+            'summary' => stripslashes(wp_kses_post($this->summary)),
             'prep_time' => Util::validate_time($this->prep_time),
             'cook_time' => Util::validate_time($this->cook_time),
             'yield' => sanitize_text_field($this->yield),
