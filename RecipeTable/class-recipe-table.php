@@ -237,7 +237,7 @@ class Recipe_Table extends \WP_List_Table {
      */
     public function reports_data() {
 
-        if (!current_user_can('manage_options')) return array();
+        if (!current_user_can('edit_posts')) return array();
 
         $data    = array();
         $paged   = $this->get_paged();

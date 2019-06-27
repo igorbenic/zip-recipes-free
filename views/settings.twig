@@ -72,6 +72,11 @@
           <td><label><input type="checkbox" name="print-link-hide" value="Hide" {{ print_link_hide|raw }} /> Hide Print Button</label></td>
         </tr>
         <tr valign="top">
+          <th scope="row">Hide image when duplicate of post</th>
+          <td><label><input type="checkbox" name="hide-on-duplicate-image" value="Hide" {{ hide_on_duplicate_image|raw }} /> Hide recipe image when recipe image is the same as the post image</label></td>
+        </tr>
+
+        <tr valign="top">
           <th scope="row">Image Width</th>
           <td><label><input type="text" name="image-width" value="{{ image_width }}" class="regular-text" /> pixels</label></td>
         </tr>

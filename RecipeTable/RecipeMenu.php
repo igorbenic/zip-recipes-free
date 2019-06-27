@@ -101,11 +101,11 @@ function zrdn_unlink_recipe(){
 add_action('admin_menu',  __NAMESPACE__ . '\zrdn_recipe_admin_menu');
 function zrdn_recipe_admin_menu()
 {
-    if (!current_user_can('manage_options')) return;
+    if (!current_user_can('edit_posts')) return;
     add_menu_page(
         __('Recipes', 'zip-recipes'),
         __('Recipes', 'zip-recipes'),
-        'manage_options',
+        'edit_posts',
         'zrdn-recipes',
         __NAMESPACE__ . '\zrdn_recipe_overview',
         ZRDN_PLUGIN_URL . 'images/recipe-icon.svg',
