@@ -39,7 +39,14 @@ jQuery(document).ready(function ($) {
     }
 
     //replace to spans
-    content = content.replace(/(?<!="){([a-zA-Z_].*)_value}/g, '<span id="zrdn_placeholder_' + '$1' + '"></span>');
+    // content = content.replace(/(?<!="){([a-zA-Z_].*)_value}/g, '<span id="zrdn_placeholder_' + '$1' + '"></span>');
+    //content = content.replace(/(.*?){([a-zA-Z_].*)_value}/g, '><span id="zrdn_placeholder_' + '$1' + '"></span>');
+    var span_matches = content.match(/{([a-zA-Z_].*)_value}/g);
+    //console.log(span_matches);
+    var regex = /(<.+?>[^<>]*?){([a-zA-Z_].*)_value}([^<>]*?<.+?>)/g;
+    content = content.replace(regex, '$1'+'<span id="zrdn_placeholder_' + '$2' + '"></span>'+'$3');
+
+
     $('#zrdn-preview').html(content);
 
     //time
