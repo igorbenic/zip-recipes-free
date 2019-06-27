@@ -112,3 +112,25 @@ function zrdn_autoload($className)
 
         load_plugin_textdomain('zip-recipes', FALSE,  ZRDN_PLUGIN_DIRECTORY.'/languages/');
     }
+
+
+/**
+ * Load iframe has to hook into admin init, otherwise languages are not loaded yet.
+ *
+ * */
+
+function zrdn_maybe_load_iframe()
+{
+    // Setup query catch for recipe insertion popup.
+    if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=z_recipe') && !strpos($_SERVER['REQUEST_URI'], '&wrt=')) {
+        // pluggable.php is needed for current_user_can
+        require_once(ABSPATH . 'wp-includes/pluggable.php');
+
+        // user is logged in and can edit posts or pages
+        if (\current_user_can('edit_posts') || \current_user_can('edit_pages')) {
+            ZipRecipes::zrdn_iframe_content($_POST, $_REQUEST);
+        }
+        exit;
+    }
+}
+add_action('admin_init', __NAMESPACE__ . '\zrdn_maybe_load_iframe', 30);

@@ -570,6 +570,7 @@ class ZipRecipes {
         $image_width = get_option('zlrecipe_image_width');
         $outer_border_style = get_option('zlrecipe_outer_border_style');
         $custom_print_image = get_option('zlrecipe_custom_print_image');
+        $hide_on_duplicate_image = get_option('zlrecipe_hide_on_duplicate_image');
 
         // load other option values in to variables. These variables are used to load saved values through variable variables
         $notes_label_hide = get_option('zlrecipe_notes_label_hide');
@@ -598,7 +599,6 @@ class ZipRecipes {
             }
 
             if ($_POST['action'] === "update_settings") {
-
                 $zrecipe_attribution_hide = Util::get_array_value('zrecipe-attribution-hide', $_POST);
                 $printed_permalink_hide = Util::get_array_value('printed-permalink-hide', $_POST);
                 $printed_copyright_statement = Util::get_array_value('printed-copyright-statement', $_POST);
@@ -628,6 +628,7 @@ class ZipRecipes {
                 $image_width = Util::get_array_value('image-width', $_POST);
                 $outer_border_style = Util::get_array_value('outer-border-style', $_POST);
                 $custom_print_image = Util::get_array_value('custom-print-image', $_POST);
+                $hide_on_duplicate_image = Util::get_array_value('hide-on-duplicate-image', $_POST);
 
                 $trans_fat_label_hide = Util::get_array_value('trans-fat-label-hide', $_POST);
                 $cholesterol_label_hide = Util::get_array_value('cholesterol-label-hide', $_POST);
@@ -664,6 +665,7 @@ class ZipRecipes {
                 update_option('zlrecipe_image_width', $image_width);
                 update_option('zlrecipe_outer_border_style', $outer_border_style);
                 update_option('zlrecipe_custom_print_image', $custom_print_image);
+                update_option('zlrecipe_hide_on_duplicate_image', $hide_on_duplicate_image);
 
                 update_option('zlrecipe_trans_fat_label_hide', $trans_fat_label_hide);
                 update_option('zlrecipe_cholesterol_label_hide', $cholesterol_label_hide);
@@ -685,6 +687,7 @@ class ZipRecipes {
         $image_hide = (strcmp($image_hide, 'Hide') == 0 ? 'checked="checked"' : '');
         $image_hide_print = (strcmp($image_hide_print, 'Hide') == 0 ? 'checked="checked"' : '');
         $print_link_hide = (strcmp($print_link_hide, 'Hide') == 0 ? 'checked="checked"' : '');
+        $hide_on_duplicate_image = (strcmp($hide_on_duplicate_image, 'Hide') == 0 ? 'checked="checked"' : '');
 
         // Stylesheet processing
         $stylesheet = (strcmp($stylesheet, 'zlrecipe-std') == 0 ? 'checked="checked"' : '');
@@ -727,6 +730,7 @@ class ZipRecipes {
         $settingsParams = array('zrdn_icon' => $zrdn_icon,
             'registered' => true,
             'custom_print_image' => $custom_print_image,
+            'hide_on_duplicate_image' => $hide_on_duplicate_image,
             'zrecipe_attribution_hide' => $zrecipe_attribution_hide,
             'printed_permalink_hide' => $printed_permalink_hide,
             'printed_copyright_statement' => $printed_copyright_statement,
