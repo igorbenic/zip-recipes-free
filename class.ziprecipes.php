@@ -249,11 +249,13 @@ class ZipRecipes {
      */
     public static function load_assets()
     {
-        wp_register_style(self::MAIN_CSS_SCRIPT, plugins_url('styles/zlrecipe-std' . self::$suffix . '.css', __FILE__), array(), ZRDN_VERSION_NUM, 'all');
-        wp_enqueue_style(self::MAIN_CSS_SCRIPT);
-
+        if (get_option('zlrecipe_stylesheet')==='zlrecipe-std') {
+            wp_register_style(self::MAIN_CSS_SCRIPT, plugins_url('styles/zlrecipe-std' . self::$suffix . '.css', __FILE__), array(), ZRDN_VERSION_NUM, 'all');
+            wp_enqueue_style(self::MAIN_CSS_SCRIPT);
+        }
         wp_register_script(self::MAIN_PRINT_SCRIPT, plugins_url('scripts/zlrecipe_print' . self::$suffix . '.js', __FILE__), array('jquery'), ZRDN_VERSION_NUM, true);
         wp_enqueue_script(self::MAIN_PRINT_SCRIPT);
+
     }
 
     /**
