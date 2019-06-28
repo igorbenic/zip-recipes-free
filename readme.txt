@@ -9,10 +9,10 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, food, schema.org, nutrition, recipe card, seo, recipe seo, cooking, food, nutrition
 Requires at least: 4.2
 Tested up to: 5.2
-Stable tag: 6.0.2
+Stable tag: 6.0.3
 Requires PHP: 5.4
 
-Zip Recipes helps you to create a food blog with all the microdata to get found by Google. Schema.org and AMP compatible.
+Zip Recipes helps you to create a food blog with all schema.org JSON LD microdata to get found by Google. AMP compatible.
 
 == Description ==
 
@@ -180,6 +180,11 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 5. Copy your recipes directly from Microsoft Word, Adobe PDF, etc.
 
 == Changelog ==
+= 6.0.3 =
+* Fix: safari not supporting negative lookbehind pattern, causing the preview not to work
+* Fix: too strict permissions for the recipe overview and recipe pages
+* Tweak: hiding of duplicate recipe images made optional in settings
+
 = 6.0.2 =
 * Allow for text in yield field
 * Improve total time calculation
