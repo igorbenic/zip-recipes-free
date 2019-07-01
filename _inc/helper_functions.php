@@ -47,7 +47,7 @@ function clean_jsonld($arr) {
  * @param bool $echo
  * @return string|void
  */
-function zrdn_notice($msg, $type = 'notice', $echo = true, $include_css=false)
+function zrdn_notice($msg, $type = 'notice', $echo = true, $include_css=false, $fadeout=false)
 {
     if ($msg == '') return;
     $html = "";
@@ -78,7 +78,20 @@ function zrdn_notice($msg, $type = 'notice', $echo = true, $include_css=false)
             }
             </style>";
     }
-    $html .= '<div class="zrdn-panel zrdn-' . $type . ' ">' . $msg . '</div>';
+    $uid = time();
+    if ($fadeout) {
+        ?>
+        <script>
+            jQuery(document).ready(function ($) {
+                var alert = $('.alert-<?php echo $uid?>');
+                if (alert.length) {
+                    alert.delay(1500).fadeOut(800);
+                }
+            });
+        </script>
+        <?php
+    }
+    $html .= '<div class="zrdn-panel alert-'.$uid.' zrdn-' . $type . ' ">' . $msg . '</div>';
     if ($echo) {
         echo $html;
     } else {

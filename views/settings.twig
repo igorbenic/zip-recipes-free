@@ -23,8 +23,8 @@
 </style>
 <div class="wrap">
   <form method="post" action="" id="zlrecipe_settings_form" name="zlrecipe_settings_form">
-    <h2><img src="{{ zrdn_icon }}" /> Zip Recipes Settings</h2>
-      For full customization options, see the <a href="https://ziprecipes.net/knowledge-base/how-to-use-the-zip-recipes-plugin/" target="_blank">Instructions document</a>.
+    <h2><img src="{{ zrdn_icon }}" /> {{  __('Zip Recipes Settings','zip-recipes') }}</h2>
+      {{  __('For more customization options, see our knowledgebase:','zip-recipes') }} <a href="https://ziprecipes.net/knowledge-base/how-to-use-the-zip-recipes-plugin/" target="_blank">Knowledgebase</a>
 
     <div class="zrdn-container">
       <div class="zrdn-column zrdn-column-3">
@@ -32,7 +32,7 @@
       <table class="form-table">
         <tr valign="top">
           <th scope="row">
-            Custom Print Button
+            {{  __('Custom Print Button','zip-recipes') }}
             <br />
             (Optional)
           </th>
@@ -42,121 +42,121 @@
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row">Zip Recipes Plugin Link</th>
-          <td><label><input type="checkbox" name="zrecipe-attribution-hide" value="Hide" {{ zrecipe_attribution_hide|raw }} /> Hide plugin link</label></td>
+          <th scope="row">{{  __('Zip Recipes Plugin Link','zip-recipes') }}</th>
+          <td><label><input type="checkbox" name="zrecipe-attribution-hide" value="Hide" {{ zrecipe_attribution_hide|raw }} /> {{  __('Hide plugin link','zip-recipes') }}</label></td>
         </tr>
         <tr valign="top">
-          <th scope="row">Printed Output: Recipe Permalink</th>
-          <td><label><input type="checkbox" name="printed-permalink-hide" value="Hide" {{ printed_permalink_hide|raw }} /> Hide permalink in printed output</label></td>
+          <th scope="row">{{  __('Printed Output: Recipe Permalink','zip-recipes') }}</th>
+          <td><label><input type="checkbox" name="printed-permalink-hide" value="Hide" {{ printed_permalink_hide|raw }} /> {{  __('Hide permalink in printed output','zip-recipes') }}</label></td>
         </tr>
         <tr valign="top">
-          <th scope="row">Printed Output: Copyright Statement</th>
+          <th scope="row"> {{  __('Printed Output: Copyright Statement','zip-recipes') }}</th>
           <td><input type="text" name="printed-copyright-statement" value="{{ printed_copyright_statement }}" class="regular-text" /></td>
         </tr>
         {{ author_section|raw }}
       </table>
 
       <hr />
-      <h3>Recipe Card Look & Feel</h3>
+      <h3>{{  __('Recipe Card Look & Feel','zip-recipes') }}</h3>
       <table class="form-table">
         <tr valign="top">
-          <th scope="row">Stylesheet</th>
-          <td><label><input type="checkbox" name="stylesheet" value="zlrecipe-std" {{ stylesheet|raw }} /> Use Zip Recipes style</label></td>
+          <th scope="row">{{ __('Stylesheet','zip-recipes') }}</th>
+          <td><label><input type="checkbox" name="stylesheet" value="zlrecipe-std" {{ stylesheet|raw }} /> {{  __('Use Zip Recipes style','zip-recipes') }}</label></td>
         </tr>
         <tr valign="top">
-          <th scope="row">Recipe Title</th>
-          <td><label><input type="checkbox" name="recipe-title-hide" value="Hide" {{ recipe_title_hide|raw }} /> Hide Recipe Title in post (still shows in print view)</label></td>
+          <th scope="row">{{  __('Recipe Title','zip-recipes') }}</th>
+          <td><label><input type="checkbox" name="recipe-title-hide" value="Hide" {{ recipe_title_hide|raw }} /> {{  __('Hide Recipe Title in post (still shows in print view)','zip-recipes') }}</label></td>
         </tr>
         <tr valign="top">
-          <th scope="row">Print Button</th>
-          <td><label><input type="checkbox" name="print-link-hide" value="Hide" {{ print_link_hide|raw }} /> Hide Print Button</label></td>
+          <th scope="row">{{  __('Print Button','zip-recipes') }}</th>
+          <td><label><input type="checkbox" name="print-link-hide" value="Hide" {{ print_link_hide|raw }} /> {{  __('Hide Print Button','zip-recipes') }}</label></td>
         </tr>
         <tr valign="top">
-          <th scope="row">Hide image when duplicate of post</th>
-          <td><label><input type="checkbox" name="hide-on-duplicate-image" value="Hide" {{ hide_on_duplicate_image|raw }} /> Hide recipe image when recipe image is the same as the post image</label></td>
+          <th scope="row">{{  __('Hide image when duplicate of post','zip-recipes') }}</th>
+          <td><label><input type="checkbox" name="hide-on-duplicate-image" value="Hide" {{ hide_on_duplicate_image|raw }} /> {{  __('Hide recipe image when recipe image is the same as the post image','zip-recipes') }}</label></td>
         </tr>
 
         <tr valign="top">
-          <th scope="row">Image Width</th>
-          <td><label><input type="text" name="image-width" value="{{ image_width }}" class="regular-text" /> pixels</label></td>
+          <th scope="row">{{  __('Image Width','zip-recipes') }}</th>
+          <td><label><input type="text" name="image-width" value="{{ image_width }}" class="regular-text" /> {{ __('pixels','zip-recipes') }}</label></td>
         </tr>
         <tr valign="top">
-          <th scope="row">Image Display</th>
+          <th scope="row">{{  __('Image Display','zip-recipes') }}</th>
           <td>
-            <label><input type="checkbox" name="image-hide" value="Hide" {{ image_hide|raw }} /> Hide Image in post</label>
+            <label><input type="checkbox" name="image-hide" value="Hide" {{ image_hide|raw }} /> {{ __('Hide Image in post','zip-recipes') }}</label>
             <br />
-            <label><input type="checkbox" name="image-hide-print" value="Hide" {{ image_hide_print|raw }} /> Hide Image in print view</label>
+            <label><input type="checkbox" name="image-hide-print" value="Hide" {{ image_hide_print|raw }} /> {{  __('Hide Image in print view','zip-recipes') }}</label>
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row">Border Style</th>
+          <th scope="row">{{  __('Border Style','zip-recipes') }}</th>
           <td>
             <select name="outer-border-style">{{ obs|raw }}</select>
           </td>
         </tr>
       </table>
       <hr />
-      <h3>Ingredients</h3>
+      <h3>{{  __('Ingredients','zip-recipes') }}</h3>
       <table class="form-table">
         <tr valign="top">
-          <th scope="row">'Ingredients' Label</th>
+          <th scope="row">{{  __('Ingredients Label','zip-recipes') }}</th>
           <td>
-            <label><input type="checkbox" name="ingredient-label-hide" value="Hide" {{ ingredient_label_hide|raw }} /> Hide Ingredients label</label>
+            <label><input type="checkbox" name="ingredient-label-hide" value="Hide" {{ ingredient_label_hide|raw }} /> {{  __('Hide Ingredients label','zip-recipes') }}</label>
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row">'Ingredients' List Type</th>
+          <th scope="row">{{  __('Ingredients List Type','zip-recipes') }}</th>
           <td>
             <input type="radio" id="ingredient-list-type-l" name="ingredient-list-type" value="l" {{ ing_l|raw }} />
-            <label for="ingredient-list-type-l">List</label>
+            <label for="ingredient-list-type-l">{{  __('List','zip-recipes') }}</label>
             <br />
             <input type="radio" id="ingredient-list-type-ol" name="ingredient-list-type" value="ol" {{ ing_ol|raw }} />
-            <label for="ingredient-list-type-ol">Numbered List</label>
+            <label for="ingredient-list-type-ol">{{  __('Numbered List','zip-recipes') }}</label>
             <br />
             <input type="radio" id="ingredient-list-type-ul" name="ingredient-list-type" value="ul" {{ ing_ul|raw }} />
-            <label for="ingredient-list-type-ul">Bulleted List</label>
+            <label for="ingredient-list-type-ul">{{  __('Bulleted List','zip-recipes') }}</label>
             <br />
             <input type="radio" id="ingredient-list-type-p" name="ingredient-list-type" value="p" {{ ing_p|raw }} />
-            <label for="ingredient-list-type-p">Paragraphs</label>
+            <label for="ingredient-list-type-p">{{  __('Paragraphs','zip-recipes') }}</label>
             <br />
             <input type="radio" id="ingredient-list-type-div" name="ingredient-list-type" value="div" {{ ing_div|raw }} />
-            <label for="ingredient-list-type-div">Divs</label>
+            <label for="ingredient-list-type-div">{{  __('Divs','zip-recipes') }}</label>
           </td>
         </tr>
       </table>
 
       <hr />
 
-      <h3>Instructions</h3>
+      <h3>{{  __('Instructions','zip-recipes') }}</h3>
       <table class="form-table">
         <tr valign="top">
-          <th scope="row">'Instructions' Label</th>
+          <th scope="row">{{  __('Instructions Label','zip-recipes') }}</th>
           <td>
-            <label><input type="checkbox" name="instruction-label-hide" value="Hide" {{ instruction_label_hide|raw }} /> Hide Instructions label</label>
+            <label><input type="checkbox" name="instruction-label-hide" value="Hide" {{ instruction_label_hide|raw }} /> {{  __('Hide Instructions label','zip-recipes') }}</label>
           </td>
         </tr>
         <tr valign="top">
-          <th scope="row">'Instructions' List Type</th>
+          <th scope="row">{{  __('Instructions List Type','zip-recipes') }}</th>
           <td>
             <input type="radio" id="instruction-list-type-l" name="instruction-list-type" value="l" {{ ins_l|raw }} />
-            <label for="instruction-list-type-l">List</label>
+            <label for="instruction-list-type-l">{{  __('List','zip-recipes') }}</label>
             <br />
             <input type="radio" id="instruction-list-type-ol" name="instruction-list-type" value="ol" {{ ins_ol|raw }} />
-            <label for="instruction-list-type-ol">Numbered List</label>
+            <label for="instruction-list-type-ol">{{  __('Numbered List','zip-recipes') }}</label>
             <br />
             <input type="radio" id="instruction-list-type-ul" name="instruction-list-type" value="ul" {{ ins_ul|raw }} />
-            <label for="instruction-list-type-ul">Bulleted List</label>
+            <label for="instruction-list-type-ul">{{  __('Bulleted List','zip-recipes') }}</label>
             <br />
             <input type="radio" id="instruction-list-type-p" name="instruction-list-type" value="p" {{ ins_p|raw }} />
-            <label for="instruction-list-type-p">Paragraphs</label>
+            <label for="instruction-list-type-p">{{  __('Paragraphs','zip-recipes') }}</label>
             <br />
             <input type="radio" id="instruction-list-type-div" name="instruction-list-type" value="div" {{ ins_div|raw }} />
-            <label for="instruction-list-type-div">Divs</label>
+            <label for="instruction-list-type-div">{{  __('Divs','zip-recipes') }}</label>
           </td>
         </tr>
       </table>
       <hr />
-      <h3>Other Options</h3>
+      <h3>{{  __('Other Options','zip-recipes') }}</h3>
       <table class="form-table">
           {{ other_options|raw }}
       </table>

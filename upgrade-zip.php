@@ -7,6 +7,23 @@ add_action('admin_init', __NAMESPACE__.'\zrdn_check_upgrade');
 function zrdn_check_upgrade()
 {
     if (!current_user_can('manage_options')) return;
+
+    //when debug is enabled, a timestamp is appended. We strip this for version comparison purposes.
+    $prev_version = substr(get_option('zrdn-current-version', '1.0.0'),0, 5);
+
+    /**
+     * for previous versions, we want to maintain current settings, the custom author setting.
+     */
+    if (version_compare($prev_version, '6.0.4', '<')) {
+        $authors_list   = get_option( 'zrdn_authors_list', array() );
+        if (is_array($authors_list) && count($authors_list)>=1){
+            update_option('zrdn_use_custom_authors', TRUE);
+        }
+    }
+
+
+    update_option('zrdn-current-version', ZRDN_VERSION_NUM);
+
     if (!get_option('zrdn_checked_for_multiple_recipes')) {
         /**
          * Make sure each post type has only one recipe
