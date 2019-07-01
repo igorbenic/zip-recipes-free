@@ -347,11 +347,11 @@ Copyright 2011, 2012 ZipList, Inc.
 /* Nutrition Label CSS */
 #zrdn-nutrition-label {
   width: 100%;
+}
+#zrdn-nutrition-label .nutrition-container {
   font-family: sans-serif;
   font-size: 12px;
   line-height: 1.4;
-}
-#zrdn-nutrition-label .nutrition-container {
   margin: auto auto;
 }
 #zrdn-nutrition-label p {

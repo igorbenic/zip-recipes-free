@@ -55,6 +55,7 @@ function zrdn_update_recipe_table(){
             'is_featured_post_image tinyint(1) NOT NULL DEFAULT 0',
             'created_at timestamp DEFAULT NOW()',
             'author varchar(50)',
+            'video_url varchar(255)',
         );
 
         $all_columns = apply_filters('zrdn__db_recipe_columns', $columns);
@@ -132,6 +133,11 @@ class Recipe {
      * @var string
      */
     public $author;
+
+    /**
+     * @var string
+     */
+    public $video_url;
 
 	/**
 	 * @var string
@@ -406,6 +412,8 @@ class Recipe {
 
         }
 
+        //set default author if empty
+        $this->author = apply_filters('zrdn_author_value', $this->author, $this->recipe_id, $this->post_id);
         $this->total_time = $this->calculate_total_time_raw($this->prep_time, $this->cook_time);
 
         //check if the connected post is a valid post
@@ -544,6 +552,7 @@ class Recipe {
             'vitamin_c' => sanitize_text_field($this->vitamin_c),
             'calcium' => sanitize_text_field($this->calcium),
             'iron' => sanitize_text_field($this->iron),
+            'video_url' => esc_url_raw($this->video_url),
         );
 
         //if an id was passed, we load the URL to keep it in sync with the new ID.

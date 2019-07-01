@@ -1,6 +1,3 @@
-/**
- * Created by gezimhoxha on 15-06-03.
- */
 
 function zrdnAddImageHandler(selectImageHandlerFunction)
 {

@@ -77,6 +77,11 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
         $active_tab =  isset($_POST['zrdn_active_tab']) ? sanitize_title($_POST['zrdn_active_tab']) : 'general';
         ?>
         <input type="hidden" value="<?php echo $active_tab?>" name="zrdn_active_tab">
+        <?php
+        if (isset($_POST['zrdn_save_recipe'])) {
+            zrdn_notice(__("Settings saved!", "zip-recipes"), 'success', true, false, true);
+        }
+        ?>
 
         <div class="zrdn-tab">
             <button class="zrdn-tablinks <?php if ($active_tab=='general') echo 'active'?>" type="button"
@@ -123,8 +128,12 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                                 //}
                         } ?>
                     <?php
-                    if ($recipe->is_featured_post_image){
+                    if ($recipe->is_featured_post_image && get_option('zlrecipe_hide_on_duplicate_image')==='Hide'){
                         zrdn_notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"), 'warning');
+                    }
+                    $tags =wp_get_post_tags( $recipe->post_id );
+                    if ($recipe->post_id && !$tags){
+                        zrdn_notice(sprintf(__("You haven't added any tags to your post yet. In your post you can %sadd%s some tags relevant to this recipe. These will get added as keywords to your recipes microdata.", "zip-recipes"),'<a href="'.add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')).'">','</a>'), 'warning');
                     }
 
                     $fields = array(
@@ -146,6 +155,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'label' => __("Title", 'zip-recipes'),
                             'placeholder' => __('My recipe','zip-recipes'),
                         ),
+
                         array(
                             'type' => 'time',
                             'fieldname' => 'prep_time',
@@ -188,6 +198,13 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'fieldname' => 'instructions',
                             'value' => $recipe->instructions,
                             'label' => __("Instructions", 'zip-recipes'),
+                        ),
+                        array(
+                            'type' => 'url',
+                            'fieldname' => 'video_url',
+                            'value' => $recipe->video_url,
+                            'label' => __("Instruction video", 'zip-recipes'),
+                            'help' => __("A video is a great way to improve your ranking and will get picked up by Google's rich snippets.", 'zip-recipes'),
                         ),
                         array(
                             'type' => 'text',

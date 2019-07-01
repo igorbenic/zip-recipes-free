@@ -10,7 +10,6 @@ class ZipRecipes {
     const MAIN_CSS_SCRIPT = "zrdn-recipes";
     const MAIN_PRINT_SCRIPT = "zrdn-print-js";
 
-    public static $registration_url;
     public static $suffix = '';
     public static $field;
 
@@ -24,7 +23,6 @@ class ZipRecipes {
         }
         Util::log("Core init");
         self::$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-        self::$registration_url = ZRDN_API_URL . "/installation/register/";
 
         // Instantiate plugin classes
         $parentPath = dirname(__FILE__);
@@ -294,15 +292,20 @@ class ZipRecipes {
         if (function_exists('is_amp_endpoint')) {
             $amp_on = is_amp_endpoint();
         }
+
+        //jsonld is preferred.
         $jsonld_attempt = json_encode(self::jsonld($recipe));
         $jsonld = '';
         if ($jsonld_attempt !== false) {
             $jsonld = $jsonld_attempt;
+            $schema_type = 'jsonld';
         } else {
+            $schema_type = 'microdata';
             error_log("Error encoding recipe to JSON:" . json_last_error());
         }
-        $image_attributes = self::zrdn_get_responsive_image_attributes($recipe->recipe_image);
 
+        $image_attributes = self::zrdn_get_responsive_image_attributes($recipe->recipe_image);
+        $embed = wp_oembed_get($recipe->video_url);
         $viewParams = array(
             'ZRDN_PLUGIN_URL' => ZRDN_PLUGIN_URL,
             'permalink' => get_permalink(),
@@ -373,15 +376,17 @@ class ZipRecipes {
             'print_permalink_hide' => get_option('zlrecipe_printed_permalink_hide'),
             'copyright' => get_option('zlrecipe_printed_copyright_statement'),
             // author_section is used in default theme
-            'author_section' => apply_filters('zrdn__authors_render_author_for_recipe', '', $recipe),
+            'author_section' => apply_filters('zrdn__authors_render_author_for_recipe', '', $recipe->recipe_id),
             // author is used in other themes
-            'author' => apply_filters('zrdn__authors_get_author_for_recipe', '', $recipe),
+            'author' => $recipe->author,
             // The second argument to apply_filters is what is returned if no one implements this hook.
             // For `nutrition_label`, we want an empty string, not $recipe object.
             'nutrition_label' => apply_filters('zrdn__automatic_nutrition_get_label', '', $recipe),
             'amp_on' => $amp_on,
-            'jsonld' => $amp_on ? '' : $jsonld,
-            'recipe_actions' => apply_filters('zrdn__recipe_actions', '')
+            'jsonld' => $jsonld,
+            'recipe_actions' => apply_filters('zrdn__recipe_actions', ''),
+            'schema_type' => $schema_type,
+            'video_embed' =>  $embed,
         );
 
         do_action('zrdn__enqueue_recipe_styles');
@@ -554,9 +559,6 @@ class ZipRecipes {
 
         $zrdn_icon = ZRDN_PLUGIN_URL . "images/zip-recipes-icon-16.png";
 
-        $registered_clear = get_option('zrdn_registered');
-
-        $register_url = admin_url('admin.php?page=' . 'zrdn-register');
         $zrecipe_attribution_hide = get_option('zrdn_attribution_hide');
         $printed_permalink_hide = get_option('zlrecipe_printed_permalink_hide');
         $printed_copyright_statement = get_option('zlrecipe_printed_copyright_statement');
@@ -730,7 +732,6 @@ class ZipRecipes {
         }
 
         $settingsParams = array('zrdn_icon' => $zrdn_icon,
-            'registered' => true,
             'custom_print_image' => $custom_print_image,
             'hide_on_duplicate_image' => $hide_on_duplicate_image,
             'zrecipe_attribution_hide' => $zrecipe_attribution_hide,
@@ -756,15 +757,12 @@ class ZipRecipes {
             'ins_p' => $ins_p,
             'ins_div' => $ins_div,
             'other_options' => $other_options,
-            'registration_url' => self::$registration_url,
             'wp_version' => $wp_version,
             'installed_plugins' => Util::zrdn_get_installed_plugins(),
             'extensions_settings' => apply_filters('zrdn__extention_settings_section', ''),
             'home_url' => home_url(),
             'author_section' => apply_filters('zrdn__authors_get_set_settings', '', $_POST),
             'settings_promo' => apply_filters('zrdn__settings_promo', ''),
-            'register_url' => $register_url,
-            'registered_clear' => $registered_clear
         );
 
         Util::print_view('settings', $settingsParams);
@@ -1071,6 +1069,13 @@ class ZipRecipes {
             $formattedInstructionsArray[] = $itemArray['content'];
         }
 
+        $keywords= false;
+        $tags =wp_get_post_tags( $recipe->post_id );
+        if ($tags){
+            $tags= wp_list_pluck($tags,'name');
+            $keywords = implode(',',$tags);
+        }
+
         $recipe_json_ld = array(
             "@context" => "http://schema.org",
             "@type" => "Recipe",
@@ -1096,8 +1101,15 @@ class ZipRecipes {
             "cookTime" => $recipe->cook_time,
             "prepTime" => $recipe->prep_time,
             "recipeInstructions" => $formattedInstructionsArray,
-            "recipeYield" => $recipe->yield
+            "recipeYield" => $recipe->yield,
         );
+
+        if ($keywords){
+            $recipe_json_ld['keywords'] = $keywords;
+        }
+        if (!empty($recipe->video_url)){
+            $recipe_json_ld['video'] = $recipe->video_url;
+        }
 
         if ($recipe->total_time) {
             $recipe_json_ld["totalTime"] = $recipe->total_time;
@@ -1105,8 +1117,7 @@ class ZipRecipes {
 
         $cleaned_recipe_json_ld = clean_jsonld($recipe_json_ld);
 
-        $author = apply_filters('zrdn__authors_get_author_for_recipe', false, $recipe);
-
+        $author = $recipe->author;
         if ($author) {
             $cleaned_recipe_json_ld["author"] = (object)array(
                 "@type" => "Person",
@@ -1118,6 +1129,7 @@ class ZipRecipes {
             $cleaned_recipe_json_ld["aggregateRating"] = (object)array(
                 "bestRating" => $rating_data['max'],
                 "ratingValue" => $rating_data['rating'],
+                "itemReviewed" => $recipe->recipe_title,
                 "ratingCount" => $rating_data['count'],
                 "worstRating" => $rating_data['min']
             );
@@ -1138,13 +1150,9 @@ class ZipRecipes {
         $recipe_json_ld = array();
 
         // get recipe id - limitation: only 1 recipe is supported
-        $shortcode_regex = '/\[amd-zlrecipe-recipe:(\d+)\]/';
-        $matches = array(); // ensure matches is empty
-        preg_match($shortcode_regex, $post->post_content, $matches);
-        if (isset($matches[1])) {
+        if (Util::has_shortcode($post->ID, $post)){
             // Find recipe
-            $recipe_id = $matches[1];
-            $recipe = RecipeModel::db_select($recipe_id);
+            $recipe = new Recipe(false, $post->ID);
             $recipe_json_ld = self::jsonld($recipe);
         }
 
@@ -1156,13 +1164,17 @@ class ZipRecipes {
     public static function amp_styles()
     {
         $sprite_file = plugins_url('plugins/VisitorRating/images/rating-sprite.png', __FILE__);
-        ?>
-        .zrdn__rating__container .zrdn_star
-        {
-        background-image: url('<?php echo $sprite_file ?>');
-        background-repeat: no-repeat;
-        height: 18px;
+
+        if (file_exists($sprite_file)) { ?>
+            .zrdn__rating__container .zrdn_star
+            {
+            background-image: url('<?php echo $sprite_file ?>');
+            background-repeat: no-repeat;
+            height: 18px;
+            }
+        <?php
         }
+        ?>
 
         .zrdn_five
         {
