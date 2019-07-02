@@ -409,7 +409,6 @@ class Recipe {
                     $this->{$fieldname} = $db_recipe[$fieldname];
                 }
             }
-
         }
 
         //set default author if empty
@@ -485,12 +484,20 @@ class Recipe {
         foreach ($recipe as $fieldname => $value) {
             $this->{$fieldname} = '{' . $fieldname . '_value}';
         }
-
+        $actual_recipe_id = false;
+        $actual_post_id = false;
         $this->total_time = NULL;
         if (isset($_GET['id'])){
             $actual_recipe = new Recipe(intval($_GET['id']));
+            $actual_recipe_id = $actual_recipe->recipe_id;
+            $actual_post_id = $actual_recipe->post_id;
             $this->total_time = $this->calculate_total_time_raw($actual_recipe->prep_time, $actual_recipe->cook_time);
         }
+        if (!$actual_post_id && isset($_GET['post_id'])){
+            $actual_post_id = intval($_GET['post_id']);
+        }
+
+        $this->author = apply_filters('zrdn_author_value', false, $actual_recipe_id, $actual_post_id);
 
         $this->prep_time = 'PT99H99M';
         $this->cook_time = 'PT99H99M';
@@ -500,9 +507,13 @@ class Recipe {
         $this->is_featured_post_image = false;
 
         //get random recipe id for some functionality, like ratings
-        global $wpdb;
-        $table = $wpdb->prefix . self::TABLE_NAME;
-        $recipe_id =  $wpdb->get_var("SELECT max(recipe_id) FROM $table");
+        if (!$actual_recipe_id) {
+            global $wpdb;
+            $table = $wpdb->prefix . self::TABLE_NAME;
+            $recipe_id = $wpdb->get_var("SELECT max(recipe_id) FROM $table");
+        } else {
+            $recipe_id = $actual_recipe_id;
+        }
         $this->preview = true;
         $this->recipe_id = $recipe_id;
 

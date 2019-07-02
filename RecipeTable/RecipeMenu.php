@@ -318,7 +318,7 @@ function zrdn_process_update_recipe(){
                     }
                 } else {
                     //no recipe yet. Just insert it
-                    $content = Util::get_shortcode($recipe_id) . $post->post_content;
+                    $content =  $post->post_content.Util::get_shortcode($recipe_id);
                 }
 
                 $post = array(
@@ -353,9 +353,9 @@ function zrdn_process_update_recipe(){
                 $recipe->{$fieldname} = 'PT'.intval($_POST['zrdn_'.$fieldname.'_hours']).'H'.intval($_POST['zrdn_'.$fieldname."_minutes"]).'M';
             }
 
-            $recipe = apply_filters('zrdn_save_recipe', $recipe);
         }
 
+        $recipe = apply_filters('zrdn_save_recipe', $recipe);
 
         $recipe->save();
 
