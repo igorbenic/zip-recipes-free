@@ -6,22 +6,23 @@ License: GPLv3 or later
 Author URI: https://www.really-simple-plugins.com
 Author: Rogier Lankhorst, Mark Wolters
 Donate link: https://www.paypal.me/reallysimplessl
-Tags: recipe, food, schema.org, nutrition, recipe card, seo, recipe seo, cooking, food, nutrition
+Tags: recipe, food, schema.org, nutrition, rich snippets, seo, cooking
 Requires at least: 4.2
 Tested up to: 5.2
-Stable tag: 6.0.3
+Stable tag: 6.0.4
 Requires PHP: 5.4
 
-Zip Recipes helps you to create a food blog with all schema.org JSON LD microdata to get found by Google. AMP compatible.
+Zip Recipes is the best way to easily create a beautiful food blog with professional looking recipes that can be found by Google. Schema.org, Rich Snippets and AMP (Accelerated Mobile Pages) compatible. Would you like to see what Zip Recipes can do for you? Visit our demo website: [demo.ziprecipes.net!](https://demo.ziprecipes.net/)
 
 == Description ==
 
-Easy to use recipe plugin that adds microdata and schema.org json ld to your recipes, so Google can understand your recipes. AMP compatible.
+Easy to use recipe plugin that adds microdata and schema.org JSON LD to your recipes, so Google can find and understand them. AMP (Accelerated Mobile Pages) compatible.
+We help you do that through our 4-step formula:
 
 1. Easy to use
 2. Professional look
-3. Google friendly (schema.org compatible)
-4. Integrates with ad networks
+3. SEO/Google friendly (schema.org and AMP compatible, rich snippets)
+4. Integrates seamlessly with ad networks
 
 Still got questions? [Go to our website for support](https://www.ziprecipes.net/support) or [email us](mailto:support@ziprecipes.net).
 
@@ -180,6 +181,14 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 5. Copy your recipes directly from Microsoft Word, Adobe PDF, etc.
 
 == Changelog ==
+= 6.0.4 =
+* Enforce not loading of styles when this option is disabled
+* Grab post title as default recipe title
+* Set yummly share button to smaller width, to prevent whitespace
+* Use generic function for shortcode detection to ensure gutenberg compatibility (class.ziprecipes::amp_format)
+* Improve schema.org by using only JSON LD, to prevent duplicate recipe detection
+* Improve schema.org by adding keywords and video
+
 = 6.0.3 =
 * Fix: safari not supporting negative lookbehind pattern, causing the preview not to work
 * Fix: too strict permissions for the recipe overview and recipe pages

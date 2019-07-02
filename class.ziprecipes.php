@@ -304,8 +304,9 @@ class ZipRecipes {
             error_log("Error encoding recipe to JSON:" . json_last_error());
         }
 
-        $image_attributes = self::zrdn_get_responsive_image_attributes($recipe->recipe_image);
-        $embed = wp_oembed_get($recipe->video_url);
+        $image_attributes = self::zrdn_get_responsive_image_attributes($recipe->recipe_image, $recipe->recipe_id);
+        $embed = (strpos($recipe->video_url, '_value')!==FALSE) ? $recipe->video_url : wp_oembed_get($recipe->video_url);
+
         $viewParams = array(
             'ZRDN_PLUGIN_URL' => ZRDN_PLUGIN_URL,
             'permalink' => get_permalink(),
@@ -388,6 +389,7 @@ class ZipRecipes {
             'schema_type' => $schema_type,
             'video_embed' =>  $embed,
         );
+
 
         do_action('zrdn__enqueue_recipe_styles');
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
@@ -1314,27 +1316,35 @@ class ZipRecipes {
     }
 
     /**
-     *
-     *
      * @todo: change this function to make use of the attachment id stored in the recipe object.
      * Get Responsive Image attributes from URL
      *
      * It checks image is not external and return images attributes like srcset, sized etc.
      *
-     * @param type $url
+     * @param string $url
+     * @param int|bool $recipe_id
      * @return type
      */
-    public static function zrdn_get_responsive_image_attributes($url)
+
+    public static function zrdn_get_responsive_image_attributes($url, $recipe_id=false)
     {
+
         /**
          * set up default array values
          */
+
         $attributes = array();
         $attributes['url'] = $url;
+        //if a recipe_id is passed, we try to use the recipe image id
+        $recipe = new Recipe($recipe_id);
+        if ($recipe->recipe_image_id>0){
+            $attachment_id = $recipe->recipe_image_id;
+        } else {
+            //try to get from url
+            $attachment_id = attachment_url_to_postid($url);
+            if (!$attachment_id) $attachment_id = get_post_thumbnail_id();
+        }
 
-        //first, try to get from url
-        $attachment_id = attachment_url_to_postid($url);
-        if (!$attachment_id) $attachment_id = get_post_thumbnail_id();
         $attributes['attachment_id'] = $attachment_id;
         $attributes['srcset'] = '';
         $attributes['sizes'] = '';
