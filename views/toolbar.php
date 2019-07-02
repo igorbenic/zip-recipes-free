@@ -58,7 +58,7 @@
                 if (matches){
                     content = content.replace(regex, '$1'+recipe_id+'$2');
                 } else {
-                    content = '[amd-zlrecipe-recipe:'+recipe_id+']'+content;
+                    content = content+'[amd-zlrecipe-recipe:'+recipe_id+']';
                 }
 
                 if (oldContent !== content) {

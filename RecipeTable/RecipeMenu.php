@@ -318,7 +318,7 @@ function zrdn_process_update_recipe(){
                     }
                 } else {
                     //no recipe yet. Just insert it
-                    $content =  $post->post_content.Util::get_shortcode($recipe_id);
+                    $content =  $post->post_content."\n".Util::get_shortcode($recipe_id);
                 }
 
                 $post = array(
