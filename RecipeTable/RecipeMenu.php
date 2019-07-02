@@ -98,6 +98,34 @@ function zrdn_unlink_recipe(){
 
 }
 
+add_action('wp_ajax_zrdn_get_embed_code', __NAMESPACE__.'\zrdn_get_embed_code');
+function zrdn_get_embed_code(){
+
+    if (!current_user_can('edit_posts')) return;
+    $error = false;
+    $embed='';
+
+    if (!isset($_GET['video_url'])) {
+        $error = true;
+    }
+
+    if (!$error){
+        $video_url = esc_url_raw($_GET['video_url']);
+    }
+
+    if (!$error){
+
+        $embed = wp_oembed_get($video_url);
+
+    }
+    $data = array('success' => !$error, 'embed'=>$embed);
+    $response = json_encode($data);
+    header("Content-Type: application/json");
+    echo $response;
+    exit;
+
+}
+
 add_action('admin_menu',  __NAMESPACE__ . '\zrdn_recipe_admin_menu');
 function zrdn_recipe_admin_menu()
 {
@@ -127,6 +155,7 @@ function zrdn_enqueue_style($hook){
     wp_enqueue_script("zrdn-editor", ZRDN_PLUGIN_URL."RecipeTable/js/editor.js",  array('jquery'), ZRDN_VERSION_NUM);
     wp_enqueue_script("zrdn-conditions", ZRDN_PLUGIN_URL."RecipeTable/js/conditions.js",  array('jquery'), ZRDN_VERSION_NUM);
     $args = array(
+        'admin_url' => admin_url('admin-ajax.php'),
         'str_click_to_edit_image' => __("Click to edit this image","zip-recipes"),
         'str_minutes' => __("minutes","zip-recipes"),
         'str_hours' => __("hours","zip-recipes"),

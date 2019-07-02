@@ -60,9 +60,18 @@ jQuery(document).ready(function ($) {
      */
 
     $('.zrdn-field-input').each(function () {
+        if (name==='zrdn_video_url') return;
+
         var name = $(this).attr("name");
         var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
         $('#' + fieldname).html($(this).val());
+    });
+
+    /**
+     * video
+     */
+    $('input[name=zrdn_video_url]').each(function () {
+        zrdn_get_video_embed($(this));
     });
 
     /**
@@ -90,6 +99,7 @@ jQuery(document).ready(function ($) {
         maybeShowNutritionLabel();
 
         var name = $(this).attr("name");
+        if (name==='zrdn_video_url') return;
         if (name===undefined) return;
         if (name.indexOf('zrdn_')===-1) return;
         var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
@@ -276,6 +286,36 @@ jQuery(document).ready(function ($) {
         media_uploader.open();
     });
 
+    /**
+     * video
+     */
+    $(document).on('keyup', 'input[name=zrdn_video_url]', function(){
+        zrdn_get_video_embed($(this));
+    });
+
+    function zrdn_get_video_embed(obj){
+        var name = obj.attr("name");
+        if (name===undefined) return;
+        if (name.indexOf('zrdn_')===-1) return;
+        var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
+        var video_url = obj.val();
+        $.ajax({
+            type: "GET",
+            url: zrdn_editor.admin_url,
+            dataType: 'json',
+            data: ({
+                video_url : video_url,
+                action: 'zrdn_get_embed_code',
+            }),
+            success: function (response) {
+                if (response.success) {
+                    $('#' + fieldname).html(response.embed);
+                }
+            }
+        });
+    }
+
+
     // Was needed a timeout since RTE is not initialized when this code run.
     setTimeout(function () {
         for (var i = 0; i < tinymce.editors.length; i++) {
@@ -283,9 +323,7 @@ jQuery(document).ready(function ($) {
                 // Update HTML view textarea (that is the one used to send the data to server).
                 //ed.save();
                 var name = ed.id;
-                console.log(name);
                 var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
-                console.log(fieldname);
                 $('#' + fieldname).html(ed.getContent());
             });
 
@@ -293,10 +331,8 @@ jQuery(document).ready(function ($) {
                 // Update HTML view textarea (that is the one used to send the data to server).
                 //ed.save();
                 var name = ed.id;
-                console.log(name);
 
                 var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
-                console.log(fieldname);
 
                 $('#' + fieldname).html(ed.getContent());
             });

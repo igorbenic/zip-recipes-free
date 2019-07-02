@@ -47,13 +47,21 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
 <div class="wrap">
     <?php
 
-
     //load the recipe
     if (isset($_GET['recipe_id'])) $recipe_id = intval($_GET['recipe_id']);
     if (isset($_POST['zrdn_recipe_id'])) $recipe_id = intval($_POST['zrdn_recipe_id']);
 
     $recipe = new Recipe($recipe_id);
-    if (strlen($recipe->recipe_title)==0) $recipe->recipe_title = __("New recipe", "zip-recipes");
+    if (strlen($recipe->recipe_title)==0) {
+        $recipe->recipe_title = __("New recipe", "zip-recipes");
+
+        //when empty, we grab recipe title from post
+        if ($link_to_post_id){
+            $post = get_post($link_to_post_id);
+            if ($post && strlen($post->post_title)>0) $recipe->recipe_title = $post->post_title;
+        }
+    }
+
     $field = ZipRecipes::$field;
 
     ?>
@@ -200,7 +208,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'label' => __("Instructions", 'zip-recipes'),
                         ),
                         array(
-                            'type' => 'url',
+                            'type' => 'text',
                             'fieldname' => 'video_url',
                             'value' => $recipe->video_url,
                             'label' => __("Instruction video", 'zip-recipes'),
@@ -238,6 +246,13 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'label' => __("Description", 'zip-recipes'),
                             'media' => false,
                         ),
+
+                        'author_promo' => array(
+                            'type' => 'notice',
+                            'fieldname' => 'author_upgrade',
+                            'label' => sprintf(__('Rank even better in Google? Also get the author field in your schema.org markup. Available in %sall plans%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
+                            'media' => false,
+                        ),
                     );
                     $fields = apply_filters('zrdn_edit_fields', $fields, $recipe);
                     foreach ($fields as $field_args) {
@@ -259,7 +274,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                         'nutrition_promo' => array(
                             'type' => 'notice',
                             'fieldname' => 'nutrition_upgrade',
-                            'label' => sprintf(__('Tired of looking up all nutrition data? You can generate the nutrition data automatically with %sZip Recipes Lover%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/premium">','</a>'),
+                            'label' => sprintf(__('Tired of looking up all nutrition data? You can generate the nutrition data automatically with %sZip Recipes Lover%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/automatic-nutrition-for-your-recipes/">','</a>'),
                         ),
                         array(
                             'type' => 'text',

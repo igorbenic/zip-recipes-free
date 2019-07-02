@@ -361,9 +361,10 @@
       </{{ instructionsHtmlListElem }}>
     {% endfor %}
 
-    {#Video#}
     {% if (video_embed) %}
-        {{ video_embed|raw }}
+        <div style="text-align: center;">
+                {{ video_embed|raw }}
+        </div>
     {% endif %}
 
 

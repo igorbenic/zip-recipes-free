@@ -420,7 +420,6 @@ class Recipe {
         $post = get_post($this->post_id);
         if (!$post || get_post_type($this->post_id)==='revision') $this->post_id = false;
 
-
         //check if we should load the nutrition label
         if ($this->nutrition_label_id>0){
             $img = wp_get_attachment_image_src($this->nutrition_label_id, 'full');
