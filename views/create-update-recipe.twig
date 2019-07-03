@@ -98,27 +98,7 @@
                 $recipeSummaryTextarea.data('caption', 'false');
             }
 
-            /**
-             * Auto Clean extra spaces
-             *
-             * On paste in textarea removes extra spaces and lines
-             */
-            $(".clean-on-paste").on('paste', function (e) {
-                var $elem = $(this);
-                // setTimeout is required here because paste event is triggered before content is pasted
-                //  in element.
-                window.setTimeout(function () {
-                    var lines = $elem.val().split(/\n/);
-                    var texts = [];
-                    for (var i=0; i < lines.length; i++) {
-                        if (/\S/.test(lines[i])) {
-                            texts.push($.trim(lines[i]));
-                        }
-                    }
-                    var n = texts.join("\n");
-                    $elem.val(n);
-                }, 500);
-            });
+
 
         });
 

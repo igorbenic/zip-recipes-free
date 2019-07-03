@@ -41,7 +41,7 @@ spl_autoload_register(__NAMESPACE__ . '\zrdn_autoload');
 defined('ABSPATH') or die("Error! Cannot be called directly.");
 
 // Define constants
-define('ZRDN_VERSION_NUM', '6.0.3');//keep this version one behind the actual version, for upgrade purposes
+define('ZRDN_VERSION_NUM', '6.0.4');//keep this version one behind the actual version, for upgrade purposes
 
 define('ZRDN_FREE', true);
 define('ZRDN_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ));
@@ -112,3 +112,35 @@ function zrdn_autoload($className)
 
         load_plugin_textdomain('zip-recipes', FALSE,  ZRDN_PLUGIN_DIRECTORY.'/languages/');
     }
+
+/**
+ * Load iframe has to hook into admin init, otherwise languages are not loaded yet.
+ *
+ * */
+
+function zrdn_maybe_load_iframe()
+{
+    // Setup query catch for recipe insertion popup.
+    if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=z_recipe') && !strpos($_SERVER['REQUEST_URI'], '&wrt=')) {
+        // pluggable.php is needed for current_user_can
+        require_once(ABSPATH . 'wp-includes/pluggable.php');
+
+        // user is logged in and can edit posts or pages
+        if (\current_user_can('edit_posts') || \current_user_can('edit_pages')) {
+            $get_info = $_REQUEST;
+
+            if (isset($get_info["recipe_post_id"]) &&
+                !isset($get_info["add-recipe-button"]) &&
+                strpos($get_info["recipe_post_id"], '-') !== false
+            ) { // EDIT recipe
+                $recipe_id = preg_replace('/[0-9]*?\-/i', '', $get_info["recipe_post_id"]);
+                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","id"=>$recipe_id,"popup"=>true),admin_url("admin.php")));
+
+            } else { // New recipe
+                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","popup"=>true),admin_url("admin.php")));
+            }
+        }
+        exit;
+    }
+}
+add_action('admin_init', __NAMESPACE__ . '\zrdn_maybe_load_iframe', 30);
