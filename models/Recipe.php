@@ -408,7 +408,6 @@ class Recipe {
             $recipe_data = $this->db_select_by_post_id($this->post_id);
             if ($recipe_data) $this->recipe_id = $recipe_data->recipe_id;
         }
-_log($recipe_data);
         if ($recipe_data) {
             $db_recipe = get_object_vars($recipe_data);
             foreach ($this as $fieldname => $value) {
