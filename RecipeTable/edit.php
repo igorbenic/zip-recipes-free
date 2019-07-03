@@ -7,11 +7,6 @@ $recipe_id = false;
 if (isset($_GET['id'])) {
     $recipe_id = intval($_GET['id']);
 }
-$zrdn_popup=false;
-if (isset($_GET['popup']) && $_GET['popup']) {
-    $zrdn_popup = true;
-}
-
 
 /**
  * If a post_id is passed, we will link this recipe to this post id.
@@ -32,11 +27,23 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
         );
         $link_to_post_id = wp_insert_post($args);
 
+
     }
 }
 
-?>
 
+
+
+/**
+ * - nutrition data generatie testen met !, *, _
+ * - Test review metabox ivm enqueue_assets hook changes
+
+ * - discount code 24 hours in free
+ * - upsell author
+ * - upsell nutrition data
+ */
+
+?>
 <div class="wrap">
     <?php
 
@@ -106,8 +113,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
 
                     <h3><?php _e("General", 'zip-recipes') ?></h3>
                     <?php //offer option to go to post if post_id is linked.?>
-                    <?php if (!$zrdn_popup && $recipe->post_id) {
-
+                    <?php if ($recipe->post_id) {
                                 if ( get_post_type($recipe->post_id) === 'trash') {
                                     zrdn_notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
                                 } else {
@@ -131,7 +137,6 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                     if ($recipe->post_id && !$tags){
                         zrdn_notice(sprintf(__("You haven't added any tags to your post yet. In your post you can %sadd%s some tags relevant to this recipe. These will get added as keywords to your recipes microdata.", "zip-recipes"),'<a href="'.add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')).'">','</a>'), 'warning');
                     }
-
 
                     $fields = array(
                         array(
@@ -390,7 +395,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                 </div><!--tab content -->
             </div>
 
-            <div class="zrdn-column preview-column">
+            <div class="zrdn-column">
                 <div id="zrdn-preview">
                     <?php
                     $empty_recipe = new Recipe();

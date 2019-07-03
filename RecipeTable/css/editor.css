@@ -1,37 +1,6 @@
 .zrdn-help-modal {
   font-style: italic;
 }
-#zrdn-popup-image {
-  position: relative;
-  cursor: pointer;
-  width: 100%;
-  text-align: center;
-}
-#zrdn-popup-image img {
-  max-width: 50%;
-}
-#zrdn-popup-image img:hover {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-  /* For IE8 and earlier */
-}
-#zrdn-preview .image,
-#zrdn-preview .img-desc-wrap p {
-  position: relative;
-  cursor: pointer;
-}
-#zrdn-preview img:hover {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-  /* For IE8 and earlier */
-}
-.zrdn-edit-image-text {
-  position: absolute;
-  top: 30px;
-  left: 25%;
-  font-size: 20px;
-  width: 50%;
-}
 /*
     cool checkbox sliders
 */
@@ -108,6 +77,23 @@ input:focus + .zrdn-slider {
 }
 body {
   line-height: initial;
+}
+#zrdn-preview .image,
+#zrdn-preview .img-desc-wrap p {
+  position: relative;
+  cursor: pointer;
+}
+#zrdn-preview img:hover {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  /* For IE8 and earlier */
+}
+.zrdn-edit-image-text {
+  position: absolute;
+  top: 30px;
+  left: 25%;
+  font-size: 20px;
+  width: 50%;
 }
 /*
 Tabs

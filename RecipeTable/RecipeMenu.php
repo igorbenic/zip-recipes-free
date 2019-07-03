@@ -44,94 +44,6 @@ function zrdn_unlink_post_from_recipe($post_id){
     return $wpdb->query($sql);
 }
 
-/**
- * remove image from a recipe
- */
-add_action('wp_ajax_zrdn_clear_image', __NAMESPACE__ . '\zrdn_clear_image');
-function zrdn_clear_image(){
-    $error = false;
-    if (!current_user_can('edit_posts')) {
-        $error = true;
-    }
-
-    if (!wp_verify_nonce($_POST['nonce'],'zrdn_edit_recipe')) {
-        $error = true;
-    }
-
-    if (!$error && isset($_POST['recipe_id'])) {
-        $recipe = new Recipe(intval($_POST['recipe_id']));
-        $recipe->recipe_image_id = false;
-        $recipe->recipe_image = '';
-        $recipe->save();
-    }
-
-    $response = json_encode(array(
-        'success' => !$error,
-    ));
-    header("Content-Type: application/json");
-    echo $response;
-    exit;
-}
-
-
-add_action('wp_ajax_zrdn_update_recipe_from_popup', __NAMESPACE__ . '\zrdn_update_recipe_from_popup');
-function zrdn_update_recipe_from_popup(){
-    $error = false;
-    $recipe_id = false;
-    if (!current_user_can('edit_posts')) {
-        $error = true;
-    }
-
-    if (!wp_verify_nonce($_POST['nonce'],'zrdn_edit_recipe')) {
-        $error = true;
-    }
-
-    if (!$error) {
-        if (isset($_POST['recipe_id'])) {
-            $recipe = new Recipe(intval($_POST['recipe_id']));
-        } else {
-            //create new
-            $recipe = new Recipe();
-            $recipe->save();
-        }
-
-        $recipe_id = $recipe->recipe_id;
-
-        if (isset($_POST['formdata'])){
-            $formdata = $_POST['formdata'];
-            $formdata = wp_list_pluck($formdata, 'value', 'name');
-            $recipe = new Recipe($recipe_id);
-            //save all recipe fields here.
-            foreach ($recipe as $fieldname => $value) {
-
-                //sanitization in recipe class
-                if (isset($formdata['zrdn_'.$fieldname]) && $fieldname!=="recipe_id") {
-                    $recipe->{$fieldname} = $formdata['zrdn_'.$fieldname];
-                }
-
-                //time
-                if (isset($formdata['zrdn_'.$fieldname."_hours"]) && isset($formdata['zrdn_'.$fieldname."_minutes"])) {
-                    $recipe->{$fieldname} = 'PT'.intval($formdata['zrdn_'.$fieldname.'_hours']).'H'.intval($formdata['zrdn_'.$fieldname."_minutes"]).'M';
-                }
-
-            }
-            $recipe = apply_filters('zrdn_save_recipe', $recipe);
-            $recipe->save();
-
-        }
-
-        //saving of fields here
-
-    }
-
-    $response = json_encode(array(
-        'success' => !$error,
-        'recipe_id' => $recipe_id,
-    ));
-    header("Content-Type: application/json");
-    echo $response;
-    exit;
-}
 
 add_action('wp_ajax_zrdn_delete_recipe', __NAMESPACE__ . '\zrdn_delete_recipe');
 function zrdn_delete_recipe(){
@@ -231,17 +143,11 @@ function zrdn_recipe_admin_menu()
 
 add_action('admin_enqueue_scripts', __NAMESPACE__ . '\zrdn_enqueue_style');
 function zrdn_enqueue_style($hook){
-
-
     if (strpos($hook, 'zrdn') === FALSE) return;
 
     if ((isset($_GET['page']) && $_GET['page']=='zrdn-recipes')) {
         wp_register_style('zrdn-recipes-overview', ZRDN_PLUGIN_URL."RecipeTable/css/recipes.css", array(), ZRDN_VERSION_NUM, 'all');
         wp_enqueue_style('zrdn-recipes-overview');
-    }
-
-    if (isset($_GET['popup']) && $_GET['popup']){
-        wp_enqueue_script("zrdn-editor-popup-modal", ZRDN_PLUGIN_URL."RecipeTable/js/popup_editor_modal.js",  array('jquery'), ZRDN_VERSION_NUM);
     }
 
     if (!isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new') ) return;
@@ -250,43 +156,17 @@ function zrdn_enqueue_style($hook){
     wp_enqueue_script("zrdn-conditions", ZRDN_PLUGIN_URL."RecipeTable/js/conditions.js",  array('jquery'), ZRDN_VERSION_NUM);
     $args = array(
         'admin_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('zrdn_edit_recipe'),
         'str_click_to_edit_image' => __("Click to edit this image","zip-recipes"),
         'str_minutes' => __("minutes","zip-recipes"),
         'str_hours' => __("hours","zip-recipes"),
-        'str_remove' => __("clear image","zip-recipes"),
-        'default_image' => ZRDN_PLUGIN_URL.'/images/recipe-default-bw.png',
-        'nonce' => wp_create_nonce('zrdn_edit_recipe'),
     );
     wp_localize_script('zrdn-editor', 'zrdn_editor', $args);
+
 
     //wp_enqueue_style("bootstrap-3", ZRDN_PLUGIN_URL . '/vendor/twbs/bootstrap/dist/css/bootstrap.min.css');
     wp_register_style('zrdn-editor', ZRDN_PLUGIN_URL."RecipeTable/css/editor.css", array(), ZRDN_VERSION_NUM, 'all');
     wp_enqueue_style('zrdn-editor');
     wp_enqueue_media();
-}
-
-if (isset($_GET['popup']) && $_GET['popup']) {
-    add_action('admin_head', __NAMESPACE__.'\zrdn_hide_admin_bar_css');
-}
-function zrdn_hide_admin_bar_css(){
-    ?>
-    <style>
-        #wpadminbar{
-            display:none;
-        }
-
-        html.wp-toolbar {
-            padding-top: 0;
-        }
-        .zrdn-column.preview-column {
-            display:none;
-        }
-        .update-nag {
-            display:none;
-        }
-    </style>
-    <?php
 }
 
 function zrdn_recipe_overview(){

@@ -538,7 +538,7 @@ class ZipRecipes {
 
     public static function zrdn_tinymce_plugin($plugin_array)
     {
-        $plugin_array['zrdn_plugin'] = plugins_url('scripts/zlrecipe_editor_popup' . self::$suffix . '.js?sver=' . ZRDN_VERSION_NUM, __FILE__);
+        $plugin_array['zrdn_plugin'] = plugins_url('scripts/zlrecipe_editor_plugin' . self::$suffix . '.js?sver=' . ZRDN_VERSION_NUM, __FILE__);
         return $plugin_array;
     }
 
