@@ -98,6 +98,9 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
             <button class="zrdn-tablinks <?php if ($active_tab=='nutrition') echo 'active'?>" type="button" data-tab="nutrition">
                 <?php _e("Nutrition", 'zip-recipes') ?>
             </button>
+            <button class="zrdn-tablinks <?php if ($active_tab=='misc') echo 'active'?>" type="button" data-tab="misc">
+                <?php _e("Misc", 'zip-recipes') ?>
+            </button>
         </div>
 
         <div class="zrdn-container">
@@ -111,14 +114,6 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                     <h3><?php _e("General", 'zip-recipes') ?></h3>
                     <?php //offer option to go to post if post_id is linked.?>
                     <?php if ($recipe->post_id) {
-                            //$post = get_post($recipe->post_id);
-                            //if ($post) {
-                                //little hack to get the preview working.
-//                                $_POST['post_ID'] = $recipe->post_id;
-//                                $_POST['post_type'] = get_post_type($recipe->post_id);
-//                                //$_POST['post_type'] = $post->post_type;
-//                                $preview_url = post_preview();
-
                                 if ( get_post_type($recipe->post_id) === 'trash') {
                                     zrdn_notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
                                 } else {
@@ -127,13 +122,12 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                                        href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
                                     <a class="button button-default"
                                        href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink'), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
-                                   <?php /*
+                                   <?php if (get_post_status($recipe->post_id)==='publish') { ?>
                                     <a class="button button-default" target="_blank"
-                                       href="<?php echo $preview_url ?>"><?php _e("Preview", "zip-recipes") ?></a>
-                                         */?>
-                                    <?php
+                                       href="<?php echo get_permalink($recipe->post_id) ?>"><?php _e("View", "zip-recipes") ?></a>
+
+                                    <?php }
                                 }
-                                //}
                         } ?>
                     <?php
                     if ($recipe->is_featured_post_image && get_option('zlrecipe_hide_on_duplicate_image')==='Hide'){
@@ -371,6 +365,28 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
 
                     $nutrition_fields = apply_filters('zrdn_edit_nutrition_fields', $nutrition_fields, $recipe);
                     foreach ($nutrition_fields as $field_args) {
+                        $field->get_field_html($field_args);
+                    }
+                    ?>
+
+
+                </div><!--tab content -->
+                <!-- Tab content -->
+                <div id="misc" class="zrdn-tabcontent <?php if ($active_tab=='misc') echo 'active'?>">
+
+                    <h3><?php _e("Misc", 'zip-recipes') ?></h3>
+
+                    <?php $misc_fields = array(
+                        array(
+                            'type' => 'checkbox',
+                            'fieldname' => 'non_food',
+                            'value' => $recipe->non_food,
+                            'label' => __("Mark recipe as non food", 'zip-recipes'),
+                        ),
+                    );
+
+                    $misc_fields = apply_filters('zrdn_edit_misc_fields', $misc_fields, $recipe);
+                    foreach ($misc_fields as $field_args) {
                         $field->get_field_html($field_args);
                     }
                     ?>

@@ -145,8 +145,6 @@ class ZipRecipes {
         add_action('amp_post_template_css', __NAMESPACE__ . '\ZipRecipes::amp_styles');
         // check GD or imagick support
         add_action('admin_notices', __NAMESPACE__ . '\ZipRecipes::zrdn_check_image_editing_support');
-        // post save hook
-        add_action('post_updated', __NAMESPACE__ . '\ZipRecipes::zrdn_post_featured_image');
 
         // This shouldn't be called directly because it can cause issues with WP not having loaded properly yet.
         // One issue we were seeing was a client was getting an error caused by
@@ -296,7 +294,7 @@ class ZipRecipes {
         //jsonld is preferred.
         $jsonld_attempt = json_encode(self::jsonld($recipe));
         $jsonld = '';
-        if ($jsonld_attempt !== false) {
+        if ($jsonld_attempt !== false || $recipe->non_food) {
             $jsonld = $jsonld_attempt;
             $schema_type = 'jsonld';
         } else {
@@ -1059,6 +1057,9 @@ class ZipRecipes {
 
     public static function jsonld($recipe)
     {
+        //if it's not a food item, return empty
+        if ($recipe->non_food) return '';
+
         $formattedIngredientsArray = array();
         foreach (explode("\n", $recipe->ingredients) as $item) {
             $itemArray = self::zrdn_format_item($item);
@@ -1082,7 +1083,7 @@ class ZipRecipes {
             "@context" => "http://schema.org",
             "@type" => "Recipe",
             "description" => $recipe->summary,
-            "image" => $recipe->recipe_image,
+            "image" => $recipe->recipe_image_json,
             "recipeIngredient" => $formattedIngredientsArray,
             "name" => $recipe->recipe_title,
             "recipeCategory" => $recipe->category,
@@ -1316,7 +1317,6 @@ class ZipRecipes {
     }
 
     /**
-     * @todo: change this function to make use of the attachment id stored in the recipe object.
      * Get Responsive Image attributes from URL
      *
      * It checks image is not external and return images attributes like srcset, sized etc.
@@ -1383,41 +1383,7 @@ class ZipRecipes {
         }
     }
 
-    /**
-     *  Make Featured image as recipe image
-     *
-     *  This function is only for jsonld and schema data.
-     *
-     * @param $post_id
-     * @param $post
-     * @param $update
-     */
-    public static function zrdn_post_featured_image($post_id)
-    {
-        $recipe = new Recipe(false, $post_id);
 
-        global $wpdb;
-        $table = $wpdb->prefix . RecipeModel::TABLE_NAME;
-        $featured_img = NULL;
-        $featured_img = wp_get_attachment_url(get_post_thumbnail_id($post_id));
-        $update = array();
-
-        if ($featured_img) {
-            // only set featured post image to recipe image if it's currently a featured image or empty
-            if ($recipe->is_featured_post_image || empty($recipe->recipe_image)) {
-                $update['recipe_image'] = $featured_img;
-                $update['is_featured_post_image'] = true;
-            }
-        } else if ($recipe->is_featured_post_image) { // post has no featured image so clean up
-            $update['is_featured_post_image'] = false;
-            $update['recipe_image'] = null;
-        }
-
-        // run update if need be
-        if ($update) {
-            $wpdb->update( $table, $update, array( 'recipe_id' => $recipe->recipe_id ) );
-        }
-    }
 
     /**
      * Link a recipe to a post.
