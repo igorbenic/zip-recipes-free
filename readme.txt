@@ -17,110 +17,86 @@ Zip Recipes is the best way to easily create a beautiful food blog with professi
 == Description ==
 
 Easy to use recipe plugin that adds microdata and schema.org JSON LD to your recipes, so Google can find and understand them. AMP (Accelerated Mobile Pages) compatible.
-We help you do that through our 4-step formula:
 
 1. Easy to use
-2. Professional look
-3. SEO/Google friendly (schema.org and AMP compatible, rich snippets)
-4. Integrates seamlessly with ad networks
+2. Higher ranking
+3. Professional look
+4. More readers
 
 Still got questions? [Go to our website for support](https://www.ziprecipes.net/support) or [email us](mailto:support@ziprecipes.net).
 
 Check out other plugins developed by Really Simple Plugins as well: [Complianz](https://wordpress.org/plugins/complianz-gdpr/) and [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/).
 
-## Get More Readers to Your Blog
-### Better SEO
-When you create a recipe with Zip Recipes, under the hood, it creates schema.org recipe markup using JSON-LD.  This is the preferred method to inform Google that you created a recipe.
-
-This produces a higher ranking for your recipes and drives better engagement in Google Search by displaying your recipe in a rich recipe format.
-
-To further help bring more readers to your blog, the images you add to your recipe will automatically contain information for better SEO (Search engine optimization) through the use of ALT image attributes.
-
-### Better Experience with Google Accelerated Mobile Pages (AMP)
-
-If you enable Google Accelerated Mobile Pages (AMP) on your blog, Zip Recipes will make your recipes load instantly from Google results. This gives your readers a better experience and higher Google ranking.
-
-### More Readers from Pinterest
-
-Pinterest can also be a huge source of readers for your blog as well. With our JSON-LD recipe markup, your recipes will appear on Pinterest as Rich Recipe Pins. People looking for your type of recipes will discover them and click over to your website giving you an excellent opportunity to build a fan base.
-
-## Look Professional
-Your recipes will look like they came right off the pages of a cookbook!
-
-Here is how we help you compete with professional recipe websites that have thousands of dollars in marketing budget:
-
-- With instruction images, you help your readers easily follow along and re-create your recipe like you’re there holding their hand
-- Highlight or draw attention to specific ingredients or steps by formatting the recipe text
-- Allow your reader to cook in their own environment by printing your recipe
-- Make your recipe accessible to your readers on their phone, tablet, or desktop computer
-- Modify your recipe card by changing borders, image size, ingredient & instruction list format, and labels
-- Provide all the information your reader may need including how long your recipe will take to prep, cook, nutrition information, and more
-- Allowing your readers to clearly separate different components of your recipe through multi-part recipes (for example, cake and icing)
-- Use any WordPress free or paid website themes
-
-## Build a Following
-### Help Your Readers Taste Success
-
-The first step to turning your readers into fans is to enable them to re-create your recipes and be successful in their cooking endeavours. That’s why we have a notes field where you can clarify tricky steps, provide ingredient substitution or add your commentary about the tools they can use.
-
-Some readers need nutrition information before even trying to re-create your recipe. That’s why Zip Recipes helps you provide readers with what they need so they keep coming back to your blog. This includes nutrition information, cook and prep time, notes and more.
-
-### Fastest way to create recipes
-The best way to build a following is to keep your readers coming back for new recipes for them to try.
-
-To speed up your workflow and save you time creating recipes, we provide:
+### Easy to use
+##Fastest way to create recipes
+The best way to build a following is to keep your readers coming back for new recipes for them to try. To speed up your workflow and save you time creating recipes, we provide:
 
 - **Easy Copy & Pasting**: You can copy & paste the recipes you already have from Microsoft Word or other programs.
 - **Flexible Editor**: Our flexible editor works how you work by allowing you to add recipes to posts, pages, and even custom post types.
 - **Featured Image Support**: You only have to set one image for your post or page if you use featured images. We automatically make your featured image the recipe image.
 - **No coding required**: We made Zip Recipes easy to use so you don’t need computer knowledge to start publishing your recipes. Even a complete novice can do it!
+-**Extensive support through knowledge base articles and responsive supportdesk
 
-### Let Your Readers Access Your Recipes from Anywhere
+## Let Your Readers Access Your Recipes from Anywhere
 
-Most of your readers will consume your recipes from their mobile phone or tablets. That’s why we provide full support by making your recipes compatible with phones, tablets and desktop computers for your readers.
+Most of your readers will consume your recipes from their mobile phone or tablets. That’s why we provide full support by making your recipes compatible with all devices.
 
-### Your Recipes are Yours Only
+### Professional look
+##Nutrition information and more
+Some readers need a lot of information before even trying to re-create your recipe. That’s why Zip Recipes includes nutrition information, cook and prep time, notes and more.
 
-Since you create your recipes, you should be the one to benefit from them. That’s why we don’t publish your recipes on our website. We help *you* build a following and don’t compete with you.
-
-### Help Them Remember Your Blog and Find You Again
-
+## Help Them Remember Your Blog and Find You Again
 When readers print your recipe, they will always be able to come back to your blog because Zip Recipes includes a link to your blog in the printout. When combined with the copyright statement, your brand will stand out in their minds.
 
-## Make Money
-Every business needs a source of income — including your blog.
+Here is how we help you compete with professional recipe websites that have thousands of dollars in marketing budget:
 
-After getting more readers to your blog, impressing them with your professional looking recipes, and building a following, it’s time to monetize your blog.
+- With instruction images, you help your readers easily follow along and re-create your recipe like you’re there holding their hand
+- Add a video to your recipe
+- Highlight or draw attention to specific ingredients or steps by formatting the recipe text
+- Make your recipe accessible to your readers on their phone, tablet, or desktop computer or on paper (print-friendly format)
+- Modify your recipe card by changing borders, image size, ingredient & instruction list format, and labels
+- Allowing your readers to clearly separate different components of your recipe through multi-part recipes (for example, cake and icing)
+- Use any WordPress free or paid website themes
 
-You can monetize your recipes using:
+##Your Recipes are Yours Only
+Since you create your recipes, you should be the one to benefit from them. That’s why we don’t publish your recipes on our website. We help *you* build a following and don’t compete with you.
 
-### Affiliate Marketing
+### Google friendly
+##Better SEO gets more readers to your blog
+When you create a recipe with Zip Recipes the plug in creates schema.org recipe markup using JSON-LD.  This is the preferred method to inform Google that you created a recipe. This produces a higher ranking for your recipes and a higher click-through rate in Google Search by displaying your recipe in a rich recipe format.
 
-You get paid through affiliate marketing when you link an ingredient or tool to an online retailer like Amazon. Each time your readers click on the link and buy from the retailer, you get paid a commission fee.
+To further help bring more readers to your blog, the images you add to your recipe will automatically contain information for better SEO (Search engine optimization) through the use of ALT image attributes.
 
-With Zip Recipes, you can easily create links that link to affiliate products.
+##Better Experience with Google Accelerated Mobile Pages (AMP)
 
-### Recipe Membership Website
+If you enable Google Accelerated Mobile Pages (AMP) on your blog, Zip Recipes will make your recipes load instantly from Google results. This gives your readers a better experience and gives you higher Google ranking.
+
+## More Readers from Pinterest
+
+Pinterest can also be a huge source of readers for your blog as well. With our JSON-LD recipe markup, your recipes will appear on Pinterest as Rich Recipe Pins. People looking for your type of recipes will discover them and click over to your website giving you an excellent opportunity to build a fan base.
+
+###Integrates with ad networks
+
+Zip Recipes also works with major ad platforms like Google Adsense, Adthrive and Mediavine. This is another alternative to help you monetize your blog.
+
+##Affiliate Marketing
+
+You get paid through affiliate marketing when you link an ingredient or tool to an online retailer like Amazon. Each time your readers click on the link and buy from the retailer, you get paid a commission fee. With Zip Recipes this is easy to do. [See here how](https://ziprecipes.net/knowledge-base/formatting/)
+
+## Recipe Membership Website
 
 With the help of plugins like Memberful or WishList Member, you can create a recipe membership website and use Zip Recipes to publish recipes for paying members only.
 
 This is an excellent way to start earning an income once you establish a following.
 
-### Ads
-
-Zip Recipes also works with major ad platforms like Google Adsense, Adthrive and Mediavine. This is another alternative to help you monetize your blog.
+Or build a community of Recipe lovers with Ultimate Member, which is a beautiful tool to build communities and interact with them.
 
 == Installation ==
 
-You can get the [detailed installation instructions here](https://www.ziprecipes.net/docs/installing/).
+You can get the [detailed installation instructions here](https://www.ziprecipes.net/docs/installing/). If you have more questions on how to use the plugin, feel free to reach out to us at [hello@ziprecipes.net](mailto:hello@ziprecipes.net).
+
 
 You can download and install the Zip Recipes plugin using the built-in WordPress plugin installer. If you download the Zip Recipes plugin manually, make sure it is uploaded to "/wp-content/plugins/zip-recipes-plugin/".
-
-Activate the Zip Recipes plugin in the "Plugins" admin panel using the "Activate" link.
-
-To use the plugin, click the little Zip Recipes icon on the "Edit Post" pages, right next to the other editor toolbar buttons at the top of the text editor box. Then enter the details about your recipe into the appropriate boxes, and then click the "Add Recipe" button. This will save your recipe, and insert it into your blog post.
-
-The Zip Recipes plugin is very easy use, however, we also provide enhanced [step-by-step instructions](https://www.ziprecipes.net/docs/installing/). If you have more questions on how to use the plugin, feel free to reach out to us at [hello@ziprecipes.net](mailto:hello@ziprecipes.net).
 
 == Frequently Asked Questions ==
 
@@ -150,15 +126,15 @@ Currently we have translations for:
 
 = Do you have a premium version? =
 
-Yes, we do! You can learn about our premium features here: [https://www.ziprecipes.net/premium](https://www.ziprecipes.net/)
+Yes, we do! The premium version has automatically generated nutritional info, search by ingredient and easily created recipe galleries. You can learn about our premium features here: [https://www.ziprecipes.net/premium](https://www.ziprecipes.net/)
 
 = How do I edit a recipe with the Zip Recipes plugin? =
 
-To edit or create a recipe, click the Zip Recipes icon on the visual editor toolbar, or in Gutenberg, type in "zip", then click the Zip Recipes icon.
+To edit or create a recipe, click the Zip Recipes icon on the visual editor toolbar, or in Gutenberg, type in "zip", then click the Zip Recipes icon. More info [here](https://ziprecipes.net/knowledge-base/how-to-use-the-zip-recipes-plugin/).
 
 = Can I use the plugin to add multiple recipes to one post or page? =
 
-There should only be one recipe per post or page. The plugin does allow for compound recipes which is one way to include multiple lists of ingredients in your post. [Click here to learn more](https://www.ziprecipes.net/docs/formatting/#multi-part-recipes).
+There should only be one recipe per post or page. The plugin does allow for compound recipes which is one way to include multiple lists of ingredients in your post. Under “creating a recipe” in the following article you can read how to do that.  [Click here to learn more](https://ziprecipes.net/knowledge-base/how-to-use-the-zip-recipes-plugin/
 
 = When I use Zip Recipe plugin where are the recipes stored? =
 
@@ -166,7 +142,7 @@ Your recipes are always stored on your own website. With Zip Recipes, your recip
 
 = How about Intellectual Property? =
 
-Your recipes are yours only! They're stored on your own server. Zip Recipes is only a tool to server your recipes on the internet.
+Your recipes are yours only! They're stored on your own server. Zip Recipes is only a tool to show your recipes on the internet.
 
 = Why do you put a placeholder image into my Edit Post page, instead of my actual recipe? =
 
@@ -184,7 +160,6 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 = 6.0.4 =
 * Enforce not loading of styles when this option is disabled
 * Grab post title as default recipe title
-* Set yummly share button to smaller width, to prevent whitespace
 * Use generic function for shortcode detection to ensure gutenberg compatibility (class.ziprecipes::amp_format)
 * Improve schema.org by using only JSON LD, to prevent duplicate recipe detection
 * Improve schema.org by adding keywords and video

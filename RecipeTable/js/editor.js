@@ -81,8 +81,6 @@ jQuery(document).ready(function ($) {
         zrdn_parse_time($(this));
     });
 
-
-
     $('.zrdn-field-textarea').each(function () {
         zrdn_parse_textarea($(this));
     });

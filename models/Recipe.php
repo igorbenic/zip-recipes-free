@@ -56,6 +56,7 @@ function zrdn_update_recipe_table(){
             'created_at timestamp DEFAULT NOW()',
             'author varchar(50)',
             'video_url varchar(255)',
+            'non_food int(11)',
         );
 
         $all_columns = apply_filters('zrdn__db_recipe_columns', $columns);
@@ -143,6 +144,11 @@ class Recipe {
 	 * @var string
 	 */
 	public $recipe_image;
+    /**
+     * JSON should always have an image, so if the normal image is not available we try to set it from the post
+     * @var string
+     */
+	public $recipe_image_json;
 	public $recipe_image_id;
 
 	/**
@@ -247,6 +253,7 @@ class Recipe {
 	 * @var string
 	 */
 	public $instructions;
+	public $non_food;
 
 	/**
 	 *
@@ -401,7 +408,7 @@ class Recipe {
             $recipe_data = $this->db_select_by_post_id($this->post_id);
             if ($recipe_data) $this->recipe_id = $recipe_data->recipe_id;
         }
-
+_log($recipe_data);
         if ($recipe_data) {
             $db_recipe = get_object_vars($recipe_data);
             foreach ($this as $fieldname => $value) {
@@ -444,10 +451,23 @@ class Recipe {
         }
 
         //check if image is also featured image for connected post
+        //deprecate this
+        $this->is_featured_post_image = false;
         if ($this->post_id && get_option('zlrecipe_hide_on_duplicate_image')==='Hide'){
             $recipe_image_id = get_post_thumbnail_id( $this->post_id );
             if ($recipe_image_id == $this->recipe_image_id){
                 $this->is_featured_post_image = true;
+            }
+        }
+
+        //set a separate json image
+        //if this recipe has an image, use it
+        if (!empty($this->recipe_image)){
+            $this->recipe_image_json = $this->recipe_image;
+        } else {
+            if ($this->post_id>0){
+                $post_thumbnail_id = get_post_thumbnail_id();
+                $this->recipe_image_json = wp_get_attachment_image_url($post_thumbnail_id, 'large');
             }
         }
 
@@ -563,6 +583,7 @@ class Recipe {
             'calcium' => sanitize_text_field($this->calcium),
             'iron' => sanitize_text_field($this->iron),
             'video_url' => esc_url_raw($this->video_url),
+            'non_food' => boolval($this->non_food),
         );
 
         //if an id was passed, we load the URL to keep it in sync with the new ID.
