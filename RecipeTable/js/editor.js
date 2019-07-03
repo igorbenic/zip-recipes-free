@@ -14,6 +14,27 @@ jQuery(document).ready(function ($) {
 
     };
 
+    /**
+     * Auto Clean extra spaces
+     *
+     * On paste in textarea removes extra spaces and lines
+     */
+    $(".zrdn-field-textarea").on('paste', function (e) {
+        var $elem = $(this);
+        // setTimeout is required here because paste event is triggered before content is pasted
+        //  in element.
+        window.setTimeout(function () {
+            var lines = $elem.val().split(/\n/);
+            var texts = [];
+            for (var i=0; i < lines.length; i++) {
+                if (/\S/.test(lines[i])) {
+                    texts.push($.trim(lines[i]));
+                }
+            }
+            var n = texts.join("\n");
+            $elem.val(n);
+        }, 500);
+    });
 
     /**
      * Tabs
@@ -49,9 +70,9 @@ jQuery(document).ready(function ($) {
     $('.prep_time').html('<span id="zrdn_placeholder_prep_time"></span>');
     $('.cook_time').html('<span id="zrdn_placeholder_cook_time"></span>');
     // var placeholderImg = $('.zrdn-recipe-image').outerHTML();
-    $('.zrdn-recipe-image').parent().append('<span class="zrdn-edit-image-text">' +
+    $('.zrdn-recipe-image').parent().append('<div class="zrdn-edit-image-text">' +
         zrdn_editor.str_click_to_edit_image +
-        '</span>');
+        '</div>');
 
 
     /**
@@ -87,7 +108,37 @@ jQuery(document).ready(function ($) {
 
     if ($('input[name=zrdn_recipe_image]').val().length >0){
         $('.zrdn-recipe-image').attr('src', $('input[name=zrdn_recipe_image]').val());
+        var link = '<a href="#" style="float:right" class="zrdn_remove_image">'+zrdn_editor.str_remove+'</a>';
+        $('.zrdn-recipe-image').parent().append(link);
     }
+
+    /**
+     * remove image
+     */
+    $(document).on('click','.zrdn_remove_image',function(){
+        event.preventDefault();
+        var image = $(this).parent().find('.zrdn-recipe-image');
+        var recipe_id = $('input[name=zrdn_recipe_id]').val();
+        $.ajax({
+            type: "POST",
+            url: zrdn_editor.admin_url,
+            dataType: 'json',
+            data: ({
+                recipe_id : recipe_id,
+                nonce : zrdn_editor.nonce,
+                action: 'zrdn_clear_image',
+            }),
+            success: function (response) {
+                if (response.success) {
+                    image.attr('src', zrdn_editor.default_image);
+                    image.attr('srcset', zrdn_editor.default_image);
+                } else {
+                    image.parent().append(' Clearing image failed...');
+                }
+            }
+        });
+
+    });
 
     /**
      * manage recipe field sync with preview
@@ -251,7 +302,6 @@ jQuery(document).ready(function ($) {
         });
 
         media_uploader.on("insert", function(){
-            // btn.html('<div class="zrdn-loader"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
 
             img.wrap( '<div class="loading-gif"></div>' );
             $(img).load(function(){
