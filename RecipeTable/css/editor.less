@@ -3,6 +3,39 @@
   font-style:italic;
 }
 
+#zrdn-popup-image {
+  position:relative;
+  cursor:pointer;
+  img {
+    max-width:50%;
+    &:hover {
+      opacity: 0.5;
+      filter: alpha(opacity=50); /* For IE8 and earlier */
+    }
+  }
+  width:100%;
+  text-align:center;
+}
+
+#zrdn-preview{
+  .image, .img-desc-wrap p {
+    position:relative;
+    cursor:pointer;
+  }
+  img:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+  }
+}
+
+.zrdn-edit-image-text {
+  position:absolute;
+  position: absolute;
+  top: 30px;
+  left: 25%;
+  font-size: 20px;
+  width: 50%;
+}
 /*
     cool checkbox sliders
 */
@@ -99,25 +132,7 @@ body {
   line-height:initial;
 }
 
-#zrdn-preview{
-  .image, .img-desc-wrap p {
-    position:relative;
-    cursor:pointer;
-  }
-  img:hover {
-    opacity: 0.5;
-    filter: alpha(opacity=50); /* For IE8 and earlier */
-  }
-}
 
-.zrdn-edit-image-text {
-  position:absolute;
-  position: absolute;
-  top: 30px;
-  left: 25%;
-  font-size: 20px;
-  width: 50%;
-}
 
 
 /*
