@@ -12,6 +12,11 @@ jQuery(document).ready(function ($) {
             '</div>');
     }
 
+    //prevent form submit in popup mode
+    $("#recipe-settings").submit(function(){
+        return false;
+    });
+
     $(document).on('click','.zrdn-recipe-save-button input', function(e){
         //check if any required fields are empty
         $(".is-required").each(function(e){
