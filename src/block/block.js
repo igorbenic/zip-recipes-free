@@ -197,6 +197,8 @@ const iconEl =
             let options = [{value: 0, label: __('Select a recipe', 'zip-recipes')}];
             let output = __('Loading...', 'zip-recipes');
             let id = 'recipe-title';
+            let postID = wp.data.select("core/editor").getCurrentPostId( );
+
 
             if (!this.props.attributes.hasRecipes){
                 output = __('No recipes found. Create a recipe first!', 'zip-recipes');
@@ -214,7 +216,7 @@ const iconEl =
 
                     //show unlinked recipes only, where post_id=0
                     if (this.props.attributes.showUnLinkedRecipes){
-                        if  (recipe.post_id==0) {
+                        if  (recipe.post_id==0 || recipe.post_id==postID) {
                             options.push({value: recipe.id, label: recipe.title});
                         }
                     } else {

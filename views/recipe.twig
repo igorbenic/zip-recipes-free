@@ -124,7 +124,7 @@
             {% if yield_label_hide != 'Hide' %}
               {{ __('Yield:','zip-recipes') }}
             {% endif %}
-            <span {{ recipe_props.recipe_attr('itemprop', "recipeYield", amp_on, schema_type) }}>{{ yield }}</span>
+            <span class="yield" {{ recipe_props.recipe_attr('itemprop', "recipeYield", amp_on, schema_type) }}>{{ yield }}</span>
           </p>
         {% endif %}
 

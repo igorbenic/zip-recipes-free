@@ -218,6 +218,7 @@ Tabs
 }
 .zip-recipes .row {
   flex-wrap: inherit !important;
+  display: inherit !important;
 }
 .zrdn-panel-link {
   text-decoration: none;

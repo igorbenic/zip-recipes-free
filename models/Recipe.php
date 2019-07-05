@@ -450,7 +450,7 @@ class Recipe {
         }
 
         //check if image is also featured image for connected post
-        //deprecate this
+        //@todo: deprecate this
         $this->is_featured_post_image = false;
         if ($this->post_id && get_option('zlrecipe_hide_on_duplicate_image')==='Hide'){
             $recipe_image_id = get_post_thumbnail_id( $this->post_id );
