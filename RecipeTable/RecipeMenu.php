@@ -76,6 +76,7 @@ function zrdn_clear_image(){
 
 add_action('wp_ajax_zrdn_update_recipe_from_popup', __NAMESPACE__ . '\zrdn_update_recipe_from_popup');
 function zrdn_update_recipe_from_popup(){
+
     $error = false;
     if (!current_user_can('edit_posts')) {
         $error = true;
@@ -373,6 +374,10 @@ add_action('init', __NAMESPACE__.'\zrdn_process_update_recipe');
 function zrdn_process_update_recipe(){
 
     /**
+     * Skip f
+     */
+
+    /**
      * unlink from post
      */
 
@@ -383,7 +388,6 @@ function zrdn_process_update_recipe(){
     /**
      * Saving and adding
      */
-
 
     if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recipe'], 'zrdn_save_recipe')) {
 
