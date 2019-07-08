@@ -162,6 +162,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 = 6.0.6 =
 * Added review notice for free users
 * set nutrition info to show by default
+* Pull recipe title from post in classic editor popup
 
 = 6.0.5 =
 * Added non food option, to use as instructions

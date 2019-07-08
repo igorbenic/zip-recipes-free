@@ -128,16 +128,17 @@ function zrdn_maybe_load_iframe()
         // user is logged in and can edit posts or pages
         if (\current_user_can('edit_posts') || \current_user_can('edit_pages')) {
             $get_info = $_REQUEST;
+            $post_id = isset($get_info["post_id"]) ? intval($get_info["post_id"]) : 0;
 
             if (isset($get_info["recipe_post_id"]) &&
                 !isset($get_info["add-recipe-button"]) &&
                 strpos($get_info["recipe_post_id"], '-') !== false
             ) { // EDIT recipe
                 $recipe_id = preg_replace('/[0-9]*?\-/i', '', $get_info["recipe_post_id"]);
-                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","id"=>$recipe_id,"popup"=>true),admin_url("admin.php")));
+                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","id"=>$recipe_id, "post_id" => $post_id,"popup"=>true),admin_url("admin.php")));
 
             } else { // New recipe
-                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","popup"=>true),admin_url("admin.php")));
+                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new", "post_id" => $post_id,"popup"=>true),admin_url("admin.php")));
             }
         }
         exit;
