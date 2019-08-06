@@ -97,14 +97,18 @@ input:focus + .zrdn-slider {
   border-color: #F343A0 #be2174 #be2174;
   box-shadow: 0 1px 0 #be2174;
   color: #fff;
-  height: 39px;
-  line-height: 16px;
-  font-size: 18px;
+  height: 28px;
+  line-height: 12px;
+  font-size: 12px;
   text-decoration: none;
-  padding: 10px 20px;
+  padding: 5px 10px;
   text-shadow: initial;
   float: right;
   margin-right: 30px;
+}
+.wp-core-ui .zrdn-recipe-save-button .exit {
+  right: 50px;
+  display: none;
 }
 body {
   line-height: initial;
@@ -163,6 +167,12 @@ Tabs
   display: inline-block;
   -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
   animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+.button .zrdn-loader {
+  width: initial;
+}
+.button .zrdn-loader > div {
+  background-color: #fff;
 }
 .zrdn-loader .rect2 {
   -webkit-animation-delay: -1.1s;

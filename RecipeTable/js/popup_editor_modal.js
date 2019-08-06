@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-
+    $(".zrdn-recipe-save-button .button-primary").show();
     var args = top.tinymce.activeEditor.windowManager.getParams();
     var editor = args['editor'];
     var modal_width = args['width'];
@@ -17,7 +17,14 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    $(document).on('click','.zrdn-recipe-save-button input', function(e){
+    $('.zrdn-recipe-save-button .button.exit').each(function(e){
+        var w = $('.zrdn-recipe-save-button .button.save').width()+30;
+        $(this).css('right',w+'px');
+    });
+
+    $(document).on('click','.zrdn-recipe-save-button .button', function(e){
+        var btn = $(this);
+        var oldBtnHtml = btn.html();
         //check if any required fields are empty
         $(".is-required").each(function(e){
             if ($(this).val().length==0){
@@ -25,9 +32,21 @@ jQuery(document).ready(function ($) {
                 return;
             }
         });
-        //first, save this recipe
+
+        //add tiny mce editors to form
+        for (var i = 0; i < tinymce.editors.length; i++) {
+            var id = tinymce.editors[i].id;
+            var content = tinymce.editors[i].getContent();
+            $('textarea[name='+id+']').val(content);
+        }
+
+        //now, save this recipe
         var recipe_id = $('input[name=zrdn_recipe_id]').val();
         var formdata = $('#recipe-settings').serializeArray();
+
+        btn.html('...');
+        btn.html('<div class="zrdn-loader"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
+
         $.ajax({
             type: "POST",
             url: zrdn_editor.admin_url,
@@ -52,7 +71,12 @@ jQuery(document).ready(function ($) {
                     }
 
                     editor.execCommand('mceInsertContent', false, shortcode);
-                    top.tinymce.activeEditor.windowManager.close(window);
+                    if (btn.hasClass('exit')){
+                        top.tinymce.activeEditor.windowManager.close(window);
+                    }
+                    btn.html(oldBtnHtml);
+
+
                 }
             }
         });
