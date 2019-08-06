@@ -6,7 +6,7 @@ Domain Path: /languages
 Plugin URI: http://www.ziprecipes.net/
 Plugin GitHub: https://github.com/hgezim/zip-recipes-plugin
 Description: A plugin that adds all the necessary microdata to your recipes, so they will show up in Google's Recipe Search
-Version: 6.0.5
+Version: 6.0.7
 Author: RogierLankhorst, markwolters
 Author URI: http://www.really-simple-plugins.com/
 License: GPLv3 or later
@@ -41,7 +41,7 @@ spl_autoload_register(__NAMESPACE__ . '\zrdn_autoload');
 defined('ABSPATH') or die("Error! Cannot be called directly.");
 
 // Define constants
-define('ZRDN_VERSION_NUM', '6.0.4');//keep this version one behind the actual version, for upgrade purposes
+define('ZRDN_VERSION_NUM', '6.0.6');//keep this version one behind the actual version, for upgrade purposes
 
 define('ZRDN_FREE', true);
 define('ZRDN_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ));
@@ -128,16 +128,17 @@ function zrdn_maybe_load_iframe()
         // user is logged in and can edit posts or pages
         if (\current_user_can('edit_posts') || \current_user_can('edit_pages')) {
             $get_info = $_REQUEST;
+            $post_id = isset($get_info["post_id"]) ? intval($get_info["post_id"]) : 0;
 
             if (isset($get_info["recipe_post_id"]) &&
                 !isset($get_info["add-recipe-button"]) &&
                 strpos($get_info["recipe_post_id"], '-') !== false
             ) { // EDIT recipe
                 $recipe_id = preg_replace('/[0-9]*?\-/i', '', $get_info["recipe_post_id"]);
-                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","id"=>$recipe_id,"popup"=>true),admin_url("admin.php")));
+                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","id"=>$recipe_id, "post_id" => $post_id,"popup"=>true),admin_url("admin.php")));
 
             } else { // New recipe
-                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","popup"=>true),admin_url("admin.php")));
+                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new", "post_id" => $post_id,"popup"=>true),admin_url("admin.php")));
             }
         }
         exit;

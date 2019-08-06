@@ -301,8 +301,9 @@ class ZipRecipes {
             $schema_type = 'microdata';
             error_log("Error encoding recipe to JSON:" . json_last_error());
         }
+        $recipe_id = $recipe->is_placeholder ? false: $recipe->recipe_id;
+        $image_attributes = self::zrdn_get_responsive_image_attributes($recipe->recipe_image, $recipe_id);
 
-        $image_attributes = self::zrdn_get_responsive_image_attributes($recipe->recipe_image, $recipe->recipe_id);
         $embed = (strpos($recipe->video_url, '_value')!==FALSE) ? $recipe->video_url : wp_oembed_get($recipe->video_url);
 
         $viewParams = array(
@@ -327,7 +328,7 @@ class ZipRecipes {
             'total_time_label_hide' => get_option('zlrecipe_total_time_label_hide'),
             'yield' => $recipe->yield,
             'yield_label_hide' => get_option('zlrecipe_yield_label_hide'),
-            'nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide', true) ? false : $nutritional_info,
+            'nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide') ? false : $nutritional_info,
             'serving_size' => $recipe->serving_size,
             'serving_size_label_hide' => get_option('zlrecipe_serving_size_label_hide'),
             'calories' => $recipe->calories,
@@ -388,9 +389,9 @@ class ZipRecipes {
             'video_embed' =>  $embed,
         );
 
-
         do_action('zrdn__enqueue_recipe_styles');
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
+
         return $custom_template ?: Util::view('recipe', $viewParams);
     }
 
@@ -578,7 +579,7 @@ class ZipRecipes {
 
         // load other option values in to variables. These variables are used to load saved values through variable variables
         $notes_label_hide = get_option('zlrecipe_notes_label_hide');
-        $nutrition_info_label_hide = get_option('zlrecipe_nutrition_info_label_hide',true);
+        $nutrition_info_label_hide = get_option('zlrecipe_nutrition_info_label_hide');
         $prep_time_label_hide = get_option('zlrecipe_prep_time_label_hide');
         $cook_time_label_hide = get_option('zlrecipe_cook_time_label_hide');
         $total_time_label_hide = get_option('zlrecipe_total_time_label_hide');
@@ -1078,11 +1079,11 @@ class ZipRecipes {
             $tags= wp_list_pluck($tags,'name');
             $keywords = implode(',',$tags);
         }
-
+        
         $recipe_json_ld = array(
             "@context" => "http://schema.org",
             "@type" => "Recipe",
-            "description" => $recipe->summary,
+            "description" => trim(preg_replace('/\s+/', ' ', strip_tags($recipe->summary))),
             "image" => $recipe->recipe_image_json,
             "recipeIngredient" => $formattedIngredientsArray,
             "name" => $recipe->recipe_title,
@@ -1340,7 +1341,7 @@ class ZipRecipes {
         if ($recipe->recipe_image_id>0){
             $attachment_id = $recipe->recipe_image_id;
         } else {
-            //try to get from url
+
             $attachment_id = attachment_url_to_postid($url);
             if (!$attachment_id) $attachment_id = get_post_thumbnail_id();
         }

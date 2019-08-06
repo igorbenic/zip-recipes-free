@@ -48,10 +48,10 @@ if (!class_exists("zrdn_review")) {
 
             global $wpdb;
             $table = $wpdb->prefix . "amd_zlrecipe_recipes";
-            $count = $wpdb->get_var("SELECT count(*) FROM $table WHERE post_id!=0 OR post_id!=null");
+            $count = $wpdb->get_var("SELECT count(*) FROM $table WHERE post_id!=0 AND post_id!=null");
             $count = intval($count);
 
-            if ($count<3) return;
+            if ($count<6) return;
 
             $intro = sprintf(__('You already have %s recipes on your site, awesome!', 'zip-recipes'), $count);
 

@@ -21,17 +21,18 @@ if (isset($_GET['popup']) && $_GET['popup']) {
  */
 
 $link_to_post_id = false;
-if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
-    $post_type = sanitize_title($_GET['post_type']);
+if (isset($_GET['post_id'])) {
     $link_to_post_id = intval($_GET['post_id']);
     $post = get_post($link_to_post_id);
-    if (!$post) {
+    if (!$post && isset($_GET['post_type'])) {
+        $post_type = sanitize_title($_GET['post_type']);
+
         //post does not exist yet. Create it, so we can link to it.
+        //we don't do this if it's a popup (post_type not set). It's not needed, and might cause issues.
         $args = array(
             'post_type' => $post_type,
         );
         $link_to_post_id = wp_insert_post($args);
-
     }
 }
 
@@ -239,7 +240,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                         'author_promo' => array(
                             'type' => 'notice',
                             'fieldname' => 'author_upgrade',
-                            'label' => sprintf(__('Rank even better in Google? Also get the author field in your schema.org markup. Available in %sall plans%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
+                            'label' => sprintf(__('Rank even better in Google? %sAlso get the author field in your schema.org markup%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
                             'media' => false,
                         ),
                     );
