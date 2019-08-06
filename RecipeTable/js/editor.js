@@ -63,7 +63,6 @@ jQuery(document).ready(function ($) {
     var regex = /(<.+?>[^<>]*?){([a-zA-Z_].*)_value}([^<>]*?<.+?>)/g;
     content = content.replace(regex, '$1'+'<span id="zrdn_placeholder_' + '$2' + '"></span>'+'$3');
 
-
     $('#zrdn-preview').html(content);
 
     //time
@@ -81,9 +80,10 @@ jQuery(document).ready(function ($) {
      */
 
     $('.zrdn-field-input').each(function () {
-        if (name==='zrdn_video_url') return;
 
         var name = $(this).attr("name");
+        if (name==='zrdn_video_url') return;
+
         var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
         $('#' + fieldname).html($(this).val());
     });
@@ -102,8 +102,19 @@ jQuery(document).ready(function ($) {
         zrdn_parse_time($(this));
     });
 
+    /**
+     * Textarea
+     */
+
     $('.zrdn-field-textarea').each(function () {
         zrdn_parse_textarea($(this));
+    });
+
+    $('.wp-editor-area').each(function () {
+        var name = $(this).attr("name");
+
+        var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
+        $('#' + fieldname).html($(this).val());
     });
 
     if ($('input[name=zrdn_recipe_image]').val().length >0){
@@ -368,21 +379,18 @@ jQuery(document).ready(function ($) {
     setTimeout(function () {
         for (var i = 0; i < tinymce.editors.length; i++) {
             tinymce.editors[i].onChange.add(function (ed, e) {
-                // Update HTML view textarea (that is the one used to send the data to server).
-                //ed.save();
                 var name = ed.id;
                 var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
                 $('#' + fieldname).html(ed.getContent());
             });
 
             tinymce.editors[i].onKeyUp.add(function (ed, e) {
-                // Update HTML view textarea (that is the one used to send the data to server).
-                //ed.save();
                 var name = ed.id;
 
                 var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
 
                 $('#' + fieldname).html(ed.getContent());
+
             });
         }
     }, 1000);
