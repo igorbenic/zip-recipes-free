@@ -240,7 +240,7 @@ if (isset($_GET['post_id'])) {
                         'author_promo' => array(
                             'type' => 'notice',
                             'fieldname' => 'author_upgrade',
-                            'label' => sprintf(__('Rank even better in Google? Also get the author field in your schema.org markup. Available in %sall plans%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
+                            'label' => sprintf(__('Rank even better in Google? %sAlso get the author field in your schema.org markup%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
                             'media' => false,
                         ),
                     );

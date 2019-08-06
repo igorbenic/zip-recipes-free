@@ -98,6 +98,7 @@ class Recipe {
 	 * @param $post_id
 	 */
 	public function __construct($recipe_id=null, $post_id=null, $title='', $image_url='') {
+
 		if ($post_id) {
 			$this->post_id = $post_id;
 		}
@@ -119,7 +120,10 @@ class Recipe {
 	 * @var int
 	 */
 	public $recipe_id;
-
+    /**
+     * @var bool
+     */
+    public $is_placeholder = false;
 	/**
 	 * @var int
 	 */
@@ -417,6 +421,8 @@ class Recipe {
             }
         }
 
+
+
         //set default author if empty
         $this->author = apply_filters('zrdn_author_value', $this->author, $this->recipe_id, $this->post_id);
         $this->total_time = $this->calculate_total_time_raw($this->prep_time, $this->cook_time);
@@ -448,7 +454,6 @@ class Recipe {
                 $this->recipe_image = $img[0];
             }
         }
-
         //check if image is also featured image for connected post
         //@todo: deprecate this
         $this->is_featured_post_image = false;
@@ -498,6 +503,7 @@ class Recipe {
 
     public function load_placeholders(){
 
+        $this->is_placeholder = true;
         $recipe = get_object_vars($this);
 
         foreach ($recipe as $fieldname => $value) {
