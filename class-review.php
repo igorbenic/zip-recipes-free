@@ -48,7 +48,7 @@ if (!class_exists("zrdn_review")) {
 
             global $wpdb;
             $table = $wpdb->prefix . "amd_zlrecipe_recipes";
-            $count = $wpdb->get_var("SELECT count(*) FROM $table WHERE post_id!=0 AND post_id!=null");
+            $count = $wpdb->get_var("SELECT count(*) FROM $table WHERE post_id!=0 OR post_id!=null");
             $count = intval($count);
 
             if ($count<6) return;
