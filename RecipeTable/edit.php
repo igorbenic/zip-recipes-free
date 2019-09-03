@@ -82,6 +82,9 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
             zrdn_notice(__("Settings saved!", "zip-recipes"), 'success', true, false, true);
         }
         ?>
+        <div id="zrdn-show-field-error" class="zrdn-hidden">
+            <?php zrdn_notice(__("Not all required fields are filled out!", "zip-recipes"), 'warning', true, false, false); ?>
+        </div>
 
         <div class="zrdn-tab">
             <button class="zrdn-tablinks <?php if ($active_tab=='general') echo 'active'?>" type="button"
