@@ -1,0 +1,171 @@
+{% import 'macros.twig' as recipe_props %}
+{% if (is_shortcode or show_label) and has_nutrition_data %}
+    <div id="zrdn-nutrition-label"  class="nutrition_block row margin-top-2">
+        <div class="nutrition-container">
+            {% if label_display_method!='html' and nutrition_label %}
+                <div class="nutrition-label {% if hide_print_label %}hide-print{% endif %}">
+                    <img src="{{ label_url }}" alt="{{ description }}" title="{{ description }}" />
+                </div>
+            {% else %}
+                 <section  class="nutrition-facts">
+                <div
+                        {{ recipe_props.recipe_attr('itemprop', "nutrition", amp_on, schema_type) }}
+                        {{ recipe_props.recipe_attr('itemscope', false, amp_on, schema_type) }}
+                        {{ recipe_props.recipe_attr('itemtype', "http://schema.org/NutritionInformation", amp_on, schema_type) }}
+                    >
+                    <header class="nutrition-facts__header">
+                        <h2 class="nutrition-facts__title">{{ __('Nutrition Facts', 'zip-recipes') }}</h2>
+                        <h3 class="nutrition-facts__title">
+                            <span {{ recipe_props.recipe_attr('itemprop', "alternateName", amp_on, schema_type) }}>
+                            {{ recipe_title }}
+                            </span>
+                        </h3>
+                        <p>{{ __('Serves', 'zip-recipes') }} <span {{ recipe_props.recipe_attr('itemprop', "servingSize", amp_on, schema_type) }}>{{ serving_size }}</span>
+                    </header>
+                    <table class="nutrition-facts__table">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="small-info">
+                                {{ __('Amount Per Serving', 'zip-recipes') }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th colspan="2">
+                                <b>{{ __('Calories', 'zip-recipes') }}</b>
+                            </th>
+                            <td>
+                                <span {{ recipe_props.recipe_attr('itemprop', "calories", amp_on, schema_type) }}>{{ calories }}</span>
+                            </td>
+                        </tr>
+                        <tr class="thick-row">
+                            <td colspan="3" class="small-info">
+                                <b>{{ __('% Daily Value*', 'zip-recipes') }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <b>{{ __('Total Fat', 'zip-recipes') }}</b>
+                                <span {{ recipe_props.recipe_attr('itemprop', "fatContent", amp_on, schema_type) }}>{{ fat }}</span>
+                            </th>
+                            <td>
+                                <b>{{ fat_daily }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="blank-cell">
+                            </td>
+                            <th>
+                                {{ __('Saturated Fat', 'zip-recipes') }}
+                                <span {{ recipe_props.recipe_attr('itemprop', "saturatedFatContent", amp_on, schema_type) }}>{{ saturated_fat }}</span>
+                            </th>
+                            <td>
+                                <b>{{ saturated_fat_daily }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="blank-cell">
+                            </td>
+                            <th>
+                                {{ __('Trans Fat', 'zip-recipes') }}
+                                <span {{ recipe_props.recipe_attr('itemprop', "transFatContent", amp_on, schema_type) }}>{{ trans_fat }}</span>
+                            </th>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <b>{{ __('Cholesterol', 'zip-recipes') }}</b>
+                                <span {{ recipe_props.recipe_attr('itemprop', "cholesterolContent", amp_on, schema_type) }}>{{ cholesterol }}</span>
+                            </th>
+                            <td>
+                                <b>{{ cholesterol_daily }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <b>{{ __('Sodium', 'zip-recipes') }}</b>
+                                <span {{ recipe_props.recipe_attr('itemprop', "sodiumContent", amp_on, schema_type) }}>{{ sodium }}</span>
+                            </th>
+                            <td>
+                                <b>{{ sodium_daily }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <b>{{ __('Total Carbohydrate', 'zip-recipes') }}</b>
+                                <span {{ recipe_props.recipe_attr('itemprop', "carbohydrateContent", amp_on, schema_type) }}>{{ carbs }}</span>
+                            </th>
+                            <td>
+                                <b>{{ carbs_daily }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="blank-cell">
+                            </td>
+                            <th>
+                                {{ __('Dietary Fiber', 'zip-recipes') }}
+                                <span {{ recipe_props.recipe_attr('itemprop', "fiberContent", amp_on, schema_type) }}>{{ fiber }}</span>
+                            </th>
+                            <td>
+                                <b>{{ fiber_daily }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="blank-cell">
+                            </td>
+                            <th>
+                                {{ __('Sugars', 'zip-recipes') }}
+                                <span {{ recipe_props.recipe_attr('itemprop', "sugarContent", amp_on, schema_type) }}>{{ sugar }}</span>
+                            </th>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr class="thick-end">
+                            <th colspan="2">
+                                <b>{{ __('Protein', 'zip-recipes') }}</b>
+                                <span {{ recipe_props.recipe_attr('itemprop', "proteinContent", amp_on, schema_type) }}>{{ protein }}</span>
+                            </th>
+                            <td>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="nutrition-facts__table--grid">
+                        <tbody>
+                        <tr>
+                            <td colspan="2">
+                                {{ __('Vitamin A', 'zip-recipes') }}
+                                {{ vitamin_a }}
+                            </td>
+                            <td>
+                                {{ __('Vitamin C', 'zip-recipes') }}
+                                {{ vitamin_c }}
+                            </td>
+                        </tr>
+                        <tr class="thin-end">
+                            <td colspan="2">
+                                {{ __('Calcium', 'zip-recipes') }}
+                                {{ calcium }}
+                            </td>
+                            <td>
+                                {{ __('Iron', 'zip-recipes') }}
+                                {{ iron }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="small-info">{{ __('* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs.', 'zip-recipes') }}</p>
+
+                    <p class="copyright">
+                        {{ site_name }}
+                    </p>
+                </div>
+                 </section>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

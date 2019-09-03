@@ -156,12 +156,39 @@ class ZipRecipes {
         add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
 
         add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets');
+        add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::remove_free_translation_files', 30);
+
     }
 
 
     public static function register_images(){
         if ( function_exists( 'add_image_size' ) ) {
             add_image_size( 'zrdn_recipe_image',   800,  500, true);
+        }
+    }
+
+    /**
+     *   Remove free translation files, as these do not include the twig files yet.
+     */
+
+    public static function remove_free_translation_files()
+    {
+        $path = dirname(ZRDN_PLUGIN_DIRECTORY, 2)."/languages/plugins/";
+        $extensions = array("po", "mo");
+        if ($handle = opendir($path)) {
+            while (false !== ($file = readdir($handle))) {
+                if ($file != "." && $file != "..") {
+                    $file = $path . '/' . $file;
+                    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                    if (is_file($file) && in_array($ext, $extensions) && strpos($file, 'zip-recipes')!==FALSE && strpos($file, 'backup')===FALSE) {
+                        //copy to new file
+                        $new_name = str_replace('zip-recipes','zip-recipes-backup',$file);
+
+                        rename($file, $new_name);
+                    }
+                }
+            }
+            closedir($handle);
         }
     }
 
@@ -262,24 +289,6 @@ class ZipRecipes {
      */
     public static function zrdn_format_recipe($recipe)
     {
-        $nutritional_info = false;
-        if (
-            $recipe->yield != null ||
-            $recipe->serving_size != null ||
-            $recipe->calories != null ||
-            $recipe->fat != null ||
-            $recipe->carbs != null ||
-            $recipe->protein != null ||
-            $recipe->fiber != null ||
-            $recipe->sugar != null ||
-            $recipe->saturated_fat != null ||
-            $recipe->cholesterol != null ||
-            $recipe->sodium != null ||
-            $recipe->trans_fat
-        ) {
-            $nutritional_info = true;
-        }
-
         $nested_ingredients = self::get_nested_items($recipe->ingredients);
         $nested_instructions = self::get_nested_items($recipe->instructions);
 
@@ -328,7 +337,7 @@ class ZipRecipes {
             'total_time_label_hide' => get_option('zlrecipe_total_time_label_hide'),
             'yield' => $recipe->yield,
             'yield_label_hide' => get_option('zlrecipe_yield_label_hide'),
-            'nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide') ? false : $nutritional_info,
+            'nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide') ? false : $recipe->has_nutrition_data,
             'serving_size' => $recipe->serving_size,
             'serving_size_label_hide' => get_option('zlrecipe_serving_size_label_hide'),
             'calories' => $recipe->calories,
@@ -381,17 +390,15 @@ class ZipRecipes {
             'author' => $recipe->author,
             // The second argument to apply_filters is what is returned if no one implements this hook.
             // For `nutrition_label`, we want an empty string, not $recipe object.
-            'nutrition_label' => apply_filters('zrdn__automatic_nutrition_get_label', '', $recipe),
+            'nutrition_label' => apply_filters('zrdn__nutrition_get_label', '', $recipe),
             'amp_on' => $amp_on,
             'jsonld' => $jsonld,
             'recipe_actions' => apply_filters('zrdn__recipe_actions', ''),
             'schema_type' => $schema_type,
             'video_embed' =>  $embed,
         );
-
         do_action('zrdn__enqueue_recipe_styles');
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
-
         return $custom_template ?: Util::view('recipe', $viewParams);
     }
 
@@ -436,10 +443,11 @@ class ZipRecipes {
         return $nested_list;
     }
 
+
     /**
-     * Return subtitle for item.
-     * @param $item string Raw ingredients/instructions item
-     *
+     *  Return subtitle for item.
+     * @param string $item //Raw ingredients/instructions item
+     * @return string
      */
     private static function get_subtitle($item)
     {

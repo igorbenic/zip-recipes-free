@@ -128,7 +128,7 @@
           </p>
         {% endif %}
 
-        {% if nutritional_info %}
+        {% if nutritional_info and not nutrition_label %}
           <div id="zlrecipe-nutrition"
                   {{ recipe_props.recipe_attr('itemprop', "nutrition", amp_on, schema_type) }}
                   {{ recipe_props.recipe_attr('itemscope', false, amp_on, schema_type) }}
@@ -367,7 +367,6 @@
         </div>
     {% endif %}
 
-
     {# !! add notes section #}
     {% if notes %}
       {% if notes_label_hide != 'Hide' %}
@@ -377,7 +376,9 @@
        {{ formatted_notes|raw }}
       </div>
     {% endif %}
-    {{ nutrition_label|raw }}
+    {% if nutritional_info %}
+        {{ nutrition_label|raw }}
+    {% endif %}
 
     {# Zip Recipes attribution and version #}
     {% if attribution_hide != 'Hide' %}

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
-"POT-Creation-Date: 2019-06-18 09:22+0200\n"
-"PO-Revision-Date: 2019-06-18 07:34+0000\n"
-"Last-Translator: rogier <rogierlankhorst@gmail.com>\n"
+"POT-Creation-Date: 2019-07-08 09:56+0000\n"
+"PO-Revision-Date: 2019-07-13 10:32+0000\n"
+"Last-Translator: Translator ReallySimple <aniko@creativepudding.com>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
@@ -17,476 +17,570 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Loco-Version: 2.2.2; wp-5.2.1"
-
-#: RecipeTable/RecipeMenu.php:96 RecipeTable/RecipeMenu.php:97
-#: RecipeTable/RecipeMenu.php:187 RecipeTable/class-recipe-table.php:73
-msgid "Recipes"
-msgstr ""
-
-#: RecipeTable/RecipeMenu.php:116
-msgid "Click to edit this image"
-msgstr ""
-
-#: RecipeTable/RecipeMenu.php:117
-msgid "minutes"
-msgstr ""
-
-#: RecipeTable/RecipeMenu.php:118
-msgid "hours"
-msgstr ""
-
-#: RecipeTable/RecipeMenu.php:189
-msgid "Add recipe"
-msgstr ""
-
-#: RecipeTable/RecipeMenu.php:198
-msgid "Filter"
-msgstr ""
-
-#: RecipeTable/class-recipe-table.php:72 RecipeTable/metabox.php:17
-msgid "Recipe"
-msgstr ""
-
-#: RecipeTable/class-recipe-table.php:118
-msgid "name"
-msgstr ""
-
-#: RecipeTable/class-recipe-table.php:142
-msgid "Unnamed recipe"
-msgstr ""
-
-#: RecipeTable/class-recipe-table.php:146
-msgid "Edit"
-msgstr ""
-
-#: RecipeTable/class-recipe-table.php:151 RecipeTable/edit.php:191
-msgid "Unlink from post"
-msgstr ""
-
-#: RecipeTable/class-recipe-table.php:152
-#: RecipeTable/class-recipe-table.php:156
-msgid "Delete"
-msgstr ""
-
-#: RecipeTable/class-recipe-table.php:153
-msgid "View post"
-msgstr ""
-
-#: RecipeTable/class-recipe-table.php:172
-msgid "Name"
-msgstr ""
-
-#: RecipeTable/edit.php:166 RecipeTable/edit.php:181
-msgid "General"
-msgstr ""
-
-#: RecipeTable/edit.php:169 RecipeTable/edit.php:298
-msgid "Nutrition"
-msgstr ""
-
-#: RecipeTable/edit.php:177 class-field.php:736
-msgid "Save"
-msgstr ""
-
-#: RecipeTable/edit.php:185
-msgid ""
-"This recipe is linked to a post, but this post has been trashed. You can "
-"untrash the post, or link the recipe to another post or page"
-msgstr ""
-
-#: RecipeTable/edit.php:189
-msgid "Edit linked post"
-msgstr ""
-
-#: RecipeTable/edit.php:193
-msgid "Preview"
-msgstr ""
-
-#: RecipeTable/edit.php:199
-msgid ""
-"Your recipe image is the same as your post image. The image will be hidden "
-"on the front end."
-msgstr ""
-
-#: RecipeTable/edit.php:219
-msgid "Title"
-msgstr ""
-
-#: RecipeTable/edit.php:226
-#: plugins/CustomTemplates/views/_template_autumn.twig:85
-#: plugins/CustomTemplates/views/_template_canada.twig:251
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:100
-#: plugins/CustomTemplates/views/_template_vera.twig:152
-#: views/create-update-recipe.twig:245 views/recipe.twig:292
-msgid "Ingredients"
-msgstr "Zutaten"
-
-#: RecipeTable/edit.php:232
-#: plugins/CustomTemplates/views/_template_autumn.twig:122
-#: plugins/CustomTemplates/views/_template_canada.twig:259
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:108
-#: plugins/CustomTemplates/views/_template_vera.twig:160
-#: views/create-update-recipe.twig:258 views/recipe.twig:330
-msgid "Instructions"
-msgstr "Zubereitung"
-
-#: RecipeTable/edit.php:238
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:46
-msgid "Category"
-msgstr ""
-
-#: RecipeTable/edit.php:244
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:58
-msgid "Cuisine"
-msgstr ""
-
-#: RecipeTable/edit.php:250
-msgid "Description"
-msgstr ""
-
-#: RecipeTable/edit.php:257
-msgid "Prep time"
-msgstr ""
-
-#: RecipeTable/edit.php:263
-msgid "Cook time"
-msgstr ""
-
-#: RecipeTable/edit.php:269
-#: plugins/CustomTemplates/views/_template_autumn.twig:171
-#: plugins/CustomTemplates/views/_template_canada.twig:270
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:118
-#: plugins/CustomTemplates/views/_template_vera.twig:169 views/recipe.twig:368
-msgid "Notes"
-msgstr "Hinweis:"
-
-#: RecipeTable/edit.php:277
-msgid "Yields"
-msgstr ""
-
-#: RecipeTable/edit.php:283
-msgid "Serving size"
-msgstr ""
-
-#: RecipeTable/edit.php:307 plugins/AutomaticNutrition/views/label.twig:32
-#, fuzzy
-msgid "Calories"
-msgstr "Kalorien:"
-
-#: RecipeTable/edit.php:313
-msgid "Carbs"
-msgstr ""
-
-#: RecipeTable/edit.php:319 plugins/AutomaticNutrition/views/label.twig:123
-#, fuzzy
-msgid "Protein"
-msgstr "Protein:"
-
-#: RecipeTable/edit.php:325
-msgid "Fiber"
-msgstr ""
-
-#: RecipeTable/edit.php:331
-msgid "Sugar"
-msgstr ""
-
-#: RecipeTable/edit.php:337 plugins/AutomaticNutrition/views/label.twig:84
-#, fuzzy
-msgid "Sodium"
-msgstr "Natrium:"
-
-#: RecipeTable/edit.php:343
-msgid "Fat"
-msgstr ""
-
-#: RecipeTable/edit.php:349
-msgid "Saturated fat"
-msgstr ""
-
-#: RecipeTable/edit.php:355
-msgid "Trans fat"
-msgstr ""
-
-#: RecipeTable/edit.php:361 plugins/AutomaticNutrition/views/label.twig:75
-#, fuzzy
-msgid "Cholesterol"
-msgstr "Kalorien pro Portion:"
-
-#: RecipeTable/edit.php:367 plugins/AutomaticNutrition/views/label.twig:140
-msgid "Vitamin C"
-msgstr ""
-
-#: RecipeTable/edit.php:373 plugins/AutomaticNutrition/views/label.twig:136
-msgid "Vitamin A"
-msgstr ""
-
-#: RecipeTable/edit.php:379 plugins/AutomaticNutrition/views/label.twig:150
-msgid "Iron"
-msgstr ""
-
-#: RecipeTable/edit.php:385 plugins/AutomaticNutrition/views/label.twig:146
-msgid "Calcium"
-msgstr ""
+"X-Loco-Version: 2.3.0; wp-5.2.2"
 
 #: class-field.php:17 plugins/AutomaticNutrition/class-shortcode.php:13
 #, php-format
 msgid "%s is a singleton class and you cannot create a second instance."
 msgstr ""
+"%s ist eine Singleton-Klasse und du kannst keine zweite Instanz erstellen."
 
-#: class-field.php:180
-msgid "This field is required. Please complete the question before continuing"
-msgstr ""
+#: class-field.php:353
+msgid "(h)"
+msgstr "(h)"
 
-#: class-field.php:651
-msgid "Choose an option"
-msgstr ""
+#: class-field.php:362
+msgid "(m)"
+msgstr "(m)"
 
-#: class-field.php:722
-msgid "Start"
-msgstr ""
-
-#: class.ziprecipes.php:1029
+#: class.ziprecipes.php:1002
 #, php-format
 msgid "%d year"
 msgstr "%d Jahr"
 
-#: class.ziprecipes.php:1029
+#: class.ziprecipes.php:1002
 #, php-format
 msgid "%d years"
 msgstr "%d Jahre"
 
-#: class.ziprecipes.php:1030
+#: class.ziprecipes.php:1003
 #, php-format
 msgid "%d month"
 msgstr "%d Monat"
 
-#: class.ziprecipes.php:1030
+#: class.ziprecipes.php:1003
 #, php-format
 msgid "%d months"
 msgstr "%d Monate"
 
-#: class.ziprecipes.php:1031
+#: class.ziprecipes.php:1004
 #, php-format
 msgid "%d day"
 msgstr "%d Tag"
 
-#: class.ziprecipes.php:1031
+#: class.ziprecipes.php:1004
 #, php-format
 msgid "%d days"
 msgstr "%d Tage"
 
-#: class.ziprecipes.php:1032
+#: class.ziprecipes.php:1005
 #, php-format
 msgid "%d hour"
 msgstr "%d Stunde"
 
-#: class.ziprecipes.php:1032
+#: class.ziprecipes.php:1005
 #, php-format
 msgid "%d hours"
 msgstr "%d Stunden"
 
-#: class.ziprecipes.php:1033
+#: class.ziprecipes.php:1006
 #, php-format
 msgid "%d minute"
 msgstr "%d Minute"
 
-#: class.ziprecipes.php:1033
+#: class.ziprecipes.php:1006
 #, php-format
 msgid "%d minutes"
 msgstr "%d Minuten"
 
-#: class.ziprecipes.php:1034
+#: class.ziprecipes.php:1007
 #, php-format
 msgid "%d second"
 msgstr "%d Sekunde"
 
-#: class.ziprecipes.php:1034
+#: class.ziprecipes.php:1007
 #, php-format
 msgid "%d seconds"
 msgstr "%d Sekunden"
 
-#: controllers/EndpointController.php:225
-#: controllers/EndpointController.php:235
+#: views/toolbar.php:123
+msgid "Recipe selection updated. Time to save!"
+msgstr "Rezeptauswahl aktualisiert. Zeit zum Speichern!"
+
+#: views/toolbar.php:124
+msgid ""
+"Selecting a recipe that is linked to another post will unlink it from that "
+"post!"
+msgstr ""
+"Wenn du ein Rezept auswählst, welches mit einem anderen Beitrag verknüpft "
+"ist, wird die Verknüpfung zu diesem Beitrag aufgehoben!"
+
+#: views/toolbar.php:125
+msgid "Show only recipes without post"
+msgstr "Nur Rezepte ohne Beitrag anzeigen"
+
+#: views/toolbar.php:128 views/toolbar.php:136
+msgid "No recipe selected"
+msgstr "Kein Rezept ausgewählt"
+
+#: views/toolbar.php:148
+msgid "Edit recipe"
+msgstr "Rezept bearbeiten"
+
+#: views/toolbar.php:155
+msgid "Create and insert new recipe"
+msgstr "Erstelle und füge ein neues Rezept hinzu"
+
+#: views/toolbar.php:158
+msgid ""
+"Creating and inserting a new recipe will unlink the current recipe from this "
+"post."
+msgstr ""
+"Das Erstellen und Einfügen eines neuen Rezepts, wird die Verknüpfung des "
+"aktuellen Rezepts mit diesem Beitrag aufheben."
+
+#: RecipeTable/class-recipe-table.php:66
+msgid "Recipe"
+msgstr "Rezept"
+
+#: RecipeTable/class-recipe-table.php:67 RecipeTable/RecipeMenu.php:225
+#: RecipeTable/RecipeMenu.php:226 RecipeTable/RecipeMenu.php:351
+msgid "Recipes"
+msgstr "Rezepte"
+
+#: RecipeTable/class-recipe-table.php:112 RecipeTable/edit.php:152
+msgid "Title"
+msgstr "Titel"
+
+#: RecipeTable/class-recipe-table.php:136
+msgid "Unnamed recipe"
+msgstr "Unbenanntes Rezept"
+
+#: RecipeTable/class-recipe-table.php:140
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: RecipeTable/class-recipe-table.php:145 RecipeTable/edit.php:118
+msgid "Unlink from post"
+msgstr "Verknüpfung zum Beitrag aufheben"
+
+#: RecipeTable/class-recipe-table.php:146
+#: RecipeTable/class-recipe-table.php:150
+msgid "Delete"
+msgstr "Löschen"
+
+#: RecipeTable/class-recipe-table.php:147
+msgid "View post"
+msgstr "Beitrag ansehen"
+
+#: RecipeTable/class-recipe-table.php:166
+msgid "ID"
+msgstr "ID"
+
+#: RecipeTable/class-recipe-table.php:167
+msgid "Name"
+msgstr "Name"
+
+#: RecipeTable/RecipeMenu.php:257
+msgid "Click to edit this image"
+msgstr "Klicken, um Image zu editieren"
+
+#: RecipeTable/RecipeMenu.php:258
+msgid "minutes"
+msgstr "Minuten"
+
+#: RecipeTable/RecipeMenu.php:259
+msgid "hours"
+msgstr "Stunden"
+
+#: RecipeTable/RecipeMenu.php:260
+msgid "clear image"
+msgstr "Image löschen"
+
+#: RecipeTable/RecipeMenu.php:353
+msgid "Add recipe"
+msgstr "Rezept hinzufügen"
+
+#: RecipeTable/RecipeMenu.php:362
+msgid "Filter"
+msgstr "Filter"
+
+#: RecipeTable/edit.php:49
+msgid "New recipe"
+msgstr "Neues Rezept"
+
+#: RecipeTable/edit.php:83
+msgid "Settings saved!"
+msgstr "Einstellungen gespeichert!"
+
+#: RecipeTable/edit.php:89 RecipeTable/edit.php:107
+msgid "General"
+msgstr "Generell"
+
+#: RecipeTable/edit.php:92 RecipeTable/edit.php:258
+msgid "Nutrition"
+msgstr "Nährwert"
+
+#: RecipeTable/edit.php:95 RecipeTable/edit.php:372
+msgid "Misc"
+msgstr "Sonstiges"
+
+#: RecipeTable/edit.php:103
+msgid "Save"
+msgstr "Speichern"
+
+#: RecipeTable/edit.php:112
+msgid ""
+"This recipe is linked to a post, but this post has been trashed. You can "
+"untrash the post, or link the recipe to another post or page"
+msgstr ""
+"Dieses Rezept ist mit einem Beitrag verknüpft, aber dieser Beitrag wurde "
+"gelöscht. Du kannst den Beitrag wiederherstellen oder das Rezept mit einem "
+"anderen Beitrag oder einer anderen Seite verknüpfen"
+
+#: RecipeTable/edit.php:116
+msgid "Edit linked post"
+msgstr "Verknüpften Beitrag bearbeiten"
+
+#: RecipeTable/edit.php:121
+msgid "View"
+msgstr "Ansicht"
+
+#: RecipeTable/edit.php:128
+msgid ""
+"Your recipe image is the same as your post image. The image will be hidden "
+"on the front end."
+msgstr ""
+"Dein Rezeptbild ist das gleiche wie das Beitragsbild. Das Bild wird im "
+"Frontend ausgeblendet."
+
+#: RecipeTable/edit.php:132
+#, php-format
+msgid ""
+"You haven't added any tags to your post yet. In your post you can %sadd%s "
+"some tags relevant to this recipe. These will get added as keywords to your "
+"recipes microdata."
+msgstr ""
+"Du hast deinem Beitrag noch keine Tags hinzugefügt. In deinem Beitrag kannst "
+"du einige Tags %shinzufügen%s , die für dieses Rezept relevant sind. Diese "
+"werden als Schlüsselwörter zu den Mikrodaten deiner Rezepte hinzugefügt."
+
+#: RecipeTable/edit.php:153
+msgid "My recipe"
+msgstr "Mein Rezept"
+
+#: RecipeTable/edit.php:160
+msgid "Prep time"
+msgstr "Vorbereitungszeit"
+
+#: RecipeTable/edit.php:166
+msgid "Cook time"
+msgstr "Kochzeit"
+
+#: RecipeTable/edit.php:173
+msgid "Serving size"
+msgstr "Portionsgröße"
+
+#: RecipeTable/edit.php:174
+msgid "1 slice"
+msgstr "1 Stück"
+
+#: RecipeTable/edit.php:181
+msgid "Yields"
+msgstr "Ausbeute"
+
+#: RecipeTable/edit.php:182
+msgid "4 persons"
+msgstr "4 Personen"
+
+#: RecipeTable/edit.php:190
+msgid "Ingredients"
+msgstr "Zutaten"
+
+#: RecipeTable/edit.php:191
+#, php-format
+msgid ""
+"Put each ingredient on a separate line. There is no need to use bullets for "
+"your ingredients. You can also create labels, hyperlinks, bold/italic "
+"effects and even add images! %sRead more%s"
+msgstr ""
+"Setze jede Zutat in eine separate Zeile. Es ist nicht erforderlich "
+"Auflistungszeichen / Nummerierungen für deine Zutaten zu verwenden. Du "
+"kannst auch Beschriftungen, Hyperlinks, Fett-/Kursiv-Effekte erstellen und "
+"sogar Bilder hinzufügen! %sHier weiterlesen%s"
+
+#: RecipeTable/edit.php:197
+msgid "Instructions"
+msgstr "Anleitung"
+
+#: RecipeTable/edit.php:203
+msgid "Instruction video"
+msgstr "Anleitungsvideo"
+
+#: RecipeTable/edit.php:204
+msgid ""
+"A video is a great way to improve your ranking and will get picked up by "
+"Google's rich snippets."
+msgstr ""
+"Ein Video ist ein großartiger Weg, um dein Ranking zu verbessern und von den "
+"Google Rich Snippets aufgegriffen zu werden"
+
+#: RecipeTable/edit.php:210
+msgid "Category"
+msgstr "Kategorie"
+
+#: RecipeTable/edit.php:211
+msgid "Bread"
+msgstr "Brot"
+
+#: RecipeTable/edit.php:218
+msgid "Cuisine"
+msgstr "Küche"
+
+#: RecipeTable/edit.php:219
+msgid "French"
+msgstr "Französisch"
+
+#: RecipeTable/edit.php:227
+msgid "Notes"
+msgstr "Hinweis:"
+
+#: RecipeTable/edit.php:235
+msgid "Description"
+msgstr "Beschreibung"
+
+#: RecipeTable/edit.php:242
+#, php-format
+msgid ""
+"Rank even better in Google? Also get the author field in your schema.org "
+"markup. Available in %sall plans%s"
+msgstr ""
+"In Google einen noch besseren Rang erreichen? Rufe einfach das Autorenfeld "
+"in deiner schema.org-Auszeichnung auf. Verfügbar in %sallen Plänen%s."
+
+#: RecipeTable/edit.php:266
+#, php-format
+msgid ""
+"Tired of looking up all nutrition data? You can generate the nutrition data "
+"automatically with %sZip Recipes Lover%s"
+msgstr ""
+"Müde von den ganzen Nährwertdaten? Du kannst die Daten automatisch mit %sZip "
+"Recipes Lover%s erstellen."
+
+#: RecipeTable/edit.php:272
+msgid "Calories"
+msgstr "Kalorien"
+
+#: RecipeTable/edit.php:278
+msgid "Carbs"
+msgstr "Kohlenhydrate"
+
+#: RecipeTable/edit.php:284
+msgid "Protein"
+msgstr "Protein"
+
+#: RecipeTable/edit.php:290
+msgid "Fiber"
+msgstr "Ballaststoffe"
+
+#: RecipeTable/edit.php:296
+msgid "Sugar"
+msgstr "Zucker"
+
+#: RecipeTable/edit.php:302
+msgid "Sodium"
+msgstr "Natrium"
+
+#: RecipeTable/edit.php:308
+msgid "Fat"
+msgstr "Fett"
+
+#: RecipeTable/edit.php:314
+msgid "Saturated fat"
+msgstr "Gesättigte Fettsäuren"
+
+#: RecipeTable/edit.php:320
+msgid "Trans fat"
+msgstr "Transfette"
+
+#: RecipeTable/edit.php:326
+msgid "Cholesterol"
+msgstr "Cholesterin"
+
+#: RecipeTable/edit.php:332
+msgid "Vitamin C"
+msgstr "Vitamin C"
+
+#: RecipeTable/edit.php:338
+msgid "Vitamin A"
+msgstr "Vitamin A"
+
+#: RecipeTable/edit.php:344
+msgid "Iron"
+msgstr "Eisen"
+
+#: RecipeTable/edit.php:350
+msgid "Calcium"
+msgstr "Kalzium"
+
+#: RecipeTable/edit.php:379
+msgid "Mark recipe as non food"
+msgstr "Markiere das Rezept als Non-Food"
+
+#: controllers/EndpointController.php:226
+#: controllers/EndpointController.php:236
 msgid "Invalid recipe ID or recipe not found"
-msgstr ""
+msgstr "Ungültige Rezept-ID oder Rezept nicht gefunden"
 
-#: controllers/EndpointController.php:257
+#: controllers/EndpointController.php:258
 msgid "Invalid recipe fields"
-msgstr ""
+msgstr "Ungültige Rezeptfelder"
 
-#: controllers/EndpointController.php:266
-#, fuzzy
+#: controllers/EndpointController.php:267
 msgid "Can't create recipe"
-msgstr "Rezept Bewerten"
+msgstr "Rezept konnte nicht erstellt werden"
 
-#: controllers/EndpointController.php:286
-#, fuzzy
+#: controllers/EndpointController.php:287
 msgid "Can't update recipe"
-msgstr "Rezept Bewerten"
+msgstr "Rezept konnte nicht aktualisiert werden"
 
-#: plugins/Authors/Authors.php:70
-msgid "Author"
-msgstr ""
+#: src/block.php:87
+msgid "Recipe not found"
+msgstr "Rezept nicht gefunden"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:101
+#: plugins/AutomaticNutrition/widget.php:16
+msgid "Nutrition Label"
+msgstr "Nährwerte-Etikett"
+
+#: plugins/AutomaticNutrition/widget.php:17
+msgid "Show the Nutrition Label for a recipe"
+msgstr "Zeige das Nährwert-Etikett für ein Rezept"
+
+#: plugins/AutomaticNutrition/widget.php:55
+msgid "Nutrition info"
+msgstr "Nährwert-Information"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:110
 msgid "Use separate ingredients list for nutrition generation"
-msgstr ""
+msgstr "Verwende eine separate Zutatenliste für die Nährwerterstellung"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:102
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:111
 msgid ""
 "If you're not using English or Spanish, or you just want te exclude some "
 "ingredients from the nutrition generation, you can use this field, which is "
 "used for the nutrition data only"
 msgstr ""
+"Wenn du kein Englisch oder Spanisch benutzt, kannst du hier mit diesem Feld "
+"einige Zutaten aus der Nährwertgenerierung ausschließen lassen, welches nur "
+"für die Nährwertdaten verwendet wird."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:108
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:117
 msgid "Ingredients for nutrition generation"
-msgstr ""
+msgstr "Zutaten für die Nährwerterstellung"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:123
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:131
 msgid "You do not have edit permissions."
-msgstr ""
+msgstr "Du hast keine Bearbeitungsrechte."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:128
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:336
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:136
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:340
 msgid "An unexpected error has occurred. Please try again"
-msgstr ""
+msgstr "Ein unerwarteter Fehler ist aufgetreten. Bitte versuch es noch einmal"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:133
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:141
 msgid ""
 "Your PHP is mis-configured. It's missing CURL extension. Please contact your "
 "host."
 msgstr ""
+"Dein PHP ist falsch konfiguriert. Es fehlt die CURL-Erweiterung. Bitte wende "
+"dich an deinen Betreiber."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:143
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:347
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:151
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:351
 msgid "Recipe not found. Please save your recipe first."
-msgstr ""
+msgstr "Rezept nicht gefunden. Bitte speichere dein Rezept zuerst."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:150
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:158
 msgid ""
 "Your license is not activated. Please activate your license to be able to "
 "use the Nutrition Generator."
 msgstr ""
+"Deine Lizenz ist nicht nicht aktiviert. Bitte aktiviere deine Lizenz, um in "
+"der Lage zu sein, den Nährwert-Generator zu verwenden."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:188
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:195
 msgid "No response from Zip Recipes Nutrition API"
-msgstr ""
+msgstr "Keine Rückmeldung von Zip Recipes Nutrition API"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:206
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:211
 #, php-format
 msgid "The %s field should not be empty"
-msgstr ""
+msgstr "Das %s-Feld sollte nicht leer sein"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:217
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:235
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:222
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:240
 msgid ""
 "We had trouble understanding your ingredients. Please try removing some to "
 "see if any are not recognized by the API. If needed, you can create a "
 "separte API ingredients field, by checking the option below."
 msgstr ""
+"Wir hatten Probleme, deine Zutaten zu verstehen. Bitte versuchen, einige zu "
+"entfernen, um festzustellen, ob diese von der API nicht erkannt werden. Bei "
+"Bedarf kannst du ein separates Feld für API-Inhaltsstoffe erstellen, indem "
+"du nachfolgende Option überprüfst.\n"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:296
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:304
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:301
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:309
 msgid "Did not receive nutrition image url"
-msgstr ""
+msgstr "Keine Bild-URL für Nährwerte erhalten"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:314
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:319
 msgid "Successfully generated nutrition data"
-msgstr ""
+msgstr "Nährwertdaten erfolgreich generiert"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:389
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:393
 msgid "Successfully cleared nutrition data"
-msgstr ""
+msgstr "Nährwertdaten erfolgreich gelöscht"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:622
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:627
 msgid "Automatic Nutrition generation"
-msgstr ""
+msgstr "Automatische Nährwertgenerierung"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:626
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:631
 msgid "To generate the Nutrition data, you should save the recipe first"
 msgstr ""
+"Um Nährwertdaten zu generieren, solltest du dein Rezept vorher speichern"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:631
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:636
 msgid "Update"
-msgstr ""
+msgstr "Update"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:631
-msgid "Generate label"
-msgstr ""
-
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:632
-msgid "Clear label"
-msgstr ""
-
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:667
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:672
 #, php-format
 msgid "Nutrition label for %s"
-msgstr ""
-
-#: plugins/AutomaticNutrition/widget.php:16
-#, fuzzy
-msgid "Nutrition Label"
-msgstr "Rezept Informationen"
-
-#: plugins/AutomaticNutrition/widget.php:17
-msgid "Show the Nutrition Label for a recipe"
-msgstr ""
-
-#: plugins/AutomaticNutrition/widget.php:55
-#, fuzzy
-msgid "Nutrition info"
-msgstr "Rezept Informationen"
-
-#: plugins/Licensing/EDD_SL_Plugin_Updater.php:198
-#, php-format
-msgid ""
-"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
-msgstr ""
-
-#: plugins/Licensing/EDD_SL_Plugin_Updater.php:206
-#, php-format
-msgid ""
-"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
-"or %5$supdate now%6$s."
-msgstr ""
-
-#: plugins/Licensing/EDD_SL_Plugin_Updater.php:396
-msgid "You do not have permission to install plugin updates"
-msgstr ""
-
-#: plugins/Licensing/EDD_SL_Plugin_Updater.php:396
-msgid "Error"
-msgstr ""
+msgstr "Nährwertlabel von %s"
 
 #: plugins/Licensing/Licensing.php:68 plugins/Licensing/Licensing.php:69
 #: plugins/Licensing/Licensing.php:163
 msgid "License"
-msgstr ""
+msgstr "Lizenz"
 
 #: plugins/Licensing/Licensing.php:88
 msgid ""
 "You haven't activated your Zip Recipes license yet. To get all future "
 "updates, enter your license on the settings page."
 msgstr ""
+"Du hast deine Zip Recipes-Lizenz noch nicht aktiviert. Um alle zukünftigen "
+"Updates zu erhalten, trage bitte deine Lizenz unter \"Einstellungen\" ein."
 
 #: plugins/Licensing/Licensing.php:89
 #, php-format
 msgid "Go to the %ssettings page%s or %spurchase a license%s"
-msgstr ""
+msgstr "Geh in die %sEinstellungen%s oder %skaufe eine Lizenz%s"
 
 #: plugins/Licensing/Licensing.php:168
 msgid "Could not connect to ziprecipes.net. Please try again later."
 msgstr ""
+"Es konnte keine Verbindung zu ziprecipes.net hergestellt werden. Bitte "
+"versuche es später noch einmal."
 
 #: plugins/Licensing/Licensing.php:171
 msgid "a 5 sites or unlimited sites license"
-msgstr ""
+msgstr "eine 5 Seiten- oder unlimitierte Seitenlizenz"
 
 #: plugins/Licensing/Licensing.php:171
 msgid "an unlimited sites license"
-msgstr ""
+msgstr "eine unlimitierte Seitenlizenz"
 
 #: plugins/Licensing/Licensing.php:174
 #, php-format
@@ -494,538 +588,116 @@ msgid ""
 "You have 0 activations left on your %s sites license. If you need more "
 "activations you can upgrade your current license to %s on your %saccount%s"
 msgstr ""
+"Du hast keine Aktivierungen mehr für deine %s Seitenlizenz. Wenn du weitere "
+"Aktivierungen benötigst, kannst du deine aktuelle Lizenz auf %s in deinem "
+"%Konto%s erwerben."
 
 #: plugins/Licensing/Licensing.php:182
 msgid "Your license is valid, but not activated on this site"
-msgstr ""
+msgstr "Deine Lizenz ist gültig, aber noch nicht auf dieser Site aktiviert."
 
 #: plugins/Licensing/Licensing.php:184
 msgid "Your license does not seem to be valid. Please check your license key"
 msgstr ""
+"Deine Lizenz scheint ungültig zu sein. Bitte überprüfe deinen Lizenzschlüssel"
 
 #: plugins/Licensing/Licensing.php:188
 #, php-format
 msgid "Your license is valid, and expires on: %s"
-msgstr ""
+msgstr "Deine Lizenz ist gültig und endet am: %s"
 
 #: plugins/Licensing/Licensing.php:190
 msgid "Enter your license here so you keep receiving updates and support."
 msgstr ""
+"Gib deine Lizenz hier ein, um weiterhin Updates und Support zu erhalten."
 
 #: plugins/Licensing/Licensing.php:204
 msgid "License Key"
-msgstr ""
-
-#: plugins/Licensing/Licensing.php:211
-msgid "active"
-msgstr ""
-
-#: plugins/Licensing/Licensing.php:213
-msgid "Deactivate License"
-msgstr ""
-
-#: plugins/Licensing/Licensing.php:216
-msgid "Activate License"
-msgstr ""
-
-#: plugins/Licensing/Licensing.php:224
-msgid "Enter your license key"
-msgstr ""
+msgstr "Lizenzschlüssel"
 
 #: plugins/Licensing/Licensing.php:245
 msgid "This is not a valid license"
-msgstr ""
+msgstr "Dies ist keine gültige Lizenz"
 
 #: plugins/Licensing/Licensing.php:250
 msgid "Your license is expired. Please renew your license at %ziprecipes.net%s"
 msgstr ""
+"Deine Lizenz ist abgelaufen. Bitte erneuere deine Version auf %sziprecipes."
+"net%s"
 
 #: plugins/Licensing/Licensing.php:253
 #, php-format
 msgid "Your license has been revoked. Please contact %ssupport%s"
-msgstr ""
+msgstr "Deine Lizenz wurde widerrufen. Bitte wende dich an den %sSupport%s"
 
 #: plugins/Licensing/Licensing.php:256
 #, php-format
 msgid ""
 "Your license could not be found in the database. Please contact %ssupport%s"
 msgstr ""
+"Deine Lizenz wurde in der Datenbank nicht gefunden. Bitte kontaktiere den "
+"%sSupport%s"
 
 #: plugins/Licensing/Licensing.php:260
 msgid "Your license has not yet been activated for this domain."
-msgstr ""
+msgstr "Deine Lizenz wurde für diese Domain noch nicht aktiviert."
 
 #: plugins/Licensing/Licensing.php:263
 msgid "Your license key appears to be invalid."
-msgstr ""
+msgstr "Dein Lizenzschlüssel scheint ungültig zu sein."
 
 #: plugins/Licensing/Licensing.php:266
 msgid ""
 "You have no activations left on your license. Please upgrade your license at "
 "%ziprecipes.net%s"
 msgstr ""
+"Du hast keine Aktivierungen mehr übrig. Bitte aktualisiere deine Lizenz auf "
+"%sziprecipes.net%s"
 
 #: plugins/Licensing/Licensing.php:273
 msgid "Your license is valid, but has not yet been activated for this domain."
 msgstr ""
+"Deine Lizenz ist gültig, wurde aber für diese Domain noch nicht aktiviert."
 
 #: plugins/Licensing/Licensing.php:282
 msgid "license data error"
-msgstr ""
+msgstr "Lizenzdatenfehler"
 
-#: plugins/Licensing/Licensing.php:331 plugins/Licensing/Licensing.php:386
-msgid "An error occurred while updating the license data, please try again."
-msgstr ""
-
-#: plugins/RecipeReviews/RecipeReviews.php:178
-#: plugins/VisitorRating/VisitorRating.php:64
-#: plugins/RecipeReviews/views/render.twig:15
-#: plugins/VisitorRating/views/render.twig:15
-#, fuzzy
-msgid "Your rating:"
-msgstr "Deine Bewertung"
-
-#: plugins/RecipeReviews/RecipeReviews.php:619
-msgid "Recipe Reviews"
-msgstr ""
-
-#: src/block.php:87
-msgid "Recipe not found"
-msgstr ""
-
-#: views/toolbar.php:123
-msgid "Recipe selection updated. Time to save!"
-msgstr ""
-
-#: views/toolbar.php:124
-msgid ""
-"Selecting a recipe that is linked to another post will unlink it from that "
-"post!"
-msgstr ""
-
-#: views/toolbar.php:125
-msgid "Show only recipes without post"
-msgstr ""
-
-#: views/toolbar.php:128 views/toolbar.php:136
-msgid "No recipe selected"
-msgstr ""
-
-#: views/toolbar.php:148
-msgid "Edit recipe"
-msgstr ""
-
-#: views/toolbar.php:155
-msgid "Create and insert new recipe"
-msgstr ""
-
-#: views/toolbar.php:158
-msgid ""
-"Creating and inserting a new recipe will unlink the current recipe from this "
-"post."
-msgstr ""
-
-#: plugins/Authors/views/render.twig:3
-msgid "Author:"
+#: plugins/Authors/Authors.php:104
+msgid "Author"
 msgstr "Autor"
 
-#: plugins/AutomaticNutrition/views/label.twig:13
-#, fuzzy
-msgid "Nutrition Facts"
-msgstr "Rezept Informationen"
-
-#: plugins/AutomaticNutrition/views/label.twig:19
-#, fuzzy
-msgid "Serves"
-msgstr "Portionen:"
-
-#: plugins/AutomaticNutrition/views/label.twig:25
-#, fuzzy
-msgid "Amount Per Serving"
-msgstr "Natrium pro Portion:"
-
-#: plugins/AutomaticNutrition/views/label.twig:40
-msgid "% Daily Value*"
-msgstr ""
-
-#: plugins/AutomaticNutrition/views/label.twig:45
-#, fuzzy
-msgid "Total Fat"
-msgstr "Gesamt:"
-
-#: plugins/AutomaticNutrition/views/label.twig:56
-#, fuzzy
-msgid "Saturated Fat"
-msgstr "Gesättigte Fettsäuren::"
-
-#: plugins/AutomaticNutrition/views/label.twig:67
-msgid "Trans Fat"
-msgstr ""
-
-#: plugins/AutomaticNutrition/views/label.twig:93
-msgid "Total Carbohydrate"
-msgstr ""
-
-#: plugins/AutomaticNutrition/views/label.twig:104
-msgid "Dietary Fiber"
-msgstr ""
-
-#: plugins/AutomaticNutrition/views/label.twig:115
-#, fuzzy
-msgid "Sugars"
-msgstr "Zucker:"
-
-#: plugins/AutomaticNutrition/views/label.twig:157
+#: plugins/Authors/Authors.php:111
+#, php-format
 msgid ""
-"* Percent Daily Values are based on a 2,000 calorie diet. Your daily values "
-"may be higher or lower depending on your calorie needs."
+"Author will be set automatically to your post author. If you want to use "
+"custom authors, you can do so in the %ssettings%s."
 msgstr ""
-
-#: plugins/CustomTemplates/views/_blocks.twig:35 views/recipe.twig:25
-#: views/recipe.twig:35
-msgid "Print"
-msgstr "Drucken"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:43
-#: plugins/CustomTemplates/views/_template_canada.twig:46
-#: plugins/CustomTemplates/views/_template_vanilla.twig:45
-#: plugins/CustomTemplates/views/_template_vera.twig:111 views/recipe.twig:93
-msgid "Category:"
-msgstr "Kategorie:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:55
-#: plugins/CustomTemplates/views/_template_canada.twig:58
-#: plugins/CustomTemplates/views/_template_vanilla.twig:57
-#: plugins/CustomTemplates/views/_template_vera.twig:123 views/recipe.twig:105
-msgid "Cuisine:"
-msgstr ""
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:131
-msgid "Prep"
-msgstr "Vorbereitung"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:143
-msgid "Cook"
-msgstr "Kochen"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:155
-msgid "Ready in"
-msgstr "Fertig in"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:184
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:131
-#: plugins/CustomTemplates/views/_template_vera.twig:181
-msgid "Nutrition information"
-msgstr "Rezept Informationen"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:190
-#: plugins/CustomTemplates/views/_template_canada.twig:126
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:148
-#: plugins/CustomTemplates/views/_template_vanilla.twig:144
-#: plugins/CustomTemplates/views/_template_vera.twig:186 views/recipe.twig:140
-msgid "Serving Size:"
-msgstr "Portionen:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:198
-#: plugins/CustomTemplates/views/_template_vanilla.twig:152
-#: plugins/CustomTemplates/views/_template_vera.twig:194 views/recipe.twig:150
-msgid "Calories per serving:"
-msgstr "Kalorien pro Portion:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:206
-#: plugins/CustomTemplates/views/_template_vanilla.twig:160
-#: plugins/CustomTemplates/views/_template_vera.twig:202 views/recipe.twig:160
-msgid "Fat per serving:"
-msgstr "Fett pro Portion:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:214
-#: plugins/CustomTemplates/views/_template_vanilla.twig:168
-#: plugins/CustomTemplates/views/_template_vera.twig:210 views/recipe.twig:170
-msgid "Saturated fat per serving:"
-msgstr "Grasa saturada:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:222
-#: plugins/CustomTemplates/views/_template_vanilla.twig:176
-#: plugins/CustomTemplates/views/_template_vera.twig:218 views/recipe.twig:180
-msgid "Carbs per serving:"
-msgstr "Kohlenhydrate pro Portion:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:230
-#: plugins/CustomTemplates/views/_template_vanilla.twig:184
-#: plugins/CustomTemplates/views/_template_vera.twig:226 views/recipe.twig:190
-msgid "Protein per serving:"
-msgstr "Proteine pro Portion:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:238
-#: plugins/CustomTemplates/views/_template_vanilla.twig:192
-#: plugins/CustomTemplates/views/_template_vera.twig:234 views/recipe.twig:200
-msgid "Fiber per serving:"
-msgstr "Balaststoffe pro Portion:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:246
-#: plugins/CustomTemplates/views/_template_vanilla.twig:200
-#: plugins/CustomTemplates/views/_template_vera.twig:242 views/recipe.twig:210
-msgid "Sugar per serving:"
-msgstr "Zucker pro Portion:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:254
-#: plugins/CustomTemplates/views/_template_vanilla.twig:208
-#: plugins/CustomTemplates/views/_template_vera.twig:250 views/recipe.twig:220
-msgid "Sodium per serving:"
-msgstr "Natrium pro Portion:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:262
-#: plugins/CustomTemplates/views/_template_vanilla.twig:216
-#: plugins/CustomTemplates/views/_template_vera.twig:258 views/recipe.twig:230
-#, fuzzy
-msgid "Trans fat per serving:"
-msgstr "Grasa saturada:"
-
-#: plugins/CustomTemplates/views/_template_autumn.twig:269
-#: plugins/CustomTemplates/views/_template_vanilla.twig:223
-#: plugins/CustomTemplates/views/_template_vera.twig:265 views/recipe.twig:240
-#, fuzzy
-msgid "Cholesterol per serving:"
-msgstr "Kalorien pro Portion:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:87
-msgid "Total:"
-msgstr "Gesamt:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:99
-msgid "Prep:"
-msgstr "Zubereitungszeit:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:111
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:138
-msgid "Serves:"
-msgstr "Portionen:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:137
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:159
-msgid "Calories:"
-msgstr "Kalorien:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:148
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:170
-msgid "Fat:"
-msgstr "Fett:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:159
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:181
-msgid "Saturated fat:"
-msgstr "Gesättigte Fettsäuren::"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:170
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:192
-msgid "Carbs:"
-msgstr "Kohlenhydrate:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:181
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:203
-msgid "Protein:"
-msgstr "Protein:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:192
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:214
-msgid "Fiber:"
-msgstr "Balaststoffe:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:203
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:225
-msgid "Sugar:"
-msgstr "Zucker:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:213
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:235
-msgid "Sodium:"
-msgstr "Natrium:"
-
-#: plugins/CustomTemplates/views/_template_canada.twig:224
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:246
-msgid "Trans fat:"
-msgstr ""
-
-#: plugins/CustomTemplates/views/_template_canada.twig:235
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:257
-msgid "Cholesterol:"
-msgstr ""
-
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:69
-msgid "Prep Time"
-msgstr ""
-
-#: plugins/CustomTemplates/views/_template_cozy_orange.twig:79
-msgid "Cook Time"
-msgstr ""
-
-#: plugins/CustomTemplates/views/_template_vanilla.twig:104
-#: plugins/CustomTemplates/views/_template_vera.twig:46 views/recipe.twig:57
-msgid "Prep Time:"
-msgstr "Vorbereitungszeit:"
-
-#: plugins/CustomTemplates/views/_template_vanilla.twig:116
-#: plugins/CustomTemplates/views/_template_vera.twig:58 views/recipe.twig:69
-msgid "Cook Time:"
-msgstr "Kochzeit:"
-
-#: plugins/CustomTemplates/views/_template_vanilla.twig:127
-#: plugins/CustomTemplates/views/_template_vera.twig:102 views/recipe.twig:125
-msgid "Yield:"
-msgstr "Menge:"
-
-#: plugins/CustomTemplates/views/_template_vera.twig:70 views/recipe.twig:81
-msgid "Total Time:"
-msgstr "Gesamtzeit:"
-
-#: plugins/PluginManagement/views/notice-comments.twig:2
-msgid ""
-"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
-"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">"
-"Learn more</a>"
-msgstr ""
-
-#: plugins/PluginManagement/views/notice.twig:2
-msgid ""
-"VisitorRating and RecipeReviews cannot be active at the same time. If you "
-"want to allow anonymous ratings, activate VisitorRating. If you want to "
-"require comments with ratings activate RecipeReviews."
-msgstr ""
-
-#: plugins/RecipeActions/views/recipe_actions.twig:9
-msgid "Save to BigOven"
-msgstr ""
-
-#: plugins/RecipeReviews/views/comment_meta_box.twig:1
-#: plugins/RecipeReviews/views/comments_modify.twig:1
-#, fuzzy
-msgid "Rating"
-msgstr "Bewertungen"
-
-#: plugins/RecipeReviews/views/comments_fields.twig:2
-#: plugins/RecipeReviews/views/render.twig:20
-#: plugins/VisitorRating/views/render.twig:20
-msgid "Rate this recipe"
-msgstr "Rezept Bewerten"
-
-#: plugins/RecipeReviews/views/render.twig:5
-#: plugins/VisitorRating/views/render.twig:5
-msgid "stars"
-msgstr "Sterne"
-
-#: plugins/RecipeReviews/views/render.twig:5
-#: plugins/RecipeReviews/views/render.twig:38
-#: plugins/RecipeReviews/views/render.twig:40
-#: plugins/VisitorRating/views/render.twig:5
-#: plugins/VisitorRating/views/render.twig:38
-#: plugins/VisitorRating/views/render.twig:40
-msgid "ratings"
-msgstr "Bewertungen"
-
-#: views/create-update-recipe.twig:247
-msgid ""
-"Put each ingredient on a separate line.  There is no need to use bullets for "
-"your ingredients.<br />\n"
-"                        You can also create labels, hyperlinks, bold/italic "
-"effects and even add images!"
-msgstr ""
-
-#: views/default_nutrition.twig:34
-msgid "Calculate Nutrition"
-msgstr ""
-
-#: views/discount.twig:57
-msgid ""
-"Like this plugin? The premium version includes lots of cool extra features, "
-"your "
-msgstr ""
-
-#: views/discount.twig:58
-msgid "20% fast adapter discount"
-msgstr ""
-
-#: views/discount.twig:59
-msgid " is still valid!"
-msgstr ""
-
-#: views/discount.twig:64
-msgid "dismiss"
-msgstr ""
-
-#: views/notice.twig:2
-msgid ""
-"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
-"extensions installed. Please contact your hosting company and request that "
-"they install ImageMagick or GD PHP extensions for you website."
-msgstr ""
-
-#: views/recipe.twig:30 views/recipe.twig:34
-msgid "Print this recipe"
-msgstr "Rezept drucken"
-
-#: views/settings_promo.twig:12
-msgid "Like the plugin, or need more features?"
-msgstr ""
-
-#: views/settings_promo.twig:14
-msgid "Optimized for Google"
-msgstr ""
-
-#: views/settings_promo.twig:15
-msgid "Cool looking themes"
-msgstr ""
-
-#: views/settings_promo.twig:16
-msgid "Automatic serving adjustment"
-msgstr ""
-
-#: views/settings_promo.twig:17
-msgid "Author setting for Google"
-msgstr ""
-
-#: views/settings_promo.twig:18
-msgid "Ratings and reviews"
-msgstr ""
-
-#: views/settings_promo.twig:19
-msgid "Save recipes on social media"
-msgstr ""
-
-#: views/settings_promo.twig:20
-msgid "Recipe index"
-msgstr ""
-
-#: views/settings_promo.twig:21
-msgid "Automatic nutrition calculation"
-msgstr ""
-
-#: views/settings_promo.twig:22
-msgid "Search by ingredients"
-msgstr ""
-
-#: views/settings_promo.twig:23
-msgid "Recipe picture gallery"
-msgstr ""
-
-#: views/settings_promo.twig:24
-msgid "Mobile friendly"
-msgstr ""
+"Der Autor wird automatisch zu deinen Beiträgen hinzugefügt. Wenn du "
+"benutzerdefinierte Autoren-Einträge verwenden möchtest, kannst du diese in "
+"den %sEinstellungen%s ändern."
+
+#: plugins/VisitorRating/VisitorRating.php:63
+msgid "Your rating:"
+msgstr "Deine Bewertung:"
 
 #. Plugin Name of the plugin/theme
 msgid "Zip Recipes Lover"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-#. Author URI of the plugin/theme
-msgid "http://www.ziprecipes.net/"
-msgstr ""
+msgstr "Zip Recipes Lover"
 
 #. Description of the plugin/theme
 msgid ""
 "A plugin that adds all the necessary microdata to your recipes, so they will "
 "show up in Google's Recipe Search"
 msgstr ""
+"Ein Plugin, welches alle erforderlichen Mikrodaten zu deinen Rezepten "
+"hinzufügt, damit du in der Google-Rezeptsuche angezeigt wirst\n"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://www.ziprecipes.net/"
+msgstr "http://www.ziprecipes.net/"
 
 #. Author of the plugin/theme
 msgid "RogierLankhorst"
-msgstr ""
+msgstr "RogierLankhorst"
