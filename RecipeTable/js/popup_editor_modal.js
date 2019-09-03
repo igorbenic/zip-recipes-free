@@ -28,6 +28,7 @@ jQuery(document).ready(function ($) {
         //check if any required fields are empty
         $(".is-required").each(function(e){
             if ($(this).val().length==0){
+                $("#zrdn-show-field-error").show();
                 e.preventDefault();
                 return;
             }
@@ -59,6 +60,12 @@ jQuery(document).ready(function ($) {
             }),
             success: function (response) {
                 if (response.success) {
+                    $("#zrdn-show-field-error").hide();
+
+                    if ($("#nutrition_save_recipe_first").length) {
+                        $("#nutrition_save_recipe_first").hide();
+                        $("#nutrition_action_buttons").show();
+                    }
                     recipe_id = response.recipe_id;
                     //classic only, so we use the classic shortcode
                     var shortcode = '[amd-zlrecipe-recipe:'+recipe_id+']';
