@@ -130,7 +130,10 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                     }
                     $tags =wp_get_post_tags( $recipe->post_id );
                     if ($recipe->post_id && !$tags){
-                        zrdn_notice(sprintf(__("You haven't added any tags to your post yet. In your post you can %sadd%s some tags relevant to this recipe. These will get added as keywords to your recipes microdata.", "zip-recipes"),'<a href="'.add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')).'">','</a>'), 'warning');
+                        zrdn_notice(
+                                sprintf(__("You haven't added any tags to your post yet. In your post you can %sadd%s some tags relevant to this recipe. These will get added as keywords to your recipes microdata.", "zip-recipes"),
+                            '<a href="'.add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')).'">','</a>')
+                                , 'warning', true, false, false);
                     }
 
 
@@ -179,7 +182,7 @@ if (isset($_GET['post_id']) && isset($_GET['post_type'])) {
                             'type' => 'text',
                             'fieldname' => 'yield',
                             'value' => $recipe->yield,
-                            'label' => __("Yields", 'zip-recipes'),
+                            'label' => __("Servings", 'zip-recipes'),
                             'placeholder' => __('4 persons','zip-recipes'),
                         ),
 

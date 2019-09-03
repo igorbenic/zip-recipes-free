@@ -81,7 +81,7 @@
   margin-top: 10px;
 }
 #zrdn-nutrition-label .nutrition-facts__table--small {
-  @extend . nutrition-facts__table;
+@extend . nutrition-facts__table;
   border-bottom: 1px solid #999;
   margin: 0 0 8px 0;
 }
@@ -143,148 +143,155 @@
   border-bottom: 1px solid black;
 }
 /*# sourceMappingURL=zlrecipe-print.css.map */
+
 /* Nutrition Label CSS */
+
 #zrdn-nutrition-label {
-  width: 100%;
-}
-#zrdn-nutrition-label .nutrition-container {
-  font-family: sans-serif;
-  font-size: 12px;
-  line-height: 1.4;
-  margin: auto auto;
-}
-#zrdn-nutrition-label p {
-  margin: 0;
-}
-#zrdn-nutrition-label .nutrition-facts {
-  border: 1px solid black;
-  margin: 20px;
-  width: 280px;
-  padding: 8px;
-}
-#zrdn-nutrition-label .nutrition-facts table {
-  border-collapse: collapse;
-}
-#zrdn-nutrition-label .nutrition-facts__title {
-  margin: 0 0 4px 0;
-}
-#zrdn-nutrition-label .nutrition-facts__title::before {
-  display: none;
-}
-#zrdn-nutrition-label h2.nutrition-facts__title {
-  font-size: 36px;
-  font-weight: bold;
-}
-#zrdn-nutrition-label h3.nutrition-facts__title {
-  font-size: 22px;
-  font-weight: normal;
-}
-#zrdn-nutrition-label .bold {
-  font-weight: bold;
-}
-#zrdn-nutrition-label .nutrition-facts__header {
-  border-bottom: 10px solid black;
-  padding: 0 0 4px 0;
-  margin: 0 0 8px 0;
-}
-#zrdn-nutrition-label .nutrition-facts__header p {
-  margin: 0;
-}
-#zrdn-nutrition-label .nutrition-facts__table {
-  width: 100%;
-  margin: 0;
-}
-#zrdn-nutrition-label .nutrition-facts__table thead tr th,
-#zrdn-nutrition-label .nutrition-facts__table thead tr td {
-  border: 0;
-}
-#zrdn-nutrition-label .nutrition-facts__table th,
-#zrdn-nutrition-label .nutrition-facts__table td {
-  font-weight: normal;
-  text-align: left;
-  padding: 4px 0;
-  border: 0;
-  border-top: 1px solid black;
-  white-space: nowrap;
-}
-#zrdn-nutrition-label .nutrition-facts__table td:last-child {
-  text-align: right;
-}
-#zrdn-nutrition-label .nutrition-facts__table .blank-cell {
-  width: 16px;
-  border-top: 0;
-}
-#zrdn-nutrition-label .nutrition-facts__table .thick-row th,
-#zrdn-nutrition-label .nutrition-facts__table .thick-row td {
-  border-top-width: 5px;
-}
-#zrdn-nutrition-label .small-info {
-  font-size: 12px;
-}
-#zrdn-nutrition-label .copyright {
-  font-size: 12px;
-  margin-top: 10px;
-}
-#zrdn-nutrition-label .nutrition-facts__table--small {
+  width:100%;
+  .nutrition-container {
+    font-family: sans-serif;
+    font-size:12px;
+    line-height:1.4;
+    margin:auto auto;
+  }
+  p {
+    margin:0;
+  }
+  .nutrition-facts {
+    border: 1px solid black;
+    margin: 20px;
+    //float: left;
+    width: 280px;
+    padding: 8px;
+
+    table {
+      border-collapse: collapse;
+    }
+  }
+  .nutrition-facts__title {
+    &::before {
+      display: none;
+    }
+    margin: 0 0 4px 0;
+  }
+  h2.nutrition-facts__title {
+    font-size: 36px;
+    font-weight:bold;
+  }
+  h3.nutrition-facts__title {
+    font-size: 22px;
+    font-weight:normal;
+  }
+
+  .bold {
+    font-weight:bold;
+  }
+
+  .nutrition-facts__header {
+    border-bottom: 10px solid black;
+    padding: 0 0 4px 0;
+    margin: 0 0 8px 0;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .nutrition-facts__table {
+    width: 100%;
+    margin:0;
+
+    thead tr {
+      th, td {
+        border: 0;
+      }
+    }
+
+    th, td {
+      font-weight: normal;
+      text-align: left;
+      padding: 4px 0;
+      border:0;
+      border-top: 1px solid black;
+      white-space: nowrap;
+    }
+
+    td {
+      &:last-child {
+        text-align: right;
+      }
+    }
+
+    .blank-cell {
+      width: 16px;
+      border-top: 0;
+    }
+
+    .thick-row {
+      th, td {
+        border-top-width: 5px;
+      }
+    }
+  }
+
+  .small-info {
+    font-size: 12px;
+  }
+
+  .copyright{
+    font-size:12px;
+    margin-top:10px;
+  }
+
+  .nutrition-facts__table--small {
   @extend . nutrition-facts__table;
-  border-bottom: 1px solid #999;
-  margin: 0 0 8px 0;
+    border-bottom: 1px solid #999;
+    margin: 0 0 8px 0;
+
+    thead {
+      tr {
+        border-bottom: 1px solid black;
+      }
+    }
+
+    td {
+      &:last-child {
+        text-align: left;
+      }
+    }
+
+    th, td {
+      border: 0;
+      padding: 0;
+    }
+  }
+
+  .nutrition-facts__table--grid {
+    .nutrition-facts__table;
+    margin: 0 0 8px 0;
+
+    td {
+      &:last-child {
+        text-align: left;
+
+        &::before {
+          content: "•";
+          font-weight: bold;
+          margin: 0 4px 0 0;
+        }
+      }
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .thick-end {
+    border-bottom: 10px solid black;
+  }
+
+  .thin-end {
+    border-bottom: 1px solid black;
+  }
 }
-#zrdn-nutrition-label .nutrition-facts__table--small thead tr {
-  border-bottom: 1px solid black;
-}
-#zrdn-nutrition-label .nutrition-facts__table--small td:last-child {
-  text-align: left;
-}
-#zrdn-nutrition-label .nutrition-facts__table--small th,
-#zrdn-nutrition-label .nutrition-facts__table--small td {
-  border: 0;
-  padding: 0;
-}
-#zrdn-nutrition-label .nutrition-facts__table--grid {
-  width: 100%;
-  margin: 0;
-  margin: 0 0 8px 0;
-}
-#zrdn-nutrition-label .nutrition-facts__table--grid thead tr th,
-#zrdn-nutrition-label .nutrition-facts__table--grid thead tr td {
-  border: 0;
-}
-#zrdn-nutrition-label .nutrition-facts__table--grid th,
-#zrdn-nutrition-label .nutrition-facts__table--grid td {
-  font-weight: normal;
-  text-align: left;
-  padding: 4px 0;
-  border: 0;
-  border-top: 1px solid black;
-  white-space: nowrap;
-}
-#zrdn-nutrition-label .nutrition-facts__table--grid td:last-child {
-  text-align: right;
-}
-#zrdn-nutrition-label .nutrition-facts__table--grid .blank-cell {
-  width: 16px;
-  border-top: 0;
-}
-#zrdn-nutrition-label .nutrition-facts__table--grid .thick-row th,
-#zrdn-nutrition-label .nutrition-facts__table--grid .thick-row td {
-  border-top-width: 5px;
-}
-#zrdn-nutrition-label .nutrition-facts__table--grid td:last-child {
-  text-align: left;
-}
-#zrdn-nutrition-label .nutrition-facts__table--grid td:last-child::before {
-  content: "•";
-  font-weight: bold;
-  margin: 0 4px 0 0;
-}
-#zrdn-nutrition-label .text-center {
-  text-align: center;
-}
-#zrdn-nutrition-label .thick-end {
-  border-bottom: 10px solid black;
-}
-#zrdn-nutrition-label .thin-end {
-  border-bottom: 1px solid black;
-}
-/*# sourceMappingURL=zlrecipe-print.css.map */

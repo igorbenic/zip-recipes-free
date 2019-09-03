@@ -372,11 +372,11 @@ Copyright 2011, 2012 ZipList, Inc.
 #zrdn-nutrition-label .nutrition-facts__title::before {
   display: none;
 }
-#zrdn-nutrition-label h1.nutrition-facts__title {
+#zrdn-nutrition-label h2.nutrition-facts__title {
   font-size: 36px;
   font-weight: bold;
 }
-#zrdn-nutrition-label h2.nutrition-facts__title {
+#zrdn-nutrition-label h3.nutrition-facts__title {
   font-size: 22px;
   font-weight: normal;
 }

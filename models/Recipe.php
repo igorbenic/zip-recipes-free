@@ -485,23 +485,8 @@ class Recipe {
         $this->sodium_daily = self::calculate_daily_value('sodium', $this->sodium);
         $this->carbs_daily = self::calculate_daily_value('carbs', $this->carbs);
         $this->fiber_daily = self::calculate_daily_value('fiber', $this->fiber);
-        if ($this->calories == null) error_log(" null");
-        if ($this->yield == null) error_log(" null");
-        if ($this->serving_size == null) error_log(" null");
-        if ($this->protein == null) error_log(" null");
-        if ($this->fiber == null) error_log(" null");
-        if ($this->sugar == null) error_log(" null");
-        if ($this->calories == null) error_log(" null");
-        if (strlen($this->calories)==0) error_log("strlen  0");
-        if ($this->calories==0) error_log(" 0");
-        if (empty($this->calories)!=0) error_log(" empty");
-error_log("cals ".$this->calories);
-error_log("cals len ".strlen($this->calories));
-
         $this->has_nutrition_data = false;
         if (
-            $this->yield != null ||
-            $this->serving_size != null ||
             $this->calories != null ||
             $this->fat != null ||
             $this->carbs != null ||
@@ -510,7 +495,8 @@ error_log("cals len ".strlen($this->calories));
             $this->sugar != null ||
             $this->saturated_fat != null ||
             $this->cholesterol != null ||
-            $this->sodium != null
+            $this->sodium != null ||
+            $this->trans_fat != null
         ) {
             $this->has_nutrition_data = true;
         }

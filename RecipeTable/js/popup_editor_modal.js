@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
         var formdata = $('#recipe-settings').serializeArray();
 
         btn.html('...');
-        btn.html('<div class="zrdn-loader"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
+        btn.html('<div class="zrdn-loader zrdn-loader-white"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
 
         $.ajax({
             type: "POST",
