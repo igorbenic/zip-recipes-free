@@ -80,6 +80,8 @@ function zrdn_autoload($className)
     require_once(ZRDN_PLUGIN_DIRECTORY . '_inc/PluginBase.php');
 
     require_once(ZRDN_PLUGIN_DIRECTORY . 'RecipeTable/RecipeMenu.php');
+    require_once(ZRDN_PLUGIN_DIRECTORY . 'NutritionLabel/NutritionLabel.php');
+
     if (is_admin()){
         require_once(ZRDN_PLUGIN_DIRECTORY . 'upgrade-zip.php');
         //free only

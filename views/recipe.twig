@@ -122,13 +122,13 @@
         {% if yield %}
           <p id="zlrecipe-yield">
             {% if yield_label_hide != 'Hide' %}
-              {{ __('Yield:','zip-recipes') }}
+              {{ __('Servings:','zip-recipes') }}
             {% endif %}
             <span class="yield" {{ recipe_props.recipe_attr('itemprop', "recipeYield", amp_on, schema_type) }}>{{ yield }}</span>
           </p>
         {% endif %}
 
-        {% if nutritional_info %}
+        {% if show_nutritional_info and show_nutritional_info_as_text %}
           <div id="zlrecipe-nutrition"
                   {{ recipe_props.recipe_attr('itemprop', "nutrition", amp_on, schema_type) }}
                   {{ recipe_props.recipe_attr('itemscope', false, amp_on, schema_type) }}
@@ -377,7 +377,9 @@
        {{ formatted_notes|raw }}
       </div>
     {% endif %}
-    {{ nutrition_label|raw }}
+    {% if show_nutritional_info and not show_nutritional_info_as_text %}
+        {{ nutrition_label|raw }}
+    {% endif %}
 
     {# Zip Recipes attribution and version #}
     {% if attribution_hide != 'Hide' %}

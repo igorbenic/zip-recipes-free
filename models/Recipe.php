@@ -485,10 +485,20 @@ class Recipe {
         $this->sodium_daily = self::calculate_daily_value('sodium', $this->sodium);
         $this->carbs_daily = self::calculate_daily_value('carbs', $this->carbs);
         $this->fiber_daily = self::calculate_daily_value('fiber', $this->fiber);
-        if (!empty($this->calories)) {
+        $this->has_nutrition_data = false;
+        if (
+            $this->calories != null ||
+            $this->fat != null ||
+            $this->carbs != null ||
+            $this->protein != null ||
+            $this->fiber != null ||
+            $this->sugar != null ||
+            $this->saturated_fat != null ||
+            $this->cholesterol != null ||
+            $this->sodium != null ||
+            $this->trans_fat != null
+        ) {
             $this->has_nutrition_data = true;
-        } else {
-            $this->has_nutrition_data = false;
         }
 
         //check if post_id is a revision

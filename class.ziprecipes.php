@@ -156,6 +156,8 @@ class ZipRecipes {
         add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
 
         add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets');
+        add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::remove_free_translation_files', 30);
+
     }
 
 
@@ -185,6 +187,32 @@ class ZipRecipes {
             <?php
         }
     }
+
+    /**
+     *   Remove free translation files, as these do not include the twig files yet.
+     */
+
+    public static function remove_free_translation_files()
+    {
+        $path = dirname(ZRDN_PLUGIN_DIRECTORY, 2)."/languages/plugins/";
+        $extensions = array("po", "mo");
+        if ($handle = opendir($path)) {
+            while (false !== ($file = readdir($handle))) {
+                if ($file != "." && $file != "..") {
+                    $file = $path . '/' . $file;
+                    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                    if (is_file($file) && in_array($ext, $extensions) && strpos($file, 'zip-recipes')!==FALSE && strpos($file, 'backup')===FALSE) {
+                        //copy to new file
+                        $new_name = str_replace('zip-recipes','zip-recipes-backup',$file);
+
+                        rename($file, $new_name);
+                    }
+                }
+            }
+            closedir($handle);
+        }
+    }
+
 
     public static function zrdn_add_recipe_button()
     {
@@ -262,24 +290,6 @@ class ZipRecipes {
      */
     public static function zrdn_format_recipe($recipe)
     {
-        $nutritional_info = false;
-        if (
-            $recipe->yield != null ||
-            $recipe->serving_size != null ||
-            $recipe->calories != null ||
-            $recipe->fat != null ||
-            $recipe->carbs != null ||
-            $recipe->protein != null ||
-            $recipe->fiber != null ||
-            $recipe->sugar != null ||
-            $recipe->saturated_fat != null ||
-            $recipe->cholesterol != null ||
-            $recipe->sodium != null ||
-            $recipe->trans_fat
-        ) {
-            $nutritional_info = true;
-        }
-
         $nested_ingredients = self::get_nested_items($recipe->ingredients);
         $nested_instructions = self::get_nested_items($recipe->instructions);
 
@@ -328,7 +338,8 @@ class ZipRecipes {
             'total_time_label_hide' => get_option('zlrecipe_total_time_label_hide'),
             'yield' => $recipe->yield,
             'yield_label_hide' => get_option('zlrecipe_yield_label_hide'),
-            'nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide') ? false : $nutritional_info,
+            'show_nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide') ? false : $recipe->has_nutrition_data,//
+            'show_nutritional_info_as_text' => get_option('zlrecipe_nutrition_info_use_text', false),
             'serving_size' => $recipe->serving_size,
             'serving_size_label_hide' => get_option('zlrecipe_serving_size_label_hide'),
             'calories' => $recipe->calories,
@@ -381,17 +392,15 @@ class ZipRecipes {
             'author' => $recipe->author,
             // The second argument to apply_filters is what is returned if no one implements this hook.
             // For `nutrition_label`, we want an empty string, not $recipe object.
-            'nutrition_label' => apply_filters('zrdn__automatic_nutrition_get_label', '', $recipe),
+            'nutrition_label' => apply_filters('zrdn__nutrition_get_label', '', $recipe),
             'amp_on' => $amp_on,
             'jsonld' => $jsonld,
             'recipe_actions' => apply_filters('zrdn__recipe_actions', ''),
             'schema_type' => $schema_type,
             'video_embed' =>  $embed,
         );
-
         do_action('zrdn__enqueue_recipe_styles');
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
-
         return $custom_template ?: Util::view('recipe', $viewParams);
     }
 
@@ -436,10 +445,11 @@ class ZipRecipes {
         return $nested_list;
     }
 
+
     /**
-     * Return subtitle for item.
-     * @param $item string Raw ingredients/instructions item
-     *
+     *  Return subtitle for item.
+     * @param string $item //Raw ingredients/instructions item
+     * @return string
      */
     private static function get_subtitle($item)
     {
@@ -580,6 +590,7 @@ class ZipRecipes {
         // load other option values in to variables. These variables are used to load saved values through variable variables
         $notes_label_hide = get_option('zlrecipe_notes_label_hide');
         $nutrition_info_label_hide = get_option('zlrecipe_nutrition_info_label_hide');
+        $nutrition_info_use_text = get_option('zlrecipe_nutrition_info_use_text');
         $prep_time_label_hide = get_option('zlrecipe_prep_time_label_hide');
         $cook_time_label_hide = get_option('zlrecipe_cook_time_label_hide');
         $total_time_label_hide = get_option('zlrecipe_total_time_label_hide');
@@ -640,6 +651,7 @@ class ZipRecipes {
                 $category_label_hide = Util::get_array_value('category-label-hide', $_POST);
                 $cuisine_label_hide = Util::get_array_value('cuisine-label-hide', $_POST);
                 $nutrition_info_label_hide = Util::get_array_value('nutrition-info-label-hide', $_POST);
+                $nutrition_info_use_text = Util::get_array_value('nutrition-info-use-text', $_POST);
 
                 update_option('zrdn_attribution_hide', $zrecipe_attribution_hide);
                 update_option('zlrecipe_printed_permalink_hide', $printed_permalink_hide);
@@ -677,6 +689,7 @@ class ZipRecipes {
                 update_option('zlrecipe_category_label_hide', $category_label_hide);
                 update_option('zlrecipe_cuisine_label_hide', $cuisine_label_hide);
                 update_option('zlrecipe_nutrition_info_label_hide', $nutrition_info_label_hide);
+                update_option('zlrecipe_nutrition_info_use_text', $nutrition_info_use_text);
 
                 do_action('zrdn__custom_templates_save', $_POST);
             }
@@ -717,6 +730,17 @@ class ZipRecipes {
         $ins_p = (strcmp($instruction_list_type, 'p') == 0 ? 'checked="checked"' : '');
         $ins_div = (strcmp($instruction_list_type, 'div') == 0 ? 'checked="checked"' : '');
         $other_options = '';
+
+        $checked = $nutrition_info_use_text ? 'checked="checked"' : "";
+        $other_options .= '<tr valign="top">
+            <td>
+                <label>
+                    <input type="checkbox" name="nutrition-info-use-text" value="1" ' . $checked . ' /> ' . __("Use text for the nutritional info", 'zip-recipes') . '
+                </label>
+            </td>
+        </tr>';
+
+
         $other_options_array = array('Nutrition Info','Prep Time', 'Cook Time', 'Total Time', 'Yield', 'Serving Size', 'Category', 'Cuisine');
 
         foreach ($other_options_array as $option) {
@@ -731,6 +755,7 @@ class ZipRecipes {
             </td>
         </tr>';
         }
+
 
         $settingsParams = array('zrdn_icon' => $zrdn_icon,
             'custom_print_image' => $custom_print_image,

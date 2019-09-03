@@ -207,7 +207,7 @@ class Util {
      * @return int
      */
 
-    public static function count_recipes($args){
+    public static function count_recipes($args=array()){
         $default_args = array(
             'search' =>'',
         );
