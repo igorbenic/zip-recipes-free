@@ -92,7 +92,7 @@
                         // So we settle on collapse!
                         editor.selection.collapse();
                     }
-                    var iframe_url = baseurl + '/wp-admin/media-upload.php?recipe_post_id=' + ((recipe_id) ? '1-' + recipe_id[1] : post_id) + '&type=z_recipe&tab=amd_zlrecipe&TB_iframe=true&width=640&height=523';
+                    var iframe_url = baseurl + '/wp-admin/media-upload.php?recipe_post_id=' + ((recipe_id) ? '1-' + recipe_id[1] : post_id) + '&type=z_recipe&tab=amd_zlrecipe&TB_iframe=true&width=640&height=523&post_id='+post_id;
                     var modal_width = Math.min(780, Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
                         - 20 // width buffer
                     );
@@ -139,10 +139,10 @@
         getInfo: function () {
             return {
                 longname: "Zip Recipes Plugin",
-                author: 'HappyGezim',
+                author: 'RogierLankhorst',
                 authorurl: 'https://www.ziprecipes.net/',
                 infourl: 'https://www.ziprecipes.net/',
-                version: "5.0"
+                version: "6.0"
             };
         }
     });
