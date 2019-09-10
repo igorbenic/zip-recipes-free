@@ -53,7 +53,8 @@ function zrdn_discount($html='') {
     return $html;
 }
 
-//register_activation_hook(__FILE__, __NAMESPACE__ . '\zrdn_set_activation_time');
+
+
 add_action('admin_init', __NAMESPACE__.'\zrdn_set_activation_time');
 function zrdn_set_activation_time(){
     if (!get_option('zrdn_activation_time')) {

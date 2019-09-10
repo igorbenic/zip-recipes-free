@@ -156,7 +156,6 @@ class ZipRecipes {
         add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
 
         add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets');
-        add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::remove_free_translation_files', 30);
 
     }
 
@@ -185,31 +184,6 @@ class ZipRecipes {
                     ?>';
             </script>
             <?php
-        }
-    }
-
-    /**
-     *   Remove free translation files, as these do not include the twig files yet.
-     */
-
-    public static function remove_free_translation_files()
-    {
-        $path = dirname(ZRDN_PLUGIN_DIRECTORY, 2)."/languages/plugins/";
-        $extensions = array("po", "mo");
-        if ($handle = opendir($path)) {
-            while (false !== ($file = readdir($handle))) {
-                if ($file != "." && $file != "..") {
-                    $file = $path . '/' . $file;
-                    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                    if (is_file($file) && in_array($ext, $extensions) && strpos($file, 'zip-recipes')!==FALSE && strpos($file, 'backup')===FALSE) {
-                        //copy to new file
-                        $new_name = str_replace('zip-recipes','zip-recipes-backup',$file);
-
-                        rename($file, $new_name);
-                    }
-                }
-            }
-            closedir($handle);
         }
     }
 

@@ -87,6 +87,8 @@ function zrdn_autoload($className)
         //free only
         require_once(ZRDN_PLUGIN_DIRECTORY . 'promo.php');
         require_once(ZRDN_PLUGIN_DIRECTORY . 'class-field.php');
+        require_once(ZRDN_PLUGIN_DIRECTORY . 'twig-strings.php');
+
     }
 
     /**
