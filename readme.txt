@@ -9,7 +9,7 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, food, schema.org, nutrition, rich snippets, seo, cooking
 Requires at least: 4.2
 Tested up to: 5.2
-Stable tag: 6.1.0
+Stable tag: 6.1.3
 Requires PHP: 5.4
 
 Zip Recipes is the best way to easily create a beautiful food blog with professional looking recipes that can be found by Google. Schema.org, Rich Snippets and AMP (Accelerated Mobile Pages) compatible.
@@ -159,6 +159,16 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 5. Copy your recipes directly from Microsoft Word, Adobe PDF, etc.
 
 == Changelog ==
+= 6.1.3 =
+* Fix: print styles for default theme
+* Improvement: language strings for wp repo
+
+= 6.1.2 =
+* Fix: pre php 7 compatibility
+
+= 6.1.1 =
+* Fix: when no language folder is present, no check on free languages files should be made
+
 = 6.1.0 =
 * improvement: HTML and CSS styled nutrition label
 * language files from the plugin should not get overridden by wp.org translations
