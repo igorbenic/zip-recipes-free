@@ -742,7 +742,7 @@ if (!class_exists("ZRDN_Field")) {
                 $width = isset($sizes[ $args['size']]['width']) ? $sizes[ $args['size'] ]['width'] : '100';
                 $height = isset($sizes[ $args['size'] ]['height']) ? $sizes[ $args['size'] ]['height'] : '100';
             }
-            $src = strlen(esc_url($args['value'])>0) ? esc_url($args['value']) : ZRDN_PLUGIN_URL . '/images/s.png';
+            $src = strlen(esc_url($args['value']))>0 ? esc_url($args['value']) : ZRDN_PLUGIN_URL . '/images/s.png';
             //now resize to height 100
             $ratio = $height/100;
             $width = $width/$ratio;
