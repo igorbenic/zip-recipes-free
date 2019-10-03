@@ -128,6 +128,9 @@ jQuery(document).ready(function ($) {
      */
     $(document).on('click','.zrdn_remove_image',function(){
         event.preventDefault();
+        $(".zrdn-recipe-save-button input").prop('disabled', true);
+        $(".zrdn-recipe-save-button button").prop('disabled', true);
+
         var image = $(this).parent().find('.zrdn-recipe-image');
         var recipe_id = $('input[name=zrdn_recipe_id]').val();
         $.ajax({
@@ -143,9 +146,13 @@ jQuery(document).ready(function ($) {
                 if (response.success) {
                     image.attr('src', zrdn_editor.default_image);
                     image.attr('srcset', zrdn_editor.default_image);
+                    $('input[name=zrdn_recipe_id]').val(0);
+
                 } else {
                     image.parent().append(' Clearing image failed...');
                 }
+                $(".zrdn-recipe-save-button button").prop('disabled', false);
+                $(".zrdn-recipe-save-button input").prop('disabled', false);
             }
         });
 
