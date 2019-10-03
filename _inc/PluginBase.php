@@ -11,6 +11,7 @@ namespace ZRDN;
 abstract class PluginBase
 {
     public $suffix = '';
+    private static $unitInfoLoaded = false;
 
     public function __construct()
     {
@@ -61,6 +62,90 @@ abstract class PluginBase
         }
 
         return $disabled;
+    }
+
+
+    // JS_script_tag -> JS script tag which to enqueue the data to
+    public function loadUnitInfo($JS_script_tag) {
+
+        if (PluginBase::$unitInfoLoaded) {
+            return;
+        }
+
+                $units = array(
+                    array(
+                       'src' => array(__('ounce','zip-recipes'),__('ounces','zip-recipes')),
+                       'type' => 'imperial',
+                       'conversionUnit' => array(__('gram','zip-recipes'),_x('grams','plural','zip-recipes')),
+                       'ratio' => '28.3495231',
+                       'decimal_rounding' => 1,
+                   ),
+                   array(
+                       'src' => array('[\d ]'.__('oz','zip-recipes'),'[\d ]'.__('oz','zip-recipes')),
+                       'type' => 'imperial',
+                       'conversionUnit' => array(__('gram','zip-recipes'),_x('grams','plural','zip-recipes')),
+                       'ratio' => '28.3495231',
+                       'decimal_rounding' => 1,
+                   ),
+                   array(
+                       'src' => array(__('pound','zip-recipes'),__('pounds', 'zip-recipes')),
+                       'type' => 'imperial',
+                       'conversionUnit' => array(__('gram','zip-recipes'),_x('grams','plural','zip-recipes')),
+                       'ratio' => '453.59237',
+                       'decimal_rounding' => 2,
+                   ),
+                   array(
+                       'src' => array('[\d ]'.__('lb','zip-recipes'),'[\d ]'.__('lbs', 'zip-recipes')),
+                       'type' => 'imperial',
+                       'conversionUnit' => array(__('gram','zip-recipes'),_x('grams','plural','zip-recipes')),
+                       'ratio' => '453.59237',
+                       'decimal_rounding' => 2,
+                   ),
+                   array(
+                       'src' =>array(__('gram','zip-recipes'),_x('grams','plural','zip-recipes')),
+                       'type' => 'metric',
+                       'conversionUnit' => array(__('ounce','zip-recipes'),__('ounces','zip-recipes')),
+                       'ratio' => '0.0352739619',
+                       'decimal_rounding' => 0,
+                   ),
+                   array(
+                       'src' =>array('[\d ]'._x('g','short for gram','zip-recipes'),'[\d ]' . _x('g','short for grams, plural','zip-recipes')),
+                       'type' => 'metric',
+                       'conversionUnit' => array(__('ounce','zip-recipes'),__('ounces','zip-recipes')),
+                       'ratio' => '0.0352739619',
+                       'decimal_rounding' => 0,
+                   ),
+                   array(
+                       'src' =>array(__('kilogram','zip-recipes'),_x('kilograms','plural','zip-recipes')),
+                       'type' => 'metric',
+                       'conversionUnit' => array(__('ounce','zip-recipes'),__('ounces','zip-recipes')),
+                       'ratio' => '35.2739619‬',
+                       'decimal_rounding' => 2,
+                   ),
+                   array(
+                       'src' =>array('[\d ]'.__('kg','zip-recipes'),'[\d ]'._x('kgs ','plural','zip-recipes')),
+                       'type' => 'metric',
+                       'conversionUnit' => array(__('ounce','zip-recipes'),__('ounces','zip-recipes')),
+                       'ratio' => '35.2739619‬',
+                       'decimal_rounding' => 2,
+                   ),
+                   // array(
+                   //     'src' => __('cup','zip-recipes'),
+                   //     'type' => 'imperial',
+                   //     'conversionUnit' => __('liter','zip-recipes'),
+                   //     'ratio' => '1.5',
+                   // ),
+
+                   // array(
+                   //     'src' => __('liter','zip-recipes'),
+                   //     'type' => 'metric',
+                   //     'conversionUnit' => __('gram','zip-recipes'),
+                   //     'ratio' => '1.5',
+                   // ),
+           );
+
+        wp_localize_script($JS_script_tag, 'zrdn_units', $units);
+        PluginBase::$unitInfoLoaded = true;
     }
 }
 
