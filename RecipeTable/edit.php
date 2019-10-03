@@ -402,8 +402,6 @@ if (isset($_GET['post_id'])) {
                     <?php zrdn_notice(__("Google prefers three images in the ratio's 1x1, 4x3 and 16x9. These are generated automatically by Zip Recipes, but you can change the selected images here. Use a high resolution image. If you reset an image, it will default to the generated image based on the main recipe image, or if there is no recipe image, the linked post image.", "zip-recipes"), 'notice', true, false, false);
                     ?>
 
-                    <?php do_action('zrdn_nutrition_fields', $recipe) ?>
-
                     <?php $snippet_fields = array(
                         array(
                             'type' => 'upload',

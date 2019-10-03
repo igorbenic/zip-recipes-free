@@ -119,7 +119,7 @@ jQuery(document).ready(function ($) {
 
     if ($('input[name=zrdn_recipe_image]').val().length >0){
         $('.zrdn-recipe-image').attr('src', $('input[name=zrdn_recipe_image]').val());
-        var link = '<a href="#" style="float:right" class="zrdn_remove_image">'+zrdn_editor.str_remove+'</a>';
+        var link = '<div style="clear:both"></div><a href="#" style="float:right" class="zrdn_remove_image">'+zrdn_editor.str_remove+'</a>';
         $('.zrdn-recipe-image').parent().append(link);
     }
 
@@ -128,6 +128,7 @@ jQuery(document).ready(function ($) {
      */
     $(document).on('click','.zrdn_remove_image',function(){
         event.preventDefault();
+
         $(".zrdn-recipe-save-button input").prop('disabled', true);
         $(".zrdn-recipe-save-button button").prop('disabled', true);
 
@@ -146,7 +147,8 @@ jQuery(document).ready(function ($) {
                 if (response.success) {
                     image.attr('src', zrdn_editor.default_image);
                     image.attr('srcset', zrdn_editor.default_image);
-                    $('input[name=zrdn_recipe_id]').val(0);
+                    $('input[name=zrdn_recipe_image]').val('');
+                    $('input[name=zrdn_recipe_image_id]').val(0);
 
                 } else {
                     image.parent().append(' Clearing image failed...');
@@ -361,7 +363,7 @@ jQuery(document).ready(function ($) {
         var container = btn.closest('.zrdn-field');
         var textField = container.find('.zrdn-image-upload-field');
         var fieldname = textField.attr('name');
-        container.find('.zrdn-image-upload-preview').attr('src',zrdn_editor.image_placeholder);
+        container.find('.zrdn-preview-snippet').attr('src',zrdn_editor.image_placeholder);
         $('input[name='+fieldname+'_id]').val('');
         $('input[name='+fieldname+']').val('');
     });
@@ -393,17 +395,15 @@ jQuery(document).ready(function ($) {
             for(var iii = 0; iii < length; iii++)
             {
                 var thumbnail_id = images[iii].id;
-                console.log(images[iii]);
                 var image = false;
                 if (images[iii].attributes.sizes.hasOwnProperty(size)) {
                     image = images[iii].attributes.sizes[size];
                 } else if(images[iii].attributes.sizes.hasOwnProperty(size+'_s')) {
                     image = images[iii].attributes.sizes[size+'_s'];
                 }
-                console.log(image);
                 if (image) {
                     var image_url = image['url'];
-                    container.find('.zrdn-image-upload-preview').attr('src',image_url);
+                    container.find('.zrdn-preview-snippet').attr('src',image_url);
                     $('input[name='+fieldname+'_id]').val(thumbnail_id);
                     $('input[name='+fieldname+']').val(image_url);
 
