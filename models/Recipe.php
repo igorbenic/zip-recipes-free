@@ -24,6 +24,12 @@ function zrdn_update_recipe_table(){
             'post_id bigint(20) unsigned NOT NULL',
             'nutrition_label_id bigint(20) unsigned NOT NULL',
             'recipe_image_id bigint(20) unsigned NOT NULL',
+            'json_image_1x1_id bigint(20) unsigned NOT NULL',
+            'json_image_4x3_id bigint(20) unsigned NOT NULL',
+            'json_image_16x9_id bigint(20) unsigned NOT NULL',
+            'json_image_1x1 text',
+            'json_image_4x3 text',
+            'json_image_16x9 text',
             'recipe_title text',
             'recipe_image text',
             'summary text',
@@ -148,6 +154,12 @@ class Recipe {
 	 * @var string
 	 */
 	public $recipe_image;
+	public $json_image_1x1;
+	public $json_image_4x3;
+	public $json_image_16x9;
+    public $json_image_1x1_id;
+    public $json_image_4x3_id;
+    public $json_image_16x9_id;
     /**
      * JSON should always have an image, so if the normal image is not available we try to set it from the post
      * @var string
@@ -421,8 +433,6 @@ class Recipe {
             }
         }
 
-
-
         //set default author if empty
         $this->author = apply_filters('zrdn_author_value', $this->author, $this->recipe_id, $this->post_id);
         $this->total_time = $this->calculate_total_time_raw($this->prep_time, $this->cook_time);
@@ -449,10 +459,7 @@ class Recipe {
 
         //check if we should load the recipe image based on ID
         if ($this->recipe_image_id>0){
-            $img = wp_get_attachment_image_src($this->recipe_image_id, 'zrdn_recipe_image');
-            if ($img) {
-                $this->recipe_image = $img[0];
-            }
+            $this->recipe_image = $this->get_image_url_by_size($this->recipe_image_id, 'zrdn_recipe_image');
         }
         //check if image is also featured image for connected post
         //@todo: deprecate this
@@ -467,11 +474,11 @@ class Recipe {
         //set a separate json image
         //if this recipe has an image, use it
         if (!empty($this->recipe_image)){
-            $this->recipe_image_json = $this->recipe_image;
+            $this->recipe_image_json = $this->generate_recipe_image_json($this->recipe_image_id);
         } else {
             if ($this->post_id>0){
-                $post_thumbnail_id = get_post_thumbnail_id();
-                $this->recipe_image_json = wp_get_attachment_image_url($post_thumbnail_id, 'large');
+                $post_thumbnail_id = get_post_thumbnail_id($this->post_id);
+                $this->recipe_image_json = $this->generate_recipe_image_json($post_thumbnail_id);
             }
         }
 
@@ -504,6 +511,81 @@ class Recipe {
         //check if post_id is a revision
         if ($this->post_id && get_post_type($this->post_id) === 'revision'){
             $this->post_id = false;
+        }
+
+        error_log(print_r($this, true));
+
+    }
+
+    /**
+     * Get url of an image by size. If fallback is true, we use the full size as fallback size
+     * @param int $image_id
+     * @param string $size
+     * @param bool $fallback
+     * @return string $url
+     */
+
+    public function get_image_url_by_size($image_id, $size, $fallback=true){
+        $url = false;
+        $img = wp_get_attachment_image_src($image_id, $size);
+
+        if ($img) {
+            $url = $img[0];
+            $is_original = !$img[3];
+            if (!$fallback && $is_original) return false;
+        }
+        return $url;
+    }
+
+    /**
+     * Get json for images.
+     * @param int $image_id
+     * @return array|string image_json
+     */
+
+    public function generate_recipe_image_json($image_id){
+
+        $image_1x1 = $image_4x3 = $image_16x9 = false;
+
+        //load in object
+        if ($this->json_image_1x1_id==0 || $this->json_image_1x1_id===$image_id) {
+            if ($image_id>0) {
+                //we first try to get three different ratio's
+                $image_1x1 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_1x1', false);
+                if (!$image_1x1) $image_1x1 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_1x1_s', false);
+            }
+
+            if ($image_1x1) $this->json_image_1x1 = $image_1x1;
+        }
+        if ($this->json_image_4x3_id==0 || $this->json_image_4x3_id===$image_id) {
+            if ($image_id>0) {
+                //we first try to get three different ratio's
+                $image_4x3 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_4x3', false);
+                if (!$image_4x3) $image_4x3 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_4x3_s', false);
+            }
+
+            if ($image_4x3) $this->json_image_4x3 = $image_4x3;
+        }
+
+        if ($this->json_image_16x9_id==0 || $this->json_image_16x9_id===$image_id) {
+            if ($image_id>0) {
+                //we first try to get three different ratio's
+                $image_16x9 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_16x9', false);
+                if (!$image_16x9) $image_16x9 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_16x9_s', false);
+
+            }
+            if ($image_16x9) $this->json_image_16x9 = $image_16x9;
+        }
+
+        if ($this->json_image_1x1 && $this->json_image_4x3 && $this->json_image_16x9) {
+            return array(
+                $this->json_image_1x1,
+                $this->json_image_4x3,
+                $this->json_image_16x9,
+            );
+        } else {
+            //no ratio sizes found, so just return the image url as json image.
+            return $this->recipe_image;
         }
     }
 
@@ -571,6 +653,12 @@ class Recipe {
             'author' => sanitize_text_field($this->author),
             'recipe_image' => sanitize_text_field($this->recipe_image),
             'recipe_image_id' => sanitize_text_field($this->recipe_image_id),
+            'json_image_1x1' => sanitize_text_field($this->json_image_1x1),
+            'json_image_4x3' => sanitize_text_field($this->json_image_4x3),
+            'json_image_16x9' => sanitize_text_field($this->json_image_16x9),
+            'json_image_1x1_id' => intval($this->json_image_1x1_id),
+            'json_image_4x3_id' => intval($this->json_image_4x3_id),
+            'json_image_16x9_id' => intval($this->json_image_16x9_id),
             'summary' => stripslashes(wp_kses_post($this->summary)),
             'prep_time' => Util::validate_time($this->prep_time),
             'cook_time' => Util::validate_time($this->cook_time),

@@ -345,6 +345,72 @@ jQuery(document).ready(function ($) {
         media_uploader.open();
     });
 
+
+    /**
+     * Rich snippets uploader
+     */
+    $(document).on('click','.zrdn-image-reset',function(){
+        var btn = $(this);
+        var container = btn.closest('.zrdn-field');
+        var textField = container.find('.zrdn-image-upload-field');
+        var fieldname = textField.attr('name');
+        container.find('.zrdn-image-upload-preview').attr('src',zrdn_editor.image_placeholder);
+        $('input[name='+fieldname+'_id]').val('');
+        $('input[name='+fieldname+']').val('');
+    });
+
+    $(document).on( 'click','.zrdn-image-uploader', function()
+    {
+        var btn = $(this);
+        var container = btn.closest('.zrdn-field');
+        var textField = container.find('.zrdn-image-upload-field');
+        var size = textField.data('size');
+        var fieldname = textField.attr('name');
+
+        //cleanup
+        container.find('.zrdn-image-resolution-warning').hide();
+
+        media_uploader = wp.media({
+            frame:    "post",
+            state:    "insert",
+            multiple: false
+        });
+
+        media_uploader.on("insert", function(){
+
+            container.append( '<div class="loading-gif"></div>' );
+
+            var length = media_uploader.state().get("selection").length;
+            var images = media_uploader.state().get("selection").models;
+
+            for(var iii = 0; iii < length; iii++)
+            {
+                var thumbnail_id = images[iii].id;
+                console.log(images[iii]);
+                var image = false;
+                if (images[iii].attributes.sizes.hasOwnProperty(size)) {
+                    image = images[iii].attributes.sizes[size];
+                } else if(images[iii].attributes.sizes.hasOwnProperty(size+'_s')) {
+                    image = images[iii].attributes.sizes[size+'_s'];
+                }
+                console.log(image);
+                if (image) {
+                    var image_url = image['url'];
+                    container.find('.zrdn-image-upload-preview').attr('src',image_url);
+                    $('input[name='+fieldname+'_id]').val(thumbnail_id);
+                    $('input[name='+fieldname+']').val(image_url);
+
+                } else {
+                    container.find('.zrdn-image-resolution-warning').show();
+                }
+
+            }
+            container.find('.loading-gif').remove();
+        });
+
+        media_uploader.open();
+    });
+
     /**
      * video
      */

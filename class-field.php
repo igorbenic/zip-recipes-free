@@ -313,6 +313,8 @@ if (!class_exists("ZRDN_Field")) {
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
             $value = $args['value'];
+            $default = $args['default'];
+            if (intval($value)==0) $value = $default;
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
@@ -707,20 +709,57 @@ if (!class_exists("ZRDN_Field")) {
          *
          * @echo string $html
          */
+        public function get_image_sizes() {
+            global $_wp_additional_image_sizes;
 
+            $sizes = array();
+
+            foreach ( get_intermediate_image_sizes() as $_size ) {
+                if ( in_array( $_size, array('thumbnail', 'medium', 'medium_large', 'large') ) ) {
+                    $sizes[ $_size ]['width']  = get_option( "{$_size}_size_w" );
+                    $sizes[ $_size ]['height'] = get_option( "{$_size}_size_h" );
+                    $sizes[ $_size ]['crop']   = (bool) get_option( "{$_size}_crop" );
+                } elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+                    $sizes[ $_size ] = array(
+                        'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
+                        'height' => $_wp_additional_image_sizes[ $_size ]['height'],
+                        'crop'   => $_wp_additional_image_sizes[ $_size ]['crop'],
+                    );
+                }
+            }
+
+            return $sizes;
+        }
         public
         function upload($args)
         {
+            //get width and height from image size
 
+            $sizes = $this->get_image_sizes();
+            $width="100";
+            $height="100";
+            if ( isset( $sizes[ $args['size'] ] ) ) {
+                $width = isset($sizes[ $args['size']]['width']) ? $sizes[ $args['size'] ]['width'] : '100';
+                $height = isset($sizes[ $args['size'] ]['height']) ? $sizes[ $args['size'] ]['height'] : '100';
+            }
+            $src = strlen(esc_url($args['value'])>0) ? esc_url($args['value']) : ZRDN_PLUGIN_URL . '/images/s.png';
+            //now resize to height 100
+            $ratio = $height/100;
+            $width = $width/$ratio;
+            $height = 100;
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
             <label><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
-
-            <input type="file" type="submit" name="zrdn-upload-file"
-                   value="<?php echo esc_html($args['label']) ?>">
-            <input <?php if ($args['disabled']) echo "disabled"?> class="button" type="submit" name="<?php echo $args['action']?>"
-                                                                  value="<?php _e('Start', 'complianz-gdpr') ?>">
+            <input type="hidden" name="zrdn_<?php echo esc_html($args['fieldname']) ?>_id" value="<?php echo intval($args['thumbnail_id'])?>">
+            <div class="zrdn-hidden zrdn-image-resolution-warning">
+                <?php zrdn_notice(__("Image resolution too low for a Rich Snippet", "zip-recipes"), 'warning', true, false, false);?>
+            </div>
+            <input type="text" data-size="<?php echo $args['size']?>" class="zrdn-image-upload-field" name="zrdn_<?php echo esc_html($args['fieldname']) ?>"
+                   value="<?php echo esc_url($args['value']) ?>">
+            <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-uploader" type="button" value="<?php _e('Edit', 'zip-recipes') ?>">
+            <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-reset" type="button" value="<?php _e('Reset', 'zip-recipes') ?>">
+            <img width="<?php echo $width?>" height="<?php echo $height?>" src="<?php echo $src?>" class="zrdn-image-upload-preview">
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
@@ -734,7 +773,7 @@ if (!class_exists("ZRDN_Field")) {
             <th></th>
             <td>
                 <input class="button button-primary" type="submit" name="zrdn-save"
-                       value="<?php _e("Save", 'complianz-gdpr') ?>">
+                       value="<?php _e("Save", 'zip-recipes') ?>">
 
             </td>
             <?php

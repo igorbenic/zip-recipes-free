@@ -156,13 +156,20 @@ class ZipRecipes {
         add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
 
         add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets');
-
     }
 
 
     public static function register_images(){
         if ( function_exists( 'add_image_size' ) ) {
             add_image_size( 'zrdn_recipe_image',   800,  500, true);
+            add_image_size( 'zrdn_recipe_image_json_1x1',   1200,  1200, true);
+            add_image_size( 'zrdn_recipe_image_json_4x3',   1200,  900, true);
+            add_image_size( 'zrdn_recipe_image_json_16x9',   1600,  900, true);
+
+            //as fallback, we add some images that are just above the google treshold of 50000K
+            add_image_size( 'zrdn_recipe_image_json_1x1_s',   250,  250, true);
+            add_image_size( 'zrdn_recipe_image_json_4x3_s',   164,  198, true);
+            add_image_size( 'zrdn_recipe_image_json_16x9_s',   320,  200, true);
         }
     }
 
@@ -201,6 +208,8 @@ class ZipRecipes {
             add_filter('mce_buttons', __NAMESPACE__ . '\ZipRecipes::zrdn_register_tinymce_button');
         }
     }
+
+
 
     /**
      * Replace zip recipes shortcodes with actual, full, formatted recipe(s).
@@ -824,7 +833,6 @@ class ZipRecipes {
 
         // Setup gutenberg
         if (\is_plugin_active('gutenberg/gutenberg.php') || version_compare($wp_version, '5.0', '>=')) {
-            //require_once(ZRDN_PLUGIN_DIRECTORY . "gutenberg/RecipeBlock.php");
             /* Gutenberg block */
             //if (cmplz_uses_gutenberg()) {
             require_once plugin_dir_path(__FILE__) . 'src/block.php';

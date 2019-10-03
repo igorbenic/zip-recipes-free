@@ -154,6 +154,12 @@ class Recipe_Table extends \WP_List_Table {
         return $name  . $this->row_actions( $actions );
     }
 
+    public function column_shortcode( $item ) {
+
+        return '<div class="zrdn-selectable">[amd-zlrecipe-recipe:'.$item['ID'].']</div>';
+
+    }
+
 
     /**
      * Retrieve the table columns
@@ -165,6 +171,7 @@ class Recipe_Table extends \WP_List_Table {
         $columns = array(
             'ID'          => __( 'ID', 'zip-recipes'),
             'name'          => __( 'Name', 'zip-recipes'),
+            'shortcode'          => __( 'Shortcode', 'zip-recipes'),
         );
 
         return apply_filters( 'zrdn_recipe_columns', $columns );

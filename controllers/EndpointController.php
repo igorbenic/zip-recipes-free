@@ -21,7 +21,6 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
 use WP_Http;
-use ZRDN\ZRDN_REST_Response;
 use ZRDN\Recipe as RecipeModel;
 
 class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
@@ -125,14 +124,14 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
             ),
         ));
 
-	    register_rest_route($this->namespace, '/settings', array(
-		    array(
-			    'methods' => WP_REST_Server::READABLE,
-			    'callback' => array($this, 'get_settings'),
-			    'permission_callback' => array($this, 'is_logged_in_check'),
-			    'args' => array(),
-		    ),
-	    ));
+//	    register_rest_route($this->namespace, '/settings', array(
+//		    array(
+//			    'methods' => WP_REST_Server::READABLE,
+//			    'callback' => array($this, 'get_settings'),
+//			    'permission_callback' => array($this, 'is_logged_in_check'),
+//			    'args' => array(),
+//		    ),
+//	    ));
 
         register_rest_route($this->namespace, '/recipes', array(
             array(
@@ -143,15 +142,15 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
             ),
         ));
 
-	    register_rest_route($this->namespace, '/register', array(
-		    array(
-			    'methods' => WP_REST_Server::CREATABLE,
-			    'callback' => array($this, 'create_registration'),
-			    'permission_callback' => array($this, 'is_logged_in_check'),
-			    'args' => $this->get_endpoint_args_for_item_schema(true),
-			    'accept_json' => true,
-		    ),
-	    ));
+//	    register_rest_route($this->namespace, '/register', array(
+//		    array(
+//			    'methods' => WP_REST_Server::CREATABLE,
+//			    'callback' => array($this, 'create_registration'),
+//			    'permission_callback' => array($this, 'is_logged_in_check'),
+//			    'args' => $this->get_endpoint_args_for_item_schema(true),
+//			    'accept_json' => true,
+//		    ),
+//	    ));
 
         // end routes functions    
     }
@@ -179,38 +178,38 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
         return ZRDN_REST_Response::success($output);
     }
 
-    public function get_settings(WP_REST_Request $request) {
-	    global $wp_version;
-	    $arr = ZRDN_REST_Response::success(array(
-	    	'wp_version' => $wp_version,
-            'registered' => true,
-		    'blog_url' => get_bloginfo('wpurl'),
-	    	// zrdn_registered can be an array (if user registered nutrition feature) or boolean
-		    'registration_endpoint' => ZRDN_API_URL . "/installation/register/",
-		    'recipes_endpoint' => ZRDN_API_URL . '/v4/recipes/',
-		    'promos_endpoint' => ZRDN_API_URL . '/v2/promos/',
-		    'wp_ajax_endpoint' => admin_url('admin-ajax.php'),
-		    'locale' => apply_filters('zrdn_get_locale', 'en'),
-		    //'authors' => apply_filters('zrdn_author_list', array()),
-		    //'default_author' => get_option('zrdn_authors_default_author', ''),
-            "website_name" => get_bloginfo('name'),
-            "website_url" => get_bloginfo('url'),
-            "license" => get_option('zrdn_license_key'),
-	        'success_icon_url' => plugins_url('../gutenberg/assets/images/checkbox.png', __FILE__),
-	    ));
-	    return $arr;
-    }
+//    public function get_settings(WP_REST_Request $request) {
+//	    global $wp_version;
+//	    $arr = ZRDN_REST_Response::success(array(
+//	    	'wp_version' => $wp_version,
+//            'registered' => true,
+//		    'blog_url' => get_bloginfo('wpurl'),
+//	    	// zrdn_registered can be an array (if user registered nutrition feature) or boolean
+//		    'registration_endpoint' => ZRDN_API_URL . "/installation/register/",
+//		    'recipes_endpoint' => ZRDN_API_URL . '/v4/recipes/',
+//		    'promos_endpoint' => ZRDN_API_URL . '/v2/promos/',
+//		    'wp_ajax_endpoint' => admin_url('admin-ajax.php'),
+//		    'locale' => apply_filters('zrdn_get_locale', 'en'),
+//		    //'authors' => apply_filters('zrdn_author_list', array()),
+//		    //'default_author' => get_option('zrdn_authors_default_author', ''),
+//            "website_name" => get_bloginfo('name'),
+//            "website_url" => get_bloginfo('url'),
+//            "license" => get_option('zrdn_license_key'),
+//	        'success_icon_url' => plugins_url('../gutenberg/assets/images/checkbox.png', __FILE__),
+//	    ));
+//	    return $arr;
+//    }
 
-    public function create_registration(WP_REST_Request $request) {
-	    $parameters = $request->get_params();
-	    $first_name = Util::get_array_value('first_name', $parameters);
-	    $last_name = Util::get_array_value('last_name', $parameters);
-	    $email = Util::get_array_value('email', $parameters);
-
-	    if ($first_name && $last_name && $email) {
-		    update_option('zrdn_registered', true);
-	    }
-    }
+//    public function create_registration(WP_REST_Request $request) {
+//	    $parameters = $request->get_params();
+//	    $first_name = Util::get_array_value('first_name', $parameters);
+//	    $last_name = Util::get_array_value('last_name', $parameters);
+//	    $email = Util::get_array_value('email', $parameters);
+//
+//	    if ($first_name && $last_name && $email) {
+//		    update_option('zrdn_registered', true);
+//	    }
+//    }
 
     /**
      * Get one recipe from the collection
