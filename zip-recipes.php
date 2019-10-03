@@ -41,7 +41,7 @@ spl_autoload_register(__NAMESPACE__ . '\zrdn_autoload');
 defined('ABSPATH') or die("Error! Cannot be called directly.");
 
 // Define constants
-define('ZRDN_VERSION_NUM', '6.1.3');//keep this version one behind the actual version, for upgrade purposes
+define('ZRDN_VERSION_NUM', '6.1.3.1');//keep this version one behind the actual version, for upgrade purposes
 
 define('ZRDN_FREE', true);
 define('ZRDN_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ));
