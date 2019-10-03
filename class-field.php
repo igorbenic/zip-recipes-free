@@ -753,13 +753,15 @@ if (!class_exists("ZRDN_Field")) {
             <?php do_action('zrdn_after_label', $args); ?>
             <input type="hidden" name="zrdn_<?php echo esc_html($args['fieldname']) ?>_id" value="<?php echo intval($args['thumbnail_id'])?>">
             <div class="zrdn-hidden zrdn-image-resolution-warning">
-                <?php zrdn_notice(__("Image resolution too low for a Rich Snippet", "zip-recipes"), 'warning', true, false, false);?>
+                <?php zrdn_notice(__("Image resolution too low for a Rich Snippet. You should use an image of at least 250x250 pixels", "zip-recipes"), 'warning', true, false, false);?>
             </div>
-            <input type="text" data-size="<?php echo $args['size']?>" class="zrdn-image-upload-field" name="zrdn_<?php echo esc_html($args['fieldname']) ?>"
+            <input type="hidden" data-size="<?php echo $args['size']?>" class="zrdn-image-upload-field" name="zrdn_<?php echo esc_html($args['fieldname']) ?>"
                    value="<?php echo esc_url($args['value']) ?>">
+            <div>
             <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-uploader" type="button" value="<?php _e('Edit', 'zip-recipes') ?>">
             <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-reset" type="button" value="<?php _e('Reset', 'zip-recipes') ?>">
-            <img width="<?php echo $width?>" height="<?php echo $height?>" src="<?php echo $src?>" class="zrdn-image-upload-preview">
+            </div>
+            <img class="zrdn-preview-snippet" width="<?php echo $width?>" height="<?php echo $height?>" src="<?php echo $src?>">
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
