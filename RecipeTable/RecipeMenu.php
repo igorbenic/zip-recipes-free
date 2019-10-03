@@ -232,6 +232,38 @@ function zrdn_recipe_admin_menu()
     );
 }
 
+function zrdn_image_sizes_js( $response, $attachment, $meta ){
+    $size_array = array(
+            'zrdn_recipe_image',
+        'zrdn_recipe_image_json_1x1',
+        'zrdn_recipe_image_json_4x3',
+        'zrdn_recipe_image_json_16x9',
+        'zrdn_recipe_image_json_1x1_s',
+        'zrdn_recipe_image_json_4x3_s',
+        'zrdn_recipe_image_json_16x9_s',
+        ) ;
+
+    foreach ( $size_array as $size ):
+        if ( isset( $meta['sizes'][ $size ] ) ) {
+            $attachment_url = wp_get_attachment_url( $attachment->ID );
+            $base_url = str_replace( wp_basename( $attachment_url ), '', $attachment_url );
+            $size_meta = $meta['sizes'][ $size ];
+
+            $response['sizes'][ $size ] = array(
+                'height'        => $size_meta['height'],
+                'width'         => $size_meta['width'],
+                'url'           => $base_url . $size_meta['file'],
+                'orientation'   => $size_meta['height'] > $size_meta['width'] ? 'portrait' : 'landscape',
+            );
+        }
+
+    endforeach;
+
+    return $response;
+}
+add_filter ( 'wp_prepare_attachment_for_js',  __NAMESPACE__ .'\zrdn_image_sizes_js' , 10, 3  );
+
+
 add_action('admin_enqueue_scripts', __NAMESPACE__ . '\zrdn_enqueue_style');
 function zrdn_enqueue_style($hook){
 
@@ -253,14 +285,15 @@ function zrdn_enqueue_style($hook){
     wp_enqueue_script("zrdn-conditions", ZRDN_PLUGIN_URL."RecipeTable/js/conditions.js",  array('jquery'), ZRDN_VERSION_NUM);
     $args = array(
         'admin_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('zrdn_edit_recipe'),
         'str_click_to_edit_image' => __("Click to edit this image","zip-recipes"),
         'str_minutes' => __("minutes","zip-recipes"),
         'str_hours' => __("hours","zip-recipes"),
         'str_remove' => __("clear image","zip-recipes"),
         'default_image' => ZRDN_PLUGIN_URL.'/images/recipe-default-bw.png',
         'nonce' => wp_create_nonce('zrdn_edit_recipe'),
-    );
+        'image_placeholder' => ZRDN_PLUGIN_URL . '/images/s.png',
+
+);
     wp_localize_script('zrdn-editor', 'zrdn_editor', $args);
 
     //wp_enqueue_style("bootstrap-3", ZRDN_PLUGIN_URL . '/vendor/twbs/bootstrap/dist/css/bootstrap.min.css');
@@ -461,12 +494,12 @@ function zrdn_process_update_recipe(){
             $recipe_id = intval($_POST['zrdn_recipe_id']);
         }
 
-
         /**
          * Saving the recipe
          */
         $recipe = new Recipe($recipe_id);
         //save all recipe fields here.
+
         foreach ($recipe as $fieldname => $value) {
 
             //sanitization in recipe class
@@ -478,7 +511,6 @@ function zrdn_process_update_recipe(){
             if (isset($_POST['zrdn_'.$fieldname."_hours"]) && isset($_POST['zrdn_'.$fieldname."_minutes"])) {
                 $recipe->{$fieldname} = 'PT'.intval($_POST['zrdn_'.$fieldname.'_hours']).'H'.intval($_POST['zrdn_'.$fieldname."_minutes"]).'M';
             }
-
         }
 
         $recipe = apply_filters('zrdn_save_recipe', $recipe);

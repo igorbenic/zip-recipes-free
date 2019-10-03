@@ -376,7 +376,8 @@ Copyright 2011, 2012 ZipList, Inc.
   font-size: 36px;
   font-weight: bold;
 }
-#zrdn-nutrition-label h3.nutrition-facts__title {
+#zrdn-nutrition-label h3.nutrition-facts__title,
+#zrdn-nutrition-label h3.nutrition-facts__title span {
   font-size: 22px;
   font-weight: normal;
 }

@@ -119,7 +119,7 @@ jQuery(document).ready(function ($) {
 
     if ($('input[name=zrdn_recipe_image]').val().length >0){
         $('.zrdn-recipe-image').attr('src', $('input[name=zrdn_recipe_image]').val());
-        var link = '<a href="#" style="float:right" class="zrdn_remove_image">'+zrdn_editor.str_remove+'</a>';
+        var link = '<div style="clear:both"></div><a href="#" style="float:right" class="zrdn_remove_image">'+zrdn_editor.str_remove+'</a>';
         $('.zrdn-recipe-image').parent().append(link);
     }
 
@@ -128,6 +128,10 @@ jQuery(document).ready(function ($) {
      */
     $(document).on('click','.zrdn_remove_image',function(){
         event.preventDefault();
+
+        $(".zrdn-recipe-save-button input").prop('disabled', true);
+        $(".zrdn-recipe-save-button button").prop('disabled', true);
+
         var image = $(this).parent().find('.zrdn-recipe-image');
         var recipe_id = $('input[name=zrdn_recipe_id]').val();
         $.ajax({
@@ -143,9 +147,14 @@ jQuery(document).ready(function ($) {
                 if (response.success) {
                     image.attr('src', zrdn_editor.default_image);
                     image.attr('srcset', zrdn_editor.default_image);
+                    $('input[name=zrdn_recipe_image]').val('');
+                    $('input[name=zrdn_recipe_image_id]').val(0);
+
                 } else {
                     image.parent().append(' Clearing image failed...');
                 }
+                $(".zrdn-recipe-save-button button").prop('disabled', false);
+                $(".zrdn-recipe-save-button input").prop('disabled', false);
             }
         });
 
@@ -340,6 +349,70 @@ jQuery(document).ready(function ($) {
                 $('input[name=zrdn_recipe_image]').val(image_url);
 
             }
+        });
+
+        media_uploader.open();
+    });
+
+
+    /**
+     * Rich snippets uploader
+     */
+    $(document).on('click','.zrdn-image-reset',function(){
+        var btn = $(this);
+        var container = btn.closest('.zrdn-field');
+        var textField = container.find('.zrdn-image-upload-field');
+        var fieldname = textField.attr('name');
+        container.find('.zrdn-preview-snippet').attr('src',zrdn_editor.image_placeholder);
+        $('input[name='+fieldname+'_id]').val('');
+        $('input[name='+fieldname+']').val('');
+    });
+
+    $(document).on( 'click','.zrdn-image-uploader', function()
+    {
+        var btn = $(this);
+        var container = btn.closest('.zrdn-field');
+        var textField = container.find('.zrdn-image-upload-field');
+        var size = textField.data('size');
+        var fieldname = textField.attr('name');
+
+        //cleanup
+        container.find('.zrdn-image-resolution-warning').hide();
+
+        media_uploader = wp.media({
+            frame:    "post",
+            state:    "insert",
+            multiple: false
+        });
+
+        media_uploader.on("insert", function(){
+
+            container.append( '<div class="loading-gif"></div>' );
+
+            var length = media_uploader.state().get("selection").length;
+            var images = media_uploader.state().get("selection").models;
+
+            for(var iii = 0; iii < length; iii++)
+            {
+                var thumbnail_id = images[iii].id;
+                var image = false;
+                if (images[iii].attributes.sizes.hasOwnProperty(size)) {
+                    image = images[iii].attributes.sizes[size];
+                } else if(images[iii].attributes.sizes.hasOwnProperty(size+'_s')) {
+                    image = images[iii].attributes.sizes[size+'_s'];
+                }
+                if (image) {
+                    var image_url = image['url'];
+                    container.find('.zrdn-preview-snippet').attr('src',image_url);
+                    $('input[name='+fieldname+'_id]').val(thumbnail_id);
+                    $('input[name='+fieldname+']').val(image_url);
+
+                } else {
+                    container.find('.zrdn-image-resolution-warning').show();
+                }
+
+            }
+            container.find('.loading-gif').remove();
         });
 
         media_uploader.open();

@@ -92,12 +92,13 @@ const iconEl =
             // Bind so we can use 'this' inside the method.
             this.getRecipes = this.getRecipes.bind(this);
             this.getRecipes();
+
             this.getRecipeContent(this.props.attributes.id);
             this.getRecipeContent = this.getRecipeContent.bind(this);
 
-
             this.onChangeSelectRecipe = this.onChangeSelectRecipe.bind(this);
             this.onChangeShowUnLinkedRecipes = this.onChangeShowUnLinkedRecipes.bind(this);
+
             this.onChangeShowUnLinkedRecipes(true);
             this.isRecipeSelected = this.isRecipeSelected.bind(this);
         }
@@ -198,7 +199,6 @@ const iconEl =
             let output = __('Loading...', 'zip-recipes');
             let id = 'recipe-title';
             let postID = wp.data.select("core/editor").getCurrentPostId( );
-
 
             if (!this.props.attributes.hasRecipes){
                 output = __('No recipes found. Create a recipe first!', 'zip-recipes');

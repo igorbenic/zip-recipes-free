@@ -94,6 +94,9 @@ if (isset($_GET['post_id'])) {
             <button class="zrdn-tablinks <?php if ($active_tab=='nutrition') echo 'active'?>" type="button" data-tab="nutrition">
                 <?php _e("Nutrition", 'zip-recipes') ?>
             </button>
+            <button class="zrdn-tablinks <?php if ($active_tab=='snippets') echo 'active'?>" type="button" data-tab="snippets">
+                <?php _e("Rich Snippets", 'zip-recipes') ?>
+            </button>
             <button class="zrdn-tablinks <?php if ($active_tab=='misc') echo 'active'?>" type="button" data-tab="misc">
                 <?php _e("Misc", 'zip-recipes') ?>
             </button>
@@ -211,7 +214,7 @@ if (isset($_GET['post_id'])) {
                             'label' => __("Instruction video", 'zip-recipes'),
                             'help' => __("A video is a great way to improve your ranking and will get picked up by Google's rich snippets.", 'zip-recipes'),
                         ),
-                        array(
+                        'categoryField'=>array(
                             'type' => 'text',
                             'fieldname' => 'category',
                             'value' => $recipe->category,
@@ -251,6 +254,20 @@ if (isset($_GET['post_id'])) {
                             'media' => false,
                         ),
                     );
+
+                    /**
+                     * Category saved in recipe is deprecated, we move to wordpress categories
+                     */
+                    if (strlen($recipe->category)==0){
+                        $fields['categoryField']=array(
+                            'type' => 'notice',
+                            'fieldname' => 'categoryDeprecated',
+                            'label' => sprintf(__('The recipe category has been moved to the WordPress categories. You can now assign a category to your post in the WordPress post editor','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
+                            'media' => false,
+                            'callback' => 'cmplzSelectedCategories'
+                        );
+                    }
+
                     $fields = apply_filters('zrdn_edit_fields', $fields, $recipe);
                     foreach ($fields as $field_args) {
                         $field->get_field_html($field_args);
@@ -264,6 +281,8 @@ if (isset($_GET['post_id'])) {
                 <div id="nutrition" class="zrdn-tabcontent <?php if ($active_tab=='nutrition') echo 'active'?>">
 
                     <h3><?php _e("Nutrition", 'zip-recipes') ?></h3>
+                    <?php zrdn_notice(__("If you enter the fields below, a HTML and CSS Google friendly nutrition label will be shown below your recipe.", "zip-recipes"), 'notice', true, false, false);
+                    ?>
 
                     <?php do_action('zrdn_nutrition_fields', $recipe) ?>
 
@@ -374,6 +393,52 @@ if (isset($_GET['post_id'])) {
 
 
                 </div><!--tab content -->
+
+
+                <!-- Tab content -->
+                <div id="snippets" class="zrdn-tabcontent <?php if ($active_tab=='snippets') echo 'active'?>">
+
+                    <h3><?php _e("Nutrition", 'zip-recipes') ?></h3>
+                    <?php zrdn_notice(__("Google prefers three images in the ratio's 1x1, 4x3 and 16x9. These are generated automatically by Zip Recipes, but you can change the selected images here. Use a high resolution image. If you reset an image, it will default to the generated image based on the main recipe image, or if there is no recipe image, the linked post image.", "zip-recipes"), 'notice', true, false, false);
+                    ?>
+
+                    <?php $snippet_fields = array(
+                        array(
+                            'type' => 'upload',
+                            'fieldname' => 'json_image_1x1',
+                            'size' => 'zrdn_recipe_image_json_1x1',
+                            'value' => $recipe->json_image_1x1,
+                            'thumbnail_id' => $recipe->json_image_1x1_id,
+                            'label' => __("1x1 snippet image", 'zip-recipes'),
+                        ),
+                        array(
+                            'type' => 'upload',
+                            'fieldname' => 'json_image_4x3',
+                            'size' => 'zrdn_recipe_image_json_4x3',
+                            'value' => $recipe->json_image_4x3,
+                            'thumbnail_id' => $recipe->json_image_4x3_id,
+                            'label' => __("4x3 snippet image", 'zip-recipes'),
+                        ),
+                        array(
+                            'type' => 'upload',
+                            'fieldname' => 'json_image_16x9',
+                            'size' => 'zrdn_recipe_image_json_16x9',
+                            'value' => $recipe->json_image_16x9,
+                            'thumbnail_id' => $recipe->json_image_16x9_id,
+                            'label' => __("16x9 snippet image", 'zip-recipes'),
+                        ),
+                    );
+
+                    foreach ($snippet_fields as $field_args) {
+                        $field->get_field_html($field_args);
+                    }
+                    ?>
+
+
+                </div><!--tab content -->
+
+
+
                 <!-- Tab content -->
                 <div id="misc" class="zrdn-tabcontent <?php if ($active_tab=='misc') echo 'active'?>">
 

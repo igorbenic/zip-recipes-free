@@ -5,7 +5,7 @@
 
 __('Like this plugin? The premium version includes lots of cool extra features, your ','zip-recipes');
 __('20% fast adapter discount','zip-recipes');
- __(' is still valid!','zip-recipes');
+__(' is still valid!','zip-recipes');
 __("check out premium","zip-recipes");
 __("apply discount","zip-recipes");
 __("dismiss","zip-recipes");

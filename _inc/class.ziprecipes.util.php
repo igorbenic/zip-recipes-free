@@ -156,25 +156,29 @@ class Util {
 
     /**
      * Render PHP template
-     * @param $file
-     * @param $options
-     * @return string
+     * @param string $file
+     * @param array $options
+     * @param string|bool $pluginDir
+     * @return string $html
      */
 
-	public static function render_template($file, $options=array()){
-        $trace = debug_backtrace();
-        $caller = $trace[2]; // 0 here is direct caller of _view, 1 would be our Util class so we want 2
-        $plugin_name = "";
-        if (isset($caller['class'])) {
-            $classComponents = explode("\\", $caller['class']);
-            $class = $classComponents[count($classComponents) - 1];
-            $plugin_name = $class;
+	public static function render_template($file, $options=array(), $pluginDir=false){
+
+	    if (!$pluginDir) {
+            $trace = debug_backtrace();
+            $caller = $trace[2]; // 0 here is direct caller of _view, 1 would be our Util class so we want 2
+
+            $pluginDir = "";
+            if (isset($caller['class'])) {
+                $classComponents = explode("\\", $caller['class']);
+
+                $class = $classComponents[count($classComponents) - 1];
+                $pluginDir = $class;
+            }
         }
 
-        $pluginDir = "";
-        // don't consider core class a plugin
-        if ($plugin_name && $plugin_name !== "ZipRecipes") { // TODO: ZipRecipes is hardcoded and needs to change
-            $pluginDir = "plugins/$plugin_name/";
+        if ($pluginDir ) {
+            if (file_exists(ZRDN_PLUGIN_DIRECTORY."plugins/$pluginDir/")) $pluginDir = "plugins/$pluginDir/";
         }
 
         $viewDir = ZRDN_PLUGIN_DIRECTORY . $pluginDir . 'views/';
@@ -195,9 +199,24 @@ class Util {
 
         if (count($options)>0){
             foreach($options as $placeholder => $value){
-                $contents = str_replace('{'.$placeholder.'}', $value, $contents);
+
+                if (strpos($contents,'{/'.$placeholder.'}')!==FALSE){
+
+                    $value = ($value==='true' || $value==1 || $value) ? true : false;
+
+                    if (!$value){
+                        //remove the entire string
+                        $contents = preg_replace('/{'.$placeholder.'}.*?{\/'.$placeholder.'}/s', '', $contents);
+                    } else {
+                        //only remove the placeholders
+                        $contents = str_replace(array('{'.$placeholder.'}','{/'.$placeholder.'}'),'', $contents);
+                    }
+                } else {
+                    $contents = str_replace('{'.$placeholder.'}', $value, $contents);
+                }
             }
         }
+
 
         return $contents;
     }
@@ -375,28 +394,81 @@ class Util {
      * @return array $recipes
      */
 
-    public static function get_recipes($args){
+    public static function get_recipes($args=array()){
         $default_args = array(
-          'post_id'=>false,
+            'post_id'=>false,
             'offset' => 0,
-            'number' =>20,
+            'number' => 20,
             'order_by' => 'recipe_title',
             'order'=> 'ASC',
             'search' =>'',
+            'searchFields' => 'title',
+            'orderby' => 'recipe_title',
+            'order' => 'ASC',
+            'post_status' => 'all',
+            'category' => 'all',
         );
         $args = wp_parse_args($args, $default_args);
-        $pagesize = $args['number'];
+        $pagesize = intval($args['number']);
         $offset = $args['offset'];
         $orderby = $args['orderby'];
         $order = $args['order'];
         global $wpdb;
         $search_sql = '';
         if (strlen($args['search'])>0){
-            $search_sql = " AND recipe_title like '%".sanitize_text_field($args['search'])."%'";
+            if ($args['searchFields']==='all'){
+                $fields = array(
+                    'recipe_title',
+                    'ingredients',
+                    'instructions',
+                    'summary',
+                    'notes',
+                    'cuisine',
+                );
+            } else {
+                $fields = array('recipe_title');
+            }
+            $search = sanitize_text_field($args['search']);
+            $search_sql = " AND (".implode(" like '%$search%' OR ", $fields)." like '%$search%')";
         }
+
+        $offset = $args['number']!=-1 ? $offset = "LIMIT $offset, $pagesize" : '';
+
         $table = $wpdb->prefix . "amd_zlrecipe_recipes";
-        $recipes = $wpdb->get_results("SELECT * FROM $table WHERE 1=1 $search_sql ORDER BY $orderby $order LIMIT $offset, $pagesize ");
+        if ($args['category']!=='all') {
+            //get by category slug
+            $term = get_category_by_slug( sanitize_title($args['category']) );
+            $category_id = $term ? $term->term_id : false;            //if not found, default back to all
+            if (!$category_id) $args['category'] = 'all';
+        }
+
+        if ($args['category']==='all') {
+            if ($args['post_status'] === 'publish') {
+                $sql = "SELECT * FROM $table INNER JOIN $wpdb->posts ON $table.post_id = $wpdb->posts.ID where $wpdb->posts.post_status='publish'";
+            } else {
+                $sql = "SELECT * FROM $table ";
+            }
+        } else {
+            $sql = $wpdb->prepare("select * from $table INNER JOIN (select $wpdb->posts.* from $wpdb->posts inner join (select $wpdb->term_taxonomy.term_taxonomy_id, $wpdb->term_relationships.object_id from $wpdb->term_relationships inner join $wpdb->term_taxonomy on $wpdb->term_relationships.term_taxonomy_id=$wpdb->term_taxonomy.term_taxonomy_id where  $wpdb->term_taxonomy.taxonomy='category') as cats ON $wpdb->posts.ID = cats.object_id where cats.term_taxonomy_id = %s) as p ON $table.post_id = p.ID where 1=1 ", $category_id);
+            if ($args['post_status'] === 'publish') {
+                $sql .= " AND p.post_status='publish'";
+            }
+        }
+        $recipes = $wpdb->get_results("$sql $search_sql ORDER BY $orderby $order $offset ");
         return $recipes;
+    }
+
+    public static function get_recipe_categories(){
+
+        $recipes  = self::get_recipes();
+        $categories = array();
+        foreach ($recipes as $recipe){
+            if (!empty($recipe->post_id)){
+                $categories += wp_get_post_categories($recipe->post_id);
+            }
+        }
+
+        return $categories;
     }
 
     /**

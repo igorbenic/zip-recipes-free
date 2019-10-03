@@ -12,7 +12,7 @@ namespace ZRDN;
  *
  * @package    Zip Recipes
  * @author     Mudassar Ali <sahil_bwp@yahoo.com>
- * @copyright  2017 Gezim Hoxha
+ * @copyright  2017 Rogier Lankhorst
  * @version 1.0
  */
 class ZRDN_Basic_Auth_Controller {
