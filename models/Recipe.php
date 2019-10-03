@@ -513,8 +513,6 @@ class Recipe {
             $this->post_id = false;
         }
 
-        error_log(print_r($this, true));
-
     }
 
     /**

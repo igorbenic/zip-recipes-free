@@ -404,7 +404,7 @@ if (isset($_GET['post_id'])) {
 
                     <?php do_action('zrdn_nutrition_fields', $recipe) ?>
 
-                    <?php error_log(print_r($recipe,true));$snippet_fields = array(
+                    <?php $snippet_fields = array(
                         array(
                             'type' => 'upload',
                             'fieldname' => 'json_image_1x1',
