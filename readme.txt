@@ -160,9 +160,9 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 
 == Changelog ==
 = 6.1.4 =
-* New: Metric Imperial conversion
 * New: Customize the generated rich snippets images
 * New: three different rich snippet images with different image ratio's
+* Fix: saving and deleting of image not working correctly when the save button is used after the change.
 
 = 6.1.3 =
 * Fix: print styles for default theme
