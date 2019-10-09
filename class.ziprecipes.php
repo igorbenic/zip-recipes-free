@@ -168,7 +168,7 @@ class ZipRecipes {
 
             //as fallback, we add some images that are just above the google treshold of 50000K
             add_image_size( 'zrdn_recipe_image_json_1x1_s',   250,  250, true);
-            add_image_size( 'zrdn_recipe_image_json_4x3_s',   164,  198, true);
+            add_image_size( 'zrdn_recipe_image_json_4x3_s',   198,  164, true);
             add_image_size( 'zrdn_recipe_image_json_16x9_s',   320,  200, true);
         }
     }
@@ -1186,7 +1186,12 @@ class ZipRecipes {
         <?php
         }
         ?>
-
+        .zip-recipes .hide-print{
+            display:none;
+        }
+        .zip-recipes .hide-card{
+            display:none;
+        }
         .zrdn_five
         {
         background-position-y: 2px;
