@@ -384,7 +384,10 @@ class ZipRecipes {
         );
         do_action('zrdn__enqueue_recipe_styles');
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
-        return $custom_template ?: Util::view('recipe', $viewParams);
+        $output = $custom_template ?: Util::view('recipe', $viewParams);
+        $output = apply_filters('zrdn_recipe_content', $output, $recipe->recipe_id);
+        $output = do_shortcode($output);
+        return $output;
     }
 
     /**

@@ -429,9 +429,6 @@ class Recipe {
             foreach ($this as $fieldname => $value) {
                 if (isset($db_recipe[$fieldname])){
                     $value = $db_recipe[$fieldname];
-                    if (is_string($value)){
-                        $value = do_shortcode($value);
-                    }
                     $this->{$fieldname} = apply_filters('zrdn_field_value', $value, $fieldname, $this->recipe_id);
                 }
             }
