@@ -428,7 +428,8 @@ class Recipe {
             $db_recipe = get_object_vars($recipe_data);
             foreach ($this as $fieldname => $value) {
                 if (isset($db_recipe[$fieldname])){
-                    $this->{$fieldname} = $db_recipe[$fieldname];
+                    $value = $db_recipe[$fieldname];
+                    $this->{$fieldname} = apply_filters('zrdn_field_value', $value, $fieldname, $this->recipe_id);
                 }
             }
         }
@@ -480,6 +481,19 @@ class Recipe {
                 $post_thumbnail_id = get_post_thumbnail_id($this->post_id);
                 $this->recipe_image_json = $this->generate_recipe_image_json($post_thumbnail_id);
             }
+        }
+
+        /**
+         * Load the category from the post
+         */
+        if (strlen($this->category)==0){
+            $post_categories = wp_get_post_categories($this->post_id);
+            $cats = array();
+            foreach ($post_categories as $c) {
+                $cat = get_category($c);
+                $cats[] = $cat->name;
+            }
+            $this->category = implode(', ',$cats);
         }
 
         /**
