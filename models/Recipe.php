@@ -484,6 +484,19 @@ class Recipe {
         }
 
         /**
+         * Load the category from the post
+         */
+        if (strlen($this->category)==0){
+            $post_categories = wp_get_post_categories($this->post_id);
+            $cats = array();
+            foreach ($post_categories as $c) {
+                $cat = get_category($c);
+                $cats[] = $cat->name;
+            }
+            $this->category = implode(', ',$cats);
+        }
+
+        /**
          * get daily values, which are based on other, stored values.
          */
 

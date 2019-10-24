@@ -385,8 +385,10 @@ class ZipRecipes {
         do_action('zrdn__enqueue_recipe_styles');
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
         $output = $custom_template ?: Util::view('recipe', $viewParams);
+
         $output = apply_filters('zrdn_recipe_content', $output, $recipe->recipe_id);
         $output = do_shortcode($output);
+
         return $output;
     }
 
@@ -1139,7 +1141,7 @@ class ZipRecipes {
             );
         }
         $rating_data = apply_filters('zrdn__ratings_format_amp', '',$recipe->recipe_id, $recipe->post_id);
-        if ($rating_data) {
+        if ($rating_data && $rating_data['ratingCount']>0) {
             $cleaned_recipe_json_ld["aggregateRating"] = (object)array(
                 "bestRating" => $rating_data['max'],
                 "ratingValue" => $rating_data['rating'],
