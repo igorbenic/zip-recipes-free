@@ -1091,7 +1091,7 @@ class ZipRecipes {
             $tags= wp_list_pluck($tags,'name');
             $keywords = implode(',',$tags);
         }
-        
+
         $recipe_json_ld = array(
             "@context" => "http://schema.org",
             "@type" => "Recipe",
@@ -1141,14 +1141,18 @@ class ZipRecipes {
             );
         }
         $rating_data = apply_filters('zrdn__ratings_format_amp', '',$recipe->recipe_id, $recipe->post_id);
-        if ($rating_data && $rating_data['ratingCount']>0) {
-            $cleaned_recipe_json_ld["aggregateRating"] = (object)array(
+        if ($rating_data && $rating_data['count']>0) {
+            $itemReviewed = $recipe_json_ld;
+            unset($itemReviewed['@context']);
+            $rating = array(
                 "bestRating" => $rating_data['max'],
                 "ratingValue" => $rating_data['rating'],
-                "itemReviewed" => $recipe->recipe_title,
+                "itemReviewed" => (object)$itemReviewed,
                 "ratingCount" => $rating_data['count'],
                 "worstRating" => $rating_data['min']
             );
+
+            $cleaned_recipe_json_ld["aggregateRating"] = (object)$rating;
         }
 
         return $cleaned_recipe_json_ld;
@@ -1188,14 +1192,14 @@ class ZipRecipes {
             background-repeat: no-repeat;
             height: 18px;
             }
-        <?php
+            <?php
         }
         ?>
         .zip-recipes .hide-print{
-            display:none;
+        display:none;
         }
         .zip-recipes .hide-card{
-            display:none;
+        display:none;
         }
         .zrdn_five
         {
@@ -1427,9 +1431,9 @@ class ZipRecipes {
 
         //now save this postid to make sure it's linked
         $wpdb->update(
-                $table,
-                array('post_id'=>$post_id),
-                array('recipe_id'=>$recipe_id)
+            $table,
+            array('post_id'=>$post_id),
+            array('recipe_id'=>$recipe_id)
         );
 
     }
