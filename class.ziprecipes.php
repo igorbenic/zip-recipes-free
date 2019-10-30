@@ -1147,7 +1147,7 @@ class ZipRecipes {
             $rating = array(
                 "bestRating" => $rating_data['max'],
                 "ratingValue" => $rating_data['rating'],
-                "itemReviewed" => (object)$itemReviewed,
+                "itemReviewed" => $recipe->recipe_title,
                 "ratingCount" => $rating_data['count'],
                 "worstRating" => $rating_data['min']
             );
