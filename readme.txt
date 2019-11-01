@@ -8,7 +8,7 @@ Author: Rogier Lankhorst, Mark Wolters
 Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, food, schema.org, nutrition, rich snippets, seo, cooking
 Requires at least: 4.2
-Tested up to: 5.2
+Tested up to: 5.3
 Stable tag: 6.1.5
 Requires PHP: 5.4
 
