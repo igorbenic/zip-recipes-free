@@ -262,6 +262,13 @@ class ZipRecipes {
         }
         wp_register_script(self::MAIN_PRINT_SCRIPT, plugins_url('scripts/zlrecipe_print' . self::$suffix . '.js', __FILE__), array('jquery'), ZRDN_VERSION_NUM, true);
         wp_enqueue_script(self::MAIN_PRINT_SCRIPT);
+        $stylesheet = apply_filters('zrdn_print_style_url', ZRDN_PLUGIN_DIRECTORY_URL.'styles/zlrecipe-print.css?v='.ZRDN_VERSION_NUM);
+	    wp_localize_script(
+	            self::MAIN_PRINT_SCRIPT,
+            'zrdn_print_styles',
+            array('stylesheet_url' => $stylesheet)
+        );
+
 
     }
 
@@ -1091,7 +1098,7 @@ class ZipRecipes {
             $tags= wp_list_pluck($tags,'name');
             $keywords = implode(',',$tags);
         }
-
+        
         $recipe_json_ld = array(
             "@context" => "http://schema.org",
             "@type" => "Recipe",
@@ -1147,6 +1154,7 @@ class ZipRecipes {
             $rating = array(
                 "bestRating" => $rating_data['max'],
                 "ratingValue" => $rating_data['rating'],
+//                "itemReviewed" => (object)$itemReviewed,
                 "itemReviewed" => $recipe->recipe_title,
                 "ratingCount" => $rating_data['count'],
                 "worstRating" => $rating_data['min']
@@ -1192,14 +1200,14 @@ class ZipRecipes {
             background-repeat: no-repeat;
             height: 18px;
             }
-            <?php
+        <?php
         }
         ?>
         .zip-recipes .hide-print{
-        display:none;
+            display:none;
         }
         .zip-recipes .hide-card{
-        display:none;
+            display:none;
         }
         .zrdn_five
         {
@@ -1431,9 +1439,9 @@ class ZipRecipes {
 
         //now save this postid to make sure it's linked
         $wpdb->update(
-            $table,
-            array('post_id'=>$post_id),
-            array('recipe_id'=>$recipe_id)
+                $table,
+                array('post_id'=>$post_id),
+                array('recipe_id'=>$recipe_id)
         );
 
     }
