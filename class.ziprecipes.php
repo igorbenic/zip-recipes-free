@@ -168,7 +168,7 @@ class ZipRecipes {
 
             //as fallback, we add some images that are just above the google treshold of 50000K
             add_image_size( 'zrdn_recipe_image_json_1x1_s',   250,  250, true);
-            add_image_size( 'zrdn_recipe_image_json_4x3_s',   198,  164, true);
+            add_image_size( 'zrdn_recipe_image_json_4x3_s',   198, 164,   true);
             add_image_size( 'zrdn_recipe_image_json_16x9_s',   320,  200, true);
         }
     }
@@ -262,6 +262,13 @@ class ZipRecipes {
         }
         wp_register_script(self::MAIN_PRINT_SCRIPT, plugins_url('scripts/zlrecipe_print' . self::$suffix . '.js', __FILE__), array('jquery'), ZRDN_VERSION_NUM, true);
         wp_enqueue_script(self::MAIN_PRINT_SCRIPT);
+        $stylesheet = apply_filters('zrdn_print_style_url', ZRDN_PLUGIN_DIRECTORY_URL.'styles/zlrecipe-print.css?v='.ZRDN_VERSION_NUM);
+	    wp_localize_script(
+	            self::MAIN_PRINT_SCRIPT,
+            'zrdn_print_styles',
+            array('stylesheet_url' => $stylesheet)
+        );
+
 
     }
 
@@ -1141,14 +1148,19 @@ class ZipRecipes {
             );
         }
         $rating_data = apply_filters('zrdn__ratings_format_amp', '',$recipe->recipe_id, $recipe->post_id);
-        if ($rating_data && $rating_data['ratingCount']>0) {
-            $cleaned_recipe_json_ld["aggregateRating"] = (object)array(
+        if ($rating_data && $rating_data['count']>0) {
+            $itemReviewed = $recipe_json_ld;
+            unset($itemReviewed['@context']);
+            $rating = array(
                 "bestRating" => $rating_data['max'],
                 "ratingValue" => $rating_data['rating'],
+//                "itemReviewed" => (object)$itemReviewed,
                 "itemReviewed" => $recipe->recipe_title,
                 "ratingCount" => $rating_data['count'],
                 "worstRating" => $rating_data['min']
             );
+
+            $cleaned_recipe_json_ld["aggregateRating"] = (object)$rating;
         }
 
         return $cleaned_recipe_json_ld;

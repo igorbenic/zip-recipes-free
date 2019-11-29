@@ -31,7 +31,7 @@ function zlrPrint(id, plugin_path)
 	self.focus();
 	win.document.open();
 	win.document.write('<html><head>');
-	win.document.write("<link charset='utf-8' href='" + plugin_path + "styles/zlrecipe-print.css?v=1' rel='stylesheet' type='text/css' />");
+	win.document.write('<link charset="utf-8" href="'+zrdn_print_styles.stylesheet_url+'" rel="stylesheet" type="text/css" />');
 	win.document.write('</head><body onload="print();">');
 	win.document.write('<div id=\'zlrecipe-print-container\' >');
 	win.document.write(content);
