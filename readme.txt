@@ -161,6 +161,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 == Changelog ==
 = 6.1.6 =
 * Added filter to override print CSS url
+* Execute shortcodes in recipe
 
 = 6.1.5 =
 * Fix: inverted formate for small snippet image
