@@ -400,7 +400,6 @@ class Util {
             'offset' => 0,
             'number' => 20,
             'order_by' => 'recipe_title',
-            'order'=> 'ASC',
             'search' =>'',
             'searchFields' => 'title',
             'orderby' => 'recipe_title',
@@ -446,7 +445,7 @@ class Util {
             if ($args['post_status'] === 'publish') {
                 $sql = "SELECT * FROM $table INNER JOIN $wpdb->posts ON $table.post_id = $wpdb->posts.ID where $wpdb->posts.post_status='publish'";
             } else {
-                $sql = "SELECT * FROM $table ";
+                $sql = "SELECT * FROM $table where 1=1 ";
             }
         } else {
             $sql = $wpdb->prepare("select * from $table INNER JOIN (select $wpdb->posts.* from $wpdb->posts inner join (select $wpdb->term_taxonomy.term_taxonomy_id, $wpdb->term_relationships.object_id from $wpdb->term_relationships inner join $wpdb->term_taxonomy on $wpdb->term_relationships.term_taxonomy_id=$wpdb->term_taxonomy.term_taxonomy_id where  $wpdb->term_taxonomy.taxonomy='category') as cats ON $wpdb->posts.ID = cats.object_id where cats.term_taxonomy_id = %s) as p ON $table.post_id = p.ID where 1=1 ", $category_id);
