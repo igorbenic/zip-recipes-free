@@ -93,7 +93,7 @@ class Recipe_Table extends \WP_List_Table {
 
         <p class="search-box">
             <label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
-            <input type="text" value="" name="s">
+            <input type="text" value="<?php echo $this->get_search()?>" name="s">
             <?php submit_button( $text, 'button', false, false, array('ID' => 'search-submit') ); ?>
         </p>
         <?php
@@ -258,6 +258,7 @@ class Recipe_Table extends \WP_List_Table {
             'offset'  => $offset,
             'order'   => $order,
             'orderby' => $orderby,
+            'searchFields' => 'all',
         );
 
         $args['search']  = $search;
