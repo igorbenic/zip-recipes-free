@@ -59,13 +59,13 @@ If you enjoy this plugin and you want your site to have the best recipe features
 * Recipe search, Recipe index and Recipe Gallery
 * Save Recipes on social media, like Big Oven and Yummly
 
-Check out other plugins developed by Really Simple Plugins as well: [Complianz](https://wordpress.org/plugins/complianz-gdpr/) and [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/).
+Check out other plugins developed by Really Simple Plugins as well: [Complianz](https://wordpress.org/plugins/complianz-gdpr/), [WP Search Insights](https://wordpress.org/plugins/wp-search-insights/) and [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/).
 
 == Installation ==
 
-You can get the [detailed installation instructions here](https://www.ziprecipes.net/docs/installing/). If you have more questions on how to use the plugin, feel free to reach out to us at [hello@ziprecipes.net](mailto:hello@ziprecipes.net).
+You can get the [detailed installation instructions here](https://ziprecipes.net/knowledge-base/installing/). If you have more questions on how to use the plugin, feel free to reach out to us at [support@ziprecipes.net](mailto:support@ziprecipes.net).
 
-You can download and install the Zip Recipes plugin using the built-in WordPress plugin installer. If you download the Zip Recipes plugin manually, make sure it is uploaded to "/wp-content/plugins/zip-recipes-plugin/".
+You can download and install the Zip Recipes plugin using the built-in WordPress plugin installer. If you download the Zip Recipes plugin manually, make sure it is uploaded to "/wp-content/plugins/zip-recipes/".
 
 == Frequently Asked Questions ==
 
