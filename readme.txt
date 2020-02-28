@@ -33,7 +33,7 @@ Zip Recipes is the fastest way to create a recipe. The best way to build a follo
 - **Flexible Editor**: Our flexible editor works how you work by allowing you to add recipes to posts, pages or custom post types.
 - **Featured Image Support**: You only have to set one image for your post or page if you use featured images. If you don't provide a recipe image, Zip Recipes will add the featured image to Google's rich snippet.
 - **No coding required**: We made Zip Recipes easy to use so you don’t need computer knowledge to start publishing your recipes. Even a complete novice can do it!
-- **Extensive support through knowledgebase articles and responsive support.
+- **Extensive support** through knowledgebase articles and responsive support.
 
 ## 2. More visitors | Rank higher in Google
 - **Schema.org and JSON LD**: your recipes will include all the necessary microdata so Google understands them, and will show rich snippets e.g. cooking time and other labels.
