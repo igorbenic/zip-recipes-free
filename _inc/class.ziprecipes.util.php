@@ -1,18 +1,13 @@
 <?php
-
-/**
- * Created by PhpStorm.
- * User: gezimhoxha
- * Date: 15-05-25
- * Time: 12:59 AM
- */
-
 namespace ZRDN;
 
 require_once(ZRDN_PLUGIN_DIRECTORY . 'vendor/autoload.php');
 
 class Util {
-    /* Send debug code to the Javascript console */
+	public static $authors;
+
+	/* Send debug code to the Javascript console */
+
 
     public static function zrdn_debug_to_console($data) {
         if (is_array($data) || is_object($data)) {
@@ -165,19 +160,8 @@ class Util {
 	public static function render_template($file, $options=array(), $pluginDir=false){
 
 	    if (!$pluginDir) {
-            $trace = debug_backtrace();
-            $caller = $trace[2]; // 0 here is direct caller of _view, 1 would be our Util class so we want 2
-
-            $pluginDir = "";
-            if (isset($caller['class'])) {
-                $classComponents = explode("\\", $caller['class']);
-
-                $class = $classComponents[count($classComponents) - 1];
-                $pluginDir = $class;
-            }
-        }
-
-        if ($pluginDir ) {
+		    $pluginDir = '';
+        } else  {
             if (file_exists(ZRDN_PLUGIN_DIRECTORY."plugins/$pluginDir/")) $pluginDir = "plugins/$pluginDir/";
         }
 
@@ -273,13 +257,16 @@ class Util {
         return 'PT0H0M';
     }
 
-    /**
-     * Render view and echo it.
-     *
-     * @param string $name  name of html view to be found in views/ directory. Doesn't contain .html extension.
-     * @param array $args object View context parameters.
-     * @return string Rendered view.
-     */
+	/**
+	 * Render view and echo it.
+	 * @param       $name name of html view to be found in views/ directory. Doesn't contain .html extension.
+	 * @param array $args object View context parameters.
+	 *
+	 * @return string Rendered view.
+	 * @throws \Twig\Error\LoaderError
+	 * @throws \Twig\Error\RuntimeError
+	 * @throws \Twig\Error\SyntaxError
+	 */
     public static function _view($name, $args = array()) {
         $trace = debug_backtrace();
         $caller = $trace[2]; // 0 here is direct caller of _view, 1 would be our Util class so we want 2
@@ -387,6 +374,702 @@ class Util {
 
         return $pluginsString;
     }
+
+	/**
+	 * Get list of grid items
+	 * @return array
+	 */
+
+    public static function grid_items(){
+	    $grid_items = array(
+		    array(
+			    'title' => __("General", " zip-recipes"),
+			    'source' => 'general',
+			    'class' => '',
+			    'can_hide' => true,
+		    ),
+
+		    array(
+			    'title' => __("Print settings", " zip-recipes"),
+			    'source' => "print",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
+
+		    array(
+			    'title' => __("Nutrition", " zip-recipes"),
+			    'source' => "nutrition",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
+
+		    array(
+			    'title' => __("Social", " zip-recipes"),
+			    'source' => "social",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
+
+		    array(
+			    'title' => __("Authors", " zip-recipes"),
+			    'source' => "authors",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
+
+		    array(
+			    'title' => __("Hide labels", " zip-recipes"),
+			    'source' => "labels",
+			    'class' => '',
+			    'can_hide' => true,
+		    ),
+
+		    array(
+			    'title' => __("Miscellaneous", " zip-recipes"),
+			    'source' => "plugins",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
+
+//		    array(
+//			    'title' => __("Advanced", " zip-recipes"),
+//			    'source' => "advanced",
+//			    'class' => '',
+//			    'can_hide' => true,
+//		    ),
+	    );
+	    return $grid_items;
+    }
+
+	/**
+	 * Wrapper function to return a list of authors
+	 * @return array
+	 */
+
+    public static function get_authors(){
+    	if (self::is_plugin_active('Authors')){
+    		return Authors::get_authors();
+	    } else {
+    		return array();
+	    }
+    }
+
+	/**
+	 * Get array of settings fields
+	 * @param bool $type
+	 * @param bool $plugins_only
+	 *
+	 * @return array
+	 */
+	public static function get_fields( $type = false, $plugins_only = false ) {
+		$result = array();
+
+		$fields = array(
+			'template' => array(
+				'type'      => 'select',
+				'source'    => 'general',
+				'options'   => array(
+					'default'               => __( "default", "zip-recipes" ),
+					'_template_autumn'      => __( "Autumn", "zip-recipes" ),
+					'_template_canada'      => __( "Canada", "zip-recipes" ),
+					'_template_cozy_orange' => __( "Cozy Orange",
+						"zip-recipes" ),
+					'_template_vanilla'     => __( "Vanilla", "zip-recipes" ),
+					'_template_vera'        => __( "Vera", "zip-recipes" ),
+				),
+				'disabled'  => array(
+					'_template_autumn',
+					'_template_canada',
+					'_template_cozy_orange',
+					'_template_vanilla',
+					'_template_vera',
+				),
+				'default'   => 'default',
+				'table'     => false,
+				'label'     => __( 'Recipe template', 'zip-recipes' ),
+				'comment'   => sprintf(__("To get more templates, check out %spremium%s", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/premium">', '</a>'),
+
+			),
+
+			'hide_attribution' => array(
+				'type'               => 'checkbox',
+				'source'             => 'general',
+				'table'              => false,
+				'label'              => __( "Hide attribution", 'zip-recipes' ),
+				'callback_condition' => 'zrdn_is_free',
+			),
+
+			'hide_permalink' => array(
+				'type'      => 'checkbox',
+				'source'    => 'general',
+				'table'     => false,
+				'label'     => __( "Hide permalink", 'zip-recipes' ),
+			),
+
+			'copyright_statement' => array(
+				'type'      => 'text',
+				'source'    => 'general',
+				'table'     => false,
+				'label'     => __( "Copyright", 'zip-recipes' ),
+			),
+
+			'use_zip_css' => array(
+				'type'      => 'checkbox',
+				'source'    => 'general',
+				'table'     => false,
+				'label'     => __( "Use Zip Recipes stylesheet",
+					'zip-recipes' ),
+				'condition' => array(
+					'template' => 'default',
+				),
+			),
+
+
+			'hide_title' => array(
+				'type'      => 'checkbox',
+				'source'    => 'general',
+				'table'     => false,
+				'label'     => __( "Hide recipe title", 'zip-recipes' ),
+				'help'      => __( 'Hide Recipe Title in post (still shows in print view)',
+					'zip-recipes' ),
+				'condition' => array(
+					'template' => 'default',
+				),
+			),
+
+			'hide_image' => array(
+				'type'      => 'checkbox',
+				'source'    => 'general',
+				'table'     => false,
+				'label'     => __( "Hide recipe image", 'zip-recipes' ),
+			),
+
+			'hide_print_link' => array(
+				'type'      => 'checkbox',
+				'source'    => 'print',
+				'table'     => false,
+				'label'     => __( "Hide print link", 'zip-recipes' ),
+			),
+
+			'hide_print_image' => array(
+				'type'      => 'checkbox',
+				'source'    => 'print',
+				'table'     => false,
+				'label'     => __( "Hide image in print view", 'zip-recipes' ),
+				'default'   => true,
+				'condition' => array(
+					'hide_print_link' => false,
+				),
+			),
+
+			'hide_nutrition_label_print' => array(
+				'type'      => 'checkbox',
+				'source'    => 'print',
+				'table'     => false,
+				'label'     => __( 'Hide nutrition label in print view',
+					'zip-recipes' ),
+				'condition' => array(
+					'hide_print_link' => false,
+				),
+			),
+
+			'print_image' => array(
+				'type'                  => 'upload',
+				'source'                => 'print',
+				'low_resolution_notice' => __( "Image resolution too low, or image size not generated",
+					"zip-recipes" ),
+				'size'                  => 'zrdn_custom_print_image',
+				'table'                 => false,
+				'condition'             => array(
+					'hide_print_link' => false,
+				),
+				'label'                 => __( 'Custom Print Button', 'zip-recipes' ),
+			),
+
+			'Authors' => array(
+				'type'      => 'checkbox',
+				'source'    => 'authors',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Enable author field', 'zip-recipes' ),
+				'comment' => sprintf(__("The author field is a %spremium%s feature", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/premium">', '</a>'),
+			),
+
+			'use_custom_authors' => array(
+				'type'               => 'checkbox',
+				'source'             => 'authors',
+				'disabled'           => true,
+				'table'              => false,
+				'label'              => __( "Use custom authors", 'zip-recipes' ),
+				'help'              => __( "By default, Zip Recipes uses WordPress authors. You can use your own, custom authors as well.", 'zip-recipes' ),
+			),
+
+			'default_author' => array(
+				'type'               => 'select',
+				'source'             => 'authors',
+				'options'            => ZipRecipes::$authors,
+				'table'              => false,
+				'disabled'           => true,
+				'label'              => __( "Select a default author", 'zip-recipes' ),
+				'condition'         => array(
+					'use_custom_authors' => true,
+				),
+			),
+
+			'custom_authors' => array(
+				'type'               => 'authors',
+				'source'             => 'authors',
+				'table'              => false,
+				'label'              => __( "Manage authors", 'zip-recipes' ),
+				'help'              => __( "Add and remove your authors", 'zip-recipes' ),
+				'disabled'           => true,
+				'default'            => array(),
+				'condition'         => array(
+					'use_custom_authors' => true,
+				),
+			),
+
+			'hide_ingredient_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( "Hide ingredient label", 'zip-recipes' ),
+			),
+
+			'hide_instructions_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( "Hide instructions label", 'zip-recipes' ),
+			),
+
+			'hide_notes_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( 'Hide notes label', 'zip-recipes' ),
+			),
+
+			'border_style' => array(
+				'type'      => 'select',
+				'source'    => 'general',
+				'default'    => 'Dotted',
+				'options'   => array(
+					'None'        => __( 'No border', "zip-recipes" ),
+					'Solid'       => __( '1px solid', "zip-recipes" ),
+					'Dotted'      => __( '1px dotted', "zip-recipes" ),
+					'Dashed'      => __( '1px dashed', "zip-recipes" ),
+					'Thick Solid' => __( '2px solid', "zip-recipes" ),
+					'Double'      => __( 'double', "zip-recipes" ),
+				),
+				'table'     => false,
+				'label'     => __( 'Style of border around recipe', 'zip-recipes' ),
+				'condition' => array(
+					'template' => 'default',
+				),
+			),
+
+			'ingredients_list_type' => array(
+				'type'      => 'select',
+				'source'    => 'general',
+				'options'   => array(
+					'l'   => __( 'List', 'zip-recipes' ),
+					'ol'  => __( 'Numbered List', 'zip-recipes' ),
+					'ul'  => __( 'Bulleted List', 'zip-recipes' ),
+					'p'   => __( 'Paragraphs', 'zip-recipes' ),
+					'div' => __( 'Divs', 'zip-recipes' ),
+				),
+				'table'     => false,
+				'label'     => __( 'Ingredients List Type', 'zip-recipes' ),
+				'default'   => 'l',
+			),
+
+			'instructions_list_type' => array(
+				'type'      => 'select',
+				'source'    => 'general',
+				'options'   => array(
+					'l'   => __( 'List', 'zip-recipes' ),
+					'ol'  => __( 'Numbered List', 'zip-recipes' ),
+					'ul'  => __( 'Bulleted List', 'zip-recipes' ),
+					'p'   => __( 'Paragraphs', 'zip-recipes' ),
+					'div' => __( 'Divs', 'zip-recipes' ),
+				),
+				'table'     => false,
+				'label'     => __( 'Instructions List Type', 'zip-recipes' ),
+				'condition' => array(
+					'template' => 'default',
+				),
+				'default'   => 'l',
+
+			),
+
+			'hide_prep_time_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( 'Hide prep time label', 'zip-recipes' ),
+			),
+
+			'hide_cook_time_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( 'Hide cook time label', 'zip-recipes' ),
+			),
+
+			'hide_total_time_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( 'Hide total time label', 'zip-recipes' ),
+			),
+
+			'hide_yield_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( 'Hide yield label', 'zip-recipes' ),
+			),
+
+			'hide_serving_size_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( 'Hide serving size label', 'zip-recipes' ),
+			),
+
+			'hide_category_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( 'Hide category label', 'zip-recipes' ),
+			),
+
+			'hide_cuisine_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'labels',
+				'table'     => false,
+				'label'     => __( 'Hide cuisine label', 'zip-recipes' ),
+			),
+
+			'AutomaticNutrition' => array(
+				'type'      => 'checkbox',
+				'source'    => 'nutrition',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'comment'   => sprintf(__("To automatically generate nutrition data, check out %spremium%s", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/automatic-nutrition-for-your-recipes/">', '</a>'),
+
+				'label'     => __( 'Enable the Automatic Nutrition generator', 'zip-recipes' ),
+			),
+
+			'show_textual_nutrition_information' => array(
+				'type'      => 'checkbox',
+				'source'    => 'nutrition',
+				'table'     => false,
+				'label'     => __( "Show nutritional values in text on your recipe",
+					'zip-recipes' ),
+			),
+
+			'hide_text_nutrition_labels' => array(
+				'type'      => 'checkbox',
+				'source'    => 'nutrition',
+				'table'     => false,
+				'label'     => __( 'Hide labels for text nutrition info', 'zip-recipes' ),
+				'condition' => array(
+					'show_textual_nutrition_information' => true,
+				),
+			),
+
+			'hide_nutrition_label' => array(
+				'type'      => 'checkbox',
+				'source'    => 'nutrition',
+				'table'     => false,
+				'label'     => __( 'Hide the nutrition information label', 'zip-recipes' ),
+			),
+
+			'nutrition_label_type' => array(
+				'type'      => 'select',
+				'source'    => 'nutrition',
+				'options'   => array(
+					'html'  => __( "HTML format", "zip-recipes" ),
+					'image' => __( "Image", "zip-recipes" ),
+				),
+				'disabled'  => array(
+					'image',
+				),
+				'default'   => 'image',
+				'table'     => false,
+				'label'     => __( 'Choose nutrition label display method', 'zip-recipes' ),
+				'help'      => __( 'You can choose if you want to show the label in html format, which can be understood better by search engines, or in image format', 'zip-recipes' ),
+				'condition' => array(
+					'hide_nutrition_label' => false,
+				)
+			),
+
+			'RecipeActions' => array(
+				'type'      => 'checkbox',
+				'source'    => 'social',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Social Recipe sharing', 'zip-recipes' ),
+				'comment'   => sprintf(__("Check out %spremium%s to see our recipe sharing features", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/premium">', '</a>'),
+
+			),
+
+			'recipe_action_yummly' => array(
+				'type'      => 'checkbox',
+				'source'    => 'social',
+				'disabled'    => 'true',
+				'table'     => false,
+				'label'     => sprintf( __( 'Add %s sharing button',
+					'zip-recipes' ), 'Yummly' ),
+				'comment'   => sprintf( __( 'By enabling %s you agree to %sthe terms%s',
+					'zip-recipes' ), 'Yummly',
+					'<a target="_blank" href="https://www.yummly.com/toolterms" target="_blank">',
+					'</a>' ),
+
+			),
+
+			'recipe_action_bigoven' => array(
+				'type'      => 'checkbox',
+				'source'    => 'social',
+				'disabled'    => 'true',
+
+				'table'     => false,
+				'label'     => sprintf( __( 'Add %s sharing button',
+					'zip-recipes' ), 'BigOven' ),
+				'comment'   => sprintf( __( 'By enabling %s you agree to %sthe terms%s',
+					'zip-recipes' ), 'BigOven',
+					'<a target="_blank" href="https://www.bigoven.com/site/terms" target="_blank">',
+					'</a>' ),
+			),
+
+			'recipe_action_pinterest' => array(
+				'type'      => 'checkbox',
+				'source'    => 'social',
+				'table'     => false,
+				'disabled'    => 'true',
+				'label'     => sprintf( __( 'Add %s sharing button',
+					'zip-recipes' ), 'Pinterest' ),
+				'comment'   => sprintf( __( 'By enabling %s you agree to %sthe terms%s',
+					'zip-recipes' ), 'Pinterest',
+					'<a target="_blank" href="policy.pinterest.com/en/terms-of-service" target="_blank">',
+					'</a>' ),
+			),
+
+			'ImperialMetricsConverter' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Imperial Metrics Converter',
+					'zip-recipes' ),
+			),
+
+			'RecipeGrid' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Legacy Recipe Grid', 'zip-recipes' ),
+				'condition' => array(
+					'RecipeGrid2' => false,
+				)
+			),
+
+			'RecipeGrid2' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Recipe Grid 2', 'zip-recipes' ),
+			),
+
+			'VisitorRating' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'default'     => true,
+				'table'     => false,
+				'condition' => array(
+					'RecipeReviews' => false,
+				),
+				'label'     => __( 'Visitor Rating', 'zip-recipes' ),
+			),
+
+			'RecipeReviews' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'condition' => array(
+					'VisitorRating' => false,
+				),
+				'label'     => __( 'Recipe Reviews', 'zip-recipes' ),
+			),
+
+			'Import' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Import', 'zip-recipes' ),
+			),
+
+			'RecipeSearch' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Recipe Search', 'zip-recipes' ),
+			),
+
+			'ServingAdjustment' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Automatic Serving Adjustment',
+					'zip-recipes' ),
+			),
+
+			'use_custom_css' => array(
+				'type'      => 'checkbox',
+				'source'    => 'advanced',
+				'table'     => false,
+				'label'     => __( "Use custom CSS",
+					'zip-recipes' ),
+			),
+
+			'custom_css' => array(
+				'type'      => 'css',
+				'source'    => 'advanced',
+				'table'     => false,
+				'label'     => __( "Custom CSS",
+					'zip-recipes' ),
+				'condition' => array(
+					'use_custom_css' => true,
+				),
+			),
+		);
+
+		if ( $type ) {
+			foreach ( $fields as $fieldname => $field ) {
+				if ( $field['source'] === $type ) {
+					$result[ $fieldname ] = $field;
+				}
+			}
+		} else if ($plugins_only){
+			foreach ( $fields as $fieldname => $field ) {
+				if ( isset($field['is_plugin']) && $field['is_plugin'] ) {
+					$result[ $fieldname ] = $field;
+				}
+			}
+		} else {
+			$result = $fields;
+		}
+
+	    return apply_filters("zrdn_get_fields", $result, $type);
+    }
+
+	/**
+	 * Get list of active plugins
+	 * @return array
+	 */
+    public static function get_active_plugins(){
+    	$fields = self::get_fields(false, $plugins = true);
+	    $active = array();
+	    foreach ( $fields as $fieldname => $field ) {
+		    if (Util::get_option($fieldname)){
+		    	$active[] = $fieldname;
+		    }
+	    }
+	    $active[] = 'Licensing';
+	    $active[] = 'CustomTemplates';
+	    return apply_filters('zrdn_active_plugins' ,$active);
+    }
+
+	/**
+	 * Check if plugin is active
+	 * @param string $plugin
+	 * @return bool
+	 */
+	public static function is_plugin_active($plugin){
+		$fields = self::get_fields(false, $plugins = true);
+		if (isset($fields[$plugin])){
+			return Util::get_option($plugin);
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get the value for a ZRDN field
+	 * @param string $name
+	 * @param string $type
+	 *
+	 * @return bool|mixed
+	 */
+
+    public static function get_option($fieldname){
+
+	    $fields = Util::get_fields();
+	    if(isset($fields[$fieldname])) {
+		    $field_config = $fields[$fieldname];
+	    } else {
+	    	return false;
+	    }
+	    $source = $field_config['source'];
+	    $default = isset($field_config['default']) ? $field_config['default'] : false;
+	    $zrdn_settings = get_option("zrdn_settings_$source");
+
+	    if (!isset($zrdn_settings[$fieldname])) {
+	    	$value = $default;
+	    } else if (!is_array($zrdn_settings[$fieldname]) && strlen($zrdn_settings[$fieldname]) === 0) {
+		    $value = $default;
+	    } else if (is_array($zrdn_settings[$fieldname]) && empty($zrdn_settings[$fieldname]) ) {
+		    $value = $default;
+	    } else {
+		    $value = $zrdn_settings[$fieldname];
+	    }
+
+	    $value = apply_filters("zrdn_get_option", $value, $fieldname );
+	    return $value;
+    }
+
+	/**
+	 * Update option
+	 * @param $fieldname
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+
+	public static function update_option($fieldname, $value){
+		$fields = Util::get_fields();
+		if(isset($fields[$fieldname]['type'])) {
+			$source = $fields[$fieldname]['source'];
+		} else {
+			return false;
+		}
+
+		$zrdn_settings = get_option("zrdn_settings_$source");
+		$field = ZipRecipes::$field;
+		$zrdn_settings[$fieldname] = apply_filters('zrdn_update_option', $field::sanitize($fieldname, $value), $zrdn_settings[$fieldname], $fieldname, $source);
+
+		update_option("zrdn_settings_$source", $zrdn_settings);
+	}
 
     /**
      * Get all recipes

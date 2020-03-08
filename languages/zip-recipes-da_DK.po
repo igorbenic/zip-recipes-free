@@ -1,0 +1,1363 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Zip Recipes Ltd
+# This file is distributed under the same license as the zip-recipes package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: zip-recipes\n"
+"Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
+"POT-Creation-Date: 2019-09-09 10:07+0000\n"
+"PO-Revision-Date: 2019-09-17 12:15+0000\n"
+"Last-Translator: Odry <tyusel@gmail.com>\n"
+"Language-Team: Danish\n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Loco-Version: 2.3.0; wp-5.2.3"
+
+#: class-field.php:17 class-review.php:14 NutritionLabel/class-shortcode.php:11
+#, php-format
+msgid "%s is a singleton class and you cannot create a second instance."
+msgstr "%s er en enlig klasse, og du kan ikke skabe en anden instans."
+
+#: class-field.php:353
+msgid "(h)"
+msgstr "(t)"
+
+#: class-field.php:362
+msgid "(m)"
+msgstr "(m)"
+
+#: class-review.php:56
+#, php-format
+msgid "You already have %s recipes on your site, awesome!"
+msgstr "Du har allerede %s opskrifter på dit websted, fedt!"
+
+#: class-review.php:62
+#, php-format
+msgid ""
+"If you have a moment, please consider leaving a review on WordPress.org to "
+"spread the word. We greatly appreciate it! If you have any questions or "
+"feedback, leave us a %smessage%s."
+msgstr ""
+"Hvis du har et øjeblik, så overvej at skrive en anmeldelse på WordPress.org, "
+"for at sprede ordet om us. Vi sætter stor pris på det! Hvis du har nogle "
+"spørgsmål eller tilbagemeldninger, så efterlad os venligst en %sbesked%s."
+
+#: class-review.php:66
+msgid "Leave a review"
+msgstr "Skriv en anmeldelse"
+
+#: class-review.php:69
+msgid "Maybe later"
+msgstr "Måske senere"
+
+#: class-review.php:72
+msgid "No thanks"
+msgstr "Nej tak"
+
+#: class.ziprecipes.php:743
+msgid "Use text for the nutritional info"
+msgstr "Brug tekst for det ernæringsmæssigeinformation"
+
+#: class.ziprecipes.php:1033
+#, php-format
+msgid "%d year"
+msgstr "%d år"
+
+#: class.ziprecipes.php:1033
+#, php-format
+msgid "%d years"
+msgstr "%d år"
+
+#: class.ziprecipes.php:1034
+#, php-format
+msgid "%d month"
+msgstr "%d måned"
+
+#: class.ziprecipes.php:1034
+#, php-format
+msgid "%d months"
+msgstr "%d måneder"
+
+#: class.ziprecipes.php:1035
+#, php-format
+msgid "%d day"
+msgstr "%d dag"
+
+#: class.ziprecipes.php:1035
+#, php-format
+msgid "%d days"
+msgstr "%d dage"
+
+#: class.ziprecipes.php:1036
+#, php-format
+msgid "%d hour"
+msgstr "%d time"
+
+#: class.ziprecipes.php:1036
+#, php-format
+msgid "%d hours"
+msgstr "%d timer"
+
+#: class.ziprecipes.php:1037
+#, php-format
+msgid "%d minute"
+msgstr "%d minut"
+
+#: class.ziprecipes.php:1037
+#, php-format
+msgid "%d minutes"
+msgstr "%d minutter"
+
+#: class.ziprecipes.php:1038
+#, php-format
+msgid "%d second"
+msgstr "%d sekund"
+
+#: class.ziprecipes.php:1038
+#, php-format
+msgid "%d seconds"
+msgstr "%d sekunder"
+
+#: twig-strings.php:6
+msgid ""
+"Like this plugin? The premium version includes lots of cool extra features, "
+"your "
+msgstr ""
+"Kan du lide denne tilføjelse? Premium versionen inkludere mange gode ekstra "
+"funktioner, "
+
+#: twig-strings.php:7
+#, php-format
+msgid "20% fast adapter discount"
+msgstr "20% ved øjeblikkeligt køb"
+
+#: twig-strings.php:8
+msgid " is still valid!"
+msgstr "er stadig gyldig!"
+
+#: twig-strings.php:9
+msgid "check out premium"
+msgstr "Tjek premium ud"
+
+#: twig-strings.php:10
+msgid "apply discount"
+msgstr "tilføj rabat"
+
+#: twig-strings.php:11
+msgid "dismiss"
+msgstr "afvis"
+
+#: twig-strings.php:12 views/notice.twig:2
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+"For den bedste ydeevne, anbefaler Zip Recipes, at have ImageMagick eller GD "
+"PHP udvidelserne installeret. Kontakt venligst din webstedvært, og "
+"efterspørg at de installerer ImageMagick eller GD PHP udvidelser for din "
+"hjemmeside."
+
+#: twig-strings.php:13 views/NutritionLabel.twig:17
+msgid "Nutrition Facts"
+msgstr "Ernæring Fakta"
+
+#: twig-strings.php:14 views/NutritionLabel.twig:23
+msgid "Serves"
+msgstr "Portioner"
+
+#: twig-strings.php:15 views/NutritionLabel.twig:29
+msgid "Amount Per Serving"
+msgstr "Mængde Per Portion"
+
+#: twig-strings.php:16 RecipeTable/edit.php:280 views/NutritionLabel.twig:36
+msgid "Calories"
+msgstr "Kalorier"
+
+#: twig-strings.php:17 views/NutritionLabel.twig:44
+msgid "% Daily Value*"
+msgstr "% Daglig Værdi*"
+
+#: twig-strings.php:18 views/NutritionLabel.twig:49
+msgid "Total Fat"
+msgstr "Samlet Fedt"
+
+#: twig-strings.php:19 views/NutritionLabel.twig:60
+msgid "Saturated Fat"
+msgstr "Mættet Fedt"
+
+#: twig-strings.php:20 views/NutritionLabel.twig:71
+msgid "Trans Fat"
+msgstr "Transfedt"
+
+#: twig-strings.php:21 RecipeTable/edit.php:334 views/NutritionLabel.twig:79
+msgid "Cholesterol"
+msgstr "Kolesterol"
+
+#: twig-strings.php:22 RecipeTable/edit.php:310 views/NutritionLabel.twig:88
+msgid "Sodium"
+msgstr "Natrium"
+
+#: twig-strings.php:23 twig-strings.php:24 views/NutritionLabel.twig:97
+msgid "Total Carbohydrate"
+msgstr "Samlede Kulhydrater"
+
+#: twig-strings.php:25 views/NutritionLabel.twig:108
+msgid "Dietary Fiber"
+msgstr "Kostfibre"
+
+#: twig-strings.php:26 views/NutritionLabel.twig:119
+msgid "Sugars"
+msgstr "Sukker"
+
+#: twig-strings.php:27 RecipeTable/edit.php:292 views/NutritionLabel.twig:127
+msgid "Protein"
+msgstr "Protein"
+
+#: twig-strings.php:28 RecipeTable/edit.php:346 views/NutritionLabel.twig:140
+msgid "Vitamin A"
+msgstr "Vitamin A"
+
+#: twig-strings.php:29 twig-strings.php:30 RecipeTable/edit.php:340
+#: views/NutritionLabel.twig:144
+msgid "Vitamin C"
+msgstr "Vitamin C"
+
+#: twig-strings.php:31 RecipeTable/edit.php:352 views/NutritionLabel.twig:154
+msgid "Iron"
+msgstr "Jern"
+
+#: twig-strings.php:32 views/NutritionLabel.twig:161
+msgid ""
+"* Percent Daily Values are based on a 2,000 calorie diet. Your daily values "
+"may be higher or lower depending on your calorie needs."
+msgstr "* Daglige Værdiprocenter er baseret på en 2.000 kaloriediæt"
+
+#: twig-strings.php:33 twig-strings.php:63 twig-strings.php:101
+#: RecipeTable/edit.php:198 views/settings.twig:99
+msgid "Ingredients"
+msgstr "Ingredienser"
+
+#: twig-strings.php:34
+msgid ""
+"Put each ingredient on a separate line.  There is no need to use bullets for "
+"your ingredients.<br />\n"
+"                        You can also create labels, hyperlinks, bold/italic "
+"effects and even add images!"
+msgstr ""
+"ut hver ingrediens i en separat linje. Der er ingen grund, til at bruge "
+"punkter for dine ingredienser.<br />\n"
+"                        Du kan også skabe etikker, hyperlink, "
+"fremhævet/kursiv effekter og endda tilføje billeder"
+
+#: twig-strings.php:36 twig-strings.php:71 RecipeTable/edit.php:205
+#: views/settings.twig:130
+msgid "Instructions"
+msgstr "Instruktioner"
+
+#: twig-strings.php:37 views/settings_promo.twig:12
+msgid "Like the plugin, or need more features?"
+msgstr "Kan du lide tilføjelsen, eller har du brug for flere funktioner?"
+
+#: twig-strings.php:38 views/settings_promo.twig:14
+msgid "Optimized for Google"
+msgstr "Optimeret til Google"
+
+#: twig-strings.php:39 views/settings_promo.twig:15
+msgid "Cool looking themes"
+msgstr "Æstetiske temaer"
+
+#: twig-strings.php:40 views/settings_promo.twig:16
+msgid "Automatic serving adjustment"
+msgstr "Automatisk portions justering"
+
+#: twig-strings.php:41 views/settings_promo.twig:17
+msgid "Author setting for Google"
+msgstr "Forfatterindstilling til Google"
+
+#: twig-strings.php:42 views/settings_promo.twig:18
+msgid "Ratings and reviews"
+msgstr "Bedømmelser og anmeldelser"
+
+#: twig-strings.php:43 views/settings_promo.twig:19
+msgid "Save recipes on social media"
+msgstr "Gem opskrifter på sociale medier"
+
+#: twig-strings.php:44 views/settings_promo.twig:20
+msgid "Recipe index"
+msgstr "Opskriftsindeks"
+
+#: twig-strings.php:45 views/settings_promo.twig:21
+msgid "Automatic nutrition calculation"
+msgstr "Automatisk ernæring beregning"
+
+#: twig-strings.php:46 views/settings_promo.twig:22
+msgid "Search by ingredients"
+msgstr "Søg efter ingredienser"
+
+#: twig-strings.php:47 views/settings_promo.twig:23
+msgid "Recipe picture gallery"
+msgstr "Opskriftsbilledegalleri"
+
+#: twig-strings.php:48 views/settings_promo.twig:24
+msgid "Mobile friendly"
+msgstr "Mobilvenlig"
+
+#: twig-strings.php:49 views/settings.twig:26
+msgid "Zip Recipes Settings"
+msgstr "Zip Opskrifter Indstillinger"
+
+#: twig-strings.php:50 views/settings.twig:27
+msgid "For more customization options, see our knowledgebase:"
+msgstr "For flere tilpasningsmuligheder, se vores knowledgebase:"
+
+#: twig-strings.php:51 views/settings.twig:35
+msgid "Custom Print Button"
+msgstr "Brugerdefineret Udskrivningsknap"
+
+#: twig-strings.php:52 views/settings.twig:45
+msgid "Zip Recipes Plugin Link"
+msgstr "Zip Opskrifter Tilføjelseslink"
+
+#: twig-strings.php:53 views/settings.twig:49
+msgid "Printed Output: Recipe Permalink"
+msgstr "Udskrivning: Opskriftspermalink"
+
+#: twig-strings.php:54 views/settings.twig:53
+msgid "Printed Output: Copyright Statement"
+msgstr "Udskrivning: Ophavsreterklæring"
+
+#: twig-strings.php:55 views/settings.twig:60
+msgid "Recipe Card Look & Feel"
+msgstr "Opskriftskort Ser & Føles"
+
+#: twig-strings.php:56 views/settings.twig:63
+msgid "Stylesheet"
+msgstr "Stilark"
+
+#: twig-strings.php:57 views/settings.twig:67
+msgid "Recipe Title"
+msgstr "Opskriftstitle"
+
+#: twig-strings.php:58 views/settings.twig:71
+msgid "Print Button"
+msgstr "Udskrivningsknap"
+
+#: twig-strings.php:59 twig-strings.php:78 views/settings.twig:75
+msgid "Hide image when duplicate of post"
+msgstr "Skjul billede, når det en duplikat af indlæg"
+
+#: twig-strings.php:60 twig-strings.php:80 views/settings.twig:80
+msgid "Image Width"
+msgstr "Billede Brede"
+
+#: twig-strings.php:61 twig-strings.php:81 views/settings.twig:84
+msgid "Image Display"
+msgstr "Billedeoplysning"
+
+#: twig-strings.php:62 views/settings.twig:92
+msgid "Border Style"
+msgstr "Kantstil"
+
+#: twig-strings.php:64 views/settings.twig:102
+msgid "Ingredients Label"
+msgstr "Ingrediensetik"
+
+#: twig-strings.php:65 views/settings.twig:108
+msgid "Ingredients List Type"
+msgstr "Ingredienslistetype"
+
+#: twig-strings.php:66 views/settings.twig:111 views/settings.twig:142
+msgid "List"
+msgstr "Liste"
+
+#: twig-strings.php:67 views/settings.twig:114 views/settings.twig:145
+msgid "Numbered List"
+msgstr "Nummereret Liste"
+
+#: twig-strings.php:68 views/settings.twig:117 views/settings.twig:148
+msgid "Bulleted List"
+msgstr "Punktliste"
+
+#: twig-strings.php:69 views/settings.twig:120 views/settings.twig:151
+msgid "Paragraphs"
+msgstr "Paragraffer"
+
+#: twig-strings.php:70 views/settings.twig:123 views/settings.twig:154
+msgid "Divs"
+msgstr "Diverse"
+
+#: twig-strings.php:72 views/settings.twig:133
+msgid "Instructions Label"
+msgstr "Instruktionsetik"
+
+#: twig-strings.php:73 views/settings.twig:139
+msgid "Instructions List Type"
+msgstr "Instruktionsliste type"
+
+#: twig-strings.php:74 views/settings.twig:159
+msgid "Other Options"
+msgstr "Andre Indstillinger"
+
+#: twig-strings.php:75 views/settings.twig:64
+msgid "Use Zip Recipes style"
+msgstr "Brug Zip Recipes stil"
+
+#: twig-strings.php:76 views/settings.twig:68
+msgid "Hide Recipe Title in post (still shows in print view)"
+msgstr ""
+"Skjul Opskriftstitle i indlægget (vises stadig i udskrivningsoversigten)"
+
+#: twig-strings.php:77 views/settings.twig:72
+msgid "Hide Print Button"
+msgstr "Skjul Udskrivningsknappen"
+
+#: twig-strings.php:79 views/settings.twig:76
+msgid "Hide recipe image when recipe image is the same as the post image"
+msgstr ""
+"Skjul opskriftsbillede, når opskriftsbilledet er det samme som "
+"indlægsbilledet"
+
+#: twig-strings.php:82 views/settings.twig:86
+msgid "Hide Image in post"
+msgstr "Skjul Billede i indlæg"
+
+#: twig-strings.php:83 views/settings.twig:88
+msgid "Hide Image in print view"
+msgstr "Skjul Billede i udskrivningsoversigten"
+
+#: twig-strings.php:84 plugins/CustomTemplates/views/_blocks.twig:35
+msgid "Print"
+msgstr "Udskriv"
+
+#: twig-strings.php:85
+msgid "Prep Time:"
+msgstr "Forberedelsestid:"
+
+#: twig-strings.php:86
+msgid "Cook Time:"
+msgstr "Kogetid:"
+
+#: twig-strings.php:87
+msgid "Total Time:"
+msgstr "Tid i alt:"
+
+#: twig-strings.php:88
+msgid "Cuisine:"
+msgstr "Cuisine:"
+
+#: twig-strings.php:89
+msgid "Servings:"
+msgstr "Portioner:"
+
+#: twig-strings.php:90
+msgid "Serving Size:"
+msgstr "Portionsstørrelse:"
+
+#: twig-strings.php:91
+msgid "Calories per serving:"
+msgstr "Kalorier per portion:"
+
+#: twig-strings.php:92
+msgid "Fat per serving:"
+msgstr "Fedt per portion:"
+
+#: twig-strings.php:93
+msgid "Saturated fat per serving:"
+msgstr "Mættet fedt per portion:"
+
+#: twig-strings.php:94
+msgid "Carbs per serving:"
+msgstr "Kulhydrater per portion:"
+
+#: twig-strings.php:95
+msgid "Protein per serving:"
+msgstr "Protein per portion:"
+
+#: twig-strings.php:96
+msgid "Fiber per serving:"
+msgstr "Fibre per portion:"
+
+#: twig-strings.php:97
+msgid "Sugar per serving:"
+msgstr "Sukker per portion:"
+
+#: twig-strings.php:98
+msgid "Sodium per serving:"
+msgstr "Natrium per portion:"
+
+#: twig-strings.php:99
+msgid "Trans fat per serving:"
+msgstr "Transfedt per portion:"
+
+#: twig-strings.php:100
+msgid "Cholesterol per serving:"
+msgstr "Kolesterol per portion:"
+
+#: twig-strings.php:102 plugins/VisitorRating/views/render.twig:5
+#: plugins/RecipeReviews/views/render.twig:5
+msgid "stars"
+msgstr "stjerner"
+
+#: twig-strings.php:103 plugins/VisitorRating/VisitorRating.php:63
+#: plugins/VisitorRating/views/render.twig:16
+#: plugins/RecipeReviews/views/render.twig:16
+msgid "Your rating:"
+msgstr "Din vurdering:"
+
+#: twig-strings.php:104 plugins/VisitorRating/views/render.twig:21
+#: plugins/RecipeReviews/views/render.twig:21
+#: plugins/RecipeReviews/views/comments_fields.twig:2
+msgid "Rate this recipe"
+msgstr "Bedøm denne opskrift:"
+
+#: twig-strings.php:105 plugins/VisitorRating/views/render.twig:5
+#: plugins/VisitorRating/views/render.twig:39
+#: plugins/VisitorRating/views/render.twig:41
+#: plugins/RecipeReviews/views/render.twig:5
+#: plugins/RecipeReviews/views/render.twig:39
+#: plugins/RecipeReviews/views/render.twig:41
+msgid "ratings"
+msgstr "bedømmelser"
+
+#: twig-strings.php:106 plugins/RecipeReviews/views/comments_modify.twig:1
+#: plugins/RecipeReviews/views/comment_meta_box.twig:1
+msgid "Rating"
+msgstr "Anmeldelse"
+
+#: twig-strings.php:107
+msgid "Prep"
+msgstr "Forberedelse"
+
+#: twig-strings.php:108
+msgid "Cook"
+msgstr "Kog"
+
+#: twig-strings.php:109
+msgid "Ready in"
+msgstr "Klar om"
+
+#: twig-strings.php:110 RecipeTable/edit.php:235
+msgid "Notes"
+msgstr "Noter"
+
+#: twig-strings.php:111
+msgid "Nutrition information"
+msgstr "Ernæring information"
+
+#: twig-strings.php:112 plugins/RecipeActions/views/recipe_actions.twig:9
+msgid "Save to BigOven"
+msgstr "Gem til BigOven"
+
+#: twig-strings.php:113
+msgid "Category:"
+msgstr "Kategori:"
+
+#: twig-strings.php:114 plugins/Authors/views/render.twig:3
+msgid "Author:"
+msgstr "Forfatter: "
+
+#: twig-strings.php:115
+msgid "Fiber:"
+msgstr "Fibre:"
+
+#: twig-strings.php:116
+msgid "Calories:"
+msgstr "Kalorier:"
+
+#: twig-strings.php:117
+msgid "Carbs:"
+msgstr "Kulhydrater:"
+
+#: twig-strings.php:118
+msgid "Cholesterol:"
+msgstr "Kolesterol: "
+
+#: twig-strings.php:119
+msgid "Choose an option"
+msgstr "Vælg en indstilling"
+
+#: twig-strings.php:120
+msgid "Deactivate License"
+msgstr "Deaktiver Licens"
+
+#: twig-strings.php:121
+msgid "Fat:"
+msgstr "Fedt:"
+
+#: twig-strings.php:122
+msgid "Protein:"
+msgstr "Protein:"
+
+#: twig-strings.php:123
+msgid "Sodium:"
+msgstr "Natrium:"
+
+#: twig-strings.php:124
+msgid "Total:"
+msgstr "I alt:"
+
+#: twig-strings.php:125
+msgid "Error"
+msgstr "Fejl"
+
+#: twig-strings.php:126
+msgid "Trans fat:"
+msgstr "Transfedt:"
+
+#: twig-strings.php:127
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+"Du har ikke tilladelser, til at kunne installer tilføjelsesopdateringer."
+
+#: twig-strings.php:128
+msgid "Use custom authors"
+msgstr "Brug selvvalgte forfattere"
+
+#: twig-strings.php:129
+msgid "Use custom authors instead of default WordPress post authors."
+msgstr ""
+"Brug brugerdefineret forfattere, i stedet for standard WordPress "
+"indlægsforfattere."
+
+#: twig-strings.php:130
+msgid "Start"
+msgstr "Start"
+
+#: twig-strings.php:131
+msgid "Saturated fat:"
+msgstr "Mættet fedt:"
+
+#: twig-strings.php:132
+msgid "Recipe Reviews"
+msgstr "Opskriftsanmeldelser"
+
+#: twig-strings.php:133
+msgid "Prep:"
+msgstr "Forbered:"
+
+#: twig-strings.php:134
+msgid "Print this recipe"
+msgstr "Udskriv denne opskrift"
+
+#: twig-strings.php:135
+msgid "Prep Time"
+msgstr "Forberedningstid"
+
+#: twig-strings.php:136
+msgid "Generate label"
+msgstr "Generere etik"
+
+#: twig-strings.php:137
+msgid "Enter your license key"
+msgstr "Indtast din licensnøgle"
+
+#: twig-strings.php:138
+msgid "Cook Time"
+msgstr "Kogetid"
+
+#: twig-strings.php:139
+msgid "Clear label"
+msgstr "Ryd etik"
+
+#: twig-strings.php:140
+msgid "Activate License"
+msgstr "Aktivér Licens"
+
+#: twig-strings.php:141
+msgid "active"
+msgstr "aktivér"
+
+#: twig-strings.php:142
+msgid "An error occurred while updating the license data, please try again."
+msgstr "En fejl opstod, mens licensdataen opdaterede, prøv venligst igen."
+
+#: RecipeTable/RecipeMenu.php:225 RecipeTable/RecipeMenu.php:226
+#: RecipeTable/RecipeMenu.php:351 RecipeTable/class-recipe-table.php:67
+msgid "Recipes"
+msgstr "Opskrifter"
+
+#: RecipeTable/RecipeMenu.php:257
+msgid "Click to edit this image"
+msgstr "Klik, for at rediger dette billede."
+
+#: RecipeTable/RecipeMenu.php:258
+msgid "minutes"
+msgstr "minuter"
+
+#: RecipeTable/RecipeMenu.php:259
+msgid "hours"
+msgstr "timer"
+
+#: RecipeTable/RecipeMenu.php:260
+msgid "clear image"
+msgstr "Ryd billede"
+
+#: RecipeTable/RecipeMenu.php:353
+msgid "Add recipe"
+msgstr "Tilføj opskift"
+
+#: RecipeTable/RecipeMenu.php:362
+msgid "Filter"
+msgstr "Filter"
+
+#: RecipeTable/class-recipe-table.php:66
+msgid "Recipe"
+msgstr "Opskrift"
+
+#: RecipeTable/class-recipe-table.php:112 RecipeTable/edit.php:160
+msgid "Title"
+msgstr "Overskrift"
+
+#: RecipeTable/class-recipe-table.php:136
+msgid "Unnamed recipe"
+msgstr "Unavngivet opskrift"
+
+#: RecipeTable/class-recipe-table.php:140
+msgid "Edit"
+msgstr "Rediger"
+
+#: RecipeTable/class-recipe-table.php:145 RecipeTable/edit.php:123
+msgid "Unlink from post"
+msgstr "Fjern linket fra indlæg"
+
+#: RecipeTable/class-recipe-table.php:146
+#: RecipeTable/class-recipe-table.php:150
+msgid "Delete"
+msgstr "Slet"
+
+#: RecipeTable/class-recipe-table.php:147
+msgid "View post"
+msgstr "Vis indlæg"
+
+#: RecipeTable/class-recipe-table.php:166
+msgid "ID"
+msgstr "ID"
+
+#: RecipeTable/class-recipe-table.php:167
+msgid "Name"
+msgstr "Navn"
+
+#: RecipeTable/edit.php:50
+msgid "New recipe"
+msgstr "Ny opskrift"
+
+#: RecipeTable/edit.php:83
+msgid "Settings saved!"
+msgstr "Indstillinger gemt!"
+
+#: RecipeTable/edit.php:87
+msgid "Not all required fields are filled out!"
+msgstr "Ikke alle krævede felter er fyldt ud!"
+
+#: RecipeTable/edit.php:92 RecipeTable/edit.php:112
+msgid "General"
+msgstr "Generelt"
+
+#: RecipeTable/edit.php:95 RecipeTable/edit.php:266
+msgid "Nutrition"
+msgstr "Ernæring"
+
+#: RecipeTable/edit.php:98 RecipeTable/edit.php:380
+msgid "Misc"
+msgstr "Diverse"
+
+#: RecipeTable/edit.php:106
+msgid "Save"
+msgstr "Gem"
+
+#: RecipeTable/edit.php:107
+msgid "Save and close"
+msgstr "Gem og luk"
+
+#: RecipeTable/edit.php:117
+msgid ""
+"This recipe is linked to a post, but this post has been trashed. You can "
+"untrash the post, or link the recipe to another post or page"
+msgstr ""
+"Denne opskrift er linket til et indlæg, men dette indlæg er smidt i "
+"skraldespanden. Du kan tage indlægget op ad skraldespanden, eller linke "
+"opskriften til et andet indlæg eller side."
+
+#: RecipeTable/edit.php:121
+msgid "Edit linked post"
+msgstr "Rediger linket indlæg"
+
+#: RecipeTable/edit.php:126
+msgid "View"
+msgstr "Vis"
+
+#: RecipeTable/edit.php:133
+msgid ""
+"Your recipe image is the same as your post image. The image will be hidden "
+"on the front end."
+msgstr ""
+"Dit opskriftsbillede, er det samme som indlægsbilledet. Billedet vil være "
+"skjult på forsiden."
+
+#: RecipeTable/edit.php:138
+#, php-format
+msgid ""
+"You haven't added any tags to your post yet. In your post you can %sadd%s "
+"some tags relevant to this recipe. These will get added as keywords to your "
+"recipes microdata."
+msgstr ""
+"Du har ikke tilføjet nogle mærkater til dit indlæg endnu. Du kan %stilføje%s "
+"relevante mærkater i dit indlæg til opskriften. Disse vil blive tilføjet som "
+"nøgleord, til din opskriftsmikrodata."
+
+#: RecipeTable/edit.php:161
+msgid "My recipe"
+msgstr "Min opskrift"
+
+#: RecipeTable/edit.php:168
+msgid "Prep time"
+msgstr "Forberedningstid"
+
+#: RecipeTable/edit.php:174
+msgid "Cook time"
+msgstr "Kogetid"
+
+#: RecipeTable/edit.php:181
+msgid "Serving size"
+msgstr "Portionsstørrelse"
+
+#: RecipeTable/edit.php:182
+msgid "1 slice"
+msgstr "1 skive"
+
+#: RecipeTable/edit.php:189
+msgid "Servings"
+msgstr "Portioner"
+
+#: RecipeTable/edit.php:190
+msgid "4 persons"
+msgstr "4 personer"
+
+#: RecipeTable/edit.php:199
+#, php-format
+msgid ""
+"Put each ingredient on a separate line. There is no need to use bullets for "
+"your ingredients. You can also create labels, hyperlinks, bold/italic "
+"effects and even add images! %sRead more%s"
+msgstr ""
+"Put hver ingrediens i en separat linje. Der er ingen grund, til at bruge "
+"punkter for dine ingredienser. Du kan også skabe etikker, hyperlink, "
+"fremhævet/kursiv effekter og endda tilføje billeder! %sLæs mere%s"
+
+#: RecipeTable/edit.php:211
+msgid "Instruction video"
+msgstr "Instruktionsvideo"
+
+#: RecipeTable/edit.php:212
+msgid ""
+"A video is a great way to improve your ranking and will get picked up by "
+"Google's rich snippets."
+msgstr ""
+"En video, er en alle tiders måde, at forbedre din rangordning og blive "
+"opdaget blandt Googles rige uddrag."
+
+#: RecipeTable/edit.php:218
+msgid "Category"
+msgstr "Kategori"
+
+#: RecipeTable/edit.php:219
+msgid "Bread"
+msgstr "Brød"
+
+#: RecipeTable/edit.php:226
+msgid "Cuisine"
+msgstr "Cuisine"
+
+#: RecipeTable/edit.php:227
+msgid "French"
+msgstr "Fransk"
+
+#: RecipeTable/edit.php:243
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: RecipeTable/edit.php:250
+#, php-format
+msgid ""
+"Rank even better in Google? Also get the author field in your schema.org "
+"markup. Available in %sall plans%s"
+msgstr ""
+"Rangere bedre i Google? Skaf også forfatterfeltet i din schema.org markering."
+" Tilgængelig i %salle planer%s"
+
+#: RecipeTable/edit.php:274
+#, php-format
+msgid ""
+"Tired of looking up all nutrition data? You can generate the nutrition data "
+"automatically with %sZip Recipes Lover%s"
+msgstr ""
+"Træt af at søge efter alt ernæringsdata? Du kan generer ernæringsdataen "
+"automatisk med %sZip Recipes Lover%s"
+
+#: RecipeTable/edit.php:286
+msgid "Carbs"
+msgstr "Kulhydrater"
+
+#: RecipeTable/edit.php:298
+msgid "Fiber"
+msgstr "Fibre"
+
+#: RecipeTable/edit.php:304
+msgid "Sugar"
+msgstr "Sukker"
+
+#: RecipeTable/edit.php:316
+msgid "Fat"
+msgstr "Fedt"
+
+#: RecipeTable/edit.php:322
+msgid "Saturated fat"
+msgstr "Mættet fedt"
+
+#: RecipeTable/edit.php:328
+msgid "Trans fat"
+msgstr "Transfedt"
+
+#: RecipeTable/edit.php:358 views/NutritionLabel.twig:150
+msgid "Calcium"
+msgstr "Calcium"
+
+#: RecipeTable/edit.php:387
+msgid "Mark recipe as non food"
+msgstr "Mærker opskrift som ikke mad"
+
+#: NutritionLabel/NutritionLabel.php:24
+#, php-format
+msgid "Nutrition label for %s"
+msgstr "Ernæringsetiket for %s"
+
+#: NutritionLabel/widget.php:16
+msgid "Nutrition Label"
+msgstr "Ernæringsetiket"
+
+#: NutritionLabel/widget.php:17
+msgid "Show the Nutrition Label for a recipe"
+msgstr "Vis Ernæringsetikken for en opskrift"
+
+#: NutritionLabel/widget.php:55
+msgid "Nutrition info"
+msgstr "Ernæring information"
+
+#: controllers/EndpointController.php:226
+#: controllers/EndpointController.php:236
+msgid "Invalid recipe ID or recipe not found"
+msgstr "Ugyldigt opskriftsID eller opskrift ikke fundet"
+
+#: controllers/EndpointController.php:258
+msgid "Invalid recipe fields"
+msgstr "Ugyldige opskriftsfelter"
+
+#: controllers/EndpointController.php:267
+msgid "Can't create recipe"
+msgstr "Kan ikke skabe opskrift"
+
+#: controllers/EndpointController.php:287
+msgid "Can't update recipe"
+msgstr "Kan ikke opdater opskrift"
+
+#: views/toolbar.php:123
+msgid "Recipe selection updated. Time to save!"
+msgstr "Opskriftsudvælgelse opdateret. Tid til at gemme!"
+
+#: views/toolbar.php:124
+msgid ""
+"Selecting a recipe that is linked to another post will unlink it from that "
+"post!"
+msgstr ""
+"Når du vælger en opskrift, der er linket til en anden indlæg, vil "
+"opskriftenslinket blive fjernet fra det indlæg!"
+
+#: views/toolbar.php:125
+msgid "Show only recipes without post"
+msgstr "Vis kun opskrifter uden indlæg"
+
+#: views/toolbar.php:128 views/toolbar.php:136
+msgid "No recipe selected"
+msgstr "Ingen opskrift valgt"
+
+#: views/toolbar.php:148
+msgid "Edit recipe"
+msgstr "Rediger opskrift"
+
+#: views/toolbar.php:155
+msgid "Create and insert new recipe"
+msgstr "Skab og indsæt ny opskrift"
+
+#: views/toolbar.php:158
+msgid ""
+"Creating and inserting a new recipe will unlink the current recipe from this "
+"post."
+msgstr ""
+"Skabelsen og indsætning af ny opskrift, vil fjerne linket fra den nuværende "
+"opskrift i dette indlæg."
+
+#: src/block.php:87
+msgid "Recipe not found"
+msgstr "Opskrift ikke fundet"
+
+# We do not have a word for 'ounce' in Danish.
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:26
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:52
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:58
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:64
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:70
+msgid "ounce"
+msgstr "ounce"
+
+# We do not have a word for 'ounce' in Danish.
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:26
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:52
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:58
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:64
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:70
+msgid "ounces"
+msgstr "ounces"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:28
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:34
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:40
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:46
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:50
+msgid "gram"
+msgstr "gram"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:28
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:34
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:40
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:46
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:50
+msgctxt "plural"
+msgid "grams"
+msgstr "gram"
+
+# We do not have a word for 'ounce' in Danish.
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:32
+msgid "oz"
+msgstr "ounce"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:38
+msgid "pound"
+msgstr "pund"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:38
+msgid "pounds"
+msgstr "pund"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:44
+msgid "lb"
+msgstr "Pund"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:44
+msgid "lbs"
+msgstr "Pund"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:56
+msgid "[\\d ]g"
+msgstr "[\\d ]g"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:56
+msgctxt "plural"
+msgid "[\\d ]g"
+msgstr "[\\d ]g"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:62
+msgid "kilogram"
+msgstr "kilogram"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:62
+msgctxt "plural"
+msgid "kilograms"
+msgstr "kilogram"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:68
+msgid "kg"
+msgstr "kg"
+
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:68
+msgctxt "plural"
+msgid "kgs "
+msgstr "kilogram"
+
+#: plugins/Authors/Authors.php:104
+msgid "Author"
+msgstr "Forfatter"
+
+#: plugins/Authors/Authors.php:111
+#, php-format
+msgid ""
+"Author will be set automatically to your post author. If you want to use "
+"custom authors, you can do so in the %ssettings%s."
+msgstr ""
+"Forfatteren er automatisk sat til din indlægsforfatter. Hvis du vil bruge "
+"brugerdefinerede forfattere, så kan du gøre det i %sindstillinger%s."
+
+#: plugins/Licensing/Licensing.php:68 plugins/Licensing/Licensing.php:69
+#: plugins/Licensing/Licensing.php:163
+msgid "License"
+msgstr "Licens"
+
+#: plugins/Licensing/Licensing.php:88
+msgid ""
+"You haven't activated your Zip Recipes license yet. To get all future "
+"updates, enter your license on the settings page."
+msgstr ""
+"Du har ikke aktiveret din Zip Recipes licens endnu. For at få alle "
+"fremtidige opdateringer, indtast din licens på indstillingssiden."
+
+#: plugins/Licensing/Licensing.php:89
+#, php-format
+msgid "Go to the %ssettings page%s or %spurchase a license%s"
+msgstr "Gå til %sindstillingssiden%s eller %skøb en licens%s"
+
+#: plugins/Licensing/Licensing.php:168
+msgid "Could not connect to ziprecipes.net. Please try again later."
+msgstr ""
+"Kunne ikke oprette forbindelse til ziprecipes.net. Prøv venligst igen senere."
+
+#: plugins/Licensing/Licensing.php:171
+msgid "a 5 sites or unlimited sites license"
+msgstr "en 5 websted- eller ubegrænset webstedlincens"
+
+#: plugins/Licensing/Licensing.php:171
+msgid "an unlimited sites license"
+msgstr "en ubegrænset webstedlicens"
+
+#: plugins/Licensing/Licensing.php:174
+#, php-format
+msgid ""
+"You have 0 activations left on your %s sites license. If you need more "
+"activations you can upgrade your current license to %s on your %saccount%s"
+msgstr ""
+"Du har 0 aktiveringer tilbage på din %s webstedlicens. Hvis du har brug for "
+"flere aktiveringer, kan du opgrader din nuværende licens til %s på din "
+"%skonto%s"
+
+#: plugins/Licensing/Licensing.php:182
+msgid "Your license is valid, but not activated on this site"
+msgstr "Din licens er gyldig, men ikke aktiveret på dette websted"
+
+#: plugins/Licensing/Licensing.php:184
+msgid "Your license does not seem to be valid. Please check your license key"
+msgstr ""
+"Din licens ser ud ikke til at være gyldig. Tjek venligst din licensnøgle"
+
+#: plugins/Licensing/Licensing.php:188
+#, php-format
+msgid "Your license is valid, and expires on: %s"
+msgstr "Din licens er gyldig, og udløber den: %s"
+
+#: plugins/Licensing/Licensing.php:190
+msgid "Enter your license here so you keep receiving updates and support."
+msgstr ""
+"Indtast din licens her, så du kan blive ved med at modtage opdateringer og "
+"support."
+
+#: plugins/Licensing/Licensing.php:204
+msgid "License Key"
+msgstr "Licensnøgle"
+
+#: plugins/Licensing/Licensing.php:245
+msgid "This is not a valid license"
+msgstr "Dette er ikke en gyldigt licens"
+
+#: plugins/Licensing/Licensing.php:250
+msgid "Your license is expired. Please renew your license at %ziprecipes.net%s"
+msgstr "Din licens er udløbet. Forny venligst din licens på %ziprecipes.net%s"
+
+#: plugins/Licensing/Licensing.php:253
+#, php-format
+msgid "Your license has been revoked. Please contact %ssupport%s"
+msgstr "Din licens er tilbagekaldt. Kontakt venligst %ssupport%s"
+
+#: plugins/Licensing/Licensing.php:256
+#, php-format
+msgid ""
+"Your license could not be found in the database. Please contact %ssupport%s"
+msgstr "Din licens kan ikke findes i databasen. Kontakt venligst %ssupport%s"
+
+#: plugins/Licensing/Licensing.php:260
+msgid "Your license has not yet been activated for this domain."
+msgstr "Din licens er ikke aktiveret for dette domæne endnu."
+
+#: plugins/Licensing/Licensing.php:263
+msgid "Your license key appears to be invalid."
+msgstr "Din licensnøgle ser ud til at være ugyldig."
+
+#: plugins/Licensing/Licensing.php:266
+msgid ""
+"You have no activations left on your license. Please upgrade your license at "
+"%ziprecipes.net%s"
+msgstr ""
+"Du har ingen aktiveringer tilbage på din licens. Opgrader venligst din "
+"licens på %ziprecipes.net%s"
+
+#: plugins/Licensing/Licensing.php:273
+msgid "Your license is valid, but has not yet been activated for this domain."
+msgstr "Din licens er gyldig, men er ikke aktiveret for dette domæne."
+
+#: plugins/Licensing/Licensing.php:282
+msgid "license data error"
+msgstr "licensdatafejl"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:106
+msgid "Use separate ingredients list for nutrition generation"
+msgstr "Brug separate ingrediensliste for ernæringsgeneration"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:107
+msgid ""
+"If you're not using English or Spanish, or you just want te exclude some "
+"ingredients from the nutrition generation, you can use this field, which is "
+"used for the nutrition data only"
+msgstr ""
+"Hvis du ikke bruger engelsk eller spansk, eller du bare vil ekskludere nogle "
+"ingredienser fra ernæringsgenerationen, så kan du bruge dette felt, hvilket "
+"bruges kun for ernæringsdataen."
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:113
+msgid "Ingredients for nutrition generation"
+msgstr "Ingredienser for ernæringsgeneration"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:127
+msgid "You do not have edit permissions."
+msgstr "Du har ikke redigeringstilladelser"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:132
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:348
+msgid "An unexpected error has occurred. Please try again"
+msgstr "En uforventet fejl opstod. Prøv venligst igen"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:137
+msgid ""
+"Your PHP is mis-configured. It's missing CURL extension. Please contact your "
+"host."
+msgstr ""
+"Din PHP er fejlkonfigureret. Den mangler CURL forlængelsen. Kontakt venligst "
+"din webstedvært."
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:147
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:359
+msgid "Recipe not found. Please save your recipe first."
+msgstr "Opskrift ikke fundet. Gem venligst din opskrift først."
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:154
+msgid ""
+"Your license is not activated. Please activate your license to be able to "
+"use the Nutrition Generator."
+msgstr ""
+"Din licens er ikke aktiveret. Aktiver venligst din licens, for at kunne "
+"bruge Ernæringsgenerationen."
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:215
+#, php-format
+msgid "The %s field should not be empty"
+msgstr "%s felterne burde ikke være tomme"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:225
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:243
+msgid ""
+"We had trouble understanding your ingredients. Please try removing some to "
+"see if any are not recognized by the API. If needed, you can create a "
+"separte API ingredients field, by checking the option below."
+msgstr ""
+"Vi havde problemer ved at forstå dine ingredienser. Prøv venligst at fjerne "
+"nogle, for at se om nogle overhovedet er genkendt af API'en. Hvis det bliver "
+"nødvendigt, så kan du skabe et separat API ingrediensfelt, ved at vælge "
+"indstillingen nedenunder."
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:309
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:317
+msgid "Did not receive nutrition image url"
+msgstr "Modtog ikke ernæringsbilledeurl"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:327
+msgid "Successfully generated nutrition data"
+msgstr "Genererede ernæringsdataen succesfyldt"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:401
+msgid "Successfully cleared nutrition data"
+msgstr "Ryddet ernæringsdataen succesfyldt"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:638
+msgid "Automatic Nutrition generation"
+msgstr "Automatisk Ernæring generation"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:646
+msgid "To generate the Nutrition data, you should save the recipe first"
+msgstr "For at generere Ernæringsdataen, burde du gemme opskriften først"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:654
+msgid "Update"
+msgstr "Opdater"
+
+#: views/settings.twig:46
+msgid "Hide plugin link"
+msgstr "Skjul tilføjelseslink"
+
+#: views/settings.twig:50
+msgid "Hide permalink in printed output"
+msgstr "Skjul permalink i udskrevet version"
+
+#: views/settings.twig:81
+msgid "pixels"
+msgstr "billedpunkter"
+
+#: views/settings.twig:104
+msgid "Hide Ingredients label"
+msgstr "Skjul Ingrediensetikken"
+
+#: views/settings.twig:135
+msgid "Hide Instructions label"
+msgstr "Skjul Instruksetikken"
+
+#: plugins/PluginManagement/views/notice.twig:2
+msgid ""
+"VisitorRating and RecipeReviews cannot be active at the same time. If you "
+"want to allow anonymous ratings, activate VisitorRating. If you want to "
+"require comments with ratings activate RecipeReviews."
+msgstr ""
+"VisitorRating og RecipeReviews kan ikke være aktiveret på samme tidspunkt. "
+"Hvis du vil tillade anonymeanmeldelser, aktiver VisitorRating. Hvis du vil "
+"kræve en kommentar med anmeldelser, så aktiver RecipeReviews."
+
+#: plugins/PluginManagement/views/notice-comments.twig:2
+msgid ""
+"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
+"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">"
+"Learn more</a>"
+msgstr ""
+"Opskriftsanmeldelser virker kun med WordPress comments eller Jetpack "
+"Comments. <a href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" "
+"target=\"_blank\">Lær mere</a>"
+
+#. Plugin Name of the plugin/theme
+msgid "Zip Recipes Lover"
+msgstr "Zip Recipes Lover"
+
+#. Description of the plugin/theme
+msgid ""
+"A plugin that adds all the necessary microdata to your recipes, so they will "
+"show up in Google's Recipe Search"
+msgstr ""
+"En tilføjelse, der tilføjer alt det nedvøndige mikodata til dine opskrifter, "
+"så de dukker op i Googles Opskriftsøgninger."
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://www.ziprecipes.net/"
+msgstr "http://www.ziprecipes.net/"
+
+#. Author of the plugin/theme
+msgid "RogierLankhorst"
+msgstr "RogierLankhorst"

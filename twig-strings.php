@@ -48,7 +48,7 @@ __('Recipe picture gallery','zip-recipes');
 __('Mobile friendly','zip-recipes');
  __('Zip Recipes Settings','zip-recipes');
  __('For more customization options, see our knowledgebase:','zip-recipes');
-__('Custom Print Button','zip-recipes');
+
 __('Zip Recipes Plugin Link','zip-recipes');
 __('Printed Output: Recipe Permalink','zip-recipes');
 __('Printed Output: Copyright Statement','zip-recipes');
@@ -62,22 +62,17 @@ __('Image Width','zip-recipes');
 __('Border Style','zip-recipes');
  __('Ingredients','zip-recipes');
 __('Ingredients Label','zip-recipes');
- __('Ingredients List Type','zip-recipes');
-__('List','zip-recipes');
-__('Numbered List','zip-recipes');
-__('Bulleted List','zip-recipes');
-__('Paragraphs','zip-recipes');
-__('Divs','zip-recipes');
+
  __('Instructions','zip-recipes');
  __('Instructions Label','zip-recipes');
  __('Instructions List Type','zip-recipes');
 __('Other Options','zip-recipes');
 __('Use Zip Recipes style','zip-recipes');
-__('Hide Recipe Title in post (still shows in print view)','zip-recipes');
+
 __('Hide Print Button','zip-recipes');
 __('Hide image when duplicate of post','zip-recipes');
  __('Hide recipe image when recipe image is the same as the post image','zip-recipes');
-__('Image Width','zip-recipes');
+
  __('Image Display','zip-recipes');
 __('Hide Image in post','zip-recipes');
 __('Hide Image in print view','zip-recipes');
