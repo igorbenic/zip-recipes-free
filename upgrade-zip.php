@@ -28,7 +28,7 @@ function zrdn_check_upgrade()
 	 * upgrade old options to new style
 	 */
 
-	if ( version_compare($prev_version, '6.4.0', '<') ) {
+	if ( version_compare($prev_version, '6.3.9', '<') ) {
 		error_log("run settings upgrade");
 
 		//this is upgrade, so we don't need to set default add ons

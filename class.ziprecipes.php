@@ -31,7 +31,15 @@ class ZipRecipes {
 
         foreach ($active_plugins as $plugin_name){
 	        $pluginPath = $pluginsPath."/".$plugin_name.'/'.$plugin_name.'.php';
-            if (!file_exists($pluginsPath)) {
+
+            if (!file_exists($pluginPath)) {
+	            $fields = Util::get_fields();
+	            if (isset($fields[$plugin_name])) {
+		            $source = $fields[ $plugin_name ]['source'];
+		            $zrdn_settings = get_option( "zrdn_settings_$source" );
+		            $zrdn_settings[ $plugin_name ] = false;
+		            update_option( "zrdn_settings_$source", $zrdn_settings );
+	            }
 	            continue;
             }
             require_once($pluginPath);
@@ -634,7 +642,7 @@ class ZipRecipes {
         <?php
     }
 
-    public function extensions_tab(){
+    public static function extensions_tab(){
 	    $element = zrdn_grid_element();
         $extensions = array(
                 'AutomaticNutrition' => array(
@@ -1056,7 +1064,7 @@ class ZipRecipes {
             $tags= wp_list_pluck($tags,'name');
             $keywords = implode(',',$tags);
         }
-        
+
         $recipe_json_ld = array(
             "@context" => "http://schema.org",
             "@type" => "Recipe",
