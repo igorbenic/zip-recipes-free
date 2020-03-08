@@ -9,7 +9,7 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
 Requires at least: 4.2
 Tested up to: 5.3
-Stable tag: 6.1.7
+Stable tag: 6.4.0
 Requires PHP: 5.4
 
 Zip Recipes is the best way to easily create professional-looking recipes fully optimized for Google and your website visitors.
@@ -124,6 +124,9 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 3. Easy to Use
 
 == Changelog ==
+= 6.4.0 =
+* New settings page style
+
 = 6.1.7 =
 * Fix: search on recipe overview page
 
