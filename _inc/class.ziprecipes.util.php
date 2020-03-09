@@ -390,6 +390,13 @@ class Util {
 		    ),
 
 		    array(
+			    'title' => __("Image", " zip-recipes"),
+			    'source' => "image",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
+
+		    array(
 			    'title' => __("Print settings", " zip-recipes"),
 			    'source' => "print",
 			    'class' => 'small',
@@ -431,12 +438,12 @@ class Util {
 			    'can_hide' => true,
 		    ),
 
-//		    array(
-//			    'title' => __("Advanced", " zip-recipes"),
-//			    'source' => "advanced",
-//			    'class' => '',
-//			    'can_hide' => true,
-//		    ),
+		    array(
+			    'title' => __("Advanced", " zip-recipes"),
+			    'source' => "advanced",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
 	    );
 	    return $grid_items;
     }
@@ -499,6 +506,66 @@ class Util {
 				'callback_condition' => 'zrdn_is_free',
 			),
 
+			'border_style' => array(
+				'type'      => 'select',
+				'source'    => 'general',
+				'default'    => 'Dotted',
+				'options'   => array(
+					'None'        => __( 'No border', "zip-recipes" ),
+					'Solid'       => __( '1px solid', "zip-recipes" ),
+					'Dotted'      => __( '1px dotted', "zip-recipes" ),
+					'Dashed'      => __( '1px dashed', "zip-recipes" ),
+					'Thick Solid' => __( '2px solid', "zip-recipes" ),
+					'Double'      => __( 'double', "zip-recipes" ),
+				),
+				'table'     => false,
+				'label'     => __( 'Style of border around recipe', 'zip-recipes' ),
+				'condition' => array(
+					'template' => 'default',
+				),
+			),
+
+			'ingredients_list_type' => array(
+				'type'      => 'select',
+				'source'    => 'general',
+				'options'   => array(
+					'l'   => __( 'List', 'zip-recipes' ),
+					'ol'  => __( 'Numbered List', 'zip-recipes' ),
+					'ul'  => __( 'Bulleted List', 'zip-recipes' ),
+					'p'   => __( 'Paragraphs', 'zip-recipes' ),
+					'div' => __( 'Divs', 'zip-recipes' ),
+				),
+				'table'     => false,
+				'label'     => __( 'Ingredients List Type', 'zip-recipes' ),
+				'default'   => 'l',
+			),
+
+			'instructions_list_type' => array(
+				'type'      => 'select',
+				'source'    => 'general',
+				'options'   => array(
+					'l'   => __( 'List', 'zip-recipes' ),
+					'ol'  => __( 'Numbered List', 'zip-recipes' ),
+					'ul'  => __( 'Bulleted List', 'zip-recipes' ),
+					'p'   => __( 'Paragraphs', 'zip-recipes' ),
+					'div' => __( 'Divs', 'zip-recipes' ),
+				),
+				'table'     => false,
+				'label'     => __( 'Instructions List Type', 'zip-recipes' ),
+				'condition' => array(
+					'template' => 'default',
+				),
+				'default'   => 'l',
+
+			),
+
+			'copyright_statement' => array(
+				'type'      => 'text',
+				'source'    => 'general',
+				'table'     => false,
+				'label'     => __( "Copyright statement", 'zip-recipes' ),
+			),
+
 			'hide_permalink' => array(
 				'type'      => 'checkbox',
 				'source'    => 'general',
@@ -506,32 +573,12 @@ class Util {
 				'label'     => __( "Hide permalink", 'zip-recipes' ),
 			),
 
-			'copyright_statement' => array(
-				'type'      => 'text',
-				'source'    => 'general',
-				'table'     => false,
-				'label'     => __( "Copyright", 'zip-recipes' ),
-			),
-
-			'use_zip_css' => array(
-				'type'      => 'checkbox',
-				'source'    => 'general',
-				'table'     => false,
-				'label'     => __( "Use Zip Recipes stylesheet",
-					'zip-recipes' ),
-				'condition' => array(
-					'template' => 'default',
-				),
-			),
-
-
 			'hide_title' => array(
 				'type'      => 'checkbox',
 				'source'    => 'general',
 				'table'     => false,
 				'label'     => __( "Hide recipe title", 'zip-recipes' ),
-				'help'      => __( 'Hide Recipe Title in post (still shows in print view)',
-					'zip-recipes' ),
+				'help'      => __( 'Hide Recipe Title in post (still shows in print view)', 'zip-recipes' ),
 				'condition' => array(
 					'template' => 'default',
 				),
@@ -539,23 +586,56 @@ class Util {
 
 			'hide_image' => array(
 				'type'      => 'checkbox',
-				'source'    => 'general',
+				'source'    => 'image',
 				'table'     => false,
 				'label'     => __( "Hide recipe image", 'zip-recipes' ),
+			),
+
+			'set_image_width' => array(
+				'type'               => 'checkbox',
+				'source'             => 'image',
+				'table'              => false,
+				'label'              => __( "Set image width", 'zip-recipes' ),
+				'condition' => array(
+					'hide_image' => false,
+				),
+			),
+
+			'image_width' => array(
+				'type'               => 'number',
+				'source'             => 'image',
+				'table'              => false,
+				'default'              => '',
+				'label'              => __( "Image Width", 'zip-recipes' ),
+				'help'              => __( "Set the image width in pixels", 'zip-recipes' ),
+				'condition' => array(
+					'set_image_width' => true,
+				),
+			),
+
+			'hide_on_duplicate_image' => array(
+				'type'               => 'checkbox',
+				'source'             => 'image',
+				'table'              => false,
+				'label'              => __( "Hide recipe image when post image is the same", 'zip-recipes' ),
+				'help'              => __( "When enabled, the recipe image will be hidden if it's the same as the image in the post", 'zip-recipes' ),
+				'condition' => array(
+					'hide_image' => false,
+				),
 			),
 
 			'hide_print_link' => array(
 				'type'      => 'checkbox',
 				'source'    => 'print',
 				'table'     => false,
-				'label'     => __( "Hide print link", 'zip-recipes' ),
+				'label'     => __( "Hide Print Button", 'zip-recipes' ),
 			),
 
 			'hide_print_image' => array(
 				'type'      => 'checkbox',
 				'source'    => 'print',
 				'table'     => false,
-				'label'     => __( "Hide image in print view", 'zip-recipes' ),
+				'label'     => __( "Hide Image in print view", 'zip-recipes' ),
 				'default'   => true,
 				'condition' => array(
 					'hide_print_link' => false,
@@ -617,19 +697,6 @@ class Util {
 				),
 			),
 
-			'custom_authors' => array(
-				'type'               => 'authors',
-				'source'             => 'authors',
-				'table'              => false,
-				'label'              => __( "Manage authors", 'zip-recipes' ),
-				'help'              => __( "Add and remove your authors", 'zip-recipes' ),
-				'disabled'           => true,
-				'default'            => array(),
-				'condition'         => array(
-					'use_custom_authors' => true,
-				),
-			),
-
 			'hide_ingredient_label' => array(
 				'type'      => 'checkbox',
 				'source'    => 'labels',
@@ -649,59 +716,6 @@ class Util {
 				'source'    => 'labels',
 				'table'     => false,
 				'label'     => __( 'Hide notes label', 'zip-recipes' ),
-			),
-
-			'border_style' => array(
-				'type'      => 'select',
-				'source'    => 'general',
-				'default'    => 'Dotted',
-				'options'   => array(
-					'None'        => __( 'No border', "zip-recipes" ),
-					'Solid'       => __( '1px solid', "zip-recipes" ),
-					'Dotted'      => __( '1px dotted', "zip-recipes" ),
-					'Dashed'      => __( '1px dashed', "zip-recipes" ),
-					'Thick Solid' => __( '2px solid', "zip-recipes" ),
-					'Double'      => __( 'double', "zip-recipes" ),
-				),
-				'table'     => false,
-				'label'     => __( 'Style of border around recipe', 'zip-recipes' ),
-				'condition' => array(
-					'template' => 'default',
-				),
-			),
-
-			'ingredients_list_type' => array(
-				'type'      => 'select',
-				'source'    => 'general',
-				'options'   => array(
-					'l'   => __( 'List', 'zip-recipes' ),
-					'ol'  => __( 'Numbered List', 'zip-recipes' ),
-					'ul'  => __( 'Bulleted List', 'zip-recipes' ),
-					'p'   => __( 'Paragraphs', 'zip-recipes' ),
-					'div' => __( 'Divs', 'zip-recipes' ),
-				),
-				'table'     => false,
-				'label'     => __( 'Ingredients List Type', 'zip-recipes' ),
-				'default'   => 'l',
-			),
-
-			'instructions_list_type' => array(
-				'type'      => 'select',
-				'source'    => 'general',
-				'options'   => array(
-					'l'   => __( 'List', 'zip-recipes' ),
-					'ol'  => __( 'Numbered List', 'zip-recipes' ),
-					'ul'  => __( 'Bulleted List', 'zip-recipes' ),
-					'p'   => __( 'Paragraphs', 'zip-recipes' ),
-					'div' => __( 'Divs', 'zip-recipes' ),
-				),
-				'table'     => false,
-				'label'     => __( 'Instructions List Type', 'zip-recipes' ),
-				'condition' => array(
-					'template' => 'default',
-				),
-				'default'   => 'l',
-
 			),
 
 			'hide_prep_time_label' => array(
@@ -760,7 +774,6 @@ class Util {
 				'disabled'  => true,
 				'table'     => false,
 				'comment'   => sprintf(__("To automatically generate nutrition data, check out %spremium%s", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/automatic-nutrition-for-your-recipes/">', '</a>'),
-
 				'label'     => __( 'Enable the Automatic Nutrition generator', 'zip-recipes' ),
 			),
 
@@ -944,24 +957,37 @@ class Util {
 					'zip-recipes' ),
 			),
 
-			'use_custom_css' => array(
+//			'use_custom_css' => array(
+//				'type'      => 'checkbox',
+//				'source'    => 'advanced',
+//				'table'     => false,
+//				'label'     => __( "Use custom CSS",
+//					'zip-recipes' ),
+//			),
+//
+//			'custom_css' => array(
+//				'type'      => 'css',
+//				'source'    => 'advanced',
+//				'table'     => false,
+//				'label'     => __( "Custom CSS",
+//					'zip-recipes' ),
+//				'condition' => array(
+//					'use_custom_css' => true,
+//				),
+//			),
+
+			'use_zip_css' => array(
 				'type'      => 'checkbox',
 				'source'    => 'advanced',
 				'table'     => false,
-				'label'     => __( "Use custom CSS",
-					'zip-recipes' ),
-			),
-
-			'custom_css' => array(
-				'type'      => 'css',
-				'source'    => 'advanced',
-				'table'     => false,
-				'label'     => __( "Custom CSS",
+				'label'     => __( "Use Zip Recipes style",
 					'zip-recipes' ),
 				'condition' => array(
-					'use_custom_css' => true,
+					'template' => 'default',
 				),
 			),
+
+
 		);
 
 		if ( $type ) {

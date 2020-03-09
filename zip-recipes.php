@@ -85,7 +85,6 @@ function zrdn_autoload($className)
     if (is_admin()){
         require_once(ZRDN_PLUGIN_DIRECTORY . 'upgrade-zip.php');
         //free only
-        require_once(ZRDN_PLUGIN_DIRECTORY . 'promo.php');
 	    require_once(ZRDN_PLUGIN_DIRECTORY . 'upgrade-zip.php');
 	    require_once(ZRDN_PLUGIN_DIRECTORY . 'grid/grid-enqueue.php');
         require_once(ZRDN_PLUGIN_DIRECTORY . 'class-field.php');

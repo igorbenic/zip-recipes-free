@@ -39,6 +39,8 @@ function zrdn_check_upgrade()
 		$zrdn_nutrition = get_option('zrdn_settings_nutrition', array());
 		$zrdn_author = get_option('zrdn_settings_authors', array());
 		$zrdn_social = get_option('zrdn_settings_social', array());
+		$zrdn_advanced = get_option('zrdn_settings_advanced', array());
+		$zrdn_image = get_option('zrdn_settings_image', array());
 
 		/**
 		 * upgrade add on settings
@@ -78,14 +80,8 @@ function zrdn_check_upgrade()
 		$value = get_option('zlrecipe_printed_copyright_statement');
 		$zrdn_general['copyright_statement'] = $value;
 
-		$value = get_option('zlrecipe_stylesheet')=='zlrecipe-std' ? true : false;
-		$zrdn_general['use_zip_css'] = $value;
-
 		$value = get_option('recipe_title_hide')=='Hide' ? true : false;
 		$zrdn_general['hide_title'] = $value;
-
-		$value = get_option('zlrecipe_image_hide')=='Hide' ? true : false;
-		$zrdn_general['hide_image'] = $value;
 
 		$value = get_option('zlrecipe_ingredient_list_type');
 		$zrdn_general['ingredients_list_type'] = $value;
@@ -93,26 +89,28 @@ function zrdn_check_upgrade()
 		$value = get_option('zlrecipe_instruction_list_type');
 		$zrdn_general['instructions_list_type'] = $value;
 
-		$value = get_option('zlrecipe_image_width');
-		$zrdn_general['image_width'] = $value;
-
 		$value = get_option('zlrecipe_outer_border_style');
 		$zrdn_general['border_style'] = $value;
 
 		$value = get_option('zlrecipe_custom_print_image');
 		$zrdn_general['print_image'] = $value;
 
-		$value = get_option('zlrecipe_hide_on_duplicate_image')=='Hide' ? true : false;
-		$zrdn_general['hide_on_duplicate_image'] = $value;
-
-
-
 		$value = get_option('zrdn-custom-template-name');
 		$zrdn_general['template'] = $value;
 		update_option('zrdn_settings_general', $zrdn_general);
 
+		/**
+		 * upgrade image settings
+		 */
 
-
+		$value = get_option('zlrecipe_image_hide')=='Hide' ? true : false;
+		$zrdn_image['hide_image'] = $value;
+		$value = get_option('zlrecipe_image_width');
+		$zrdn_image['set_image_width'] = $value == '' ? false : true;
+		$zrdn_image['image_width'] = $value;
+		$value = get_option('zlrecipe_hide_on_duplicate_image')=='Hide' ? true : false;
+		$zrdn_image['hide_on_duplicate_image'] = $value;
+		update_option('zrdn_settings_image', $zrdn_image);
 
 		/**
 		 * upgrade labels
@@ -177,15 +175,22 @@ function zrdn_check_upgrade()
 		 *upgrade author
 		 */
 
-
 		$zrdn_author['use_custom_authors'] = get_option('zrdn_use_custom_authors');
 		$zrdn_author['custom_authors'] = get_option( 'zrdn_authors_list', array() );
 		$zrdn_author['default_author'] = get_option( 'zrdn_authors_default_author', '' );
-
 		update_option('zrdn_settings_authors', $zrdn_author);
 
 
-	/**
+		/**
+		 * upgrade advanced settings
+		 */
+		$value = get_option('zlrecipe_stylesheet')=='zlrecipe-std' ? true : false;
+		$zrdn_advanced['use_zip_css'] = $value;
+
+
+		update_option('zrdn_settings_advanced', $zrdn_advanced);
+
+		/**
 		 * next update: remove old settings
 		 */
 
