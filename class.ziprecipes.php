@@ -744,25 +744,23 @@ class ZipRecipes {
 
     public static function process_settings_update(){
 
-        error_log("post 1");
 	    if (!current_user_can('manage_options')) return;
-	    error_log(print_r($_POST, true));
+
+	    if (!isset($_GET['page']) || $_GET['page'] !== 'zrdn-settings') {
+	        return;
+        }
+
 	    if (!isset($_POST['zrdn_nonce']) || !wp_verify_nonce($_POST['zrdn_nonce'], 'zrdn_save')) {
-	        error_log("nonce error, exiting");
 	        return;
 	    }
-	    error_log("post 3");
 
         foreach ($_POST as $key => $value){
             if (strpos($key, 'zrdn_')===FALSE) continue;
-            error_log($key);
-            error_log(print_r($value,true));
             $fieldname = str_replace('zrdn_', '', $key);
             Util::update_option($fieldname, $value);
         }
 
 	    do_action("zrdn_after_update_options");
-
     }
 
 
