@@ -27,10 +27,7 @@ function zrdn_check_upgrade()
 	/**
 	 * upgrade old options to new style
 	 */
-
-	if ( version_compare($prev_version, '6.3.9', '<') ) {
-		error_log("run settings upgrade");
-
+	if ($prev_version && version_compare($prev_version, '6.4.0', '<') ) {
 		//this is upgrade, so we don't need to set default add ons
 		update_option('zrdn_default_addons_enabled', true);
 		$zrdn_general = get_option('zrdn_settings_general', array());
@@ -92,9 +89,6 @@ function zrdn_check_upgrade()
 		$value = get_option('zlrecipe_outer_border_style');
 		$zrdn_general['border_style'] = $value;
 
-		$value = get_option('zlrecipe_custom_print_image');
-		$zrdn_general['print_image'] = $value;
-
 		$value = get_option('zrdn-custom-template-name');
 		$zrdn_general['template'] = $value;
 		update_option('zrdn_settings_general', $zrdn_general);
@@ -145,7 +139,7 @@ function zrdn_check_upgrade()
 
 		$value = get_option('zlrecipe_cuisine_label_hide')=='Hide' ? true : false;
 		$zrdn_labels['hide_cuisine_label'] = $value;
-		update_option('zrdn_settings_labels', $zrdn_general);
+		update_option('zrdn_settings_labels', $zrdn_labels);
 
 
 		/**
@@ -154,6 +148,7 @@ function zrdn_check_upgrade()
 
 		$value = get_option('zlrecipe_image_hide_print')=='Hide' ? true : false;
 		$zrdn_print['hide_print_image'] = $value;
+		$zrdn_print['print_image'] = get_option('zlrecipe_custom_print_image');
 		$value = get_option('zlrecipe_print_link_hide')=='Hide' ? true : false;
 		$zrdn_print['hide_print_link'] = $value;
 		$zrdn_print['hide_nutrition_label_print'] = get_option('zrdn_print_nutrition_label');

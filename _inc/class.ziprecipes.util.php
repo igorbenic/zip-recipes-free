@@ -1082,7 +1082,7 @@ class Util {
 	 * @return bool
 	 */
 
-	public static function update_option($fieldname, $value){
+	public static function update_option($fieldname, $new_value){
 		$fields = Util::get_fields();
 		if(isset($fields[$fieldname]['type'])) {
 			$source = $fields[$fieldname]['source'];
@@ -1092,7 +1092,8 @@ class Util {
 
 		$zrdn_settings = get_option("zrdn_settings_$source");
 		$field = ZipRecipes::$field;
-		$zrdn_settings[$fieldname] = apply_filters('zrdn_update_option', $field::sanitize($fieldname, $value), $zrdn_settings[$fieldname], $fieldname, $source);
+		$old_value = isset($zrdn_settings[$fieldname]) ? $zrdn_settings[$fieldname] : false;
+		$zrdn_settings[$fieldname] = apply_filters('zrdn_update_option', $field::sanitize($fieldname, $new_value), $old_value, $fieldname, $source);
 
 		update_option("zrdn_settings_$source", $zrdn_settings);
 	}

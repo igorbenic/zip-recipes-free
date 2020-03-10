@@ -713,6 +713,8 @@ if (!class_exists("ZRDN_Field")) {
             }elseif ($args['disabled']) {
                 $disable_main = 'disabled';
             }
+
+            if (!is_array($args['options'])) $args['options'] = array();
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
             <label for="<?php echo esc_html($fieldname) ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
