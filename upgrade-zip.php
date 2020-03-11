@@ -27,7 +27,7 @@ function zrdn_check_upgrade()
 	/**
 	 * upgrade old options to new style
 	 */
-	if ($prev_version && version_compare($prev_version, '6.4.0', '<') ) {
+	if ( $prev_version && version_compare($prev_version, '6.4.0', '<') ) {
 		//this is upgrade, so we don't need to set default add ons
 		update_option('zrdn_default_addons_enabled', true);
 		$zrdn_general = get_option('zrdn_settings_general', array());
@@ -71,9 +71,6 @@ function zrdn_check_upgrade()
 		$value = get_option('zrdn_attribution_hide')=='Hide' ? true : false;
 		$zrdn_general['hide_attribution'] = $value;
 
-		$value = get_option('zlrecipe_printed_permalink_hide')=='Hide' ? true : false;
-		$zrdn_general['hide_permalink'] = $value;
-
 		$value = get_option('zlrecipe_printed_copyright_statement');
 		$zrdn_general['copyright_statement'] = $value;
 
@@ -87,6 +84,27 @@ function zrdn_check_upgrade()
 		$zrdn_general['instructions_list_type'] = $value;
 
 		$value = get_option('zlrecipe_outer_border_style');
+		switch($value){
+			case "None":
+				$value = '0px';
+				break;
+			case "Solid":
+				$value = '1px solid';
+				break;
+			case "Dotted":
+				$value = '1px dotted';
+				break;
+			case "Dashed":
+				$value = '1px dashed';
+				break;
+			case "Thick Solid":
+				$value = '2px solid';
+				break;
+			case "Double":
+				$value = 'double';
+				break;
+		}
+
 		$zrdn_general['border_style'] = $value;
 
 		$value = get_option('zrdn-custom-template-name');
@@ -151,7 +169,9 @@ function zrdn_check_upgrade()
 		$zrdn_print['print_image'] = get_option('zlrecipe_custom_print_image');
 		$value = get_option('zlrecipe_print_link_hide')=='Hide' ? true : false;
 		$zrdn_print['hide_print_link'] = $value;
-		$zrdn_print['hide_nutrition_label_print'] = get_option('zrdn_print_nutrition_label');
+		$zrdn_print['hide_print_nutrition_label'] = get_option('zrdn_print_nutrition_label');
+		$value = get_option('zlrecipe_printed_permalink_hide')=='Hide' ? true : false;
+		$zrdn_print['hide_permalink'] = $value;
 		update_option('zrdn_settings_print', $zrdn_print);
 
 		/**
@@ -163,7 +183,7 @@ function zrdn_check_upgrade()
 		$zrdn_nutrition['hide_text_nutrition_labels'] = get_option('zlrecipe_nutrition_info_label_hide');
 		$zrdn_nutrition['hide_nutrition_label'] = get_option('zrdn_hide_nutrition_label');
 		$zrdn_nutrition['show_textual_nutrition_information'] = get_option('zlrecipe_nutrition_info_use_text');
-		$zrdn_nutrition['hide_nutrition_label_print'] = get_option('zrdn_settings_nutrition');
+		$zrdn_nutrition['hide_print_nutrition_label'] = get_option('zrdn_settings_nutrition');
 		update_option('zrdn_settings_nutrition', $zrdn_nutrition);
 
 		/**
@@ -224,7 +244,7 @@ function zrdn_check_upgrade()
 //		delete_option('zlrecipe_cholesterol_label_hide');
 //		delete_option('zlrecipe_category_label_hide');
 //		delete_option('zlrecipe_cuisine_label_hide');
-//		delete_option('hide_nutrition_label_print');
+//		delete_option('zrdn_print_nutrition_label');
 //		delete_option('zrdn_label_display_method');
 //		delete_option('zrdn_authors_default_author');
 //		delete_option('zrdn_authors_list');

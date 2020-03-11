@@ -24,7 +24,7 @@ function zrdn_label_markup($nutrition_label, $recipe, $is_shortcode = false)
         'has_nutrition_data' => $recipe->has_nutrition_data,
         'label_url' => $recipe->nutrition_label, //when it's an image
         'description' => $description,
-        'hide_print_label' => Util::get_option('hide_nutrition_label_print'),
+        'hide_print_label' => Util::get_option('hide_print_nutrition_label'),
         'show_label' => !Util::get_option('hide_nutrition_label'),
         'label_display_method' => Util::get_option('nutrition_label_type'),
     ));

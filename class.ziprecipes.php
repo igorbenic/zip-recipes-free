@@ -12,6 +12,30 @@ class ZipRecipes {
     public static $suffix = '';
     public static $field;
     public static $authors;
+	public static $addons_friend = array(
+		'Authors',
+		'RecipeActions',
+		'Import',
+		'RecipeReviews',
+		'VisitorRating',
+		'RecipeGrid2',
+		'RecipeGrid',
+		'CustomTemplates',
+	);
+	public static $addons_lover = array(
+		'Authors',
+		'AutomaticNutrition',
+		'ServingAdjustment',
+		'RecipeActions',
+		'RecipeSearch',
+		'Import',
+		'RecipeReviews',
+		'VisitorRating',
+		'RecipeGrid2',
+		'RecipeGrid',
+		'CustomTemplates',
+		'ImperialMetricsConverter',
+	);
 
     /**
      * Init function.
@@ -22,82 +46,73 @@ class ZipRecipes {
             self::$field = new ZRDN_Field();
         }
         self::$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
+	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::process_settings_update', 10);
+	    add_action('zrdn_tab_content', __NAMESPACE__ . '\ZipRecipes::extensions_tab');
+	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::load_plugins', 20);
 
-        // Instantiate plugin classes
-        $parentPath = dirname(__FILE__);
-        $pluginsPath = "$parentPath/plugins";
-        $active_plugins = Util::get_active_plugins();
-
-
-        foreach ($active_plugins as $plugin_name){
-	        $pluginPath = $pluginsPath."/".$plugin_name.'/'.$plugin_name.'.php';
-	        if (!file_exists($pluginPath)) {
-		        $fields = Util::get_fields();
-		        if (isset($fields[$plugin_name])) {
-			        $source = $fields[ $plugin_name ]['source'];
-			        $zrdn_settings = get_option( "zrdn_settings_$source" );
-			        $zrdn_settings[ $plugin_name ] = false;
-			        update_option( "zrdn_settings_$source", $zrdn_settings );
-		        }
-		        continue;
-	        }
-	        require_once($pluginPath);
-
-            // instantiate class
-            $namespace = __NAMESPACE__;
-            $fullPluginName = "$namespace\\$plugin_name"; // double \\ is needed because \ is an escape char
-            $pluginInstance = new $fullPluginName;
-        }
         // Init shortcode so shortcodes can be used by any plugins
         $shortcodes = new __shortcode();
 
         // We need to call `zrdn__init_hooks` action before `init_hooks()` because some actions/filters registered
         //	in `init_hooks()` get called before plugins have a chance to register their hooks with `zrdn__init_hooks`
         do_action("zrdn__init_hooks"); // plugins can add an action to listen for this event and register their hooks
-	    self::$authors = Util::get_authors();
+	    add_action('admin_head', __NAMESPACE__ . '\ZipRecipes::zrdn_js_vars');
+	    add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::zrdn_add_recipe_button');
 
-        self::init_hooks();
-    }
-
-    /**
-     * Function to hook to specific WP actions and filters.
-     */
-    private static function init_hooks()
-    {
-        Util::log("I'm in init_hooks");
-
-        add_action('admin_head', __NAMESPACE__ . '\ZipRecipes::zrdn_js_vars');
-        add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::zrdn_add_recipe_button');
-
-        // `the_post` has no action/filter added on purpose. It doesn't work as well as `the_content`.
-        // We're using priority of 11 here because in some cases VisualComposer seems to be running
-        //  a hook after us and adding <br /> and <p> tags
-        add_filter('the_content', __NAMESPACE__ . '\ZipRecipes::zrdn_convert_to_full_recipe', 11);
-
-        add_action('admin_menu', __NAMESPACE__ . '\ZipRecipes::menu_pages');
+	    // `the_post` has no action/filter added on purpose. It doesn't work as well as `the_content`.
+	    // We're using priority of 11 here because in some cases VisualComposer seems to be running
+	    //  a hook after us and adding <br /> and <p> tags
+	    add_filter('the_content', __NAMESPACE__ . '\ZipRecipes::zrdn_convert_to_full_recipe', 11);
+	    add_action('admin_menu', __NAMESPACE__ . '\ZipRecipes::menu_pages');
 	    add_action('admin_enqueue_scripts', __NAMESPACE__ . '\ZipRecipes::enqueue_admin_assets');
+	    add_action('admin_footer', __NAMESPACE__ . '\ZipRecipes::zrdn_plugin_footer');
+	    add_filter('amp_post_template_metadata', __NAMESPACE__ . '\ZipRecipes::amp_format', 10, 2);
+	    add_action('amp_post_template_css', __NAMESPACE__ . '\ZipRecipes::amp_styles');
+	    // check GD or imagick support
+	    add_action('admin_notices', __NAMESPACE__ . '\ZipRecipes::zrdn_check_image_editing_support');
 
-	    add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::process_settings_update');
-	    add_action('zrdn_tab_content', __NAMESPACE__ . '\ZipRecipes::extensions_tab');
+	    // This shouldn't be called directly because it can cause issues with WP not having loaded properly yet.
+	    // One issue we were seeing was a client was getting an error caused by
+	    //  `require_once( ABSPATH . 'wp-admin/includes/upgrade.php' )` in zrdn_recipe_install()
+	    // This was the issue:
+	    // PHP Fatal error: Call to undefined function get_user_by() in wp/wp-includes/meta.php on line 1308
+	    add_action('init', __NAMESPACE__ . '\ZipRecipes::zrdn_recipe_install');
 
-        add_action('admin_footer', __NAMESPACE__ . '\ZipRecipes::zrdn_plugin_footer');
+	    add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
 
-        add_filter('amp_post_template_metadata', __NAMESPACE__ . '\ZipRecipes::amp_format', 10, 2);
-        add_action('amp_post_template_css', __NAMESPACE__ . '\ZipRecipes::amp_styles');
-        // check GD or imagick support
-        add_action('admin_notices', __NAMESPACE__ . '\ZipRecipes::zrdn_check_image_editing_support');
-
-        // This shouldn't be called directly because it can cause issues with WP not having loaded properly yet.
-        // One issue we were seeing was a client was getting an error caused by
-        //  `require_once( ABSPATH . 'wp-admin/includes/upgrade.php' )` in zrdn_recipe_install()
-        // This was the issue:
-        // PHP Fatal error: Call to undefined function get_user_by() in wp/wp-includes/meta.php on line 1308
-        add_action('init', __NAMESPACE__ . '\ZipRecipes::zrdn_recipe_install');
-
-        add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
-
-        add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets');
+	    add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets', 10);
     }
+
+    public static function load_plugins(){
+	    // Instantiate plugin classes
+	    $parentPath = dirname(__FILE__);
+	    $pluginsPath = "$parentPath/plugins";
+	    $active_plugins = Util::get_active_plugins();
+
+
+	    foreach ($active_plugins as $plugin_name){
+		    $pluginPath = $pluginsPath."/".$plugin_name.'/'.$plugin_name.'.php';
+		    if (!file_exists($pluginPath)) {
+			    $fields = Util::get_fields();
+			    if (isset($fields[$plugin_name])) {
+				    $source = $fields[ $plugin_name ]['source'];
+				    $zrdn_settings = get_option( "zrdn_settings_$source" );
+				    $zrdn_settings[ $plugin_name ] = false;
+				    update_option( "zrdn_settings_$source", $zrdn_settings );
+			    }
+			    continue;
+		    }
+		    require_once($pluginPath);
+
+		    // instantiate class
+		    $namespace = __NAMESPACE__;
+		    $fullPluginName = "$namespace\\$plugin_name"; // double \\ is needed because \ is an escape char
+		    $pluginInstance = new $fullPluginName;
+	    }
+
+	    self::$authors = Util::get_authors();
+    }
+
 
 
     public static function register_images(){
@@ -515,18 +530,16 @@ class ZipRecipes {
     public static function settings_page() {
 
         if (!current_user_can('manage_options')) return;
-
         do_action('zrdn_on_settings_page' );
 	    $field = ZipRecipes::$field;
 
 	    $tabs = apply_filters('zrdn_tabs', array(
-	            'dashboard' => array(
-	                    'title' => __('Dashboard', 'zip-recipes'),
-                ),
-	            'extensions' => array(
-		            'title' => __('Extensions', 'zip-recipes'),
-	            ),
-
+            'dashboard' => array(
+                    'title' => __('Dashboard', 'zip-recipes'),
+            ),
+            'extensions' => array(
+                'title' => __('Extensions', 'zip-recipes'),
+            ),
         ));
 
 	    ?>
@@ -644,25 +657,55 @@ class ZipRecipes {
     public static function extensions_tab(){
 	    $element = zrdn_grid_element();
         $extensions = array(
-                'AutomaticNutrition' => array(
-                        'title' => __("Automatic Nutrition", "zip-recipes"),
-                        'class' => 'small',
-                        'content' => 'content',
-                        'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/nutrition.png',
-                        'link'     => 'https://demo.ziprecipes.net/corn-salad/',
-                        'link_title'     => __("See it live on our demo website", "zip-recipes"),
-                        'title_premium' => __("Get premium", "zip-recipes"),
-                        'description' => __("Automatically generate all nutritional values of your recipe.", "zip-recipes"),
+                'general' => array(
+                    'title' => __("Premium extensions", "zip-recipes"),
+                    'class' => 'small',
+                    'content' => 'content',
+                    'image'     => '',
+                    'link'     => 'https://demo.ziprecipes.net/corn-salad/',
+                    'description' => __("Get the full benefits of Zip Recipes by upgrading to a premium plan, with lots of great add-ons. Even better, each add-on we will add to the plan in the future will automatically become available for you.", "zip-recipes"),
                 ),
+                'AutomaticNutrition' => array(
+                    'title' => __("Automatic Nutrition", "zip-recipes"),
+                    'class' => 'small',
+                    'content' => 'content',
+                    'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/nutrition.jpg',
+                    'link'     => 'https://demo.ziprecipes.net/tres-leches/',
+                    'description' => __("Automatically generate all nutritional values of your recipe.", "zip-recipes"),
+                ),
+
                 'RecipeGrid2' => array(
 	                'title' => __("Recipe Gallery", "zip-recipes"),
 	                'class' => 'small',
 	                'content' => 'content',
-	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/recipegrid2.gif',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/recipegrid2.jpg',
 	                'link'     => 'https://demo.ziprecipes.net/recipe-gallery/',
-	                'link_title'     => __("See it live on our demo website", "zip-recipes"),
-	                'title_premium' => __("Get premium", "zip-recipes"),
 	                'description' => __("Display your recipes in this beautiful, dynamically filterable grid gallery", "zip-recipes"),
+                ),
+                'RecipeActions' => array(
+	                'title' => __("Social Recipe sharing", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/socialsharing.png',
+	                'link'     => 'https://demo.ziprecipes.net/pumpkin-soup-recommended-fall-recipe/',
+	                'description' => __("Let your visitors share your recipes on the social networks, like Yummly, Bigoven and Pinterest", "zip-recipes"),
+                ),
+                'VisitorRating' => array(
+	                'title' => __("Recipe ratings and reviews", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/ratings.png',
+	                'link'     => 'https://demo.ziprecipes.net/tres-leches/',
+	                'description' => __("Let your visitors rate your recipes anonymously with recipe ratings, or enter entire written reviews in a comment like fashion.", "zip-recipes"),
+                ),
+
+                'ServingAdjustment' => array(
+	                'title' => __("Serving Adjustments", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/servingadjustments.gif',
+	                'link'     => 'https://demo.ziprecipes.net/best-guacamole-ever/',
+	                'description' => __("Visitors can adjust the ingredients to the number of servings they need: it won't get easier for your visitors!", "zip-recipes"),
                 ),
                 'CustomTemplates' => array(
 	                'title' => __("Premium templates", "zip-recipes"),
@@ -670,69 +713,69 @@ class ZipRecipes {
 	                'content' => 'content',
 	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/logo.png',
 	                'link'     => 'https://demo.ziprecipes.net/',
-	                'link_title'     => __("See it live on our demo website", "zip-recipes"),
-	                'title_premium' => __("Get premium", "zip-recipes"),
 	                'description' => __("Get several beautifully designed templates for your recipes.", "zip-recipes"),
                 ),
-                'ServingAdjustments' => array(
-	                'title' => __("Automatic Serving Adjustments", "zip-recipes"),
-	                'class' => 'small',
-	                'content' => 'content',
-	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/servingadjustments.gif',
-	                'link'     => 'https://demo.ziprecipes.net/',
-	                'link_title'     => __("See it live on our demo website", "zip-recipes"),
-	                'title_premium' => __("Get premium", "zip-recipes"),
-	                'description' => __("Visitors can adjust the ingredients to the number of servings they need: it won't get easier for your visitors!", "zip-recipes"),
-                ),
-                'RecipeRatings' => array(
-	                'title' => __("Recipe ratings and reviews", "zip-recipes"),
-	                'class' => 'small',
-	                'content' => 'content',
-	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/ratings.png',
-	                'link'     => 'https://demo.ziprecipes.net/',
-	                'link_title'     => __("See it live on our demo website", "zip-recipes"),
-	                'title_premium' => __("Get premium", "zip-recipes"),
-	                'description' => __("Let your visitors rate your recipes anonymously with recipe ratings, or enter entire written reviews in a comment like fashion.", "zip-recipes"),
-                ),
-                'SocialSharing' => array(
-	                'title' => __("Social Recipe sharing", "zip-recipes"),
-	                'class' => 'small',
-	                'content' => 'content',
-	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/socialsharing.png',
-	                'link'     => 'https://demo.ziprecipes.net/',
-	                'link_title'     => __("See it live on our demo website", "zip-recipes"),
-	                'title_premium' => __("Get premium", "zip-recipes"),
-	                'description' => __("Let your visitors share your recipes on the social networks, like Yummly, Bigoven and Pinterest", "zip-recipes"),
-                ),
-                'ImperialMetric' => array(
-	                'title' => __("Imperial - Metric conversion", "zip-recipes"),
+                'Authors' => array(
+	                'title' => __("Authors", "zip-recipes"),
 	                'class' => 'small',
 	                'content' => 'content',
 	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/logo.png',
-	                'link'     => 'https://demo.ziprecipes.net/',
-	                'link_title'     => __("See it live on our demo website", "zip-recipes"),
-	                'title_premium' => __("Get premium", "zip-recipes"),
-	                'description' => __("Get more designs for your recipes", "zip-recipes"),
+	                'link'     => 'https://demo.ziprecipes.net/corn-salad/',
+	                'description' => __("Automatically add your post author schema.org compatible to your recipe. Or define your own custom authors.", "zip-recipes"),
+                ),
+                'ImperialMetricsConverter' => array(
+	                'title' => __("Imperial - Metric", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/logo.png',
+	                'link'     => 'https://demo.ziprecipes.net/pumpkin-soup-recommended-fall-recipe/',
+	                'description' => __("Get more designs for your recipes, and keep receiving the latest new template designs from Zip Recipes", "zip-recipes"),
                 ),
                 'RecipeSearch' => array(
 	                'title' => __("Recipe Search", "zip-recipes"),
 	                'class' => 'small',
 	                'content' => 'content',
 	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/logo.png',
-	                'link'     => 'https://ziprecipes.net/premium',
-	                'link_title'     => __("See it live on our demo website", "zip-recipes"),
-	                'title_premium' => __("Get premium", "zip-recipes"),
-	                'description' => __("Let your visitors search by ingredients", "zip-recipes"),
+	                'link'     => 'https://demo.ziprecipes.net/corn-salad/',
+	                'description' => __("Let your visitors search by ingredients from the default WordPress search.", "zip-recipes"),
                 ),
         );
+
+        $extensions = apply_filters('zrdn_extensions', $extensions);
+
 	    $output = "";
 	    ?>
         <div id="extensions" class="zrdn-gridless tab-content">
             <div class="zrdn-grid">
             <?php
             foreach ($extensions as $index => $grid_item){
+
+                if ($index === 'general') {
+                    $btn_title = apply_filters('zrdn_upgrade_button', __('Get Premium', 'zip-recipes'));
+                    if ($btn_title === ''){
+	                    $button = '';
+                    } else {
+                        $button = '<a href="https://ziprecipes.net/premium" target="_blank" class="button button-primary">'.$btn_title.'</a>';
+                    }
+                } else {
+	                $button = '<a href="'.$grid_item['link'].'" target="_blank" class="zrdn-button">'.__("See it live on our demo website", "zip-recipes").'</a>';
+
+	                if (Util::is_plugin_active($index)) {
+		                $grid_item['title'] .= '<button class="zrdn-extension-label active">'.__('active', 'zip-recipes').'</button>';
+	                } else {
+	                    if (in_array($index, self::$addons_lover)){
+		                    $grid_item['title'] .= '<button class="zrdn-extension-label lover">lover</button>';
+	                    }
+		                if (in_array($index, self::$addons_friend)){
+			                $grid_item['title'] .= '<button class="zrdn-extension-label friend">friend</button>';
+
+	                    }
+	                }
+                }
+
+                $grid_item['button'] = $button;
 	            $content = Util::render_template('extension-grid.php', $grid_item);
-	            $output .= str_replace(array('{class}', '{title}', '{content}', '{index}', 'grid-active '), array($grid_item['class'], $grid_item['title'],  $content, $index, ''), $element);
+	            $output .= str_replace(array('{class}', '{title}', '{content}', '{index}', 'grid-active'), array($grid_item['class'], $grid_item['title'],  $content, $index, ''), $element);
 
             }
             echo $output;

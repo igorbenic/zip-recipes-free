@@ -390,6 +390,13 @@ class Util {
 		    ),
 
 		    array(
+			    'title' => __("Nutrition", " zip-recipes"),
+			    'source' => "nutrition",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
+
+		    array(
 			    'title' => __("Image", " zip-recipes"),
 			    'source' => "image",
 			    'class' => 'small',
@@ -399,14 +406,7 @@ class Util {
 		    array(
 			    'title' => __("Print settings", " zip-recipes"),
 			    'source' => "print",
-			    'class' => 'small',
-			    'can_hide' => true,
-		    ),
-
-		    array(
-			    'title' => __("Nutrition", " zip-recipes"),
-			    'source' => "nutrition",
-			    'class' => 'small',
+			    'class' => '',
 			    'can_hide' => true,
 		    ),
 
@@ -432,7 +432,7 @@ class Util {
 		    ),
 
 		    array(
-			    'title' => __("Miscellaneous", " zip-recipes"),
+			    'title' => __("Add-ons", " zip-recipes"),
 			    'source' => "plugins",
 			    'class' => 'small',
 			    'can_hide' => true,
@@ -454,11 +454,8 @@ class Util {
 	 */
 
     public static function get_authors(){
-    	if (self::is_plugin_active('Authors')){
-    		return Authors::get_authors();
-	    } else {
-    		return array();
-	    }
+        $authors = apply_filters('zrdn_authors',array());
+        return $authors;
     }
 
 	/**
@@ -511,12 +508,12 @@ class Util {
 				'source'    => 'general',
 				'default'    => 'Dotted',
 				'options'   => array(
-					'None'        => __( 'No border', "zip-recipes" ),
-					'Solid'       => __( '1px solid', "zip-recipes" ),
-					'Dotted'      => __( '1px dotted', "zip-recipes" ),
-					'Dashed'      => __( '1px dashed', "zip-recipes" ),
-					'Thick Solid' => __( '2px solid', "zip-recipes" ),
-					'Double'      => __( 'double', "zip-recipes" ),
+					'0px'        => __( 'No border', "zip-recipes" ),
+					'1px solid'       => __( '1px solid', "zip-recipes" ),
+					'1px dotted'      => __( '1px dotted', "zip-recipes" ),
+					'1px dashed'      => __( '1px dashed', "zip-recipes" ),
+					'2px solid' => __( '2px solid', "zip-recipes" ),
+					'double'      => __( 'double', "zip-recipes" ),
 				),
 				'table'     => false,
 				'label'     => __( 'Style of border around recipe', 'zip-recipes' ),
@@ -552,9 +549,6 @@ class Util {
 				),
 				'table'     => false,
 				'label'     => __( 'Instructions List Type', 'zip-recipes' ),
-				'condition' => array(
-					'template' => 'default',
-				),
 				'default'   => 'l',
 
 			),
@@ -564,13 +558,6 @@ class Util {
 				'source'    => 'general',
 				'table'     => false,
 				'label'     => __( "Copyright statement", 'zip-recipes' ),
-			),
-
-			'hide_permalink' => array(
-				'type'      => 'checkbox',
-				'source'    => 'general',
-				'table'     => false,
-				'label'     => __( "Hide permalink", 'zip-recipes' ),
 			),
 
 			'hide_title' => array(
@@ -642,7 +629,15 @@ class Util {
 				),
 			),
 
-			'hide_nutrition_label_print' => array(
+			'hide_permalink' => array(
+				'type'      => 'checkbox',
+				'source'    => 'print',
+				'table'     => false,
+				'label'     => __( "Hide link to recipe in print view", 'zip-recipes' ),
+				'help'     => __( "The link is a direct link to the recipe, at the bottom of your recipe printout", 'zip-recipes' ),
+			),
+
+			'hide_print_nutrition_label' => array(
 				'type'      => 'checkbox',
 				'source'    => 'print',
 				'table'     => false,
@@ -661,7 +656,7 @@ class Util {
 				'size'                  => 'zrdn_custom_print_image',
 				'table'                 => false,
 				'condition'             => array(
-					'hide_print_link' => false,
+					'template' => 'default',
 				),
 				'label'                 => __( 'Custom Print Button', 'zip-recipes' ),
 			),
@@ -683,6 +678,9 @@ class Util {
 				'table'              => false,
 				'label'              => __( "Use custom authors", 'zip-recipes' ),
 				'help'              => __( "By default, Zip Recipes uses WordPress authors. You can use your own, custom authors as well.", 'zip-recipes' ),
+				'condition'         => array(
+					'Authors' => true,
+				),
 			),
 
 			'default_author' => array(
@@ -692,6 +690,19 @@ class Util {
 				'table'              => false,
 				'disabled'           => true,
 				'label'              => __( "Select a default author", 'zip-recipes' ),
+				'condition'         => array(
+					'use_custom_authors' => true,
+				),
+			),
+
+			'custom_authors' => array(
+				'type'               => 'authors',
+				'source'             => 'authors',
+				'table'              => false,
+				'disabled'              => true,
+				'label'              => __( "Manage authors", 'zip-recipes' ),
+				'help'              => __( "Add and remove your authors", 'zip-recipes' ),
+				'default'            => array(),
 				'condition'         => array(
 					'use_custom_authors' => true,
 				),
@@ -858,6 +869,7 @@ class Util {
 					'zip-recipes' ), 'BigOven',
 					'<a target="_blank" href="https://www.bigoven.com/site/terms" target="_blank">',
 					'</a>' ),
+
 			),
 
 			'recipe_action_pinterest' => array(
@@ -871,6 +883,7 @@ class Util {
 					'zip-recipes' ), 'Pinterest',
 					'<a target="_blank" href="policy.pinterest.com/en/terms-of-service" target="_blank">',
 					'</a>' ),
+
 			),
 
 			'ImperialMetricsConverter' => array(
@@ -881,6 +894,7 @@ class Util {
 				'table'     => false,
 				'label'     => __( 'Imperial Metrics Converter',
 					'zip-recipes' ),
+
 			),
 
 			'RecipeGrid' => array(
@@ -901,7 +915,8 @@ class Util {
 				'is_plugin' => true,
 				'disabled'  => true,
 				'table'     => false,
-				'label'     => __( 'Recipe Grid 2', 'zip-recipes' ),
+				'label'     => __( 'Recipe Gallery', 'zip-recipes' ),
+
 			),
 
 			'VisitorRating' => array(
@@ -915,6 +930,7 @@ class Util {
 					'RecipeReviews' => false,
 				),
 				'label'     => __( 'Visitor Rating', 'zip-recipes' ),
+
 			),
 
 			'RecipeReviews' => array(
@@ -927,6 +943,7 @@ class Util {
 					'VisitorRating' => false,
 				),
 				'label'     => __( 'Recipe Reviews', 'zip-recipes' ),
+
 			),
 
 			'Import' => array(
@@ -936,6 +953,7 @@ class Util {
 				'disabled'  => true,
 				'table'     => false,
 				'label'     => __( 'Import', 'zip-recipes' ),
+
 			),
 
 			'RecipeSearch' => array(
@@ -955,6 +973,7 @@ class Util {
 				'table'     => false,
 				'label'     => __( 'Automatic Serving Adjustment',
 					'zip-recipes' ),
+
 			),
 
 //			'use_custom_css' => array(
@@ -979,12 +998,10 @@ class Util {
 			'use_zip_css' => array(
 				'type'      => 'checkbox',
 				'source'    => 'advanced',
+				'default'    => true,
 				'table'     => false,
 				'label'     => __( "Use Zip Recipes style",
 					'zip-recipes' ),
-				'condition' => array(
-					'template' => 'default',
-				),
 			),
 
 
@@ -1033,6 +1050,8 @@ class Util {
 	 */
 	public static function is_plugin_active($plugin){
 		$fields = self::get_fields(false, $plugins = true);
+		if ($plugin === 'CustomTemplates') return true;
+
 		if (isset($fields[$plugin])){
 			return Util::get_option($plugin);
 		}
@@ -1043,7 +1062,7 @@ class Util {
 	/**
 	 * Get the value for a ZRDN field
 	 * @param string $name
-	 * @param string $type
+	 * @param bool $label
 	 *
 	 * @return bool|mixed
 	 */

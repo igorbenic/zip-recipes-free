@@ -1,9 +1,9 @@
 {% import 'macros.twig' as recipe_props %}
 {% if (is_shortcode or show_label) and has_nutrition_data %}
     <div id="zrdn-nutrition-label"  class="nutrition_block row margin-top-2">
-        <div class="nutrition-container">
+        <div class="nutrition-container {% if hide_print_label %}hide-print{% endif %}">
             {% if label_display_method!='html' and nutrition_label %}
-                <div class="nutrition-label {% if hide_print_label %}hide-print{% endif %}">
+                <div class="nutrition-label ">
                     <img src="{{ label_url }}" alt="{{ description }}" title="{{ description }}" />
                 </div>
             {% else %}

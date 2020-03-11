@@ -91,6 +91,7 @@ jQuery(document).ready(function($) {
         grid.filter('.muuri-active');
     }
 
+
     // Reload the grid when checkbox value changes
     $('.zrdn-item').each(function(){
         var toggle_id = $(this).data('id');

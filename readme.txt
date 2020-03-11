@@ -8,7 +8,7 @@ Author: Rogier Lankhorst, Mark Wolters
 Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
 Requires at least: 4.2
-Tested up to: 5.3
+Tested up to: 5.4
 Stable tag: 6.4.0
 Requires PHP: 5.4
 

@@ -882,7 +882,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             if (!isset($args['comment'])) return;
             ?>
-            <div class="zrdn-comment"><?php echo $args['comment'] ?></div>
+            <div style="clear:both"></div><div class="zrdn-comment"><?php echo $args['comment'] ?></div>
             <?php
         }
 

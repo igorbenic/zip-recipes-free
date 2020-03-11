@@ -297,7 +297,6 @@ function zrdn_enqueue_style($hook){
     );
     wp_localize_script('zrdn-editor', 'zrdn_editor', $args);
 
-    //wp_enqueue_style("bootstrap-3", ZRDN_PLUGIN_URL . '/vendor/twbs/bootstrap/dist/css/bootstrap.min.css');
     wp_register_style('zrdn-editor', ZRDN_PLUGIN_URL."RecipeTable/css/editor.css", array(), ZRDN_VERSION_NUM, 'all');
     wp_enqueue_style('zrdn-editor');
     wp_enqueue_media();
