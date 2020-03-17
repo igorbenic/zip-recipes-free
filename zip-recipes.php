@@ -78,18 +78,14 @@ function zrdn_autoload($className)
     require_once(ZRDN_PLUGIN_DIRECTORY . '_inc/helper_functions.php');
     require_once(ZRDN_PLUGIN_DIRECTORY . '_inc/class.ziprecipes.shortcodes.php');
     require_once(ZRDN_PLUGIN_DIRECTORY . '_inc/PluginBase.php');
-
     require_once(ZRDN_PLUGIN_DIRECTORY . 'RecipeTable/RecipeMenu.php');
     require_once(ZRDN_PLUGIN_DIRECTORY . 'NutritionLabel/NutritionLabel.php');
 
     if (is_admin()){
-        require_once(ZRDN_PLUGIN_DIRECTORY . 'upgrade-zip.php');
-        //free only
 	    require_once(ZRDN_PLUGIN_DIRECTORY . 'upgrade-zip.php');
 	    require_once(ZRDN_PLUGIN_DIRECTORY . 'grid/grid-enqueue.php');
         require_once(ZRDN_PLUGIN_DIRECTORY . 'class-field.php');
         require_once(ZRDN_PLUGIN_DIRECTORY . 'twig-strings.php');
-
     }
 
     /**

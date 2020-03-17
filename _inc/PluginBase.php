@@ -52,6 +52,33 @@ abstract class PluginBase
         return $disabled;
     }
 
+	/**
+	 * send email to admin about someting interesting
+	 * @param string $subject
+	 * @param string $message
+	 */
+
+	public function send_mail($subject, $message){
+
+		$headers = array();
+		$to = get_option('admin_email');
+		error_log($to);
+		if (!is_email($to)) return;
+
+		if (empty($sender)) $sender = get_bloginfo('name');
+
+
+		add_filter('wp_mail_content_type', function ($content_type) {
+			return 'text/html';
+		});
+
+		if (wp_mail($to, $subject, $message, $headers) === false) $success = false;
+
+		// Reset content-type to avoid conflicts -- http://core.trac.wordpress.org/ticket/23578
+		remove_filter('wp_mail_content_type', 'set_html_content_type');
+
+	}
+
 
     // JS_script_tag -> JS script tag which to enqueue the data to
     public function loadUnitInfo($JS_script_tag) {
