@@ -82,8 +82,6 @@ function zrdn_update_recipe_table(){
         }
         dbDelta($sql_command); // run SQL script
 
-        Util::log("Calling db_setup() action");
-
         do_action("zrdn__db_setup", Recipe::TABLE_NAME);
         update_option('zrdn_table_version', ZRDN_VERSION_NUM);
     }
