@@ -506,7 +506,7 @@ class Util {
 			'border_style' => array(
 				'type'      => 'select',
 				'source'    => 'general',
-				'default'    => 'Dotted',
+				'default'    => '1px dotted',
 				'options'   => array(
 					'0px'        => __( 'No border', "zip-recipes" ),
 					'1px solid'       => __( '1px solid', "zip-recipes" ),
