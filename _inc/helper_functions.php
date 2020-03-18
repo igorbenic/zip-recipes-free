@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gezimhome
- * Date: 2017-06-08
- * Time: 17:08
- */
-
 namespace ZRDN;
 
 /**

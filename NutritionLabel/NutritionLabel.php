@@ -17,9 +17,6 @@ function zrdn_label_markup($nutrition_label, $recipe, $is_shortcode = false)
     if (function_exists('is_amp_endpoint')) {
         $amp_on = is_amp_endpoint();
     }
-    $zrdn_hide_print_nutrition_label = get_option('zrdn_print_nutrition_label', false);
-    $zrdn_hide_nutrition_label = get_option('zrdn_hide_nutrition_label', false);
-    $zrdn_label_display_method = get_option('zrdn_label_display_method', 'html');
 
     $description = $recipe->preview ? '' : sprintf(__('Nutrition label for %s', "zip-recipes"), $recipe->recipe_title);
 
@@ -27,9 +24,9 @@ function zrdn_label_markup($nutrition_label, $recipe, $is_shortcode = false)
         'has_nutrition_data' => $recipe->has_nutrition_data,
         'label_url' => $recipe->nutrition_label, //when it's an image
         'description' => $description,
-        'hide_print_label' => $zrdn_hide_print_nutrition_label,
-        'show_label' => !$zrdn_hide_nutrition_label,
-        'label_display_method' => $zrdn_label_display_method,
+        'hide_print_label' => Util::get_option('hide_print_nutrition_label'),
+        'show_label' => !Util::get_option('hide_nutrition_label'),
+        'label_display_method' => Util::get_option('nutrition_label_type'),
     ));
 
     $data['site_name'] = get_bloginfo('name');

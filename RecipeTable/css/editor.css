@@ -1,8 +1,24 @@
+/**
+Hide notices from other plugins
+ */
+.error {
+  display: none;
+}
+#zip-recipes .form-table td {
+  padding: 0 10px;
+}
+#zip-recipes .form-table th {
+  padding: 15px 10px;
+}
+#zip-recipes label {
+  font-weight: normal;
+}
 .zrdn-help-modal {
   font-style: italic;
 }
 .zrdn-preview-snippet {
   margin-top: 10px;
+  border: dashed 1px;
 }
 #zrdn-popup-image {
   position: relative;
@@ -261,13 +277,49 @@ Tabs
   background-color: #fff3cd;
   border-color: #ffeeba;
 }
+/**grid */
+#zrdn-dashboard .zrdn-grid .zrdn-item .item-container .item-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+#zrdn-dashboard .zrdn-save-button {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+}
 /* Define the styling of the text input fields */
 .zrdn-label {
   margin: 20px 0 0 0;
 }
+.zrdn-grid .zrdn-label {
+  margin: 10px 0 10px 0;
+}
+.zrdn-author-frame {
+  overflow-x: hidden;
+  height: 138px;
+}
+.zrdn-checkbox .zrdn-label {
+  float: left;
+}
+.zrdn-checkbox .zrdn-field {
+  float: right;
+}
+.zrdn-comment {
+  float: left;
+  font-style: italic;
+  font-size: 12px;
+}
+.zrdn-clear {
+  clear: both;
+}
+.item-container .field-group {
+  width: 330px;
+  padding: 5px 23px;
+}
 label {
   font-weight: bold;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 input[type="text"],
 input[type="email"] {

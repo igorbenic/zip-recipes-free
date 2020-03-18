@@ -102,7 +102,35 @@ Copyright 2011, 2012 ZipList, Inc.
   font: inherit;
   vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+/* Covers differences for large(r) screens */
+@media all and (min-width: 361px) {
+  #zlrecipe-container ul {
+    padding: 0 0 0 2.4em;
+  }
+  #zlrecipe-container ol {
+    padding: 0 0 0 3em;
+    margin: 1em 0;
+  }
+  #zlrecipe-container #zlrecipe-instructions-list {
+    margin: 0 0.5em;
+  }
+}
+#zlrecipe-container {
+  /* HTML5 display-role reset for older browsers */
+  /* END RESETS */
+  /* TYPOGRAPHY */
+  /* END TYPOGRAPHY */
+  /* FORMATTING */
+  /* used to hide things in the recipe card (web) view */
+  /* END FORMATTING */
+  /* SPECIFIC ELEMENT STYLES */
+  padding: 10px;
+  /* custom print button */
+}
+#zlrecipe-container ol {
+  list-style-type: decimal;
+  margin: 1em;
+}
 #zlrecipe-container article,
 #zlrecipe-container aside,
 #zlrecipe-container details,
@@ -124,15 +152,12 @@ Copyright 2011, 2012 ZipList, Inc.
 #zlrecipe-container blockquote:after,
 #zlrecipe-container q:before,
 #zlrecipe-container q:after {
-  content: '';
   content: none;
 }
 #zlrecipe-container table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-/* END RESETS */
-/* BASE */
 #zlrecipe-container p {
   line-height: 1.2em;
   margin: 1em 0;
@@ -141,25 +166,6 @@ Copyright 2011, 2012 ZipList, Inc.
   margin: 1em;
   padding: 0;
 }
-/* Covers differences for large(r) screens */
-@media all and (min-width: 361px) {
-  #zlrecipe-container ul {
-    padding: 0 0 0 2.4em;
-  }
-  #zlrecipe-container ol {
-    padding: 0 0 0 3em;
-    margin: 1em 0;
-  }
-  #zlrecipe-container #zlrecipe-instructions-list {
-    margin: 0 0.5em;
-  }
-}
-#zlrecipe-container ol {
-  list-style-type: decimal;
-  margin: 1em;
-}
-/* END BASE */
-/* TYPOGRAPHY */
 #zlrecipe-container .heading-one,
 #zlrecipe-container .h-1 {
   font-size: 2em;
@@ -191,12 +197,10 @@ Copyright 2011, 2012 ZipList, Inc.
 #zlrecipe-container .sans-serif {
   font-family: 'helvetica neue', helvetica, arial, verdana, sans-serif;
 }
-.text-align-center,
-.t-a-c {
+#zlrecipe-container .text-align-center,
+#zlrecipe-container .t-a-c {
   text-align: center;
 }
-/* END TYPOGRAPHY */
-/* FORMATTING */
 #zlrecipe-container .padding-all,
 #zlrecipe-container .p-a {
   padding: 1em;
@@ -239,7 +243,6 @@ Copyright 2011, 2012 ZipList, Inc.
 #zlrecipe-container .hide-card {
   display: none;
 }
-/* used to hide things in the recipe card (web) view */
 #zlrecipe-container .border-bottom,
 #zlrecipe-container .b-b {
   border-bottom: 1px solid #000;
@@ -247,11 +250,6 @@ Copyright 2011, 2012 ZipList, Inc.
 #zlrecipe-container .border-top,
 #zlrecipe-container .b-t {
   border-top: 1px solid #000;
-}
-/* END FORMATTING */
-/* SPECIFIC ELEMENT STYLES */
-#zlrecipe-container {
-  padding: 10px;
 }
 #zlrecipe-container #zlrecipe-title {
   padding-bottom: 0.5em;
@@ -277,6 +275,9 @@ Copyright 2011, 2012 ZipList, Inc.
   vertical-align: top;
   display: inline-block;
   margin-right: 5px;
+}
+#zlrecipe-container .zlrecipe-print-link .print-link img {
+  height: 30px;
 }
 #zlrecipe-container .meta,
 #zlrecipe-container .zlmeta {

@@ -6,7 +6,7 @@ Domain Path: /languages
 Plugin URI: http://www.ziprecipes.net/
 Plugin GitHub: https://github.com/hgezim/zip-recipes-plugin
 Description: A plugin that adds all the necessary microdata to your recipes, so they will show up in Google's Recipe Search
-Version: 6.1.7
+Version: 6.4.0
 Author: RogierLankhorst, markwolters
 Author URI: http://www.really-simple-plugins.com/
 License: GPLv3 or later
@@ -41,7 +41,7 @@ spl_autoload_register(__NAMESPACE__ . '\zrdn_autoload');
 defined('ABSPATH') or die("Error! Cannot be called directly.");
 
 // Define constants
-define('ZRDN_VERSION_NUM', '6.1.6');//keep this version one behind the actual version, for upgrade purposes
+define('ZRDN_VERSION_NUM', '6.4.0');//keep this version one behind the actual version, for upgrade purposes
 
 define('ZRDN_FREE', true);
 define('ZRDN_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ));
@@ -78,17 +78,14 @@ function zrdn_autoload($className)
     require_once(ZRDN_PLUGIN_DIRECTORY . '_inc/helper_functions.php');
     require_once(ZRDN_PLUGIN_DIRECTORY . '_inc/class.ziprecipes.shortcodes.php');
     require_once(ZRDN_PLUGIN_DIRECTORY . '_inc/PluginBase.php');
-
     require_once(ZRDN_PLUGIN_DIRECTORY . 'RecipeTable/RecipeMenu.php');
     require_once(ZRDN_PLUGIN_DIRECTORY . 'NutritionLabel/NutritionLabel.php');
 
     if (is_admin()){
-        require_once(ZRDN_PLUGIN_DIRECTORY . 'upgrade-zip.php');
-        //free only
-        require_once(ZRDN_PLUGIN_DIRECTORY . 'promo.php');
+	    require_once(ZRDN_PLUGIN_DIRECTORY . 'upgrade-zip.php');
+	    require_once(ZRDN_PLUGIN_DIRECTORY . 'grid/grid-enqueue.php');
         require_once(ZRDN_PLUGIN_DIRECTORY . 'class-field.php');
         require_once(ZRDN_PLUGIN_DIRECTORY . 'twig-strings.php');
-
     }
 
     /**
@@ -149,3 +146,5 @@ function zrdn_maybe_load_iframe()
     }
 }
 add_action('admin_init', __NAMESPACE__ . '\zrdn_maybe_load_iframe', 30);
+
+require_once(ZRDN_PLUGIN_DIRECTORY . 'functions.php');

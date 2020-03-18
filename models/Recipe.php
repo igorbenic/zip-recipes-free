@@ -82,8 +82,6 @@ function zrdn_update_recipe_table(){
         }
         dbDelta($sql_command); // run SQL script
 
-        Util::log("Calling db_setup() action");
-
         do_action("zrdn__db_setup", Recipe::TABLE_NAME);
         update_option('zrdn_table_version', ZRDN_VERSION_NUM);
     }
@@ -465,7 +463,7 @@ class Recipe {
         //check if image is also featured image for connected post
         //@todo: deprecate this
         $this->is_featured_post_image = false;
-        if ($this->post_id && get_option('zlrecipe_hide_on_duplicate_image')==='Hide'){
+        if ($this->post_id && Util::get_option('hide_on_duplicate_image')){
             $recipe_image_id = get_post_thumbnail_id( $this->post_id );
             if ($recipe_image_id == $this->recipe_image_id){
                 $this->is_featured_post_image = true;

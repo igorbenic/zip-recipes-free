@@ -279,7 +279,8 @@ function zrdn_enqueue_style($hook){
         wp_enqueue_script("zrdn-editor-popup-modal", ZRDN_PLUGIN_URL."RecipeTable/js/popup_editor_modal.js",  array('jquery'), ZRDN_VERSION_NUM);
     }
 
-    if (!isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new') ) return;
+    if (!(isset($_GET['page']) && $_GET['page'] == 'zrdn-settings') && !isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new') ) return;
+
 
     wp_enqueue_script("zrdn-editor", ZRDN_PLUGIN_URL."RecipeTable/js/editor.js",  array('jquery'), ZRDN_VERSION_NUM);
     wp_enqueue_script("zrdn-conditions", ZRDN_PLUGIN_URL."RecipeTable/js/conditions.js",  array('jquery'), ZRDN_VERSION_NUM);
@@ -293,13 +294,13 @@ function zrdn_enqueue_style($hook){
         'nonce' => wp_create_nonce('zrdn_edit_recipe'),
         'image_placeholder' => ZRDN_PLUGIN_URL . '/images/s.png',
 
-);
+    );
     wp_localize_script('zrdn-editor', 'zrdn_editor', $args);
 
-    //wp_enqueue_style("bootstrap-3", ZRDN_PLUGIN_URL . '/vendor/twbs/bootstrap/dist/css/bootstrap.min.css');
     wp_register_style('zrdn-editor', ZRDN_PLUGIN_URL."RecipeTable/css/editor.css", array(), ZRDN_VERSION_NUM, 'all');
     wp_enqueue_style('zrdn-editor');
     wp_enqueue_media();
+
 }
 
 if (isset($_GET['popup']) && $_GET['popup']) {

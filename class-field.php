@@ -24,6 +24,7 @@ if (!class_exists("ZRDN_Field")) {
             add_action('zrdn_before_label', array($this, 'show_errors'), 10, 1);
             add_action('zrdn_after_label', array($this, 'after_label'), 10, 1);
             add_action('zrdn_after_field', array($this, 'after_field'), 10, 1);
+            add_filter('zrdn_load_field_value', array($this, 'load_field_value'), 10, 2);
 
             $this->load();
         }
@@ -33,7 +34,22 @@ if (!class_exists("ZRDN_Field")) {
             return self::$_this;
         }
 
+	    public static function field_exists( $fieldname, $type ) {
+		    $fields = Util::get_fields($type);
+		    if(isset($fields[$fieldname])) {
+			    return true;
+		    }
+		    return false;
+	    }
 
+        public function load_field_value($value, $fieldname){
+	        $fields = Util::get_fields();
+	        if(isset($fields[$fieldname])) {
+		        return Util::get_option($fieldname);
+	        }
+
+            return $value;
+        }
 
         /**
          * Register each string in supported string translation tools
@@ -101,8 +117,15 @@ if (!class_exists("ZRDN_Field")) {
         }
         
 
-        public function sanitize($value, $type)
+        public static function sanitize($fieldname, $value)
         {
+	        $fields = Util::get_fields();
+
+            if(isset($fields[$fieldname]['type'])) {
+		        $type = $fields[$fieldname]['type'];
+	        } else {
+                return false;
+            }
 
             switch ($type) {
                 case 'colorpicker':
@@ -110,8 +133,9 @@ if (!class_exists("ZRDN_Field")) {
                 case 'text':
                     return sanitize_text_field($value);
                 case 'multicheckbox':
+                case 'authors':
                     if (!is_array($value)) $value = array($value);
-                    return array_map('sanitize_text_field', $value);
+                    return array_filter(array_map('sanitize_text_field', $value));
                 case 'phone':
                     $value = sanitize_text_field($value);
                     return $value;
@@ -155,7 +179,7 @@ if (!class_exists("ZRDN_Field")) {
                 echo $condition ? 'data-condition-question="' . esc_attr($condition_question) . '" data-condition-answer="' . esc_attr($condition_answer) . '"' : '';
                 echo '><th scope="row">';
             } else {
-                echo '<div class="field-group ' .  esc_attr($hidden_class.''.$first_class.' '.$condition_class) . '" ';
+                echo '<div class="field-group zrdn-' . $args['type'] . ' ' .  esc_attr($hidden_class.''.$first_class.' '.$condition_class) . '" ';
                 echo $condition ? 'data-condition-question="' . esc_attr($condition_question) . '" data-condition-answer="' . esc_attr($condition_answer) . '"' : '';
                 echo '><div class="zrdn-label">';
             }
@@ -187,7 +211,7 @@ if (!class_exists("ZRDN_Field")) {
         function after_label($args)
         {
             if ($args['table']) {
-                echo '</th><td>';
+                echo '</th><td class="zrdn-field">';
             } else {
                 echo '</div><div class="zrdn-field">';
             }
@@ -199,12 +223,15 @@ if (!class_exists("ZRDN_Field")) {
         public
         function after_field($args)
         {
-            $this->get_comment($args);
+
 
             if ($args['table']) {
-                echo '</td><td>'.$this->get_help_tip($args).'</td></tr>';
+	            $this->get_comment($args);
+                echo '</td></tr>';
             } else {
-                echo '</div>'.$this->get_help_tip($args).'</div>';
+                echo '</div>';
+	            $this->get_comment($args);
+                echo '</div><div class="zrdn-clear"></div>';
             }
         }
 
@@ -214,8 +241,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
 
-            $value = $args['value'];
-
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
@@ -230,6 +256,45 @@ if (!class_exists("ZRDN_Field")) {
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
+
+	    public
+	    function authors($args)
+	    {
+		    $fieldname = 'zrdn_' . $args['fieldname'];
+		    $options = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
+		    if (!is_array($options)) $options = array('');
+		    ?>
+
+		    <?php do_action('zrdn_before_label', $args); ?>
+            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <button <?php if ($args['disabled']) echo 'disabled'; ?> type="button" class="button button-default zrdn-add-author">+</button>
+            <span class="zrdn-author-container zrdn-template zrdn-hidden">
+                <input <?php if ($args['required']) echo 'required'; ?>
+                        class="validation zrdn-author-field zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
+                        placeholder="<?php echo esc_html($args['placeholder']) ?>"
+                        type="text"
+                        value=""
+                        name="<?php echo esc_html($fieldname) ?>[]">
+                <button type="button" class="button button-default zrdn-delete-author">-</button>
+                </span>
+		    <?php do_action('zrdn_after_label', $args); ?>
+            <div class="zrdn-author-frame">
+            <?php
+            foreach ($options as $option_name) { ?>
+                <span class="zrdn-author-container">
+                    <input <?php if ($args['disabled']) echo 'disabled'; ?> <?php if ($args['required']) echo 'required'; ?>
+                            class="validation zrdn-author-field zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
+                            placeholder="<?php echo esc_html($args['placeholder']) ?>"
+                            type="text"
+                            value="<?php echo esc_html($option_name) ?>"
+                            name="<?php echo esc_html($fieldname) ?>[]">
+                    <button <?php if ($args['disabled']) echo 'disabled'; ?> type="button" class="button button-default zrdn-delete-author">-</button>
+                </span>
+            <?php } ?>
+            </div>
+            <?php do_action('zrdn_after_field', $args); ?>
+		    <?php
+	    }
 
 
         public
@@ -251,7 +316,7 @@ if (!class_exists("ZRDN_Field")) {
         function url($args)
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
@@ -272,7 +337,7 @@ if (!class_exists("ZRDN_Field")) {
         function email($args)
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
@@ -292,7 +357,7 @@ if (!class_exists("ZRDN_Field")) {
         function phone($args)
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
@@ -312,7 +377,7 @@ if (!class_exists("ZRDN_Field")) {
         function number($args)
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             $default = $args['default'];
             if (intval($value)==0) $value = $default;
             ?>
@@ -335,7 +400,7 @@ if (!class_exists("ZRDN_Field")) {
         function time($args)
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             $time = ZipRecipes:: zrdn_extract_time($value);
             $hours = $time['time_hours'];
             $minutes = $time['time_minutes'];
@@ -372,7 +437,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
 
-            $value = $args['value'];
+            $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             $placeholder_value = ($args['disabled'] && $value) ? $value : 0;
 
             ?>
@@ -401,9 +466,8 @@ if (!class_exists("ZRDN_Field")) {
         function radio($args)
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
-            $options = $args['options'];
-
-            $value = $args['value'];
+	        $options = $args['options'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
 
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
@@ -443,7 +507,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
 
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
             <label for="<?php echo $args['fieldname'] ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
@@ -491,7 +555,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
 
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
@@ -524,7 +588,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
 
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
 
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
@@ -543,9 +607,14 @@ if (!class_exists("ZRDN_Field")) {
 
 
         public
-        function get_field_html($args)
+        function get_field_html($args, $fieldname = false)
         {
             $args = wp_parse_args($args, $this->default_args);
+            if ($args['callback_condition']){
+                $func = $args['callback_condition'];
+                if (!$func()) return;
+            }
+            if ($fieldname) $args['fieldname'] = $fieldname;
             $type = ($args['callback']) ? 'callback' : $args['type'];
 
             switch ($args['type']) {
@@ -554,6 +623,9 @@ if (!class_exists("ZRDN_Field")) {
                     break;
                 case 'button':
                     $this->button($args);
+                    break;
+                case 'authors':
+                    $this->authors($args);
                     break;
                 case 'upload':
                     $this->upload($args);
@@ -573,20 +645,8 @@ if (!class_exists("ZRDN_Field")) {
                 case 'textarea':
                     $this->textarea($args);
                     break;
-                case 'cookies':
-                    $this->cookies($args);
-                    break;
-                case 'multiple':
-                    $this->multiple($args);
-                    break;
                 case 'radio':
                     $this->radio($args);
-                    break;
-                case 'multicheckbox':
-                    $this->multicheckbox($args);
-                    break;
-                case 'javascript':
-                    $this->javascript($args);
                     break;
                 case 'css':
                     $this->css($args);
@@ -644,16 +704,28 @@ if (!class_exists("ZRDN_Field")) {
 
             $fieldname = 'zrdn_' . $args['fieldname'];
 
-            $value = $args['value'];
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
 
+	        $disable_main = '';
+	        $disable_options = false;
+            if (is_array($args['disabled'])){
+                $disable_options = true;
+            }elseif ($args['disabled']) {
+                $disable_main = 'disabled';
+            }
+
+            if (!is_array($args['options'])) $args['options'] = array();
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
             <label for="<?php echo esc_html($fieldname) ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
-            <select <?php if ($args['required']) echo 'required'; ?> name="<?php echo esc_html($fieldname) ?>">
+            <select <?=$disable_main?> <?php if ($args['required']) echo 'required'; ?> name="<?php echo esc_html($fieldname) ?>">
                 <option value=""><?php _e("Choose an option", 'complianz-gdpr') ?></option>
-                <?php foreach ($args['options'] as $option_key => $option_label) { ?>
-                    <option value="<?php echo esc_html($option_key) ?>" <?php echo ($option_key == $value) ? "selected" : "" ?>><?php echo esc_html($option_label) ?></option>
+                <?php foreach ($args['options'] as $option_key => $option_label) {
+	                $disabled='';
+                    if ($disable_options && in_array($option_key, $args['disabled']) ) $disabled = 'disabled';
+                    ?>
+                    <option <?=$disabled?> value="<?php echo esc_html($option_key) ?>" <?php echo ($option_key == $value) ? "selected" : "" ?>><?php echo esc_html($option_label) ?></option>
                 <?php } ?>
             </select>
 
@@ -705,9 +777,8 @@ if (!class_exists("ZRDN_Field")) {
 
         /**
          * Upload field
-         * @param $args
          *
-         * @echo string $html
+         * @return array
          */
         public function get_image_sizes() {
             global $_wp_additional_image_sizes;
@@ -742,21 +813,27 @@ if (!class_exists("ZRDN_Field")) {
                 $width = isset($sizes[ $args['size']]['width']) ? $sizes[ $args['size'] ]['width'] : '100';
                 $height = isset($sizes[ $args['size'] ]['height']) ? $sizes[ $args['size'] ]['height'] : '100';
             }
-            $src = strlen(esc_url($args['value']))>0 ? esc_url($args['value']) : ZRDN_PLUGIN_URL . '/images/s.png';
+	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
+
+	        $src = strlen(esc_url($value))>0 ? esc_url($value) : ZRDN_PLUGIN_URL . '/images/s.png';
             //now resize to height 100
             $ratio = $height/100;
             $width = $width/$ratio;
             $height = 100;
-            ?>
+
+	        ?>
             <?php do_action('zrdn_before_label', $args); ?>
             <label><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
+
+            <?php if (isset($args['thumbnail_id'])){?>
             <input type="hidden" name="zrdn_<?php echo esc_html($args['fieldname']) ?>_id" value="<?php echo intval($args['thumbnail_id'])?>">
+            <?php } ?>
             <div class="zrdn-hidden zrdn-image-resolution-warning">
-                <?php zrdn_notice(__("Image resolution too low for a Rich Snippet. You should use an image of at least 250x250 pixels", "zip-recipes"), 'warning', true, false, false);?>
+                <?php zrdn_notice($args['low_resolution_notice'], 'warning', true, false, false);?>
             </div>
             <input type="hidden" data-size="<?php echo $args['size']?>" class="zrdn-image-upload-field" name="zrdn_<?php echo esc_html($args['fieldname']) ?>"
-                   value="<?php echo esc_url($args['value']) ?>">
+                   value="<?php echo esc_url($value) ?>">
             <div>
             <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-uploader" type="button" value="<?php _e('Edit', 'zip-recipes') ?>">
             <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-reset" type="button" value="<?php _e('Reset', 'zip-recipes') ?>">
@@ -772,18 +849,13 @@ if (!class_exists("ZRDN_Field")) {
         {
             wp_nonce_field('zrdn_save', 'zrdn_nonce');
             ?>
-            <th></th>
-            <td>
+            <div class="zrdn-save-button">
                 <input class="button button-primary" type="submit" name="zrdn-save"
                        value="<?php _e("Save", 'zip-recipes') ?>">
+            </div>
 
-            </td>
             <?php
         }
-
-
-
-
 
 
 
@@ -810,7 +882,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             if (!isset($args['comment'])) return;
             ?>
-            <div class="zrdn-comment"><?php echo $args['comment'] ?></div>
+            <div style="clear:both"></div><div class="zrdn-comment"><?php echo $args['comment'] ?></div>
             <?php
         }
 
@@ -827,7 +899,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             $output='';
             if (isset($args['help']) ) {
-                //$output = '<a href="#" class="button zrdn-open-modal"><i class="fa fa-question"></i></a>';
+	            $output = '<span class=" zrdn-tooltip-top tooltip-right" data-zrdn-tooltip="'.$args['help'].'"><span class="dashicons dashicons-editor-help"></span></span>';
             }
             return $output;
         }
@@ -842,6 +914,7 @@ if (!class_exists("ZRDN_Field")) {
         public
         function get_help_tip($args)
         {
+            return '';
             $output = '';
             if (isset($args['help'])) {
 //                $output = '<div><div class="zrdn-help-modal"><span><i class="fa fa-times"></i></span>' . wp_kses_post($args['help']) . '</div></div>';

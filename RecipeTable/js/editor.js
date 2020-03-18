@@ -1,4 +1,17 @@
 jQuery(document).ready(function ($) {
+    $(document).on('click', '.zrdn-add-author', function(){
+        var field = $('.zrdn-template').get(0).outerHTML;
+
+        console.log(field);
+        $(this).closest('.field-group').find('.zrdn-author-frame').append(field);
+        $(this).closest('.field-group').find('.zrdn-author-frame .zrdn-hidden').removeClass('zrdn-hidden');
+    });
+    $(document).on('click', '.zrdn-delete-author', function(){
+        console.log("remove");
+        $(this).closest('.zrdn-author-container').remove();
+    });
+
+
 
     $.fn.outerHTML = function () {
 
@@ -51,82 +64,104 @@ jQuery(document).ready(function ($) {
     /**
      *  Initialize the preview fields with placeholders
      */
+    if ($('#zrdn-preview').length) {
+        var content = $('#zrdn-preview').html();
 
-    var content = $('#zrdn-preview').html();
-    //first, remove the json
-    var json_matches = content.match(/{"@context".*?}}/g, '');
-    if (json_matches) {
-        content = content.replace(json_matches[0], '');
-    }
+        //first, remove the json
+        var json_matches = content.match(/{"@context".*?}}/g, '');
+        if (json_matches) {
+            content = content.replace(json_matches[0], '');
+        }
 
-    //replace to spans
-    var regex = /(<.+?>[^<>]*?){([a-zA-Z_].*)_value}([^<>]*?<.+?>)/g;
-    content = content.replace(regex, '$1'+'<span id="zrdn_placeholder_' + '$2' + '"></span>'+'$3');
+        //replace to spans
+        var regex = /(<.+?>[^<>]*?){([a-zA-Z_].*)_value}([^<>]*?<.+?>)/g;
+        content = content.replace(regex, '$1' + '<span id="zrdn_placeholder_' + '$2' + '"></span>' + '$3');
 
-    $('#zrdn-preview').html(content);
+        $('#zrdn-preview').html(content);
 
-    //time
-    $('.prep_time').html('<span id="zrdn_placeholder_prep_time"></span>');
-    $('.cook_time').html('<span id="zrdn_placeholder_cook_time"></span>');
-    // var placeholderImg = $('.zrdn-recipe-image').outerHTML();
-    $('.zrdn-recipe-image').parent().append('<div class="zrdn-edit-image-text">' +
-        zrdn_editor.str_click_to_edit_image +
-        '</div>');
+        //time
+        $('.prep_time').html('<span id="zrdn_placeholder_prep_time"></span>');
+        $('.cook_time').html('<span id="zrdn_placeholder_cook_time"></span>');
+        // var placeholderImg = $('.zrdn-recipe-image').outerHTML();
+        $('.zrdn-recipe-image').parent().append('<div class="zrdn-edit-image-text">' +
+            zrdn_editor.str_click_to_edit_image +
+            '</div>');
 
 
-    /**
-     * Now prefill the fields with what we have
-     *
-     */
+        /**
+         * Now prefill the fields with what we have
+         *
+         */
 
-    $('.zrdn-field-input').each(function () {
+        $('.zrdn-field-input').each(function () {
 
-        var name = $(this).attr("name");
-        if (name==='zrdn_video_url') return;
+            var name = $(this).attr("name");
+            if (name === 'zrdn_video_url') return;
 
-        var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
-        $('#' + fieldname).html($(this).val());
-    });
+            var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
+            $('#' + fieldname).html($(this).val());
+        });
 
-    /**
-     * video
-     */
-    $('input[name=zrdn_video_url]').each(function () {
-        zrdn_get_video_embed($(this));
-    });
+        /**
+         * video
+         */
+        $('input[name=zrdn_video_url]').each(function () {
+            zrdn_get_video_embed($(this));
+        });
 
-    /**
-     * time
-     */
-    $('input[type=number]').each(function () {
-        zrdn_parse_time($(this));
-    });
+        /**
+         * time
+         */
+        $('input[type=number]').each(function () {
+            zrdn_parse_time($(this));
+        });
 
-    /**
-     * Textarea
-     */
+        /**
+         * Textarea
+         */
 
-    $('.zrdn-field-textarea').each(function () {
-        zrdn_parse_textarea($(this));
-    });
+        $('.zrdn-field-textarea').each(function () {
+            zrdn_parse_textarea($(this));
+        });
 
-    $('.wp-editor-area').each(function () {
-        var name = $(this).attr("name");
+        $('.wp-editor-area').each(function () {
+            var name = $(this).attr("name");
 
-        var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
-        $('#' + fieldname).html($(this).val());
-    });
+            var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
+            $('#' + fieldname).html($(this).val());
+        });
 
-    if ($('input[name=zrdn_recipe_image]').val().length >0){
-        $('.zrdn-recipe-image').attr('src', $('input[name=zrdn_recipe_image]').val());
-        var link = '<div style="clear:both"></div><a href="#" style="float:right" class="zrdn_remove_image">'+zrdn_editor.str_remove+'</a>';
-        $('.zrdn-recipe-image').parent().append(link);
+        if ($('input[name=zrdn_recipe_image]').val().length > 0) {
+            $('.zrdn-recipe-image').attr('src', $('input[name=zrdn_recipe_image]').val());
+            var link = '<div style="clear:both"></div><a href="#" style="float:right" class="zrdn_remove_image">' + zrdn_editor.str_remove + '</a>';
+            $('.zrdn-recipe-image').parent().append(link);
+        }
+
+        // Was needed a timeout since RTE is not initialized when this code run.
+        setTimeout(function () {
+            for (var i = 0; i < tinymce.editors.length; i++) {
+                tinymce.editors[i].onChange.add(function (ed, e) {
+                    var name = ed.id;
+                    var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
+                    $('#' + fieldname).html(ed.getContent());
+                });
+
+                tinymce.editors[i].onKeyUp.add(function (ed, e) {
+                    var name = ed.id;
+
+                    var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
+
+                    $('#' + fieldname).html(ed.getContent());
+
+                });
+            }
+        }, 1000);
     }
 
     /**
      * remove image
      */
-    $(document).on('click','.zrdn_remove_image',function(){
+    $(document).on('click','.zrdn_remove_image',function(event){
         event.preventDefault();
 
         $(".zrdn-recipe-save-button input").prop('disabled', true);
@@ -306,7 +341,6 @@ jQuery(document).ready(function ($) {
         parentContainer.html(placeholderHtml);
     }
 
-
     /**
      * Image
      */
@@ -322,7 +356,6 @@ jQuery(document).ready(function ($) {
         });
 
         media_uploader.on("insert", function(){
-
             img.wrap( '<div class="loading-gif"></div>' );
             $(img).load(function(){
                 img.unwrap();
@@ -375,7 +408,7 @@ jQuery(document).ready(function ($) {
         var textField = container.find('.zrdn-image-upload-field');
         var size = textField.data('size');
         var fieldname = textField.attr('name');
-
+        console.log(fieldname);
         //cleanup
         container.find('.zrdn-image-resolution-warning').hide();
 
@@ -396,13 +429,19 @@ jQuery(document).ready(function ($) {
             {
                 var thumbnail_id = images[iii].id;
                 var image = false;
+                console.log(images[iii]);
                 if (images[iii].attributes.sizes.hasOwnProperty(size)) {
                     image = images[iii].attributes.sizes[size];
                 } else if(images[iii].attributes.sizes.hasOwnProperty(size+'_s')) {
                     image = images[iii].attributes.sizes[size+'_s'];
+                } else if(images[iii].attributes.sizes.hasOwnProperty('thumbnail')) {
+                    image = images[iii].attributes.sizes['thumbnail'];
                 }
+
                 if (image) {
+                    console.log(image);
                     var image_url = image['url'];
+                    console.log(image_url);
                     container.find('.zrdn-preview-snippet').attr('src',image_url);
                     $('input[name='+fieldname+'_id]').val(thumbnail_id);
                     $('input[name='+fieldname+']').val(image_url);
@@ -448,25 +487,7 @@ jQuery(document).ready(function ($) {
     }
 
 
-    // Was needed a timeout since RTE is not initialized when this code run.
-    setTimeout(function () {
-        for (var i = 0; i < tinymce.editors.length; i++) {
-            tinymce.editors[i].onChange.add(function (ed, e) {
-                var name = ed.id;
-                var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
-                $('#' + fieldname).html(ed.getContent());
-            });
 
-            tinymce.editors[i].onKeyUp.add(function (ed, e) {
-                var name = ed.id;
-
-                var fieldname = name.replace('zrdn_', 'zrdn_placeholder_');
-
-                $('#' + fieldname).html(ed.getContent());
-
-            });
-        }
-    }, 1000);
 
     /**
      * hide nutrition label if no data available

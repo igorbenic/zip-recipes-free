@@ -76,6 +76,10 @@ function check_conditions() {
                     conditionMet = false;
                     value = [];
                 }
+
+                if ( $(this).prop('disabled') ){
+                    conditionMet = false;
+                }
             }
 
             if (showIfConditionMet) {

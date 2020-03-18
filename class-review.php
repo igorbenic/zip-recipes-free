@@ -56,22 +56,43 @@ if (!class_exists("zrdn_review")) {
             $intro = sprintf(__('You already have %s recipes on your site, awesome!', 'zip-recipes'), $count);
 
             ?>
-            <div id="message" class="updated fade notice is-dismissible zrdn-review really-simple-plugins">
-                <p>
-                    <?php echo $intro ?>&nbsp;
-                    <?php printf(__('If you have a moment, please consider leaving a review on WordPress.org to spread the word. We greatly appreciate it! If you have any questions or feedback, leave us a %smessage%s.', 'zip-recipes'),'<a href="https://ziprecipes.net/contact" target="_blank">', '</a>'); ?></p>
-                <i>- Rogier</i>
-                <ul style="margin-left: 30px; list-style: square;">
-                    <li><p style="margin-top: -5px;"><a target="_blank"
-                                                        href="https://wordpress.org/support/plugin/zip-recipes/reviews/#new-post"><?php _e('Leave a review', 'zip-recipes'); ?></a>
-                        </p></li>
-                    <li><p style="margin-top: -5px;"><a href="#"
-                                                        id="maybe-later"><?php _e('Maybe later', 'zip-recipes'); ?></a>
-                        </p></li>
-                    <li><p style="margin-top: -5px;"><a href="#"
-                                                        class="review-dismiss"><?php _e('No thanks', 'zip-recipes'); ?></a>
-                        </p></li>
-                </ul>
+            <style>
+                .zrdn-container {
+                    display: flex;
+                    padding:12px;
+                }
+                .zrdn-container .dashicons {
+                    margin-left:10px;
+                    margin-right:5px;
+                }
+                .zrdn-review-image img{
+                    margin-top:0.5em;
+                }
+                .zrdn-buttons-row {
+                    margin-top:10px;
+                    display: flex;
+                    align-items: center;
+                }
+            </style>
+            <div id="message" class="updated fade notice is-dismissible zrdn-review really-simple-plugins" style="border-left:4px solid #333">
+                <div class="zrdn-container">
+                    <div class="zrdn-review-image"><img width=80px" src="<?php echo ZRDN_PLUGIN_URL?>images/icon-128x128.png" alt="review-logo"></div>
+                    <div style="margin-left:30px">
+                        <p>
+	                    <?php echo $intro ?>&nbsp;
+	                    <?php printf(__('If you have a moment, please consider leaving a review on WordPress.org to spread the word. We greatly appreciate it! If you have any questions or feedback, leave us a %smessage%s.', 'zip-recipes'),'<a href="https://ziprecipes.net/contact" target="_blank">', '</a>'); ?>
+                        </p>
+                        <i>- Rogier</i>
+                        <div class="zrdn-buttons-row">
+                            <a class="button button-primary" target="_blank"
+                               href="https://wordpress.org/support/plugin/zip-recipes/reviews/#new-post"><?php _e('Leave a review', 'zip-recipes'); ?></a>
+
+                            <div class="dashicons dashicons-calendar"></div><a href="#" id="maybe-later"><?php _e('Maybe later', 'zip-recipes'); ?></a>
+
+                            <div class="dashicons dashicons-no-alt"></div><a href="#" class="review-dismiss"><?php _e('Don\'t show again', 'zip-recipes'); ?></a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <?php
 

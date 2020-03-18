@@ -132,7 +132,7 @@ if (isset($_GET['post_id'])) {
                                 }
                         } ?>
                     <?php
-                    if ($recipe->is_featured_post_image && get_option('zlrecipe_hide_on_duplicate_image')==='Hide'){
+                    if ($recipe->is_featured_post_image && Util::get_option('hide_on_duplicate_image') ){
                         zrdn_notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"), 'warning');
                     }
                     $tags =wp_get_post_tags( $recipe->post_id );
@@ -199,7 +199,7 @@ if (isset($_GET['post_id'])) {
                             'fieldname' => 'ingredients',
                             'value' => $recipe->ingredients,
                             'label' => __("Ingredients", 'zip-recipes'),
-                            'help' =>sprintf(__("Put each ingredient on a separate line. There is no need to use bullets for your ingredients. You can also create labels, hyperlinks, bold/italic effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
+                            'comment' =>sprintf(__("Put each ingredient on a separate line. There is no need to use bullets for your ingredients. You can also create labels, hyperlinks, bold/italic effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
                         ),
                         array(
                             'type' => 'textarea',
@@ -212,7 +212,7 @@ if (isset($_GET['post_id'])) {
                             'fieldname' => 'video_url',
                             'value' => $recipe->video_url,
                             'label' => __("Instruction video", 'zip-recipes'),
-                            'help' => __("A video is a great way to improve your ranking and will get picked up by Google's rich snippets.", 'zip-recipes'),
+                            'comment' => __("A video is a great way to improve your ranking and will get picked up by Google's rich snippets.", 'zip-recipes'),
                         ),
                         'categoryField'=>array(
                             'type' => 'text',
@@ -405,6 +405,7 @@ if (isset($_GET['post_id'])) {
                     <?php $snippet_fields = array(
                         array(
                             'type' => 'upload',
+                            'low_resolution_notice' =>__("Image resolution too low, or image size not generated. You should use an image of at least 250x250 pixels", "zip-recipes"),
                             'fieldname' => 'json_image_1x1',
                             'size' => 'zrdn_recipe_image_json_1x1',
                             'value' => $recipe->json_image_1x1,
@@ -413,6 +414,7 @@ if (isset($_GET['post_id'])) {
                         ),
                         array(
                             'type' => 'upload',
+                            'low_resolution_notice' =>__("Image resolution too low, or image size not generated. You should use an image of at least 250x250 pixels", "zip-recipes"),
                             'fieldname' => 'json_image_4x3',
                             'size' => 'zrdn_recipe_image_json_4x3',
                             'value' => $recipe->json_image_4x3,
@@ -421,6 +423,7 @@ if (isset($_GET['post_id'])) {
                         ),
                         array(
                             'type' => 'upload',
+                            'low_resolution_notice' =>__("Image resolution too low, or image size not generated. You should use an image of at least 250x250 pixels", "zip-recipes"),
                             'fieldname' => 'json_image_16x9',
                             'size' => 'zrdn_recipe_image_json_16x9',
                             'value' => $recipe->json_image_16x9,

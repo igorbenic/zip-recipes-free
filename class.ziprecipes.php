@@ -6,12 +6,36 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 use ZRDN\Recipe as RecipeModel;
 class ZipRecipes {
 
-    const PLUGIN_OPTION_NAME = "zrdn__plugins";
     const MAIN_CSS_SCRIPT = "zrdn-recipes";
     const MAIN_PRINT_SCRIPT = "zrdn-print-js";
 
     public static $suffix = '';
     public static $field;
+    public static $authors;
+	public static $addons_friend = array(
+		'Authors',
+		'RecipeActions',
+		'Import',
+		'RecipeReviews',
+		'VisitorRating',
+		'RecipeGrid2',
+		'RecipeGrid',
+		'CustomTemplates',
+	);
+	public static $addons_lover = array(
+		'Authors',
+		'AutomaticNutrition',
+		'ServingAdjustment',
+		'RecipeActions',
+		'RecipeSearch',
+		'Import',
+		'RecipeReviews',
+		'VisitorRating',
+		'RecipeGrid2',
+		'RecipeGrid',
+		'CustomTemplates',
+		'ImperialMetricsConverter',
+	);
 
     /**
      * Init function.
@@ -21,62 +45,10 @@ class ZipRecipes {
         if (is_admin()) {
             self::$field = new ZRDN_Field();
         }
-        Util::log("Core init");
         self::$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-
-        // Instantiate plugin classes
-        $parentPath = dirname(__FILE__);
-        $pluginsPath = "$parentPath/plugins";
-        $pluginsDirHandle = opendir($pluginsPath);
-        Util::log("Searching for plugins in:" . $pluginsPath);
-        if ($pluginsDirHandle) {
-            $originalDir = getcwd();
-            chdir($pluginsPath);
-
-            // loop through plugin dirs and require them
-            while (false !== ($fileOrFolder = readdir($pluginsDirHandle))) {
-                $notDir = !is_dir($fileOrFolder);
-                $invalidDir = $fileOrFolder === "." || $fileOrFolder === ".." || $fileOrFolder === "_internal";
-                // we don't care about files inside `plugins` dir
-                if ($notDir || $invalidDir) {
-                    continue;
-                }
-
-                // plugins classes will be in plugins/RecipeIndex/RecipeIndex.php
-                $pluginName = $fileOrFolder;
-                $pluginPath = "$fileOrFolder/$pluginName.php";
-                Util::log("Attempting to load plugin:" . $pluginsPath);
-                // Sometimes plugin folders end up non-empty and then a hard crash happens when the file is required
-                if (! is_readable($pluginPath)) {
-                    Util::log("Plugin couldn't be loaded. Main plugin file is missing.");
-                    continue;
-                }
-                require_once($pluginPath);
-
-                // instantiate class
-                $namespace = __NAMESPACE__;
-                $fullPluginName = "$namespace\\$pluginName"; // double \\ is needed because \ is an escape char
-                $pluginInstance = new $fullPluginName;
-                // add plugin to options if it's not already there
-                // zrdn__plugins stores whether plugin is enabled or not:
-                //	array("VisitorRating" => array("active" => false, "description" => "Stuff"),
-                //				"RecipeIndex" => array("active" => true, "description" => "Stuff"))
-                $pluginOptions = get_option(self::PLUGIN_OPTION_NAME, array());
-                if (!array_key_exists($fullPluginName, $pluginOptions)) {
-                    /**
-                     * We don't want Recipe Reviews to activated by default
-                     * Because Visitor rating activated by default
-                     */
-                    $default_activated  = ($fullPluginName === 'ZRDN\RecipeReviews') ? false: true;
-                    $pluginOptions[$fullPluginName] = array("active" => $default_activated, "description" => $pluginInstance::DESCRIPTION);
-                }
-                update_option(self::PLUGIN_OPTION_NAME, $pluginOptions);
-            }
-
-            chdir($originalDir);
-        }
-
-        closedir($pluginsDirHandle);
+	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::process_settings_update', 10);
+	    add_action('zrdn_tab_content', __NAMESPACE__ . '\ZipRecipes::extensions_tab');
+	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::load_plugins', 20);
 
         // Init shortcode so shortcodes can be used by any plugins
         $shortcodes = new __shortcode();
@@ -84,79 +56,63 @@ class ZipRecipes {
         // We need to call `zrdn__init_hooks` action before `init_hooks()` because some actions/filters registered
         //	in `init_hooks()` get called before plugins have a chance to register their hooks with `zrdn__init_hooks`
         do_action("zrdn__init_hooks"); // plugins can add an action to listen for this event and register their hooks
+	    add_action('admin_head', __NAMESPACE__ . '\ZipRecipes::zrdn_js_vars');
+	    add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::zrdn_add_recipe_button');
 
-        self::init_hooks();
+	    // `the_post` has no action/filter added on purpose. It doesn't work as well as `the_content`.
+	    // We're using priority of 11 here because in some cases VisualComposer seems to be running
+	    //  a hook after us and adding <br /> and <p> tags
+	    add_filter('the_content', __NAMESPACE__ . '\ZipRecipes::zrdn_convert_to_full_recipe', 11);
+	    add_action('admin_menu', __NAMESPACE__ . '\ZipRecipes::menu_pages');
+	    add_action('admin_enqueue_scripts', __NAMESPACE__ . '\ZipRecipes::enqueue_admin_assets');
+	    add_action('admin_footer', __NAMESPACE__ . '\ZipRecipes::zrdn_plugin_footer');
+	    add_filter('amp_post_template_metadata', __NAMESPACE__ . '\ZipRecipes::amp_format', 10, 2);
+	    add_action('amp_post_template_css', __NAMESPACE__ . '\ZipRecipes::amp_styles');
+	    // check GD or imagick support
+	    add_action('admin_notices', __NAMESPACE__ . '\ZipRecipes::zrdn_check_image_editing_support');
+
+	    // This shouldn't be called directly because it can cause issues with WP not having loaded properly yet.
+	    // One issue we were seeing was a client was getting an error caused by
+	    //  `require_once( ABSPATH . 'wp-admin/includes/upgrade.php' )` in zrdn_recipe_install()
+	    // This was the issue:
+	    // PHP Fatal error: Call to undefined function get_user_by() in wp/wp-includes/meta.php on line 1308
+	    add_action('init', __NAMESPACE__ . '\ZipRecipes::zrdn_recipe_install');
+
+	    add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
+
+	    add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets', 10);
     }
 
-    /**
-     * Function to hook to specific WP actions and filters.
-     */
-    private static function init_hooks()
-    {
-        Util::log("I'm in init_hooks");
+    public static function load_plugins(){
+	    // Instantiate plugin classes
+	    $parentPath = dirname(__FILE__);
+	    $pluginsPath = "$parentPath/plugins";
+	    $active_plugins = Util::get_active_plugins();
 
-        add_action('admin_head', __NAMESPACE__ . '\ZipRecipes::zrdn_js_vars');
-        add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::zrdn_add_recipe_button');
 
-        // `the_post` has no action/filter added on purpose. It doesn't work as well as `the_content`.
-        // We're using priority of 11 here because in some cases VisualComposer seems to be running
-        //  a hook after us and adding <br /> and <p> tags
-        add_filter('the_content', __NAMESPACE__ . '\ZipRecipes::zrdn_convert_to_full_recipe', 11);
+	    foreach ($active_plugins as $plugin_name){
+		    $pluginPath = $pluginsPath."/".$plugin_name.'/'.$plugin_name.'.php';
+		    if (!file_exists($pluginPath)) {
+			    $fields = Util::get_fields();
+			    if (isset($fields[$plugin_name])) {
+				    $source = $fields[ $plugin_name ]['source'];
+				    $zrdn_settings = get_option( "zrdn_settings_$source" );
+				    $zrdn_settings[ $plugin_name ] = false;
+				    update_option( "zrdn_settings_$source", $zrdn_settings );
+			    }
+			    continue;
+		    }
+		    require_once($pluginPath);
 
-        add_action('admin_menu', __NAMESPACE__ . '\ZipRecipes::zrdn_menu_pages');
+		    // instantiate class
+		    $namespace = __NAMESPACE__;
+		    $fullPluginName = "$namespace\\$plugin_name"; // double \\ is needed because \ is an escape char
+		    $pluginInstance = new $fullPluginName;
+	    }
 
-        add_option("amd_zlrecipe_db_version"); // used to store DB version - leaving as is name as legacy
-        add_option('zrdn_attribution_hide', 'Hide');
-        add_option('zlrecipe_printed_permalink_hide', '');
-        add_option('zlrecipe_printed_copyright_statement', '');
-        add_option('zlrecipe_stylesheet', 'zlrecipe-std');
-        add_option('recipe_title_hide', '');
-        add_option('zlrecipe_image_hide', '');
-        add_option('zlrecipe_image_hide_print', 'Hide');
-        add_option('zlrecipe_print_link_hide', '');
-        add_option('zlrecipe_ingredient_label_hide', '');
-        add_option('zlrecipe_ingredient_list_type', 'l');
-        add_option('zlrecipe_instruction_label_hide', '');
-        add_option('zlrecipe_instruction_list_type', 'ol');
-        add_option('zlrecipe_notes_label_hide', '');
-        add_option('zlrecipe_prep_time_label_hide', '');
-        add_option('zlrecipe_cook_time_label_hide', '');
-        add_option('zlrecipe_total_time_label_hide', '');
-        add_option('zlrecipe_yield_label_hide', '');
-        add_option('zlrecipe_serving_size_label_hide', '');
-        add_option('zlrecipe_calories_label_hide', '');
-        add_option('zlrecipe_fat_label_hide', '');
-        add_option('zlrecipe_carbs_label_hide', '');
-        add_option('zlrecipe_protein_label_hide', '');
-        add_option('zlrecipe_fiber_label_hide', '');
-        add_option('zlrecipe_sugar_label_hide', '');
-        add_option('zlrecipe_saturated_fat_label_hide', '');
-        add_option('zlrecipe_sodium_label_hide', '');
-
-        add_option('zlrecipe_image_width', '');
-        add_option('zlrecipe_outer_border_style', '');
-        add_option('zlrecipe_custom_print_image', '');
-
-        add_filter('wp_head', __NAMESPACE__ . '\ZipRecipes::zrdn_process_head');
-
-        add_action('admin_footer', __NAMESPACE__ . '\ZipRecipes::zrdn_plugin_footer');
-
-        add_filter('amp_post_template_metadata', __NAMESPACE__ . '\ZipRecipes::amp_format', 10, 2);
-        add_action('amp_post_template_css', __NAMESPACE__ . '\ZipRecipes::amp_styles');
-        // check GD or imagick support
-        add_action('admin_notices', __NAMESPACE__ . '\ZipRecipes::zrdn_check_image_editing_support');
-
-        // This shouldn't be called directly because it can cause issues with WP not having loaded properly yet.
-        // One issue we were seeing was a client was getting an error caused by
-        //  `require_once( ABSPATH . 'wp-admin/includes/upgrade.php' )` in zrdn_recipe_install()
-        // This was the issue:
-        // PHP Fatal error: Call to undefined function get_user_by() in wp/wp-includes/meta.php on line 1308
-        add_action('init', __NAMESPACE__ . '\ZipRecipes::zrdn_recipe_install');
-
-        add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
-
-        add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets');
+	    self::$authors = Util::get_authors();
     }
+
 
 
     public static function register_images(){
@@ -170,7 +126,22 @@ class ZipRecipes {
             add_image_size( 'zrdn_recipe_image_json_1x1_s',   250,  250, true);
             add_image_size( 'zrdn_recipe_image_json_4x3_s',   198, 164,   true);
             add_image_size( 'zrdn_recipe_image_json_16x9_s',   320,  200, true);
+
+	        //custom print button
+	        add_image_size('zrdn_custom_print_image', 40, 40, true);
         }
+    }
+
+    public static function enqueue_admin_assets($hook){
+	    if (strpos($hook, "zrdn-settings")===false) return;
+
+	    wp_register_style('zrdn-admin-styles',
+		    trailingslashit(ZRDN_PLUGIN_URL) . "admin/css/style.css", "",
+		    ZRDN_VERSION_NUM);
+	    wp_enqueue_style('zrdn-admin-styles');
+
+	    wp_enqueue_script( 'zrdn-ace', ZRDN_PLUGIN_URL . "admin/assets/ace/ace.js",
+		    array(), ZRDN_VERSION_NUM, false );
     }
 
 
@@ -256,7 +227,7 @@ class ZipRecipes {
      */
     public static function load_assets()
     {
-        if (get_option('zlrecipe_stylesheet')==='zlrecipe-std') {
+        if (Util::get_option('use_zip_css')) {
             wp_register_style(self::MAIN_CSS_SCRIPT, plugins_url('styles/zlrecipe-std' . self::$suffix . '.css', __FILE__), array(), ZRDN_VERSION_NUM, 'all');
             wp_enqueue_style(self::MAIN_CSS_SCRIPT);
         }
@@ -291,7 +262,9 @@ class ZipRecipes {
             $amp_on = is_amp_endpoint();
         }
 
-        //jsonld is preferred.
+	    /*
+	     * jsonld is google's preferred method, microdata will only be used when json fails
+         */
         $jsonld_attempt = json_encode(self::jsonld($recipe));
         $jsonld = '';
         if ($jsonld_attempt !== false || $recipe->non_food) {
@@ -309,73 +282,73 @@ class ZipRecipes {
         $viewParams = array(
             'ZRDN_PLUGIN_URL' => ZRDN_PLUGIN_URL,
             'permalink' => get_permalink(),
-            'border_style' => get_option('zlrecipe_outer_border_style'),
+            'border_style' => Util::get_option('border_style'),
             'recipe_id' => $recipe->recipe_id,
-            'custom_print_image' => get_option('zlrecipe_custom_print_image'),
-            'print_hide' => get_option('zlrecipe_print_link_hide'),
-            'title_hide' => get_option('recipe_title_hide'),
+            'custom_print_image' => Util::get_option('print_image'),
+            'print_hide' => Util::get_option('hide_print_link'),
+            'title_hide' => Util::get_option('hide_title'),
             'recipe_title' => $recipe->recipe_title,
             'ajax_url' => admin_url('admin-ajax.php'),
             'recipe_rating' => apply_filters('zrdn__ratings', '', $recipe->recipe_id, $recipe->post_id),
             'prep_time' => self::zrdn_format_duration($recipe->prep_time),
             'prep_time_raw' => $recipe->prep_time,
-            'prep_time_label_hide' => get_option('zlrecipe_prep_time_label_hide'),
+            'prep_time_label_hide' => Util::get_option('hide_prep_time_label'),
             'cook_time' => self::zrdn_format_duration($recipe->cook_time),
             'cook_time_raw' => $recipe->cook_time,
-            'cook_time_label_hide' => get_option('zlrecipe_cook_time_label_hide'),
+            'cook_time_label_hide' => Util::get_option('hide_cook_time_label'),
             'total_time' => self::zrdn_format_duration($recipe->total_time),
             'total_time_raw' => $recipe->total_time,
-            'total_time_label_hide' => get_option('zlrecipe_total_time_label_hide'),
+            'total_time_label_hide' => Util::get_option('hide_total_time_label'),
             'yield' => $recipe->yield,
-            'yield_label_hide' => get_option('zlrecipe_yield_label_hide'),
-            'show_nutritional_info' => get_option('zlrecipe_nutrition_info_label_hide') ? false : $recipe->has_nutrition_data,//
-            'show_nutritional_info_as_text' => get_option('zlrecipe_nutrition_info_use_text', false),
+            'yield_label_hide' => Util::get_option('hide_yield_label'),
+            'show_nutritional_info' => Util::get_option('hide_nutrition_label') ? false : $recipe->has_nutrition_data,
+            'show_nutritional_info_as_text' => Util::get_option('nutrition_info_use_text', false),
             'serving_size' => $recipe->serving_size,
-            'serving_size_label_hide' => get_option('zlrecipe_serving_size_label_hide'),
+            'serving_size_label_hide' => Util::get_option('hide_serving_size_label'),
             'calories' => $recipe->calories,
-            'calories_label_hide' => get_option('zlrecipe_calories_label_hide'),
+            'calories_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'fat' => $recipe->fat,
-            'fat_label_hide' => get_option('zlrecipe_fat_label_hide'),
+            'fat_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'saturated_fat' => $recipe->saturated_fat,
-            'saturated_fat_label_hide' => get_option('zlrecipe_saturated_fat_label_hide'),
+            'saturated_fat_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'carbs' => $recipe->carbs,
-            'carbs_label_hide' => get_option('zlrecipe_carbs_label_hide'),
+            'carbs_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'protein' => $recipe->protein,
-            'protein_label_hide' => get_option('zlrecipe_protein_label_hide'),
+            'protein_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'fiber' => $recipe->fiber,
-            'fiber_label_hide' => get_option('zlrecipe_fiber_label_hide'),
+            'fiber_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'sugar' => $recipe->sugar,
-            'sugar_label_hide' => get_option('zlrecipe_sugar_label_hide'),
+            'sugar_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'sodium' => $recipe->sodium,
-            'sodium_label_hide' => get_option('zlrecipe_sodium_label_hide'),
+            'sodium_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'summary' => $recipe->summary,
             'summary_rich' => $summary_rich,
             'image_attributes' => $image_attributes,
             'is_featured_post_image' => $recipe->is_featured_post_image,
-            'image_width' => get_option('zlrecipe_image_width'),
-            'image_hide' => get_option('zlrecipe_image_hide'),
-            'image_hide_print' => get_option('zlrecipe_image_hide_print'),
-            'ingredient_label_hide' => get_option('zlrecipe_ingredient_label_hide'),
-            'ingredient_list_type' => get_option('zlrecipe_ingredient_list_type'),
+            'image_width' => Util::get_option('image_width'),
+            'image_hide' => Util::get_option('hide_image'),
+            'image_hide_print' => Util::get_option('hide_print_image'),
+            'ingredient_label_hide' => Util::get_option('hide_ingredients_label'),
+            'ingredient_list_type' => Util::get_option('ingredients_list_type'),
             'nested_ingredients' => $nested_ingredients,
-            'instruction_label_hide' => get_option('zlrecipe_instruction_label_hide'),
-            'instruction_list_type' => get_option('zlrecipe_instruction_list_type'),
+            'instruction_label_hide' => Util::get_option('hide_instructions_label'),
+            'instruction_list_type' => Util::get_option('instructions_list_type'),
             'nested_instructions' => $nested_instructions,
             'notes' => $recipe->notes,
             'formatted_notes' => $formatted_notes,
-            'notes_label_hide' => get_option('zlrecipe_notes_label_hide'),
-            'attribution_hide' => get_option('zrdn_attribution_hide'),
+            'notes_label_hide' => Util::get_option('hide_notes_label'),
+            'attribution_hide' => Util::get_option('hide_attribution'),
             'trans_fat' => $recipe->trans_fat,
-            'trans_fat_label_hide' => get_option('zlrecipe_trans_fat_label_hide'),
+            'trans_fat_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'cholesterol' => $recipe->cholesterol,
-            'cholesterol_label_hide' => get_option('zlrecipe_cholesterol_label_hide'),
+            'cholesterol_label_hide' => Util::get_option('hide_all_nutrition_labels'),
             'category' => $recipe->category,
-            'category_label_hide' => get_option('zlrecipe_category_label_hide'),
+            'category_label_hide' => Util::get_option('hide_category_label'),
             'cuisine' => $recipe->cuisine,
-            'cuisine_label_hide' => get_option('zlrecipe_cuisine_label_hide'),
+            'cuisine_label_hide' => Util::get_option('hide_cuisine_label'),
             'version' => ZRDN_VERSION_NUM,
-            'print_permalink_hide' => get_option('zlrecipe_printed_permalink_hide'),
-            'copyright' => get_option('zlrecipe_printed_copyright_statement'),
+            'print_permalink_hide' => Util::get_option('hide_permalink'),
+            'copyright' => Util::get_option('copyright_statement'),
             // author_section is used in default theme
             'author_section' => apply_filters('zrdn__authors_render_author_for_recipe', '', $recipe->recipe_id),
             // author is used in other themes
@@ -506,18 +479,17 @@ class ZipRecipes {
     }
 
     // Adds module to left sidebar in wp-admin for ZLRecipe
-    public static function zrdn_menu_pages()
+    public static function menu_pages()
     {
         // Add the top-level admin menu
-        $page_title = 'Zip Recipes Settings';
-        $menu_title = 'Zip Recipes';
+        $page_title = __('Zip Recipes Settings','zip-recipes');
         $capability = 'manage_options';
         $menu_slug = 'zrdn-settings';
-        $function = __NAMESPACE__ . '\ZipRecipes::zrdn_settings';
+        $function = __NAMESPACE__ . '\ZipRecipes::settings_page';
 
         add_menu_page(
             $page_title,
-            $menu_title,
+	        'Zip Recipes',
             $capability,
             $menu_slug,
             $function,
@@ -525,7 +497,7 @@ class ZipRecipes {
             apply_filters('zrdn_menu_position', 50)
         );
 
-        $settings_title = "Settings";
+        $settings_title = __("Settings", "zip-recipes");
         add_submenu_page(
             $menu_slug, // parent_slug
             $page_title, // page_title
@@ -555,239 +527,285 @@ class ZipRecipes {
     }
 
     // Adds 'Settings' page to the ZipRecipe module
-    public static function zrdn_settings()
-    {
-        global $wp_version;
+    public static function settings_page() {
 
-        if (!current_user_can('manage_options')) {
-            wp_die('You do not have sufficient permissions to access this page.');
-        }
+        if (!current_user_can('manage_options')) return;
+        do_action('zrdn_on_settings_page' );
+	    $field = ZipRecipes::$field;
 
-        $zrdn_icon = ZRDN_PLUGIN_URL . "images/zip-recipes-icon-16.png";
+	    $tabs = apply_filters('zrdn_tabs', array(
+            'dashboard' => array(
+                    'title' => __('Dashboard', 'zip-recipes'),
+            ),
+            'extensions' => array(
+                'title' => __('Extensions', 'zip-recipes'),
+            ),
+        ));
 
-        $zrecipe_attribution_hide = get_option('zrdn_attribution_hide');
-        $printed_permalink_hide = get_option('zlrecipe_printed_permalink_hide');
-        $printed_copyright_statement = get_option('zlrecipe_printed_copyright_statement');
-        $stylesheet = get_option('zlrecipe_stylesheet');
-        $recipe_title_hide = get_option('recipe_title_hide');
-        $image_hide = get_option('zlrecipe_image_hide');
-        $image_hide_print = get_option('zlrecipe_image_hide_print');
-        $print_link_hide = get_option('zlrecipe_print_link_hide');
-        $ingredient_label_hide = get_option('zlrecipe_ingredient_label_hide');
-        $ingredient_list_type = get_option('zlrecipe_ingredient_list_type');
-        $instruction_label_hide = get_option('zlrecipe_instruction_label_hide');
-        $instruction_list_type = get_option('zlrecipe_instruction_list_type');
-        $image_width = get_option('zlrecipe_image_width');
-        $outer_border_style = get_option('zlrecipe_outer_border_style');
-        $custom_print_image = get_option('zlrecipe_custom_print_image');
-        $hide_on_duplicate_image = get_option('zlrecipe_hide_on_duplicate_image');
+	    ?>
+        <div class="wrap" id="zip-recipes">
+            <div id="zrdn-toggle-wrap">
+                <div id="zrdn-toggle-dashboard">
+                    <div id="zrdn-toggle-dashboard-text">
+                        <?php _e("Select which dashboard items should be displayed", " zip-recipes") ?>
+                    </div>
+                    <div id="zrdn-checkboxes">
+                        <?php
+                        $grid_items = Util::grid_items();
+                        foreach ($grid_items as $index => $grid_item) {
+                            $style = "";
+                            if (!$grid_item['can_hide']) {
+                                $style = 'style="display:none"';
+                            }
+                            ?>
+                            <label for="zrdn-hide-panel-<?= $index ?>" <?php echo $style ?>>
+                                <input class="zrdn-toggle-items" name="toggle_data_id_<?= $index ?>" type="checkbox"
+                                       id="toggle_data_id_<?= $index ?>" value="data_id_<?= $index ?>">
+                                <?= $grid_item['title'] ?>
+                            </label>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
 
-        // load other option values in to variables. These variables are used to load saved values through variable variables
-        $notes_label_hide = get_option('zlrecipe_notes_label_hide');
-        $nutrition_info_label_hide = get_option('zlrecipe_nutrition_info_label_hide');
-        $nutrition_info_use_text = get_option('zlrecipe_nutrition_info_use_text');
-        $prep_time_label_hide = get_option('zlrecipe_prep_time_label_hide');
-        $cook_time_label_hide = get_option('zlrecipe_cook_time_label_hide');
-        $total_time_label_hide = get_option('zlrecipe_total_time_label_hide');
-        $yield_label_hide = get_option('zlrecipe_yield_label_hide');
-        $serving_size_label_hide = get_option('zlrecipe_serving_size_label_hide');
-        $calories_label_hide = get_option('zlrecipe_calories_label_hide');
-        $fat_label_hide = get_option('zlrecipe_fat_label_hide');
-        $carbs_label_hide = get_option('zlrecipe_carbs_label_hide', '');
-        $protein_label_hide = get_option('zlrecipe_protein_label_hide', '');
-        $fiber_label_hide = get_option('zlrecipe_fiber_label_hide', '');
-        $sugar_label_hide = get_option('zlrecipe_sugar_label_hide', '');
-        $saturated_fat_label_hide = get_option('zlrecipe_saturated_fat_label_hide', '');
-        $sodium_label_hide = get_option('zlrecipe_sodium_label_hide', '');
-        $trans_fat_label_hide = get_option('zlrecipe_trans_fat_label_hide', '');
-        $cholesterol_label_hide = get_option('zlrecipe_cholesterol_label_hide', '');
-        $category_label_hide = get_option('zlrecipe_category_label_hide', '');
-        $cuisine_label_hide = get_option('zlrecipe_cuisine_label_hide', '');
+            <div id="zrdn-dashboard">
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            foreach ($_POST as $key => $val) {
-                $_POST[$key] = stripslashes($val);
-            }
+                <!--    Navigation-->
+                <div class="zrdn-settings-container">
+                    <ul class="tabs">
+                        <div class="tabs-content">
+                            <img class="zrdn-settings-logo" src="<?= trailingslashit( ZRDN_PLUGIN_URL ) . "images/logo.png"?>" alt='Zip Recipes'>
+                            <div class="header-links">
+                                <div class="tab-links">
+                                    <?php
+                                    $first = true;
+                                    foreach ($tabs as $tab => $data) {
+                                        if (isset($data['cap']) && current_user_can( $data['cap'] ) ) continue;
+                                        $current = $first ? 'current' : '';
+                                        $first = false;
+                                        ?>
+                                        <li class="tab-link <?=$current?>"
+                                            data-tab="<?=$tab?>"><a
+                                                    class="tab-text tab-<?=$tab?>"
+                                                    href="#<?=$tab?>#top"><?=$data['title']?></a>
+                                        </li>
+                                    <?php }?>
+                                </div>
+                                <div class="documentation-pro">
+                                    <div class="documentation">
+                                        <a target="_blank" href="https://ziprecipes.net/knowledge-base-overview/"><?php _e( "Documentation",
+									            " zip-recipes" ); ?></a>
+                                    </div>
+                                    <div id="zrdn-toggle-options">
+                                        <div id="zrdn-toggle-link-wrap">
+                                            <button type="button"
+                                                    id="zrdn-show-toggles"
+                                                    class="button button button-upsell"
+                                                    aria-controls="screen-options-wrap"><?php _e( "Display options",
+										            " zip-recipes" ); ?>
+                                                <span id="zrdn-toggle-arrows"
+                                                      class="dashicons dashicons-arrow-down-alt2"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
 
-            if ($_POST['action'] === "update_settings") {
-                $zrecipe_attribution_hide = Util::get_array_value('zrecipe-attribution-hide', $_POST);
-                $printed_permalink_hide = Util::get_array_value('printed-permalink-hide', $_POST);
-                $printed_copyright_statement = Util::get_array_value('printed-copyright-statement', $_POST);
-                $stylesheet = Util::get_array_value('stylesheet', $_POST);
-                $recipe_title_hide = Util::get_array_value('recipe-title-hide', $_POST);
-                $image_hide = Util::get_array_value('image-hide', $_POST);
-                $image_hide_print = Util::get_array_value('image-hide-print', $_POST);
-                $print_link_hide = Util::get_array_value('print-link-hide', $_POST);
-                $ingredient_label_hide = self::zrdn_strip_chars(Util::get_array_value('ingredient-label-hide', $_POST));
-                $ingredient_list_type = Util::get_array_value('ingredient-list-type', $_POST);
-                $instruction_label_hide = Util::get_array_value('instruction-label-hide', $_POST);
-                $instruction_list_type = self::zrdn_strip_chars(Util::get_array_value('instruction-list-type', $_POST));
-                $notes_label_hide = Util::get_array_value('notes-label-hide', $_POST);
-                $prep_time_label_hide = Util::get_array_value('prep-time-label-hide', $_POST);
-                $cook_time_label_hide = Util::get_array_value('cook-time-label-hide', $_POST);
-                $total_time_label_hide = Util::get_array_value('total-time-label-hide', $_POST);
-                $yield_label_hide = Util::get_array_value('yield-label-hide', $_POST);
-                $serving_size_label_hide = Util::get_array_value('serving-size-label-hide', $_POST);
-                $calories_label_hide = Util::get_array_value('calories-label-hide', $_POST);
-                $fat_label_hide = Util::get_array_value('fat-label-hide', $_POST);
-                $carbs_label_hide = Util::get_array_value('carbs-label-hide', $_POST);
-                $protein_label_hide = Util::get_array_value('protein-label-hide', $_POST);
-                $fiber_label_hide = Util::get_array_value('fiber-label-hide', $_POST);
-                $sugar_label_hide = Util::get_array_value('sugar-label-hide', $_POST);
-                $saturated_fat_label_hide = Util::get_array_value('saturated-fat-label-hide', $_POST);
-                $sodium_label_hide = Util::get_array_value('sodium-label-hide', $_POST);
-                $image_width = Util::get_array_value('image-width', $_POST);
-                $outer_border_style = Util::get_array_value('outer-border-style', $_POST);
-                $custom_print_image = Util::get_array_value('custom-print-image', $_POST);
-                $hide_on_duplicate_image = Util::get_array_value('hide-on-duplicate-image', $_POST);
+                <div class="zrdn-main-container">
+                    <!--    Dashboard tab   -->
+                    <div id="dashboard" class="tab-content current">
+                        <form id="zrdn-settings" method="POST">
 
-                $trans_fat_label_hide = Util::get_array_value('trans-fat-label-hide', $_POST);
-                $cholesterol_label_hide = Util::get_array_value('cholesterol-label-hide', $_POST);
-                $category_label_hide = Util::get_array_value('category-label-hide', $_POST);
-                $cuisine_label_hide = Util::get_array_value('cuisine-label-hide', $_POST);
-                $nutrition_info_label_hide = Util::get_array_value('nutrition-info-label-hide', $_POST);
-                $nutrition_info_use_text = Util::get_array_value('nutrition-info-use-text', $_POST);
+                        <?php
+                        $grid_items = Util::grid_items();
+                        $container = zrdn_grid_container();
+                        $element = zrdn_grid_element();
+	                    $output = '';
+	                    foreach ($grid_items as $index => $grid_item) {
+		                    $fields = Util::get_fields($grid_item['source']);
+		                    ob_start();
 
-                update_option('zrdn_attribution_hide', $zrecipe_attribution_hide);
-                update_option('zlrecipe_printed_permalink_hide', $printed_permalink_hide);
-                update_option('zlrecipe_printed_copyright_statement', $printed_copyright_statement);
-                update_option('zlrecipe_stylesheet', $stylesheet);
-                update_option('recipe_title_hide', $recipe_title_hide);
-                update_option('zlrecipe_image_hide', $image_hide);
-                update_option('zlrecipe_image_hide_print', $image_hide_print);
-                update_option('zlrecipe_print_link_hide', $print_link_hide);
-                update_option('zlrecipe_ingredient_label_hide', $ingredient_label_hide);
-                update_option('zlrecipe_ingredient_list_type', $ingredient_list_type);
-                update_option('zlrecipe_instruction_label_hide', $instruction_label_hide);
-                update_option('zlrecipe_instruction_list_type', $instruction_list_type);
-                update_option('zlrecipe_notes_label_hide', $notes_label_hide);
-                update_option('zlrecipe_prep_time_label_hide', $prep_time_label_hide);
-                update_option('zlrecipe_cook_time_label_hide', $cook_time_label_hide);
-                update_option('zlrecipe_total_time_label_hide', $total_time_label_hide);
-                update_option('zlrecipe_yield_label_hide', $yield_label_hide);
-                update_option('zlrecipe_serving_size_label_hide', $serving_size_label_hide);
-                update_option('zlrecipe_calories_label_hide', $calories_label_hide);
-                update_option('zlrecipe_fat_label_hide', $fat_label_hide);
-                update_option('zlrecipe_carbs_label_hide', $carbs_label_hide);
-                update_option('zlrecipe_protein_label_hide', $protein_label_hide);
-                update_option('zlrecipe_fiber_label_hide', $fiber_label_hide);
-                update_option('zlrecipe_sugar_label_hide', $sugar_label_hide);
-                update_option('zlrecipe_saturated_fat_label_hide', $saturated_fat_label_hide);
-                update_option('zlrecipe_sodium_label_hide', $sodium_label_hide);
-                update_option('zlrecipe_image_width', $image_width);
-                update_option('zlrecipe_outer_border_style', $outer_border_style);
-                update_option('zlrecipe_custom_print_image', $custom_print_image);
-                update_option('zlrecipe_hide_on_duplicate_image', $hide_on_duplicate_image);
+		                    foreach ( $fields as $fieldname => $field_args ) {
+			                    $field->get_field_html( $field_args , $fieldname);
+		                    }
 
-                update_option('zlrecipe_trans_fat_label_hide', $trans_fat_label_hide);
-                update_option('zlrecipe_cholesterol_label_hide', $cholesterol_label_hide);
-                update_option('zlrecipe_category_label_hide', $category_label_hide);
-                update_option('zlrecipe_cuisine_label_hide', $cuisine_label_hide);
-                update_option('zlrecipe_nutrition_info_label_hide', $nutrition_info_label_hide);
-                update_option('zlrecipe_nutrition_info_use_text', $nutrition_info_use_text);
+		                    $field->save_button();
+		                    $contents = ob_get_clean();
+		                    $output .= str_replace(array('{class}', '{title}', '{content}', '{index}'), array($grid_item['class'], $grid_item['title'],  $contents, $index), $element);
+	                    }
+	                    echo str_replace('{content}', $output, $container);
+				        ?>
+                        </form>
+                    </div>
 
-                do_action('zrdn__custom_templates_save', $_POST);
-            }
-        }
+                    <?php do_action('zrdn_tab_content'); ?>
 
-        $printed_copyright_statement = esc_attr($printed_copyright_statement);
-        $image_width = esc_attr($image_width);
-        $custom_print_image = esc_attr($custom_print_image);
+                </div>
 
-        $zrecipe_attribution_hide = (strcmp($zrecipe_attribution_hide, 'Hide') == 0 ? 'checked="checked"' : '');
-        $printed_permalink_hide = (strcmp($printed_permalink_hide, 'Hide') == 0 ? 'checked="checked"' : '');
-        $recipe_title_hide = (strcmp($recipe_title_hide, 'Hide') == 0 ? 'checked="checked"' : '');
-        $image_hide = (strcmp($image_hide, 'Hide') == 0 ? 'checked="checked"' : '');
-        $image_hide_print = (strcmp($image_hide_print, 'Hide') == 0 ? 'checked="checked"' : '');
-        $print_link_hide = (strcmp($print_link_hide, 'Hide') == 0 ? 'checked="checked"' : '');
-        $hide_on_duplicate_image = (strcmp($hide_on_duplicate_image, 'Hide') == 0 ? 'checked="checked"' : '');
-
-        // Stylesheet processing
-        $stylesheet = (strcmp($stylesheet, 'zlrecipe-std') == 0 ? 'checked="checked"' : '');
-
-        // Outer (hrecipe) border style
-        $obs = '';
-        $borders = array('None' => '', 'Solid' => '1px solid', 'Dotted' => '1px dotted', 'Dashed' => '1px dashed', 'Thick Solid' => '2px solid', 'Double' => 'double');
-        foreach ($borders as $label => $code) {
-            $obs .= '<option value="' . $code . '" ' . (strcmp($outer_border_style, $code) == 0 ? 'selected="true"' : '') . '>' . $label . '</option>';
-        }
-
-        $ingredient_label_hide = (strcmp($ingredient_label_hide, 'Hide') == 0 ? 'checked="checked"' : '');
-        $ing_ul = (strcmp($ingredient_list_type, 'ul') == 0 ? 'checked="checked"' : '');
-        $ing_ol = (strcmp($ingredient_list_type, 'ol') == 0 ? 'checked="checked"' : '');
-        $ing_l = (strcmp($ingredient_list_type, 'l') == 0 ? 'checked="checked"' : '');
-        $ing_p = (strcmp($ingredient_list_type, 'p') == 0 ? 'checked="checked"' : '');
-        $ing_div = (strcmp($ingredient_list_type, 'div') == 0 ? 'checked="checked"' : '');
-        $instruction_label_hide = (strcmp($instruction_label_hide, 'Hide') == 0 ? 'checked="checked"' : '');
-        $ins_ul = (strcmp($instruction_list_type, 'ul') == 0 ? 'checked="checked"' : '');
-        $ins_ol = (strcmp($instruction_list_type, 'ol') == 0 ? 'checked="checked"' : '');
-        $ins_l = (strcmp($instruction_list_type, 'l') == 0 ? 'checked="checked"' : '');
-        $ins_p = (strcmp($instruction_list_type, 'p') == 0 ? 'checked="checked"' : '');
-        $ins_div = (strcmp($instruction_list_type, 'div') == 0 ? 'checked="checked"' : '');
-        $other_options = '';
-
-        $checked = $nutrition_info_use_text ? 'checked="checked"' : "";
-        $other_options .= '<tr valign="top">
-            <td>
-                <label>
-                    <input type="checkbox" name="nutrition-info-use-text" value="1" ' . $checked . ' /> ' . __("Use text for the nutritional info", 'zip-recipes') . '
-                </label>
-            </td>
-        </tr>';
+            </div><!--dashboard close -->
 
 
-        $other_options_array = array('Nutrition Info','Prep Time', 'Cook Time', 'Total Time', 'Yield', 'Serving Size', 'Category', 'Cuisine');
+        </div><!--wrap close -->
+        <?php
+    }
 
-        foreach ($other_options_array as $option) {
-            $name = strtolower(str_replace(' ', '-', $option));
-            $value_hide = strtolower(str_replace(' ', '_', $option)) . '_label_hide';
-            $value_hide_attr = ${$value_hide} == "Hide" ? 'checked="checked"' : '';
-            $other_options .= '<tr valign="top">
-            <td>
-            	<label>
-            		<input type="checkbox" name="' . $name . '-label-hide" value="Hide" ' . $value_hide_attr . ' /> Hide ' . $option .'
-            	</label>
-            </td>
-        </tr>';
-        }
+    public static function extensions_tab(){
+	    $element = zrdn_grid_element();
+        $extensions = array(
+                'general' => array(
+                    'title' => __("Premium extensions", "zip-recipes"),
+                    'class' => 'small',
+                    'content' => 'content',
+                    'image'     => '',
+                    'link'     => 'https://demo.ziprecipes.net/corn-salad/',
+                    'description' => __("Get the full benefits of Zip Recipes by upgrading to a premium plan, with lots of great add-ons. Even better, each add-on we will add to the plan in the future will automatically become available for you.", "zip-recipes"),
+                ),
+                'AutomaticNutrition' => array(
+                    'title' => __("Automatic Nutrition", "zip-recipes"),
+                    'class' => 'small',
+                    'content' => 'content',
+                    'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/nutrition.jpg',
+                    'link'     => 'https://demo.ziprecipes.net/tres-leches/',
+                    'description' => __("Automatically generate all nutritional values of your recipe.", "zip-recipes"),
+                ),
 
+                'RecipeGrid2' => array(
+	                'title' => __("Recipe Gallery", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/recipegrid2.jpg',
+	                'link'     => 'https://demo.ziprecipes.net/recipe-gallery/',
+	                'description' => __("Display your recipes in this beautiful, dynamically filterable grid gallery", "zip-recipes"),
+                ),
+                'RecipeActions' => array(
+	                'title' => __("Social Recipe sharing", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/socialsharing.png',
+	                'link'     => 'https://demo.ziprecipes.net/pumpkin-soup-recommended-fall-recipe/',
+	                'description' => __("Let your visitors share your recipes on the social networks, like Yummly, Bigoven and Pinterest", "zip-recipes"),
+                ),
+                'VisitorRating' => array(
+	                'title' => __("Recipe ratings and reviews", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/ratings.png',
+	                'link'     => 'https://demo.ziprecipes.net/tres-leches/',
+	                'description' => __("Let your visitors rate your recipes anonymously with recipe ratings, or enter entire written reviews in a comment like fashion.", "zip-recipes"),
+                ),
 
-        $settingsParams = array('zrdn_icon' => $zrdn_icon,
-            'custom_print_image' => $custom_print_image,
-            'hide_on_duplicate_image' => $hide_on_duplicate_image,
-            'zrecipe_attribution_hide' => $zrecipe_attribution_hide,
-            'printed_permalink_hide' => $printed_permalink_hide,
-            'printed_copyright_statement' => $printed_copyright_statement,
-            'stylesheet' => $stylesheet,
-            'recipe_title_hide' => $recipe_title_hide,
-            'print_link_hide' => $print_link_hide,
-            'image_width' => $image_width,
-            'image_hide' => $image_hide,
-            'image_hide_print' => $image_hide_print,
-            'obs' => $obs,
-            'ingredient_label_hide' => $ingredient_label_hide,
-            'ing_l' => $ing_l,
-            'ing_ol' => $ing_ol,
-            'ing_ul' => $ing_ul,
-            'ing_p' => $ing_p,
-            'ing_div' => $ing_div,
-            'instruction_label_hide' => $instruction_label_hide,
-            'ins_l' => $ins_l,
-            'ins_ol' => $ins_ol,
-            'ins_ul' => $ins_ul,
-            'ins_p' => $ins_p,
-            'ins_div' => $ins_div,
-            'other_options' => $other_options,
-            'wp_version' => $wp_version,
-            'installed_plugins' => Util::zrdn_get_installed_plugins(),
-            'extensions_settings' => apply_filters('zrdn__extention_settings_section', ''),
-            'home_url' => home_url(),
-            'author_section' => apply_filters('zrdn__authors_get_set_settings', '', $_POST),
-            'settings_promo' => apply_filters('zrdn__settings_promo', ''),
+                'ServingAdjustment' => array(
+	                'title' => __("Serving Adjustments", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/servingadjustments.gif',
+	                'link'     => 'https://demo.ziprecipes.net/best-guacamole-ever/',
+	                'description' => __("Visitors can adjust the ingredients to the number of servings they need: it won't get easier for your visitors!", "zip-recipes"),
+                ),
+                'CustomTemplates' => array(
+	                'title' => __("Premium templates", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/logo.png',
+	                'link'     => 'https://demo.ziprecipes.net/',
+	                'description' => __("Get several beautifully designed templates for your recipes.", "zip-recipes"),
+                ),
+                'Authors' => array(
+	                'title' => __("Authors", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/logo.png',
+	                'link'     => 'https://demo.ziprecipes.net/corn-salad/',
+	                'description' => __("Automatically add your post author schema.org compatible to your recipe. Or define your own custom authors.", "zip-recipes"),
+                ),
+                'ImperialMetricsConverter' => array(
+	                'title' => __("Imperial - Metric", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/logo.png',
+	                'link'     => 'https://demo.ziprecipes.net/pumpkin-soup-recommended-fall-recipe/',
+	                'description' => __("Get more designs for your recipes, and keep receiving the latest new template designs from Zip Recipes", "zip-recipes"),
+                ),
+                'RecipeSearch' => array(
+	                'title' => __("Recipe Search", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/logo.png',
+	                'link'     => 'https://demo.ziprecipes.net/corn-salad/',
+	                'description' => __("Let your visitors search by ingredients from the default WordPress search.", "zip-recipes"),
+                ),
         );
 
-        Util::print_view('settings', $settingsParams);
+        $extensions = apply_filters('zrdn_extensions', $extensions);
+
+	    $output = "";
+	    ?>
+        <div id="extensions" class="zrdn-gridless tab-content">
+            <div class="zrdn-grid">
+            <?php
+            foreach ($extensions as $index => $grid_item){
+
+                if ($index === 'general') {
+                    $btn_title = apply_filters('zrdn_upgrade_button', __('Get Premium', 'zip-recipes'));
+                    if ($btn_title === ''){
+	                    $button = '';
+                    } else {
+                        $button = '<a href="https://ziprecipes.net/premium" target="_blank" class="button button-primary">'.$btn_title.'</a>';
+                    }
+                } else {
+	                $button = '<a href="'.$grid_item['link'].'" target="_blank" class="zrdn-button">'.__("See it live on our demo website", "zip-recipes").'</a>';
+
+	                if (Util::is_plugin_active($index)) {
+		                $grid_item['title'] .= '<button class="zrdn-extension-label active">'.__('active', 'zip-recipes').'</button>';
+	                } else {
+	                    if (in_array($index, self::$addons_lover)){
+		                    $grid_item['title'] .= '<button class="zrdn-extension-label lover">lover</button>';
+	                    }
+		                if (in_array($index, self::$addons_friend)){
+			                $grid_item['title'] .= '<button class="zrdn-extension-label friend">friend</button>';
+
+	                    }
+	                }
+                }
+
+                $grid_item['button'] = $button;
+	            $content = Util::render_template('extension-grid.php', $grid_item);
+	            $output .= str_replace(array('{class}', '{title}', '{content}', '{index}', 'grid-active'), array($grid_item['class'], $grid_item['title'],  $content, $index, ''), $element);
+
+            }
+            echo $output;
+            ?>
+            </div>
+        </div>
+        <?php
     }
+
+    public static function process_settings_update(){
+
+	    if (!current_user_can('manage_options')) return;
+
+	    if (!isset($_GET['page']) || $_GET['page'] !== 'zrdn-settings') {
+	        return;
+        }
+
+	    if (!isset($_POST['zrdn_nonce']) || !wp_verify_nonce($_POST['zrdn_nonce'], 'zrdn_save')) {
+	        return;
+	    }
+
+        foreach ($_POST as $key => $value){
+            if (strpos($key, 'zrdn_')===FALSE) continue;
+            $fieldname = str_replace('zrdn_', '', $key);
+            Util::update_option($fieldname, $value);
+        }
+
+	    do_action("zrdn_after_update_options");
+    }
+
 
     // Replaces the [a|b] pattern with text a that links to b
     // Replaces _words_ with an italic span and *words* with a bold span
@@ -987,18 +1005,6 @@ class ZipRecipes {
         $recipe = $wpdb->get_row($selectStatement);
 
         return $recipe;
-    }
-
-    // function to include the javascript for the Add Recipe button
-    public static function zrdn_process_head()
-    {
-        $css = get_option('zlrecipe_stylesheet');
-        Util::print_view('header', array(
-                'ZRDN_PLUGIN_URL' => ZRDN_PLUGIN_URL,
-                'css' => $css,
-                'suffix' => self::$suffix
-            )
-        );
     }
 
     public static function zrdn_break($otag, $text, $ctag)
