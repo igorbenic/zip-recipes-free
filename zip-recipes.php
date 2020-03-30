@@ -86,6 +86,9 @@ function zrdn_autoload($className)
 	    require_once(ZRDN_PLUGIN_DIRECTORY . 'grid/grid-enqueue.php');
         require_once(ZRDN_PLUGIN_DIRECTORY . 'class-field.php');
         require_once(ZRDN_PLUGIN_DIRECTORY . 'twig-strings.php');
+
+        //discount for new users
+	    require_once(ZRDN_PLUGIN_DIRECTORY . 'promo.php');
     }
 
     /**

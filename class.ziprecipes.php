@@ -49,13 +49,11 @@ class ZipRecipes {
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::process_settings_update', 10);
 	    add_action('zrdn_tab_content', __NAMESPACE__ . '\ZipRecipes::extensions_tab');
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::load_plugins', 20);
-
         // Init shortcode so shortcodes can be used by any plugins
         $shortcodes = new __shortcode();
 
         // We need to call `zrdn__init_hooks` action before `init_hooks()` because some actions/filters registered
         //	in `init_hooks()` get called before plugins have a chance to register their hooks with `zrdn__init_hooks`
-        do_action("zrdn__init_hooks"); // plugins can add an action to listen for this event and register their hooks
 	    add_action('admin_head', __NAMESPACE__ . '\ZipRecipes::zrdn_js_vars');
 	    add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::zrdn_add_recipe_button');
 
@@ -109,6 +107,7 @@ class ZipRecipes {
 		    $fullPluginName = "$namespace\\$plugin_name"; // double \\ is needed because \ is an escape char
 		    $pluginInstance = new $fullPluginName;
 	    }
+	    do_action("zrdn__init_hooks"); // plugins can add an action to listen for this event and register their hooks
 
 	    self::$authors = Util::get_authors();
     }

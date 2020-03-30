@@ -439,6 +439,13 @@ class Util {
 		    ),
 
 		    array(
+			    'title' => __("Notifications", " zip-recipes"),
+			    'source' => "notifications",
+			    'class' => 'small',
+			    'can_hide' => true,
+		    ),
+
+		    array(
 			    'title' => __("Advanced", " zip-recipes"),
 			    'source' => "advanced",
 			    'class' => 'small',
@@ -939,6 +946,7 @@ class Util {
 				'is_plugin' => true,
 				'disabled'  => true,
 				'table'     => false,
+				'default'     => false,
 				'condition' => array(
 					'VisitorRating' => false,
 				),

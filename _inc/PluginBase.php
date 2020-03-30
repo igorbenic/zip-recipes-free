@@ -53,7 +53,7 @@ abstract class PluginBase
     }
 
 	/**
-	 * send email to admin about someting interesting
+	 * send email to admin about something interesting
 	 * @param string $subject
 	 * @param string $message
 	 */
@@ -62,7 +62,6 @@ abstract class PluginBase
 
 		$headers = array();
 		$to = get_option('admin_email');
-		error_log($to);
 		if (!is_email($to)) return;
 
 		if (empty($sender)) $sender = get_bloginfo('name');

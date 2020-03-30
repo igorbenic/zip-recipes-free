@@ -233,6 +233,12 @@ Copyright 2011, 2012 ZipList, Inc.
 #zlrecipe-container .w-50 {
   width: 50%;
 }
+@media all and (max-width: 380px) {
+  #zlrecipe-container .width-50,
+  #zlrecipe-container .w-50 {
+    width: 100%;
+  }
+}
 #zlrecipe-container .clear,
 #zlrecipe-container .zlclear {
   clear: both;
