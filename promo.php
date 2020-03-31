@@ -11,7 +11,6 @@ namespace ZRDN;
 
 function zrdn_discount($html='') {
 	if (get_option('zrdn_discount_dismissed')) return;
-	update_option('zrdn_activation_time', strtotime('-1 hour'));
 	$activation_time = get_option('zrdn_activation_time')-1;
 	$time_passed = time() - $activation_time;
 
