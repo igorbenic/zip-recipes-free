@@ -103,9 +103,9 @@ class ZipRecipes {
 
 	public static function  plugin_settings_link( $links ) {
 		$settings_link = '<a href="'
-		                 . admin_url( "admin.php?page=complianz" )
-		                 . '" class="cmplz-settings-link">'
-		                 . __( "Settings", 'complianz-gdpr' ) . '</a>';
+		                 . admin_url( "admin.php?page=zrdn-settings" )
+		                 . '" class="zrdn-settings-link">'
+		                 . __( "Settings", 'zip-recipes' ) . '</a>';
 		array_unshift( $links, $settings_link );
 
 		$support_link = defined( 'ZRDN_FREE' )
