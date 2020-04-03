@@ -287,31 +287,28 @@ class Util {
         $viewDir = ZRDN_PLUGIN_DIRECTORY . $pluginDir . 'views/';
         $file = $name . '.twig';
 
-        $uploads = wp_upload_dir();
-        $uploads_dir = trailingslashit($uploads['basedir']);
-
-        if (!file_exists($uploads_dir . 'zip-recipes/')){
-            mkdir($uploads_dir . 'zip-recipes/');
-        }
-
-        if (!file_exists($uploads_dir . 'zip-recipes/cache/')) {
-            mkdir($uploads_dir . 'zip-recipes/cache/');
-        }
+//        $uploads = wp_upload_dir();
+//        $uploads_dir = trailingslashit($uploads['basedir']);
+//
+//        if (!file_exists($uploads_dir . 'zip-recipes/')){
+//            mkdir($uploads_dir . 'zip-recipes/');
+//        }
+//
+//        if (!file_exists($uploads_dir . 'zip-recipes/cache/')) {
+//            mkdir($uploads_dir . 'zip-recipes/cache/');
+//        }
 
         $cacheDir = false;
-        if (is_writable($uploads_dir . 'zip-recipes/cache')) {
-            $cacheDir = $uploads_dir . 'zip-recipes/cache';
-        }
+//        if (is_writable($uploads_dir . 'zip-recipes/cache')) {
+//            $cacheDir = $uploads_dir . 'zip-recipes/cache';
+//        }
 
         //fallback own plugin directory
-        if (!$cacheDir) {
-            if (is_writable($viewDir) || chmod($viewDir, 0660)) {
-                $cacheDir = "${viewDir}cache";
-            }
-        }
-
-        Util::log("Looking for template in dir:" . $viewDir);
-        Util::log("Template name:" . $file);
+//        if (!$cacheDir) {
+//            if (is_writable($viewDir) || chmod($viewDir, 0660)) {
+//                $cacheDir = "${viewDir}cache";
+//            }
+//        }
 
         $loader = new \Twig_Loader_Filesystem(array($viewDir, ZRDN_PLUGIN_DIRECTORY . 'views/'));
 
@@ -319,8 +316,6 @@ class Util {
             'autoescape' => true,
             'auto_reload' => true
         );
-        //if ($cacheDir) $twig_settings['cache'] = $cacheDir;
-
         $twig = new \Twig_Environment($loader, $twig_settings);
 
         $twig->addFunction( '__', new \Twig_SimpleFunction( '__', function ( $text ) {
@@ -1009,6 +1004,30 @@ class Util {
 				'default'    => true,
 				'table'     => false,
 				'label'     => __( "Use Zip Recipes style",
+					'zip-recipes' ),
+			),
+
+			'send_mail_when_rated' => array(
+				'type'      => 'checkbox',
+				'source'    => 'notifications',
+				'default'    => true,
+				'table'     => false,
+				'condition' => array(
+					'VisitorRating' => true,
+				),
+				'label'     => __( "Notify admin when a user rates your recipe",
+					'zip-recipes' ),
+			),
+
+			'send_mail_when_reviewed' => array(
+				'type'      => 'checkbox',
+				'source'    => 'notifications',
+				'default'   => true,
+				'table'     => false,
+				'condition' => array(
+					'RecipeReviews' => true,
+				),
+				'label'     => __( "Notify admin when a user reviews your recipe",
 					'zip-recipes' ),
 			),
 

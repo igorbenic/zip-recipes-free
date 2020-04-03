@@ -245,7 +245,7 @@ Tabs
   flex: 1;
   padding: 30px;
 }
-.zip-recipes .row {
+#recipe-settings .zip-recipes.autumn .ingredients_block .row {
   flex-wrap: inherit !important;
   display: inherit !important;
 }

@@ -13,8 +13,8 @@ Copyright 2011, 2012 ZipList, Inc.
 #zlrecipe-print-container .fl-l {
   float: left;
 }
-#zlrecipe-print-container .width-50 {
-  width: 50%;
+#zlrecipe-print-container .width-33 {
+  width: 33%;
 }
 #zlrecipe-print-container .clear,
 #zlrecipe-print-container .zlclear {

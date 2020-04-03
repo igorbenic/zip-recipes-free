@@ -56,6 +56,8 @@ class ZipRecipes {
         //	in `init_hooks()` get called before plugins have a chance to register their hooks with `zrdn__init_hooks`
 	    add_action('admin_head', __NAMESPACE__ . '\ZipRecipes::zrdn_js_vars');
 	    add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::zrdn_add_recipe_button');
+	    add_action( 'admin_bar_menu', __NAMESPACE__ . '\ZipRecipes::add_top_bar_edit_button', 90 );
+
 
 	    // `the_post` has no action/filter added on purpose. It doesn't work as well as `the_content`.
 	    // We're using priority of 11 here because in some cases VisualComposer seems to be running
@@ -79,7 +81,75 @@ class ZipRecipes {
 	    add_action('init',__NAMESPACE__ . '\ZipRecipes::register_images');
 
 	    add_action('zrdn__enqueue_recipe_styles',__NAMESPACE__ . '\ZipRecipes::load_assets', 10);
+
+
+	    $plugin = ZRDN_PLUGIN_BASENAME;
+	    add_filter( "plugin_action_links_$plugin",
+		    __NAMESPACE__ . '\ZipRecipes::plugin_settings_link'  );
+	    //multisite
+	    add_filter( "network_admin_plugin_action_links_$plugin",
+		    __NAMESPACE__ . '\ZipRecipes::plugin_settings_link' );
     }
+
+	/**
+	 * Add custom link to plugins overview page
+	 *
+	 * @hooked plugin_action_links_$plugin
+	 *
+	 * @param array $links
+	 *
+	 * @return array $links
+	 */
+
+	public static function  plugin_settings_link( $links ) {
+		$settings_link = '<a href="'
+		                 . admin_url( "admin.php?page=complianz" )
+		                 . '" class="cmplz-settings-link">'
+		                 . __( "Settings", 'complianz-gdpr' ) . '</a>';
+		array_unshift( $links, $settings_link );
+
+		$support_link = defined( 'ZRDN_FREE' )
+			? "https://wordpress.org/support/plugin/zip-recipes"
+			: "https://ziprecipes.net/support";
+		$faq_link     = '<a target="_blank" href="' . $support_link . '">'
+		                . __( 'Support', 'zip-recipes' ) . '</a>';
+		array_unshift( $links, $faq_link );
+
+		if ( defined( 'ZRDN_FREE' ) ) {
+			$upgrade_link
+				= '<a style="color:#F343A0;font-weight:bold" target="_blank" href="https://ziprecipes.net/premium">'
+				  . __( 'Upgrade to premium', 'zip-recipes' ) . '</a>';
+			array_unshift( $links, $upgrade_link );
+		}
+
+		return $links;
+	}
+
+	/**
+	 * Add an edit recipe button to the admin toolbar
+	 */
+
+	public static function add_top_bar_edit_button() {
+		global $wp_admin_bar;
+
+		if ( !is_super_admin() || !is_admin_bar_showing() )
+			return;
+
+		global $post;
+		if (!$post) return;
+
+		$recipe = new Recipe(false, $post->ID);
+		if ($recipe->recipe_id) {
+			$url = add_query_arg(array('page'=>'zrdn-recipes', 'id' => $recipe->recipe_id), admin_url('admin.php'));
+			$title = __( 'Edit recipe', 'zip-recipes' );
+        } else {
+			$url = add_query_arg(array('page'=>'zrdn-recipes', 'action' => 'new', 'post_id' => $post->ID, 'post_type' =>$post->post_type ), admin_url('admin.php'));
+			$title = __( 'Insert new recipe', 'zip-recipes' );
+        }
+
+
+		$wp_admin_bar->add_menu( array( 'id' => 'codex_search', 'title' => $title, 'href' => esc_url_raw($url) ) );
+	}
 
     public static function load_plugins(){
 	    // Instantiate plugin classes
@@ -360,8 +430,10 @@ class ZipRecipes {
             'recipe_actions' => apply_filters('zrdn__recipe_actions', ''),
             'schema_type' => $schema_type,
             'video_embed' =>  $embed,
+            'metricsImperial' => apply_filters('zrdn_metricsimperial', false),
         );
         do_action('zrdn__enqueue_recipe_styles');
+
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
         $output = $custom_template ?: Util::view('recipe', $viewParams);
 

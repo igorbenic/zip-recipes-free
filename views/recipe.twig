@@ -45,7 +45,7 @@
 
     {# open the zlmeta and fl-l container divs #}
     <div class="zlmeta zlclear">
-      <div class="fl-l width-50">
+      <div class="fl-l width-33">
         {{ recipe_rating|raw }}
 
         {# recipe timing #}
@@ -114,13 +114,13 @@
         {# !! close the first container div and open the second #}
       </div>
 
-      <div class="fl-l width-50">
+      <div class="fl-l width-33">
         {# !! yield and nutrition #}
 
         {% if yield %}
           <p id="zlrecipe-yield">
             {% if not yield_label_hide %}
-                <span class="zrdn-servings-label">{{ __('Servings:','zip-recipes') }}</span>
+                <span class="zrdn-servings-label">{{ __('Servings:','zip-recipes') }}&nbsp;</span>
             {% endif %}
             <span class="yield" {{ recipe_props.recipe_attr('itemprop', "recipeYield", amp_on, schema_type) }}>{{ yield }}</span>
           </p>
@@ -247,8 +247,16 @@
 
         {# !! close the second container #}
       </div>
-      <div class="zlclear">
-      </div>
+
+    {% if metricsImperial %}
+        <div class="fl-l width-33">
+            <p id="zlrecipe-metricsimperial">
+                <span class="metricsimperial"></span>
+            </p>
+        </div>
+    {% endif %}
+
+      <div class="zlclear"></div>
     </div>
 
     {# !! create image and summary container #}
