@@ -11,16 +11,18 @@ import * as api from './utils/api';
 //
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { InspectorControls } = wp.editor;
+const { InspectorControls } = wp.blockEditor;
 const { SelectControl } = wp.components;
 const { Button } = wp.components;
 const { CheckboxControl } = wp.components;
+const { PanelBody, PanelRow } = wp.components;
+
 const { withState } = wp.compose;
 const { Component } = wp.element;
 
-const {RichText} = wp.editor;
-const {AlignmentToolbar} = wp.editor;
-const {BlockControls} = wp.editor;
+const {RichText} = wp.blockEditor;
+const {AlignmentToolbar} = wp.blockEditor;
+const {BlockControls} = wp.blockEditor;
 // const AlignmentToolbar = editor.AlignmentToolbar;
 // const BlockControls = editor.BlockControls;
 
@@ -229,7 +231,6 @@ const iconEl =
 
             //load content
             if (this.props.attributes.id!==0 && this.state.recipe && this.state.recipe.hasOwnProperty('title')) {
-                //output = this.state.recipe.content;
                 output =this.state.recipeContent.content;
                 id = this.props.attributes.id;
             }
@@ -237,27 +238,34 @@ const iconEl =
             return [
             !!this.props.isSelected && (
                         <InspectorControls key='inspector'>
+                    <PanelBody title={ __('Recipe controls', 'zip-recipes' ) }initialOpen={ true } >
+                <PanelRow>
                             <CheckboxControl
                                 label={__("Show only unlinked recipes","zip-recipes")}
                                 checked={this.props.attributes.showUnLinkedRecipes}
                                 onChange={this.onChangeShowUnLinkedRecipes}
                                 />
-
+                                </PanelRow><PanelRow>
                                 <SelectControl onChange={this.onChangeSelectRecipe} value={this.props.attributes.id} label={__('Select a recipe', 'zip-recipes')}
                                                options={options} />
+            </PanelRow><PanelRow>
 
-            <div className="components-base-control"><div className="components-base-control__field">
-                <Button isDefault
-                disabled={ this.isRecipeSelected() }
-                href={this.getEditRecipeURL()}>
-                    {__("Edit recipe","zip-recipes")}
-                    </Button>
-                </div></div><div className="components-base-control"><div className="components-base-control__field">
-                            <Button isDefault href={this.getCreateRecipeURL()}>
-                                {__("Create and insert recipe","zip-recipes")}
-                            </Button>
-                </div></div>
-                        </InspectorControls>
+                                <div className="components-base-control">
+                                    <div className="components-base-control__field">
+                                    <Button isDefault
+                                    disabled={ this.isRecipeSelected() }
+                                    href={this.getEditRecipeURL()}>
+                                        {__("Edit recipe","zip-recipes")}
+                                        </Button>
+                                    </div>
+                                    <div className="components-base-control__field">
+                                        <Button isDefault href={this.getCreateRecipeURL()}>
+                                            {__("Create and insert recipe","zip-recipes")}
+                                        </Button>
+                                    </div></div>
+            </PanelRow></PanelBody>
+
+            </InspectorControls>
                 ),
 
                  <div key={id} className={className} dangerouslySetInnerHTML={ { __html: output } }></div>

@@ -132,23 +132,52 @@ class ZipRecipes {
 	public static function add_top_bar_edit_button() {
 		global $wp_admin_bar;
 
-		if ( !is_super_admin() || !is_admin_bar_showing() )
+		if ( ! is_super_admin() || ! is_admin_bar_showing() ) {
 			return;
+		}
 
-		global $post;
-		if (!$post) return;
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
 
-		$recipe = new Recipe(false, $post->ID);
-		if ($recipe->recipe_id) {
-			$url = add_query_arg(array('page'=>'zrdn-recipes', 'id' => $recipe->recipe_id), admin_url('admin.php'));
-			$title = __( 'Edit recipe', 'zip-recipes' );
+		/*
+		 * Show "view post" link in top of recipe
+		 */
+		if ( isset($_GET["page"]) && $_GET["page"] == "zrdn-recipes" && isset($_GET["id"]) ) {
+			$title = __("View post", "zip-recipes");
+			$recipe = new Recipe(intval($_GET["id"]));
+			$url = get_permalink($recipe->post_id);
+			if ($url) {
+				$wp_admin_bar->add_menu( array( 'id' => 'zrdn_view_post', 'title' => $title, 'href' => esc_url_raw($url) ) );
+
+			}
+
+        /*
+         * Show "edit recipe" link in post/page
+         */
         } else {
-			$url = add_query_arg(array('page'=>'zrdn-recipes', 'action' => 'new', 'post_id' => $post->ID, 'post_type' =>$post->post_type ), admin_url('admin.php'));
-			$title = __( 'Insert new recipe', 'zip-recipes' );
+			//only add recipe button on single pages
+			if ( !is_singular() ) {
+				return;
+			}
+
+			global $post;
+			if (!$post) return;
+
+			$recipe = new Recipe(false, $post->ID);
+			if ($recipe->recipe_id) {
+				$url = add_query_arg(array('page'=>'zrdn-recipes', 'id' => $recipe->recipe_id), admin_url('admin.php'));
+				$title = __( 'Edit recipe', 'zip-recipes' );
+			} else {
+				$url = add_query_arg(array('page'=>'zrdn-recipes', 'action' => 'new', 'post_id' => $post->ID, 'post_type' =>$post->post_type ), admin_url('admin.php'));
+				$title = __( 'Insert new recipe', 'zip-recipes' );
+			}
+
+
+			$wp_admin_bar->add_menu( array( 'id' => 'zrdn_edit_recipe', 'title' => $title, 'href' => esc_url_raw($url) ) );
         }
 
 
-		$wp_admin_bar->add_menu( array( 'id' => 'codex_search', 'title' => $title, 'href' => esc_url_raw($url) ) );
 	}
 
     public static function load_plugins(){
