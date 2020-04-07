@@ -124,6 +124,9 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 3. Easy to Use
 
 == Changelog ==
+= 6.4.3 =
+* Improvement: added "edit recipe" button to toolbar
+
 = 6.4.2 =
 * Fix: prevent reviews and ratings from being active at the same time
 * Improvement: add option to disable notifications for ratings
