@@ -266,6 +266,9 @@ Copyright 2011, 2012 ZipList, Inc.
   margin-top: 5px;
 }
 #zlrecipe-container .zlrecipe-print-link .butn-link {
+  /*prevent themes from adding shadows to link*/
+  -webkit-box-shadow: inset 0 0 0 #0f0f0f;
+  box-shadow: inset 0 0 0 #0f0f0f;
   background: url("../images/print-icon.png") no-repeat scroll 0 4px transparent;
   cursor: pointer;
   padding: 0 0 0 20px;

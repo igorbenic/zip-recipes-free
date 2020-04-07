@@ -11,7 +11,7 @@ namespace ZRDN;
 add_action('admin_init', __NAMESPACE__. '\zrdn_update_recipe_table');
 function zrdn_update_recipe_table(){
 
-    if (get_option('zrdn_table_version', 1)!==ZRDN_VERSION_NUM){
+    if (get_option('zrdn_table_version', 1) !== ZRDN_VERSION_NUM){
         global $wpdb;
 
         $recipes_table = $wpdb->prefix . Recipe::TABLE_NAME;
