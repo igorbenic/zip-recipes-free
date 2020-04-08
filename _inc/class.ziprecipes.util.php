@@ -1075,7 +1075,13 @@ class Util {
 	 * @param string $plugin
 	 * @return bool
 	 */
+
 	public static function is_plugin_active($plugin){
+
+		if (defined('ZRDN_FREE')) {
+			return false;
+		}
+
 		$fields = self::get_fields(false, $plugins = true);
 		if ($plugin === 'CustomTemplates') return true;
 

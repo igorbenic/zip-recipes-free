@@ -791,7 +791,7 @@ class ZipRecipes {
 	                'description' => __("Let your visitors share your recipes on the social networks, like Yummly, Bigoven and Pinterest", "zip-recipes"),
                 ),
                 'VisitorRating' => array(
-	                'title' => __("Recipe ratings and reviews", "zip-recipes"),
+	                'title' => __("Ratings and reviews", "zip-recipes"),
 	                'class' => 'small',
 	                'content' => 'content',
 	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/ratings.png',
