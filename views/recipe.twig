@@ -31,7 +31,7 @@
                   <img src="{{ custom_print_image }}">
                 </a>
               {% else %}
-                <a class="butn-link" title="{{ __('Print this recipe','zip-recipes') }}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow"></a>
+                <a class="butn-link" title="{{ __('Print this recipe','zip-recipes') }}" href="javascript:void(0);" onclick="zlrPrint('zlrecipe-container-{{ recipe_id }}', '{{ ZRDN_PLUGIN_URL }}'); return false" rel="nofollow">{{ __('Print','zip-recipes') }}</a>
               {% endif %}
             </div>
           {% endif %}
