@@ -9,7 +9,7 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
 Requires at least: 4.2
 Tested up to: 5.4
-Stable tag: 6.4.3
+Stable tag: 6.4.4
 Requires PHP: 5.4
 
 Zip Recipes is the best way to easily create professional-looking recipes fully optimized for Google and your website visitors.
@@ -124,6 +124,10 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 3. Easy to Use
 
 == Changelog ==
+= 6.4.4 =
+* Added "jump to recipes" feature
+* Fix: When Elementor is enabled, but not used, Zip Recipes may not recognize a post as being linked to the recipe
+
 = 6.4.3 =
 * Improvement: added "edit recipe" button to toolbar
 
