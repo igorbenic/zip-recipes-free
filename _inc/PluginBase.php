@@ -15,7 +15,7 @@ abstract class PluginBase
 
     public function __construct()
     {
-		
+
 		if ($this->isDisabled()) {
             return false;
         }
@@ -24,6 +24,7 @@ abstract class PluginBase
 
         return true;
 	}
+
 
 	
 	public function zrdn_plugin_enqueue_settings_css () {

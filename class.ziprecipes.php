@@ -70,7 +70,7 @@ class ZipRecipes {
 	    add_action('amp_post_template_css', __NAMESPACE__ . '\ZipRecipes::amp_styles');
 	    // check GD or imagick support
 	    add_action('admin_notices', __NAMESPACE__ . '\ZipRecipes::zrdn_check_image_editing_support');
-
+	    add_action('the_content', __NAMESPACE__ . '\ZipRecipes::jump_to_recipes_button');
 	    // This shouldn't be called directly because it can cause issues with WP not having loaded properly yet.
 	    // One issue we were seeing was a client was getting an error caused by
 	    //  `require_once( ABSPATH . 'wp-admin/includes/upgrade.php' )` in zrdn_recipe_install()
@@ -89,7 +89,19 @@ class ZipRecipes {
 	    //multisite
 	    add_filter( "network_admin_plugin_action_links_$plugin",
 		    __NAMESPACE__ . '\ZipRecipes::plugin_settings_link' );
+
+	    add_filter("zrdn_update_option", __NAMESPACE__ . '\ZipRecipes::maybe_reset_nutrition_import' , 10, 4);
+
     }
+
+	public static function maybe_reset_nutrition_import($new, $old, $fieldname, $source) {
+
+		if ( $source == 'nutrition' && $fieldname == 'import_nutrition_data_all_recipes' && $new !== $old ) {
+		    error_log("RESET ");
+			update_option("zrdn_nutrition_data_import_completed", false);
+		}
+		return $new;
+	}
 
 	/**
 	 * Add custom link to plugins overview page
@@ -577,6 +589,35 @@ class ZipRecipes {
 
         return $retArray;
     }
+
+
+	/**
+	 * Conditionally add a "jump to recipe button" to the post.
+	 */
+
+	public static function jump_to_recipes_button($content){
+		if ( is_singular() && Util::get_option('jump_to_recipe_link') ) {
+		    //get recipe based on post id
+            global $post;
+            if ($post) {
+                //create link to recipe
+                $script =
+                    '<script>
+                        jQuery(document).ready(function ($) {
+                            $(document).on("click", ".zrdn-recipe-quick-link", function(){
+                                $("html, body").animate({
+                                    scrollTop: $(".zrdn-jump-to-link").offset().top - 75
+                                }, 2000);
+                            });
+                        });
+                    </script>';
+                $button = $script.'<a href="#" class="zrdn-recipe-quick-link">'.__('Jump to recipe').'</a>';
+                $content =  $button.$content;
+            }
+		}
+
+		return $content;
+	}
 
     // Adds module to left sidebar in wp-admin for ZLRecipe
     public static function menu_pages()

@@ -90,7 +90,6 @@ class Util {
             return '<!-- wp:zip-recipes/recipe-block {"id":"'.$recipe_id.'"} /-->';
         } else {
             return '[amd-zlrecipe-recipe:'.$recipe_id.']';
-
         }
     }
 
@@ -124,11 +123,11 @@ class Util {
      *
      */
 
-
     public static function get_shortcode_pattern($recipe_id=false, $match_all=false, $force_classic=false)
     {
-        //even if on gutenberg, with elementor we have to use classic shortcodes.
-        $gutenberg = Util::uses_gutenberg() && !Util::uses_elementor();
+        //This function is always used with a fallback for classic, so we don't check for elementor
+	    //This could cause issues on sites where elementor is installed, but not used on all pages.
+        $gutenberg = Util::uses_gutenberg();
         $classic = !$gutenberg;
         if ($force_classic || $classic) {
             if ($recipe_id){
@@ -494,7 +493,14 @@ class Util {
 				'table'     => false,
 				'label'     => __( 'Recipe template', 'zip-recipes' ),
 				'comment'   => sprintf(__("To get more templates, check out %spremium%s", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/premium">', '</a>'),
+			),
 
+			'jump_to_recipe_link' => array(
+				'type'               => 'checkbox',
+				'source'             => 'general',
+				'table'              => false,
+				'label'              => __( "Enable jump to recipe link", 'zip-recipes' ),
+				'help'              => __( "You can add a link at the top of each recipe which scrolls down to the recipe on the page when the user clicks it.", 'zip-recipes' ),
 			),
 
 			'hide_attribution' => array(
@@ -834,6 +840,15 @@ class Util {
 				)
 			),
 
+			'import_nutrition_data_all_recipes' => array(
+				'type'      => 'checkbox',
+				'source'    => 'nutrition',
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Import nutrition data for all recipes', 'zip-recipes' ),
+				'help'     => __( 'This will process in the background, and may take a while. It will pause if you close the browser, or disable the setting.', 'zip-recipes' ),
+			),
+
 			'RecipeActions' => array(
 				'type'      => 'checkbox',
 				'source'    => 'social',
@@ -946,7 +961,6 @@ class Util {
 					'VisitorRating' => false,
 				),
 				'label'     => __( 'Recipe Reviews', 'zip-recipes' ),
-
 			),
 
 			'Import' => array(
@@ -956,7 +970,6 @@ class Util {
 				'disabled'  => true,
 				'table'     => false,
 				'label'     => __( 'Import', 'zip-recipes' ),
-
 			),
 
 			'RecipeSearch' => array(
@@ -1005,6 +1018,17 @@ class Util {
 				'table'     => false,
 				'label'     => __( "Use Zip Recipes style",
 					'zip-recipes' ),
+			),
+
+			'import_ratings_to_reviews' => array(
+				'type'      => 'checkbox',
+				'source'    => 'advanced',
+				'disabled'  => true,
+				'default'    => false,
+				'table'     => false,
+				'label'     => __( "Add ratings to reviews",
+					'zip-recipes' ),
+				'condition' => array('RecipeReviews' => true),
 			),
 
 			'send_mail_when_rated' => array(
