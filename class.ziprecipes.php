@@ -97,7 +97,6 @@ class ZipRecipes {
 	public static function maybe_reset_nutrition_import($new, $old, $fieldname, $source) {
 
 		if ( $source == 'nutrition' && $fieldname == 'import_nutrition_data_all_recipes' && $new !== $old ) {
-		    error_log("RESET ");
 			update_option("zrdn_nutrition_data_import_completed", false);
 		}
 		return $new;
@@ -478,8 +477,12 @@ class ZipRecipes {
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
         $output = $custom_template ?: Util::view('recipe', $viewParams);
 
-        $output = apply_filters('zrdn_recipe_content', $output, $recipe->recipe_id);
-        $output = do_shortcode($output);
+	    if (!is_singular() && Util::get_option('show_summary_on_archive_pages')) {
+		    $output = $recipe->summary;
+	    }
+
+	    $output = apply_filters('zrdn_recipe_content', $output, $recipe->recipe_id);
+	    $output = do_shortcode($output);
 
         return $output;
     }
@@ -596,7 +599,8 @@ class ZipRecipes {
 	 */
 
 	public static function jump_to_recipes_button($content){
-		if ( is_singular() && Util::get_option('jump_to_recipe_link') ) {
+
+		if ( is_singular() && Util::get_option('jump_to_recipe_link') && strpos($content, 'zrdn-jump-to-link')!==false ) {
 		    //get recipe based on post id
             global $post;
             if ($post) {

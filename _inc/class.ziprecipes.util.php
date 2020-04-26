@@ -503,6 +503,14 @@ class Util {
 				'help'              => __( "You can add a link at the top of each recipe which scrolls down to the recipe on the page when the user clicks it.", 'zip-recipes' ),
 			),
 
+			'show_summary_on_archive_pages' => array(
+				'type'               => 'checkbox',
+				'source'             => 'general',
+				'table'              => false,
+				'label'              => __( "Show summary on archive pages", 'zip-recipes' ),
+				'help'              => __( "You can choose to show the recipe summary instead of the recipe on archive pages.", 'zip-recipes' ),
+			),
+
 			'hide_attribution' => array(
 				'type'               => 'checkbox',
 				'source'             => 'general',
