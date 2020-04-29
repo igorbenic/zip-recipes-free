@@ -20,13 +20,14 @@
                             {{ recipe_title }}
                             </span>
                         </h3>
-                        <p>{{ __('Serves', 'zip-recipes') }} <span {{ recipe_props.recipe_attr('itemprop', "servingSize", amp_on, schema_type) }}>{{ serving_size }}</span>
+                        <p>{{ __('Serves', 'zip-recipes') }}: <span {{ recipe_props.recipe_attr('itemprop', "servingSize", amp_on, schema_type) }}>{{ yield }}</span>
                     </header>
                     <table class="nutrition-facts__table">
                         <thead>
                         <tr>
                             <th colspan="3" class="small-info">
                                 {{ __('Amount Per Serving', 'zip-recipes') }}
+                                {{ serving_size }}
                             </th>
                         </tr>
                         </thead>

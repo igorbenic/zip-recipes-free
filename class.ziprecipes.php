@@ -593,7 +593,6 @@ class ZipRecipes {
         return $retArray;
     }
 
-
 	/**
 	 * Conditionally add a "jump to recipe button" to the post.
 	 */
