@@ -35,6 +35,7 @@ class ZipRecipes {
 		'RecipeGrid',
 		'CustomTemplates',
 		'ImperialMetricsConverter',
+		'MostPopularRecipes',
 	);
 
     /**
@@ -197,7 +198,6 @@ class ZipRecipes {
 	    $pluginsPath = "$parentPath/plugins";
 	    $active_plugins = Util::get_active_plugins();
 
-
 	    foreach ($active_plugins as $plugin_name){
 		    $pluginPath = $pluginsPath."/".$plugin_name.'/'.$plugin_name.'.php';
 		    if (!file_exists($pluginPath)) {
@@ -355,11 +355,12 @@ class ZipRecipes {
     /**
      * Formats the recipe for output
      *
-     * @param $recipe
+     * @param Recipe $recipe
      * @return string
      */
     public static function zrdn_format_recipe($recipe)
     {
+        do_action('zrdn_load_recipe', $recipe);
         $nested_ingredients = self::get_nested_items($recipe->ingredients);
         $nested_instructions = self::get_nested_items($recipe->instructions);
 
@@ -477,14 +478,18 @@ class ZipRecipes {
         $custom_template = apply_filters('zrdn__custom_templates_get_formatted_recipe', false, $viewParams);
         $output = $custom_template ?: Util::view('recipe', $viewParams);
 
-	    if (!is_singular() && Util::get_option('show_summary_on_archive_pages')) {
-		    $output = $recipe->summary;
+	    if (!self::is_rest() && !is_admin() && !is_singular() && Util::get_option('show_summary_on_archive_pages')) {
+	        $output = $recipe->summary;
 	    }
 
 	    $output = apply_filters('zrdn_recipe_content', $output, $recipe->recipe_id);
 	    $output = do_shortcode($output);
 
-        return $output;
+	    return $output;
+    }
+
+    public static function is_rest(){
+	    return ( defined( 'REST_REQUEST' ) && REST_REQUEST );
     }
 
     /**
@@ -607,6 +612,7 @@ class ZipRecipes {
                 $script =
                     '<script>
                         jQuery(document).ready(function ($) {
+                            
                             $(document).on("click", ".zrdn-recipe-quick-link", function(){
                                 $("html, body").animate({
                                     scrollTop: $(".zrdn-jump-to-link").offset().top - 75
@@ -850,6 +856,15 @@ class ZipRecipes {
 	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/servingadjustments.gif',
 	                'link'     => 'https://demo.ziprecipes.net/best-guacamole-ever/',
 	                'description' => __("Visitors can adjust the ingredients to the number of servings they need: it won't get easier for your visitors!", "zip-recipes"),
+                ),
+
+                'MostPopularRecipes' => array(
+	                'title' => __("Most Popular Recipes", "zip-recipes"),
+	                'class' => 'small',
+	                'content' => 'content',
+	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/mostpopular.png',
+	                'link'     => 'https://demo.ziprecipes.net/corn-salad/',
+	                'description' => __("Show a widget with the most popular recipes.", "zip-recipes"),
                 ),
                 'CustomTemplates' => array(
 	                'title' => __("Premium templates", "zip-recipes"),

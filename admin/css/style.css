@@ -17,6 +17,8 @@
   border-radius: 15px;
   font-size: 11px;
   padding: 3px 10px;
+  height: 27px;
+  margin-right: 2px;
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-extension-label.lover {
   background-color: #F343A0;

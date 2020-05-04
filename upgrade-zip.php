@@ -252,6 +252,17 @@ function zrdn_check_upgrade()
 
 
 	}
+
+	if ( $prev_version && version_compare($prev_version, '6.4.11', '<') ) {
+		$zrdn_labels = get_option('zrdn_settings_labels', array());
+		$value_old = get_option('zlrecipe_ingredient_label_hide')=='Hide' ? true : false;
+		$value_new = Util::get_option('hide_ingredient_label');
+		$value = $value_old;
+		if ($value_new) $value = $value_new;
+		$zrdn_labels['hide_ingredients_label'] = $value;
+		update_option('zrdn_settings_labels', $zrdn_labels);
+	}
+
     update_option('zrdn-current-version', ZRDN_VERSION_NUM);
 
     if (!get_option('zrdn_checked_for_multiple_recipes')) {

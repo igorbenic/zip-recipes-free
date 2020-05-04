@@ -428,7 +428,7 @@ class Util {
 		    array(
 			    'title' => __("Add-ons", " zip-recipes"),
 			    'source' => "plugins",
-			    'class' => 'small',
+			    'class' => '',
 			    'can_hide' => true,
 		    ),
 
@@ -724,7 +724,7 @@ class Util {
 				),
 			),
 
-			'hide_ingredient_label' => array(
+			'hide_ingredients_label' => array(
 				'type'      => 'checkbox',
 				'source'    => 'labels',
 				'table'     => false,
@@ -920,6 +920,16 @@ class Util {
 				'label'     => __( 'Imperial Metrics Converter',
 					'zip-recipes' ),
 
+			),
+
+			'MostPopularRecipes' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => true,
+				'table'     => false,
+				'label'     => __( 'Most Popular Recipes widget',
+					'zip-recipes' ),
 			),
 
 			'RecipeGrid' => array(

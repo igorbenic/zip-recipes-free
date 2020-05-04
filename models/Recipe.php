@@ -63,6 +63,7 @@ function zrdn_update_recipe_table(){
             'author varchar(50)',
             'video_url varchar(255)',
             'non_food int(11)',
+            'hits int(11)',
         );
 
         $all_columns = apply_filters('zrdn__db_recipe_columns', $columns);
@@ -349,6 +350,7 @@ class Recipe {
     public $sodium_daily;
     public $carbs_daily;
     public $fiber_daily;
+    public $hits;
     public $has_nutrition_data = false;
     public $preview = false;
 
@@ -645,6 +647,26 @@ class Recipe {
         $this->recipe_id = $recipe_id;
 
     }
+
+	/**
+	 * track a recipe hit
+	 */
+
+	public function track_hit(){
+		if (!$this->recipe_id) return;
+
+		global $wpdb;
+		$table = $wpdb->prefix . self::TABLE_NAME;
+		$this->hits++;
+		$wpdb->update(
+			$table,
+			array(
+				'hits' => $this->hits,
+			),
+			array('recipe_id' => $this->recipe_id)
+		);
+
+	}
 
     /**
      * Save recipe to database
