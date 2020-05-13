@@ -476,11 +476,11 @@ class Recipe {
         //if this recipe has an image, use it
         if (!empty($this->recipe_image)){
             $this->recipe_image_json = $this->generate_recipe_image_json($this->recipe_image_id);
+        } elseif ($this->post_id>0){
+            $post_thumbnail_id = get_post_thumbnail_id($this->post_id);
+            $this->recipe_image_json = $this->generate_recipe_image_json($post_thumbnail_id);
         } else {
-            if ($this->post_id>0){
-                $post_thumbnail_id = get_post_thumbnail_id($this->post_id);
-                $this->recipe_image_json = $this->generate_recipe_image_json($post_thumbnail_id);
-            }
+	        $this->recipe_image_json = $this->generate_recipe_image_json();
         }
 
         /**
@@ -555,7 +555,7 @@ class Recipe {
      * @return array|string image_json
      */
 
-    public function generate_recipe_image_json($image_id){
+    public function generate_recipe_image_json($image_id=false){
 
         $image_1x1 = $image_4x3 = $image_16x9 = false;
 

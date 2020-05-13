@@ -313,7 +313,7 @@ jQuery(document).ready(function ($) {
             matches = placeholderHtml.match(regex);
             if (matches && matches.length) {
                 for (i = 0; i < matches.length; i++) {
-                    placeholderHtml = placeholderHtml.replace(/\[([^\]\|\[]*)\|([^\]\|\[]*)\]/i, '<a href="' + '$1' + '">'+'$2'+'</a>');
+                    placeholderHtml = placeholderHtml.replace(/\[([^\]\|\[]*)\|([^\]\|\[]*)\]/i, '<a href="' + '$2' + '">'+'$1'+'</a>');
                 }
             }
 
@@ -439,9 +439,7 @@ jQuery(document).ready(function ($) {
                 }
 
                 if (image) {
-                    console.log(image);
                     var image_url = image['url'];
-                    console.log(image_url);
                     container.find('.zrdn-preview-snippet').attr('src',image_url);
                     $('input[name='+fieldname+'_id]').val(thumbnail_id);
                     $('input[name='+fieldname+']').val(image_url);

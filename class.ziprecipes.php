@@ -604,25 +604,20 @@ class ZipRecipes {
 
 	public static function jump_to_recipes_button($content){
 
-		if ( is_singular() && Util::get_option('jump_to_recipe_link') && strpos($content, 'zrdn-jump-to-link')!==false ) {
-		    //get recipe based on post id
-            global $post;
-            if ($post) {
-                //create link to recipe
-                $script =
-                    '<script>
-                        jQuery(document).ready(function ($) {
-                            
-                            $(document).on("click", ".zrdn-recipe-quick-link", function(){
-                                $("html, body").animate({
-                                    scrollTop: $(".zrdn-jump-to-link").offset().top - 75
-                                }, 2000);
-                            });
+		if ( is_singular() && Util::get_option('jump_to_recipe_link') && ( strpos($content, 'zrdn-jump-to-link')!==false || strpos($content, 'amd-zlrecipe-recipe') !==false ) ) {
+            //create link to recipe
+            $script =
+                '<script>
+                    jQuery(document).ready(function ($) {
+                        $(document).on("click", ".zrdn-recipe-quick-link", function(){
+                            $("html, body").animate({
+                                scrollTop: $(".zrdn-jump-to-link").offset().top - 75
+                            }, 2000);
                         });
-                    </script>';
-                $button = $script.'<a href="#" class="zrdn-recipe-quick-link">'.__('Jump to recipe').'</a>';
-                $content =  $button.$content;
-            }
+                    });
+                </script>';
+            $button = $script.'<a href="#" class="zrdn-recipe-quick-link">'.__('Jump to recipe','zip-recipes').'</a>';
+            $content =  $button.$content;
 		}
 
 		return $content;
