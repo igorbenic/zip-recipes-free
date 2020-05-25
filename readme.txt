@@ -124,6 +124,9 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 3. Easy to Use
 
 == Changelog ==
+= 6.4.7 =
+* Fix: prevent plugin conflicts with the review notice.
+
 = 6.4.6 =
 * Fix: Jump to recipe link not translatable
 * Fix: fallback for rich snippet images if no post or recipe image is found
