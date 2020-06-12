@@ -34,6 +34,6 @@ function zrdn_label_markup($nutrition_label, $recipe, $is_shortcode = false)
     $data['amp_on'] = $amp_on;
 
     $html = Util::view('NutritionLabel', $data);
-    return $html;
+	return apply_filters('zrdn_nutrition_label', $html);
 }
 add_filter('zrdn__nutrition_get_label', __NAMESPACE__ . '\zrdn_label_markup', 10, 2);

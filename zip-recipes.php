@@ -142,7 +142,7 @@ function zrdn_maybe_load_iframe()
                 wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","id"=>$recipe_id, "post_id" => $post_id,"popup"=>true),admin_url("admin.php")));
 
             } else { // New recipe
-                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new", "post_id" => $post_id,"popup"=>true),admin_url("admin.php")));
+                wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new", "post_id" => $post_id, "popup"=>true), admin_url("admin.php")));
             }
         }
         exit;
