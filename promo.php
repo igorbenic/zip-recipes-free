@@ -2,6 +2,7 @@
 namespace ZRDN;
 
 /**
+ * @deprecated
  * promo on the edit page
  * @param string $html
  *
@@ -36,7 +37,7 @@ function zrdn_discount($html='') {
 
 	return $html;
 }
-add_filter('zrdn__editpage_promo', __NAMESPACE__.'\zrdn_discount', 10, 1);
+//add_filter('zrdn__editpage_promo', __NAMESPACE__.'\zrdn_discount', 10, 1);
 
 
 

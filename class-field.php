@@ -126,8 +126,10 @@ if (!class_exists("ZRDN_Field")) {
 	        } else {
                 return false;
             }
-
             switch ($type) {
+                case 'checkbox':
+                    if ($value === 'false') $value = false;
+                    return $value==true ? true : false;
                 case 'colorpicker':
                     return sanitize_hex_color($value);
                 case 'text':
@@ -323,7 +325,7 @@ if (!class_exists("ZRDN_Field")) {
             <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input <?php if ($args['required']) echo 'required'; ?>
-                class="validation <?php if ($args['required']) echo 'is-required'; ?>"
+                class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                 placeholder="<?php echo esc_html($args['placeholder']) ?>"
                 type="text"
                 pattern="^(http(s)?(:\/\/))?(www\.)?[a-zA-Z0-9-_\.\/\?\=\&]+"
@@ -344,7 +346,7 @@ if (!class_exists("ZRDN_Field")) {
             <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input <?php if ($args['required']) echo 'required'; ?>
-                class="validation <?php if ($args['required']) echo 'is-required'; ?>"
+                class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                 placeholder="<?php echo esc_html($args['placeholder']) ?>"
                 type="email"
                 value="<?php echo esc_html($value) ?>"
@@ -364,7 +366,7 @@ if (!class_exists("ZRDN_Field")) {
             <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input autocomplete="tel" <?php if ($args['required']) echo 'required'; ?>
-                   class="validation <?php if ($args['required']) echo 'is-required'; ?>"
+                   class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                    placeholder="<?php echo esc_html($args['placeholder']) ?>"
                    type="text"
                    value="<?php echo esc_html($value) ?>"
@@ -386,7 +388,7 @@ if (!class_exists("ZRDN_Field")) {
             <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input <?php if ($args['required']) echo 'required'; ?>
-                class="validation <?php if ($args['required']) echo 'is-required'; ?>"
+                class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                 placeholder="<?php echo esc_html($args['placeholder']) ?>"
                 type="number"
                 value="<?php echo esc_html($value) ?>"
@@ -436,10 +438,10 @@ if (!class_exists("ZRDN_Field")) {
         function checkbox($args)
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
-
             $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
-            $placeholder_value = ($args['disabled'] && $value) ? $value : 0;
 
+            $placeholder_value = ($args['disabled'] && $value) ? $value : 0;
+            $checked = $value ? "checked" : '';
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
 
@@ -453,7 +455,7 @@ if (!class_exists("ZRDN_Field")) {
                 <input name="<?php echo esc_html($fieldname) ?>" size="40" type="checkbox"
                     <?php if ($args['disabled']) echo 'disabled'; ?>
                        class="<?php if ($args['required']) echo 'is-required'; ?>"
-                       value="1" <?php checked(1, $value, true) ?> />
+                       value="1" <?php echo $checked ?> />
                 <span class="zrdn-slider zrdn-round"></span>
             </label>
 
@@ -587,9 +589,7 @@ if (!class_exists("ZRDN_Field")) {
         function colorpicker($args)
         {
             $fieldname = 'zrdn_' . $args['fieldname'];
-
 	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
-
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
             <label for="<?php echo esc_html($fieldname) ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
@@ -607,7 +607,7 @@ if (!class_exists("ZRDN_Field")) {
 
 
         public
-        function get_field_html($args, $fieldname = false)
+        function get_field_html($args, $fieldname = false, $return = false)
         {
             $args = wp_parse_args($args, $this->default_args);
             if ($args['callback_condition']){
@@ -617,6 +617,7 @@ if (!class_exists("ZRDN_Field")) {
             if ($fieldname) $args['fieldname'] = $fieldname;
             $type = ($args['callback']) ? 'callback' : $args['type'];
 
+            if ($return) ob_start();
             switch ($args['type']) {
                 case 'callback':
                     $this->callback($args);
@@ -678,7 +679,9 @@ if (!class_exists("ZRDN_Field")) {
                 default:
                     $this->text($args);
             }
-
+	        if ($return) {
+	            return ob_get_clean();
+	        }
 
         }
 
@@ -899,7 +902,7 @@ if (!class_exists("ZRDN_Field")) {
         {
             $output='';
             if (isset($args['help']) ) {
-	            $output = '<span class=" zrdn-tooltip-top tooltip-right" data-zrdn-tooltip="'.$args['help'].'"><span class="dashicons dashicons-editor-help"></span></span>';
+	            $output = '<span class="zrdn-tooltip-top tooltip-right" data-zrdn-tooltip="'.$args['help'].'"><span class="zrdn-tooltip-icon dashicons dashicons-editor-help"></span></span>';
             }
             return $output;
         }

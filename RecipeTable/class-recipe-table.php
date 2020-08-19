@@ -141,7 +141,8 @@ class Recipe_Table extends \WP_List_Table {
         );
 
         $recipe = new Recipe($item['ID']);
-        if ($recipe->post_id){
+        $preview_post_id = get_option('zrdn_preview_post_id');
+        if ($recipe->post_id && $recipe->post_id !== $preview_post_id ){
             $actions['unlink'] = '<a class="zrdn-recipe-action" data-action="unlink" data-id="'.$item['ID'].'" href="#">' . __( 'Unlink from post', 'zip-recipes') . '</a>';
             $actions['delete'] = '<a class="zrdn-recipe-action zrdn-hidden" data-action="delete"  data-id="'.$item['ID'].'" href="#">' . __( 'Delete', 'zip-recipes') . '</a>';
             $actions['view_post'] = '<a href="'.add_query_arg(array('post'=>$recipe->post_id,'action'=>'edit'),admin_url('post.php')).'">' . __( 'View post', 'zip-recipes') . '</a>';
@@ -155,11 +156,36 @@ class Recipe_Table extends \WP_List_Table {
     }
 
     public function column_shortcode( $item ) {
-
-        return '<div class="zrdn-selectable">[amd-zlrecipe-recipe:'.$item['ID'].']</div>';
-
+        return '<div class="zrdn-selectable">[zrdn-recipe: id='.$item['ID'].']</div>';
     }
 
+	public function column_views( $item ) {
+        $recipe = new Recipe($item['ID']);
+		return $recipe->hits;
+	}
+
+	public function column_details( $item ) {
+		//get most populare recipes
+		$most_popular_id = false;
+	    $args            = array(
+		    'order_by' => 'hits',
+		    'order'    => 'DESC',
+		    'number'   => 1,
+	    );
+	    $recipes         = Util::get_recipes( $args );
+	    if ( ! empty( $recipes ) ) {
+		    $most_popular_id = $recipes[0]->recipe_id;
+	    }
+
+	    if ($most_popular_id === $item['ID'] ) {
+		    return '<span class="zrdn-badge popular">'.__("Popular","zip-recipes").'</span>';
+	    }
+
+	    if (get_option('zrdn_demo_recipe_id') === $item['ID']) {
+		    return '<span class="zrdn-badge demo">'.__("Demo","zip-recipes").'</span>';
+
+	    }
+	}
 
     /**
      * Retrieve the table columns
@@ -171,7 +197,9 @@ class Recipe_Table extends \WP_List_Table {
         $columns = array(
             'ID'          => __( 'ID', 'zip-recipes'),
             'name'          => __( 'Name', 'zip-recipes'),
+            'views'          => __( 'Views', 'zip-recipes'),
             'shortcode'          => __( 'Shortcode', 'zip-recipes'),
+            'details'          => '',
         );
 
         return apply_filters( 'zrdn_recipe_columns', $columns );
@@ -188,6 +216,7 @@ class Recipe_Table extends \WP_List_Table {
         $columns = array(
             'ID'          => array( 'recipe_id', true ),
             'name'          => array( 'recipe_title', true ),
+            'views'          => array( 'hits', true ),
         );
 
         return $columns;

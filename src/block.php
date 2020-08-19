@@ -59,12 +59,13 @@ function zrdn_editor_assets() {
         array(
             'site_url' => site_url(),
             'is_gutenberg' => true,
+            'zrdn_recipe_preview' => trailingslashit(ZRDN_PLUGIN_URL).  'images/recipe-preview.png',
+            'zrdn_grid_preview' => trailingslashit(ZRDN_PLUGIN_URL).  'images/grid-preview.png',
+
         )
     );
-
-    do_action('zrdn__enqueue_recipe_styles');
-
-    wp_set_script_translations( 'zrdn-block', 'zip-recipes' , trailingslashit(ZRDN_PLUGIN_DIRECTORY) . 'languages');
+	do_action('zrdn_enqueue_scripts');
+    wp_set_script_translations( 'zrdn-block', 'zip-recipes' , trailingslashit(ZRDN_PATH) . 'languages');
 
 	// Styles.
     wp_enqueue_style(

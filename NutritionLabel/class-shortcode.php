@@ -30,7 +30,7 @@ class ZRDN_Nutrition_Label_Shortcode
         $recipe_id = intval($atts['recipe_id']);
         $recipe = new Recipe($recipe_id);
         ob_start();
-        echo zrdn_label_markup(false, $recipe, true);
+        echo zrdn_label_markup($recipe, array(), true);
 
         return ob_get_clean();
     }

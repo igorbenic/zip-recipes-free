@@ -17,7 +17,7 @@ namespace ZRDN;
  * @copyright  2017 Gezim Hoxha
  * @version 1.0
  * @link https://github.com/hgezim/zip-recipes-plugin Zip Recipes
- * @example  wp-json/zip-recipes/v1/recipe
+ * @example  wp-json/zip-recipes/v2/recipe
  */
 use WP_REST_Response;
 use WP_Http;

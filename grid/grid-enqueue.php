@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( "you do not have access to this page!" );
 
 add_action( 'admin_enqueue_scripts', 'zrdn_enqueue_assets' );
 function zrdn_enqueue_assets( $hook ) {
-	if (strpos($hook, "zrdn-settings")===false) return;
+	if (strpos($hook, "zrdn-settings")===false ) return;
 
 	wp_register_style( ' zrdn-muuri',
 		trailingslashit( ZRDN_PLUGIN_URL ) . "grid/css/muuri.css", "",
@@ -22,11 +22,55 @@ function zrdn_enqueue_assets( $hook ) {
 		ZRDN_VERSION_NUM );
 	wp_enqueue_script( ' zrdn-grid' );
 
+}
+
+
+add_action( 'admin_enqueue_scripts', 'zrdn_enqueue_template_assets' );
+function zrdn_enqueue_template_assets( $hook ) {
+	if ( strpos($hook, "zrdn-template")===false) return;
+	do_action('zrdn_enqueue_scripts');
+	wp_register_style('zrdn-editor', ZRDN_PLUGIN_URL."RecipeTable/css/editor.css", array(), ZRDN_VERSION_NUM, 'all');
+	wp_enqueue_style('zrdn-editor');
+
+	wp_register_style('zrdn-admin-styles',
+		trailingslashit(ZRDN_PLUGIN_URL) . "admin/css/style.css", "",
+		ZRDN_VERSION_NUM);
+	wp_enqueue_style('zrdn-admin-styles');
+	wp_enqueue_script("zrdn-conditions", ZRDN_PLUGIN_URL."RecipeTable/js/conditions.js",  array('jquery'), ZRDN_VERSION_NUM);
+
+
+	wp_register_style('ziprecipes-css', trailingslashit( ZRDN_PLUGIN_URL ).'styles/zlrecipe-std.css', array(), ZRDN_VERSION_NUM, 'all');
+	wp_enqueue_style('ziprecipes-css');
+
+	wp_register_style( ' zrdn-templates',
+		trailingslashit( ZRDN_PLUGIN_URL ) . "grid/css/templates.css", "",
+		ZRDN_VERSION_NUM );
+	wp_enqueue_style( ' zrdn-templates' );
+
+	wp_register_script( 'zrdn-muuri',
+		trailingslashit( ZRDN_PLUGIN_URL )
+		. 'grid/js/muuri.min.js', array( "jquery" ),
+		ZRDN_VERSION_NUM );
+	wp_enqueue_script( 'zrdn-muuri' );
+	wp_enqueue_style( 'wp-color-picker' );
+	wp_register_script( 'zrdn-templates',
+		trailingslashit( ZRDN_PLUGIN_URL )
+		. 'grid/js/templates.js', array( "jquery", "zrdn-muuri", 'wp-color-picker' ),
+		ZRDN_VERSION_NUM );
+	wp_enqueue_script( 'zrdn-templates' );
+	$args = array(
+		'admin_url' => admin_url('admin-ajax.php'),
+		'nonce' => wp_create_nonce('zrdn_edit_template'),
+		'strings' => array(
+			'settings_changed' => __("Settings changed, you should save!"),
+		),
+	);
+	wp_localize_script('zrdn-templates', 'zrdn', $args);
 
 }
 
 function zrdn_grid_container(){
-	$file = trailingslashit(ZRDN_PLUGIN_DIRECTORY) . 'grid/templates/grid-container.php';
+	$file = trailingslashit(ZRDN_PATH) . 'grid/templates/grid-container.php';
 
 	if (strpos($file, '.php') !== false) {
 		ob_start();
@@ -40,7 +84,7 @@ function zrdn_grid_container(){
 }
 
 function zrdn_grid_element(){
-	$file = trailingslashit(ZRDN_PLUGIN_DIRECTORY) . 'grid/templates/grid-element.php';
+	$file = trailingslashit(ZRDN_PATH) . 'grid/templates/grid-element.php';
 
 	if (strpos($file, '.php') !== false) {
 		ob_start();

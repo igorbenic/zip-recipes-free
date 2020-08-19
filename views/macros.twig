@@ -1,5 +1,0 @@
-{% macro recipe_attr(attr_name, attr_value, amp_on, schema_type) %}
-    {% if (not amp_on) and (schema_type == 'microdata') %}
-        {{ attr_name }}{% if attr_value %}="{{ attr_value }}"{% endif %}
-    {% endif %}
-{% endmacro %}

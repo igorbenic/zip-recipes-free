@@ -29,15 +29,24 @@
             z-index: 3;
         }
         .zrdn-grid-header {
+            .zrdn-grid-header-container {
+                margin:0 30px;
+                border-bottom: 1px solid @grey-light;
+                height:100%;
+            }
             cursor: pointer;
-            padding: 0 30px;
+            padding: 0;
+            height:60px;
             .zrdn-grid-title{
                 font-size: 20px;
-                padding: 17px 0;
+                padding: 26px 0;
                 font-weight: bold;
-                border-bottom: 1px solid @grey-light;
+                float: left;
             }
-
+            .zrdn-grid-controls {
+                float: right;
+                margin-top: 20px;
+            }
         }
         .item-container {
             background-color: #fff;
@@ -46,6 +55,7 @@
             width: @gridblock_width - 2* @grid_margin;
             height: @gridblock_height - 2 * @grid_margin;
             .item-content {
+                clear:both;
                 margin:15px;
                 height: calc(100% - 100px);
                 padding-top: 15px;

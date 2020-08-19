@@ -1,0 +1,50 @@
+#zrdn-recipe-container {
+  max-width: 800px;
+  margin: auto;
+  /* permalink, print only*/
+}
+#zrdn-recipe-container .block-0.print,
+#zrdn-recipe-container .zrdn-printed-permalink {
+  display: block;
+}
+#zrdn-recipe-container .zrdn-hide-print {
+  display: none;
+}
+#zrdn-recipe-container .zrdn-imperial-metric,
+#zrdn-recipe-container .zrdn__rating__count_label,
+#zrdn-recipe-container .zrdn__rating__user_rating,
+#zrdn-recipe-container .zrdn-ratings-divider {
+  display: none;
+}
+#zrdn-recipe-container .zrdn-serving-adjustment-input {
+  background-color: transparent;
+  border: 0;
+  width: 60px;
+}
+#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table th,
+#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table td {
+  white-space: initial;
+}
+#zrdn-recipe-container ol.zrdn-numbered li:before,
+#zrdn-recipe-container ul.zrdn-numbered li:before {
+  top: 0;
+}
+#zrdn-recipe-container ol.zrdn-bullets li:before,
+#zrdn-recipe-container ul.zrdn-bullets li:before {
+  top: 0;
+}
+#zrdn-recipe-container ol.zrdn-bordered li:before,
+#zrdn-recipe-container ul.zrdn-bordered li:before {
+  border: 0;
+  color: #000;
+}
+#zrdn-recipe-container ol.zrdn-solid li:before,
+#zrdn-recipe-container ul.zrdn-solid li:before {
+  background-color: #000;
+}
+#zrdn-recipe-container ol.zrdn-counter li:before,
+#zrdn-recipe-container ul.zrdn-counter li:before {
+  top: 0;
+  color: #000;
+}
+/*# sourceMappingURL=zrdn-print.css.map */

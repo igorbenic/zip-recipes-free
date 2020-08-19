@@ -1,6 +1,8 @@
 <?php
 namespace ZRDN;
+do_action('zrdn_enqueue_scripts');
 
+//wp_enqueue_style('zrdn_recipe_editor_theme_css', get_stylesheet_uri(), array(), ZRDN_VERSION_NUM);
 //if (!current_user_can('edit_posts')) wp_die("You do not have permission to do this");
 
 $recipe_id = false;
@@ -114,8 +116,9 @@ if (isset($_GET['post_id'])) {
 
                     <h3><?php _e("General", 'zip-recipes') ?></h3>
                     <?php //offer option to go to post if post_id is linked.?>
-                    <?php if (!$zrdn_popup && $recipe->post_id) {
-
+                    <?php
+                    $preview_post_id = get_option('zrdn_preview_post_id');
+                    if ( !$zrdn_popup && $recipe->post_id && $recipe->post_id !== $preview_post_id ){
                                 if ( get_post_type($recipe->post_id) === 'trash') {
                                     zrdn_notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
                                 } else {
@@ -135,7 +138,7 @@ if (isset($_GET['post_id'])) {
                     if ($recipe->is_featured_post_image && Util::get_option('hide_on_duplicate_image') ){
                         zrdn_notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"), 'warning');
                     }
-                    $tags =wp_get_post_tags( $recipe->post_id );
+                    $tags = wp_get_post_tags( $recipe->post_id );
                     if ($recipe->post_id && !$tags){
                         zrdn_notice(
                                 sprintf(__("You haven't added any tags to your post yet. In your post you can %sadd%s some tags relevant to this recipe. These will get added as keywords to your recipes microdata.", "zip-recipes"),
@@ -143,19 +146,24 @@ if (isset($_GET['post_id'])) {
                                 , 'warning', true, false, false);
                     }
 
+                    $fields = array();
+                    if ($zrdn_popup) {
+	                    $fields = array(
+		                    array(
+			                    'type'                  => 'upload',
+			                    'fieldname'             => 'recipe_image',
+			                    'low_resolution_notice' => __( "Low resoltion, please upload a better quality image.",
+				                    'zip-recipes' ),
+			                    'size'                  => 'zrdn_recipe_image',
+			                    'value'                 => $recipe->recipe_image,
+			                    'thumbnail_id'          => $recipe->recipe_image_id,
+			                    'label'                 => __( "Recipe image",
+				                    'zip-recipes' ),
+		                    ),
+	                    );
+                    }
 
-                    $fields = array(
-                        array(
-                            'type' => 'hidden',
-                            'fieldname' => 'recipe_image',
-                            'value'=> $recipe->recipe_image,
-                        ),
-
-                        array(
-                            'type' => 'hidden',
-                            'fieldname' => 'recipe_image_id',
-                            'value' => $recipe->recipe_image_id,
-                        ),
+                    $fields += array(
                         array(
                             'type' => 'text',
                             'fieldname' => 'recipe_title',
@@ -177,6 +185,13 @@ if (isset($_GET['post_id'])) {
                             'label' => __("Cook time", 'zip-recipes'),
                         ),
 
+	                    array(
+		                    'type' => 'time',
+		                    'fieldname' => 'wait_time',
+		                    'value' => $recipe->wait_time,
+		                    'label' => __("Wait time", 'zip-recipes'),
+	                    ),
+
                         array(
                             'type' => 'text',
                             'fieldname' => 'serving_size',
@@ -191,6 +206,8 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->yield,
                             'label' => __("Servings", 'zip-recipes'),
                             'placeholder' => __('4 persons','zip-recipes'),
+                            'help' => __("How many people this recipe serves", 'zip-recipes'),
+
                         ),
 
                         array(
@@ -199,14 +216,16 @@ if (isset($_GET['post_id'])) {
                             'fieldname' => 'ingredients',
                             'value' => $recipe->ingredients,
                             'label' => __("Ingredients", 'zip-recipes'),
-                            'comment' =>sprintf(__("Put each ingredient on a separate line. There is no need to use bullets for your ingredients. You can also create labels, hyperlinks, bold/italic effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
+                            'comment' =>sprintf(__("Put each item on a separate line. There is no need to use bullets for your ingredients. You can also create labels, [hyperlinks|domain.com], *bold*, _italic_ effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
                         ),
                         array(
                             'type' => 'textarea',
                             'fieldname' => 'instructions',
                             'value' => $recipe->instructions,
                             'label' => __("Instructions", 'zip-recipes'),
+                            'comment' =>sprintf(__("Put each item on a separate line. There is no need to use bullets for your ingredients. You can also create labels, [hyperlinks|domain.com], *bold*, _italic_ effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
                         ),
+
                         array(
                             'type' => 'text',
                             'fieldname' => 'video_url',
@@ -214,6 +233,7 @@ if (isset($_GET['post_id'])) {
                             'label' => __("Instruction video", 'zip-recipes'),
                             'comment' => __("A video is a great way to improve your ranking and will get picked up by Google's rich snippets.", 'zip-recipes'),
                         ),
+
                         'categoryField'=>array(
                             'type' => 'text',
                             'fieldname' => 'category',
@@ -228,7 +248,6 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->cuisine,
                             'label' => __("Cuisine", 'zip-recipes'),
                             'placeholder' => __('French','zip-recipes'),
-
                         ),
 
                         array(
@@ -243,14 +262,14 @@ if (isset($_GET['post_id'])) {
                             'type' => 'editor',
                             'fieldname' => 'summary',
                             'value' => $recipe->summary,
-                            'label' => __("Description", 'zip-recipes'),
+                            'label' => __("Summary", 'zip-recipes'),
                             'media' => false,
                         ),
 
                         'author_promo' => array(
                             'type' => 'notice',
                             'fieldname' => 'author_upgrade',
-                            'label' => sprintf(__('Rank even better in Google? Also get the author field in your schema.org markup. Available in %sall plans%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
+                            'label' => sprintf(__('Need to set a custom author instead of a default WordPress editor? Custom authors is a feature available in %sall plans%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
                             'media' => false,
                         ),
                     );
@@ -460,27 +479,70 @@ if (isset($_GET['post_id'])) {
                     foreach ($misc_fields as $field_args) {
                         $field->get_field_html($field_args);
                     }
+                    $list_style_ingredients = Util::get_option('ingredients_list_type');
+                    $list_style_instructions = Util::get_option('instructions_list_type');
+                    $list_type_ingredients  = \ZRDN\Util::get_list_type( $list_style_ingredients );
+                    $list_type_instructions = \ZRDN\Util::get_list_type($list_style_instructions);
                     ?>
+                    <input type="hidden" name="zrdn_ingredients_list_type" value = "<?php echo $list_type_ingredients?>">
+                    <input type="hidden" name="zrdn_instructions_list_type" value = "<?php echo $list_type_instructions?>">
 
 
+                    <?php
+                    $post_permalink = '';
+                    if ($recipe->post_id && get_post_type($recipe->post_id) !== 'trash'){
+                        $post_permalink = get_permalink($recipe->post_id);
+                    } else {
+                        //check if we have our default private post
+                        $preview_post_id = get_option('zrdn_preview_post_id');
+	                    //if not, create one.
+	                    if (!$preview_post_id) {
+	                        $page = array(
+			                    'post_title'   => __("Zip Recipes preview post", "zip-recipes"),
+			                    'post_type'    => "post",
+			                    'post_status'  => 'private',
+			                    'post_content'  => __("Save your recipe to see the preview", "zip-recipes"),
+		                    );
+
+	                        // Insert the post into the database
+		                    $preview_post_id = wp_insert_post( $page );
+		                    update_option('zrdn_preview_post_id',$preview_post_id);
+                        }
+                        //set post content to current recipe
+	                    if ($recipe_id) {
+		                    $shortcode = Util::get_shortcode($recipe_id);
+		                    $args = array(
+			                    'post_content' => $shortcode,
+			                    'ID'           => $preview_post_id,
+		                    );
+		                    wp_update_post( $args );
+	                    }
+
+                        $post_permalink = get_permalink($preview_post_id);
+                    }?>
+                    <input type="hidden" name="zrdn_post_permalink" value = "<?php echo $post_permalink?>">
                 </div><!--tab content -->
             </div>
 
             <div class="zrdn-column preview-column">
                 <div id="zrdn-preview">
-                    <?php
-                    $empty_recipe = new Recipe();
-                    $empty_recipe->load_placeholders();
-                    echo ZipRecipes::zrdn_format_recipe($empty_recipe);
-                    ?>
+                    <?php if (!$post_permalink) {
+                        echo __('The preview requires the recipe to be connected to a published post', "zip-recipes");
+                    } ?>
+                    <div id="zrdn-skeleton">
+                        <div class="lines">
+                            <div class="thumb pulse"></div>
+                            <div class="line pulse"></div>
+                            <div class="line pulse"></div>
+                            <div class="line pulse"></div>
+                            <div class="line pulse"></div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
 
         </div><!-- container -->
-
-
-
-
     </form>
 </div>

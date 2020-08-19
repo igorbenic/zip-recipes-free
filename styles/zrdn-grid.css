@@ -1,0 +1,32 @@
+#zrdn-recipe-container {
+  /* GRID */
+  width: 100%;
+  display: flex;
+  /* or inline-flex */
+  flex-wrap: wrap;
+  padding: 10px;
+}
+#zrdn-recipe-container .zrdn-block {
+  max-width: 100%;
+}
+#zrdn-recipe-container .zrdn-block-0 {
+  display: none;
+}
+#zrdn-recipe-container .zrdn-block-50 {
+  flex-basis: 50%;
+  padding: 10px;
+}
+#zrdn-recipe-container .zrdn-block-100 {
+  flex-basis: 100%;
+  padding: 10px;
+}
+#zrdn-recipe-container .zrdn-block-wrap + .zrdn-block-wrap {
+  margin: 20px 0;
+}
+@media only screen and (max-width: 600px) {
+  #zrdn-recipe-container .zrdn-block-50 {
+    flex-basis: 100%;
+  }
+}
+/* END SPECIFIC ELEMENT STYLES */
+/*# sourceMappingURL=zrdn-grid.css.map */
