@@ -1329,6 +1329,7 @@ class ZipRecipes {
 	    foreach ($other_extensions as $index => $other_extension ) {
 
 		    $status = ZipRecipes::get_extension_status($index);
+
 		    $other_extension['color'] = $status;
 		    $other_extensions_content .= Util::render_template('extension-bulleted-item.php', false, $other_extension);
 	    }
@@ -1433,7 +1434,7 @@ class ZipRecipes {
     public static function get_extension_status($extension){
 	    $is_lover = defined('ZRDN_PRODUCT_ID') && ZRDN_PRODUCT_ID === 1843;
 	    $is_friend = defined('ZRDN_PRODUCT_ID') && ZRDN_PRODUCT_ID === 1851;
-	    if (in_array($extension, self::$addons_lover)){
+	    if (in_array($extension, self::$addons_lover) && !in_array($extension, self::$addons_friend)){
 		    if ( $is_lover ) {
 			    if (Util::is_plugin_active($extension)) {
 				    return 'active';
