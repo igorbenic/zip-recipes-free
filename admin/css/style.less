@@ -1,21 +1,99 @@
 @brand-primary: #F343A0;
 @brand-friend: #27b6f6;
-@color-success: #61ce70;
+@color-success: #61ce70; //green
+@color-complianz: #29b6f6;
 @color-error: #d7263d;
 @light-text-color: #3c3c3c;
 @border-color: #DEDEDE;
-.wrap {
+@grey-light: #ededed;
+
+//recipe overview
+.zrdn-recipes {
+  .column-details {
+    padding-top:19px;
+  }
+
+  .zrdn-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #fff;
+
+    &.popular {
+      background-color: @color-success;
+    }
+
+    &.demo {
+      background-color: @color-complianz;
+    }
+  }
+}
+
+#zip-recipes.wrap {
   margin-left:-20px;
   margin-right:0;
+  margin-top:0;
 }
+
+
 #zrdn-dashboard {
   .zrdn-gridless {
+
     .zrdn-grid-title {
       display: flex;
       justify-content: space-between;
     }
+    .zrdn-bullet {
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      margin-right: 10px;
+      background-color: @grey-light;
+
+      &.lover {
+        background-color: @brand-primary;
+      }
+      &.friend {
+        background-color: @brand-friend;
+      }
+      &.active {
+        background-color: #36d636;
+      }
+    }
+    .zrdn-item.zrdn-bulleted-block {
+      .item-content {
+        padding: 15px 20px;
+        margin: 0 auto;
+        >div {
+          display: flex !important;
+          flex-direction: column;
+          flex-wrap: wrap;
+          height:160px;
+        }
+      }
+    }
+    .zrdn-bulleted-upsell {
+      flex-direction: row;
+      padding: 18px 6px;
+      align-items: center;
+      color: @grey-light;
+      a{
+        text-decoration: none;
+        color: @light-text-color;
+        &:hover {
+          color: #E366A1;
+        }
+      }
+
+      .zrdn-plugin-text, .zrdn-plugin-color {
+        float:left;
+      }
+    }
+
+
+
     .zrdn-extension-label{
-      background-color: #36d636;
+      min-width:55px;
+      background-color: @grey-light;
       color:white;
       border: 0;
       border-radius: 15px;
@@ -29,6 +107,17 @@
       &.friend {
         background-color: @brand-friend;
       }
+      &.active {
+        background-color: #36d636;
+      }
+      &.zrdn-hide-bullet {
+        display:none;
+      }
+    }
+    .zrdn-grid-title  .zrdn-extension-label{
+      border-radius: 50%;
+      min-width:initial;
+      height:20px;
     }
     height: 100vh;
     min-height:2000px;
@@ -49,8 +138,37 @@
         p, .zrdn-license-container {
           margin: 15px 30px;
         }
+
+        .zrdn-extension-image {
+          height:250px;
+          overflow:hidden;
+        }
+
+        .zrdn-button-paragraph {
+          margin:0;
+          border-top: 1px solid @grey-light;
+          position: absolute;
+          bottom: 42px;
+          height: 7px;
+          white-space: nowrap;
+          width: 100%;
+          .zrdn-button {
+            position: absolute;
+            bottom: -33px;
+            text-align: center;
+            width: 100%;
+          }
+        }
+
+
       }
     }
+    .zrdn-item[data-id="general"] {
+      .zrdn-button-paragraph {
+        padding:10px 0 0 10px;
+      }
+    }
+
   }
 }
 
@@ -76,6 +194,68 @@
 
 #zrdn-toggle-arrows {
   margin-top: 6px;
+}
+
+
+#zip-recipes {
+
+  ul.tabs li.current {
+    background: #ffffff;
+    color: #222;
+  }
+
+  .tab-content {
+    display: none;
+    background: #F1F1F1;
+    padding: 15px;
+  }
+
+  .tab-content.current {
+    display: inherit;
+  }
+
+  .tab-text {
+    color: #444444;
+    font-size: 1.2em;
+    text-decoration: none;
+    outline: 0;
+    box-shadow: 0 0 0 0;
+    &:focus{
+      box-shadow: initial;
+    }
+  }
+
+  .current .tab-text {
+    padding-bottom: 25px;
+    border-bottom: 2px solid @color-error;
+  }
+
+  ul.tabs {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    height: 70px;
+  }
+
+  ul.tabs li {
+    background: none;
+    color: #222;
+    display: inline-block;
+    padding: 15px 15px 15px 15px;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  ul.tabs li.current {
+    background: #ffffff;
+    color: #222;
+  }
+
+  .tab-content {
+    display: none;
+    background: #F1F1F1;
+    padding: 15px;
+  }
 }
 
 .zrdn-settings-container {
@@ -275,66 +455,7 @@ widget
     word-break: break-all;
   }
 
-  .tab-link:hover {
-    //background-color: #EDEDED;
-    //opacity: 0.6;
-  }
 
-  /*
-      Navigation & tabs
-   */
-
-  ul.tabs {
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-    height: 70px;
-  }
-
-  ul.tabs li {
-    background: none;
-    color: #222;
-    display: inline-block;
-    padding: 15px 15px 15px 15px;
-    cursor: pointer;
-    margin: 0;
-  }
-
-  ul.tabs li.current {
-    background: #ffffff;
-    color: #222;
-  }
-
-  .tab-content {
-    display: none;
-    background: #F1F1F1;
-    padding: 15px;
-  }
-
-  #zrdn-delete-selected {
-    vertical-align: middle;
-    margin-left: 25px;
-  }
-
-  .tab-content.current {
-    display: inherit;
-  }
-
-  .tab-text {
-    color: #444444;
-    font-size: 1.2em;
-    text-decoration: none;
-    outline: 0;
-    box-shadow: 0 0 0 0;
-    &:focus{
-      box-shadow: initial;
-    }
-  }
-
-  .current .tab-text {
-    padding-bottom: 25px;
-    border-bottom: 2px solid @color-error;
-  }
 
   /*
     General table styling
@@ -984,6 +1105,10 @@ widget
   input:focus + .zrdn-slider {
     box-shadow: 0 0 1px @brand-primary;
   }
+
+}
+
+#zrdn-dashboard, #zip-recipes {
   /* zrdn-tooltip for settings page */
   /* Base styles for the element that has a zrdn-tooltip */
 
@@ -1063,7 +1188,6 @@ widget
   /* Directions */
 
   /* Top (default) */
-
   [data-zrdn-tooltip]:before,
   [data-zrdn-tooltip]:after,
   .zrdn-tooltip:before,
@@ -1199,6 +1323,17 @@ widget
   .zrdn-tooltip-right:after {
     margin-left: 0;
     margin-bottom: -16px;
+  }
+
+  .zrdn_extension_explanation_container {
+    display:flex;
+    margin: 15px 30px;
+    .zrdn-column-badge {
+      flex: 25%;
+    }
+    .zrdn-column-text {
+      flex: 75%;
+    }
   }
 }
 

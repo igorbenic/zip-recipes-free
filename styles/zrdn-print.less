@@ -1,0 +1,51 @@
+
+#zrdn-recipe-container {
+  max-width:800px;
+  margin:auto;
+  /* permalink, print only*/
+  .block-0.print, .zrdn-printed-permalink{
+    display:block;
+  }
+  .zrdn-hide-print {
+    display: none;
+  }
+
+  //hide reviews and imperial metric
+  .zrdn-imperial-metric, .zrdn__rating__count_label, .zrdn__rating__user_rating, .zrdn-ratings-divider {
+    display:none;
+  }
+
+  //hide input look
+  .zrdn-serving-adjustment-input{
+    background-color:transparent;
+    border:0;
+    width:60px;
+  }
+
+  #zrdn-nutrition-label .nutrition-facts__table th, #zrdn-nutrition-label .nutrition-facts__table td{
+    white-space: initial;
+  }
+
+  @default-bullet-color: #000;
+  ol, ul {
+    &.zrdn-numbered li:before{
+      top: 0;
+    }
+    &.zrdn-bullets li:before{
+      top: 0;
+    }
+
+    &.zrdn-bordered li:before{
+      border: 0;
+      color: @default-bullet-color;
+    }
+    &.zrdn-solid li:before{
+      background-color: @default-bullet-color;
+    }
+
+    &.zrdn-counter li:before {
+      top: 0;
+      color: @default-bullet-color;
+    }
+  }
+}

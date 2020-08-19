@@ -22,10 +22,8 @@ function zrdn_add_custom_meta_box($post_type)
 /**
  * Metabox for managing recipe link to post or page
  */
-function zrdn_recipe_meta_box(){
-    $post_id = isset($_GET['post']) ? intval($_GET['post']) : false;
-    if ($post_id){
-
-    }
-    echo Util::render_template('toolbar.php');
+if (!function_exists('ZRDN\zrdn_recipe_meta_box')) {
+	function zrdn_recipe_meta_box() {
+		echo Util::render_template( 'toolbar.php' );
+	}
 }

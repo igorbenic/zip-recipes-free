@@ -15,349 +15,297 @@ Copyright 2011, 2012 ZipList, Inc.
    v2.0 | 20110126
    License: none (public domain)
 */
-#zlrecipe-container {
-   html,  body,  div,  span,  applet,  object,  iframe,
-   h1,  h2,  h3,  h4,  h5,  h6,  p,  blockquote,  pre,
-   a,  abbr,  acronym,  address,  big,  cite,  code,
-   del,  dfn,  em,  img,  ins,  kbd,  q,  s,  samp,
-   small,  strike,  strong,  sub,  sup,  tt,  var,
-   b,  u,  i,  center,
-   dl,  dt,  dd,  ol,  ul,  li,
-   fieldset,  form,  label,  legend,
-   table,  caption,  tbody,  tfoot,  thead,  tr,  th,  td,
-   article,  aside,  canvas,  details,  embed,  figure,
-   figcaption,  footer,  header,  hgroup,  menu,
-   nav,  output,  ruby,  section,  summary,
-   time,  mark,  audio,  video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+@default-margin: 20px;
+
+/* Nutrition label outside container */
+#zrdn-nutrition-label {
+  .nutrition-facts {
+    margin: @default-margin;
   }
 }
-/* Covers differences for large(r) screens */
-@media all and (min-width: 361px) {
-  #zlrecipe-container {
-    ul {
-      padding: 0 0 0 2.4em;
-    }
+html{scroll-behavior:smooth}
 
-    ol {
-      padding: 0 0 0 3em;
-      margin: 1em 0;
-    }
-
-    #zlrecipe-instructions-list {
-      margin: 0 0.5em;
-    }
-  }
-}
-
-#zlrecipe-container {
-  ol {
-    list-style-type: decimal;
-    margin: 1em;
-  }
-
-  /* HTML5 display-role reset for older browsers */
-   article,  aside,  details,  figcaption, figure, footer,  header,  hgroup,  menu,  nav,  section {
-    display: block;
-  }
-
-   blockquote,  q {
-    quotes: none;
-  }
-   blockquote:before,  blockquote:after,
-   q:before,  q:after {
-    content: none;
-  }
-   table {
-    border-collapse: collapse;
-    border-spacing: 0;
-  }
-  /* END RESETS */
-
-  /* TYPOGRAPHY */
-  p {
-    line-height: 1.2em;
-    margin: 1em 0;
-  }
-  ul {
-    margin: 1em;
-    padding: 0;
-  }
-  .heading-one,  .h-1 {
-    font-size: 2em;
-    line-height: 1.3em;
-  }
-
-  .heading-two,  .h-2 {
-    font-size: 1.75em;
-  }
-
-  .heading-three,  .h-3 {
-    font-size: 1.5em
-  }
-
-  .heading-four,  .h-4 {
-    font-size: 1.25em
-  }
-
-  .bold,  .strong {
-    font-weight: bold;
-  }
-
-  .italic,  .em {
-    font-style: italic;
-  }
-
-  .serif {
-    font-family: palatino, 'palatino linotype', Georgia, 'Times New Roman', Times, serif;
-  }
-
-  .sans-serif {
-    font-family: 'helvetica neue', helvetica, arial, verdana, sans-serif;
-  }
-
-  .text-align-center, .t-a-c {
-    text-align: center;
-  }
-
-  /* END TYPOGRAPHY */
-
-  /* FORMATTING */
-
-  .padding-all,  .p-a {
-    padding: 1em;
-  }
-
-  .padding-top,  .p-t {
-    padding-top: 1em;
-  }
-
-  .padding-right,  .p-r {
-    padding-right: 1em;
-  }
-
-  .padding-bottom,  .p-b {
-    padding-bottom: 1em;
-  }
-
-  .padding-left,  .p-l {
-    padding-left: 1em;
-  }
-
-  .float-left,  .fl-l {
-    float: left;
-  }
-
-  .float-right,  .fl-r {
-    float: right;
-  }
-
-  .width-33 {
-    width: 33%;
-  }
-  @media all and (max-width: 600px) {
-    .width-33 {
-      width: 100%;
-    }
-  }
-
-  .clear,  .zlclear {
-    clear: both;
-  }
-
-   .texthide {
-    text-indent: -9999px;
-  }
-
-  .hide-card {
-    display: none;
-  }
-
-  /* used to hide things in the recipe card (web) view */
-  .border-bottom,  .b-b {
-    border-bottom: 1px solid #000;
-  }
-
-  .border-top,  .b-t {
-    border-top: 1px solid #000;
-  }
-
-  /* END FORMATTING */
+#zrdn-recipe-container {
 
   /* SPECIFIC ELEMENT STYLES */
-    padding: 10px;
+ .zrdn-block-divider {
+   border-bottom:1px solid black;
+ }
 
-   #zlrecipe-title {
-    padding-bottom: 0.5em;
+  .zrdn-recipe-image {
+    img {
+      width:100%;
+    }
   }
 
-   .zlrecipe-print-link {
-
-     padding-left: 0.5em;
-    margin-top: 5px;
+  /* Author */
+  .zrdn-author {
+    .zrdn-avatar + div {margin-left:25px;}
+    div + div {
+      margin-left: 5px;
+    }
+    display:flex;
+    align-items:center;
+    .zrdn-avatar {
+      img {
+      border-radius: 50%;
+      width: 60px;
+      height:inherit;
+    }
+    }
   }
 
-   .zl-recipe-link {
-    margin-top: 5px;
-  }
+  .zrdn-category  {
+    .zrdn-recipe-label {
+      display:none;
+      min-width:130px;
+      font-weight: 700;
+    }
+    display:flex;
+    flex-wrap: wrap;
+    a, div, span {
+      padding-right:@default-margin;
+    }
+    .zrdn-cuisine-category-divider {padding:0}
 
-   .zlrecipe-print-link .butn-link {
-     /*prevent themes from adding shadows to link*/
-     -webkit-box-shadow: inset 0 0 0 rgba(15, 15, 15, 1);
-     box-shadow: inset 0 0 0 rgba(15, 15, 15, 1);
-
-    background: url("../images/print-icon.png") no-repeat scroll 0 4px transparent;
-    cursor: pointer;
-    padding: 0 0 0 20px;
-    display: block;
-    height: 20px;
-  }
-
-   .zlrecipe-print-link .butn-link:hover {
-    background-position: 0 -21px;
-  }
-
-   .zlrecipe-print-link {
-    vertical-align: top;
-    display: inline-block;
-    margin-right: 5px;
   }
 
   /* custom print button */
-  .zlrecipe-print-link {
-    .print-link img {
-      height:30px;
+  .zrdn-actions {
+    display:flex;
+    align-items:center;
+    .zrdn-print-link {
+      vertical-align: top;
+      display: inline-block;
+      margin-right: 5px;
+
+      a img {
+        height: 15px;
+      }
     }
   }
 
-   .meta,  .zlmeta {
-    font-size: 0.85em;
-    font-weight: bold;
-  }
-
-   .meta span,  .zlmeta span {
-    font-weight: normal;
-  }
-
-   #zlrecipe-ingredients-list,  #zlrecipe-instructions-list {
-    line-height: 1.5em;
-  }
-
-  #zlrecipe-ingredients-list .no-bullet,  #zlrecipe-instructions-list .no-bullet {
-    list-style-type: none;
-  }
-
-   #zlrecipe-ingredients-list .ingredient-label,
-  #zlrecipe-instructions-list .instruction-label,
-  #zlrecipe-ingredients-list .no-bullet-label,
-  #zlrecipe-instructions-list .no-bullet-label {
+  /*Video*/
+  .zrdn-video .zrdn-element_video_url {
     position: relative;
-    left: -10px;
-    margin-top: 5px;
-    font-weight: bold;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    iframe,
+    object,
+    embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 
-  span#zlrecipe-ingredients-list .ingredient-label,
-  span#zlrecipe-instructions-list .instruction-label {
-    left: 0;
+
+  /* Yield */
+  .zrdn-details {
+    div + div { padding-right:0.5*@default-margin;}
+    display:flex;
+    flex-wrap: wrap;
+    .zrdn-details-item {
+      flex-basis:50%;
+      display:flex;
+    }
+    .zrdn-recipe-label, .zrdn-value {
+      flex-basis:50%;
+      white-space: nowrap;
+    }
+    .zrdn-recipe-label {
+      font-weight:700;
+      padding-right: 10px;
+    }
+    .zrdn-yield-container {
+      .zrdn-yield-label {padding-right:0.5*@default-margin}
+      display:flex;
+      align-items: center;
+      .zrdn-yield {
+        display:flex;
+        align-items: center;
+      }
+    }
   }
 
-  #zlrecipe-instructions-list {
-    margin: 1em;
+  /* Ingredients */
+  ul, ol {
+    margin-left: @default-margin;
+    &.zrdn-ingredients-list.nobullets {
+      list-style: none;
+      margin-left:0;
+      padding-left: 0;
+    }
   }
 
-  #zlrecipe-notes-list {
-    margin: 0 10px;
-    padding: 0 10px;
+  @default-bullet-color: #E35899;
+  ol, ul {
+    &.zrdn-numbered li, &.zrdn-bullets li {
+      counter-increment: inst;
+      display: block;
+      position: relative;
+    }
+    &.zrdn-numbered li:before{
+      content: counter(inst);
+      position: absolute;
+      left: -30px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+      top: 9px;
+    }
+    &.zrdn-bullets li:before{
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 9px;
+    }
+    &.zrdn-square li:before{
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+    }
+
+    &.zrdn-round li:before{
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+    }
+    &.zrdn-bordered li:before{
+      border: 2px solid @default-bullet-color;
+      color: @default-bullet-color;
+      background-color: transparent;
+      height: 26px;
+      width: 26px;
+      line-height:20px;
+      font-size:17px;
+    }
+    &.zrdn-solid li:before{
+      background-color: @default-bullet-color;
+      color: #fff;
+      height: 24px;
+      width: 24px;
+      line-height: 23px;
+      font-size:17px;
+    }
+
+    &.zrdn-counter li:before {
+      font-size: 19px;
+      top: 3px;
+      color: @default-bullet-color;
+    }
   }
 
-  .img-desc-wrap img.photo {
-    width: 545px;
+  /* Notes */
+  #zrdn-notes {
+
   }
 
-  .img-desc-wrap #zlrecipe-summary {
-    padding: 0 10px 10px;
+  /* nutrition in text */
+  .zrdn-nutrition_text {
+    display:flex;
+    flex-wrap:wrap;
+    line-height:1.8em;
+    .zrdn-text-nutrition-item {
+      margin:0 10px 10px 0;
+      border:2px solid #666;
+      padding:5px;
+      color:#666;
+      min-width:100px;
+      .zrdn-nutrition-title {
+        font-size:18px;
+      }
+      .zrdn-nutrition-value {
+        font-size:27px;
+        line-height: 36px;
+        border-bottom:1px solid #666;
+      }
+      .zrdn-nutrition-percentage {
+        font-size:22px;
+      }
+      >div {
+        text-align:center;
+      }
+    }
   }
 
-  #zlrecipe-summary .summary {
-    margin: 10px 0;
+  /* TAGS */
+  .zrdn-tags {
+    .zrdn-tags-container {
+      display: flex;
+      flex-wrap:wrap;
+      .zrdn-tag-item:first-child,
+      .zrdn-tag-item + .zrdn-tag-item {
+        margin-right: 0.5 * @default-margin;
+      }
+    }
   }
 
-  .zl-linkback {
-    font-size: 0.9em;
-    color: #aaa;
-    margin-top: 4em;
+  /*Social*/
+  .zrdn-social-container {
+    display:flex;
+    .zrdn-share + .zrdn-share{
+      margin-left:@default-margin;
+    }
+    .zrdn-share {
+
+    }
   }
 
-  #zl-printed-permalink {
-    display: none;
-    font-size: 0.7em;
+  /* permalink, print only*/
+  .zrdn-printed-permalink{
+    display:none;
   }
 
-  #zl-printed-copyright-statement {
-    display: none;
-    font-size: 0.9em;
-  }
-
-  p.t-a-c {
-    margin-top: 0;
-  }
-
-  .br-theme-css-stars .br-widget {
-    height: 18px;
-    margin-top: 5px;
-  }
-}
-/* Nutrition Label CSS */
-
+  /* Nutrition Label CSS */
   #zrdn-nutrition-label {
-    width:100%;
+    width: 100%;
+
     .nutrition-container {
       font-family: sans-serif;
-      font-size:12px;
-      line-height:1.4;
-      margin:auto auto;
+      font-size: 12px;
+      line-height: 1.4;
+      margin: auto auto;
     }
+
     p {
-      margin:0;
+      margin: 0;
     }
+
     .nutrition-facts {
       border: 1px solid black;
-      margin: 20px;
       //float: left;
       width: 280px;
       padding: 8px;
-
+      margin:0;
       table {
         border-collapse: collapse;
       }
     }
+
     .nutrition-facts__title {
       &::before {
         display: none;
       }
+
       margin: 0 0 4px 0;
     }
-    h2.nutrition-facts__title {
-        font-size: 36px;
-        font-weight:bold;
-    }
-    h3.nutrition-facts__title, h3.nutrition-facts__title span {
-      font-size: 22px;
-      font-weight:normal;
+
+    h4.nutrition-facts__title {
+      font-size: 36px;
+      font-weight: bold;
     }
 
-    .bold {
-      font-weight:bold;
+    h5.nutrition-facts__title, h5.nutrition-facts__title span {
+      font-size: 22px;
+      font-weight: normal;
     }
 
     .nutrition-facts__header {
-      border-bottom: 10px solid black;
+      border-bottom: @default-margin solid black;
       padding: 0 0 4px 0;
       margin: 0 0 8px 0;
 
@@ -368,7 +316,7 @@ Copyright 2011, 2012 ZipList, Inc.
 
     .nutrition-facts__table {
       width: 100%;
-      margin:0;
+      margin: 0;
 
       thead tr {
         th, td {
@@ -380,7 +328,7 @@ Copyright 2011, 2012 ZipList, Inc.
         font-weight: normal;
         text-align: left;
         padding: 4px 0;
-        border:0;
+        border: 0;
         border-top: 1px solid black;
         white-space: nowrap;
       }
@@ -407,9 +355,9 @@ Copyright 2011, 2012 ZipList, Inc.
       font-size: 12px;
     }
 
-    .copyright{
-      font-size:12px;
-      margin-top:10px;
+    .copyright {
+      font-size: 12px;
+      margin-top: @default-margin;
     }
 
     .nutrition-facts__table--small {
@@ -457,14 +405,14 @@ Copyright 2011, 2012 ZipList, Inc.
     }
 
     .thick-end {
-      border-bottom: 10px solid black;
+      border-bottom: @default-margin solid black;
     }
 
     .thin-end {
       border-bottom: 1px solid black;
     }
   }
-
+}
 
 /* END SPECIFIC ELEMENT STYLES */
 

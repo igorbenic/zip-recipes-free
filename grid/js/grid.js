@@ -1,7 +1,5 @@
 jQuery(document).ready(function($) {
-
     initGrid();
-
     function initGrid() {
 
         var grid = new Muuri('.zrdn-grid', {
@@ -22,7 +20,7 @@ jQuery(document).ready(function($) {
                 }
             },
             dragReleaseDuration: 400,
-            dragReleseEasing: 'ease',
+            dragReleaseEasing: 'ease',
             layoutOnInit: true,
             // itemDraggingClass: 'muuri-item-dragging',
         })
@@ -30,7 +28,7 @@ jQuery(document).ready(function($) {
             saveLayout(grid);
         });
 
-        var layout = window.localStorage.getItem('layout');
+        var layout = window.localStorage.getItem('zrdn_layout');
         if (layout) {
             loadLayout(grid, layout);
         } else {
@@ -49,7 +47,7 @@ jQuery(document).ready(function($) {
 
     function saveLayout(grid) {
         var layout = serializeLayout(grid);
-        window.localStorage.setItem('layout', layout);
+        window.localStorage.setItem('zrdn_layout', layout);
     }
 
     function loadLayout(grid, serializedLayout) {
@@ -58,18 +56,19 @@ jQuery(document).ready(function($) {
         // // Add or remove the muuri-active class for each checkbox. Class is used in filtering.
         $('.zrdn-item').each(function(){
             var toggle_id = $(this).data('id');
-            if (localStorage.getItem("toggle_data_id_"+toggle_id) === null) {
-                window.localStorage.setItem('toggle_data_id_'+toggle_id, 'checked');
+            if ( typeof toggle_id === 'undefined' ) return;
+
+            if (localStorage.getItem("zrdn_toggle_data_id_"+toggle_id) === null) {
+                window.localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
             }
 
-            // // Add or remove the active class when the checkbox is checked/unchecked
-            if (window.localStorage.getItem('toggle_data_id_'+toggle_id) == 'checked') {
+            //Add or remove the active class when the checkbox is checked/unchecked
+            if (window.localStorage.getItem('zrdn_toggle_data_id_'+toggle_id) === 'checked') {
                 $(this).addClass("muuri-active");
             } else {
                 $(this).removeClass("muuri-active");
             }
         });
-
 
         var currentItemIds = currentItems.map(function (item) {
             return item.getElement().getAttribute('data-id')
@@ -86,9 +85,16 @@ jQuery(document).ready(function($) {
             }
         }
 
-        // Sort and filter the grid
-        grid.sort(newItems, {layout: 'instant'});
-        grid.filter('.muuri-active');
+        try {
+            // Sort and filter the grid
+            grid.sort(newItems, {layout: 'instant'});
+            grid.filter('.muuri-active');
+        }
+        catch(err) {
+            console.log('error with grid, clear');
+            window.localStorage.removeItem('zrdn_layout');
+            window.localStorage.removeItem('layout');
+        }
     }
 
 
@@ -96,14 +102,16 @@ jQuery(document).ready(function($) {
     $('.zrdn-item').each(function(){
         var toggle_id = $(this).data('id');
         // Set defaults for localstorage checkboxes
-        if (!window.localStorage.getItem('toggle_data_id_'+toggle_id)) {
-            window.localStorage.setItem('toggle_data_id_'+toggle_id, 'checked');
+        if (!window.localStorage.getItem('zrdn_toggle_data_id_'+toggle_id)) {
+            window.localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
         }
-        $('#toggle_data_id_'+toggle_id).change(function() {
-            if (document.getElementById("toggle_data_id_"+toggle_id).checked ) {
-                window.localStorage.setItem('toggle_data_id_'+toggle_id, 'checked');
+
+
+        $('#zrdn_toggle_data_id_'+toggle_id).change(function() {
+            if (document.getElementById("zrdn_toggle_data_id_"+toggle_id).checked ) {
+                window.localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
             } else {
-                window.localStorage.setItem('toggle_data_id_'+toggle_id, 'unchecked');
+                window.localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'unchecked');
             }
             initGrid();
         });
@@ -113,7 +121,7 @@ jQuery(document).ready(function($) {
      * Show/hide dashboard items
      */
 
-        //Get the window hash for redirect to #settings after settings save
+    //Get the window hash for redirect to #settings after settings save
     var tab = window.location.hash.substr(1).replace('#top','');
     $('ul.tabs li').click(function () {
         var tab_id = $(this).attr('data-tab');
@@ -137,33 +145,34 @@ jQuery(document).ready(function($) {
      * Checkboxes
      */
 
-        // Get grid toggle checkbox values
-    var formValues = JSON.parse(localStorage.getItem('formValues')) || {};
-    var $checkboxes = $("#zrdn-toggle-dashboard :checkbox");
+    // Get grid toggle checkbox values
+    var zrdnFormValues = JSON.parse(localStorage.getItem('zrdnFormValues')) || {};
+    var checkboxes = $("#zrdn-toggle-dashboard :checkbox");
 
     // Enable all checkboxes by default to show all grid items. Set localstorage val when set so it only runs once.
     if (localStorage.getItem("zrdnDashboardDefaultsSet") === null) {
-        $checkboxes.each(function () {
-            formValues[this.id] = 'checked';
+        checkboxes.each(function () {
+            zrdnFormValues[this.id] = 'checked';
         });
-        localStorage.setItem("formValues", JSON.stringify(formValues));
+        localStorage.setItem("zrdnFormValues", JSON.stringify(zrdnFormValues));
         localStorage.setItem('zrdnDashboardDefaultsSet', 'set');
     }
 
+    updateStorage();
     // Update storage checkbox value when checkbox value changes
-    $checkboxes.on("change", function(){
+    checkboxes.on("change", function(){
         updateStorage();
     });
 
     function updateStorage(){
-        $checkboxes.each(function(){
-            formValues[this.id] = this.checked;
+        checkboxes.each(function(){
+            zrdnFormValues[this.id] = this.checked;
         });
-        localStorage.setItem("formValues", JSON.stringify(formValues));
+        localStorage.setItem("zrdnFormValues", JSON.stringify(zrdnFormValues));
     }
 
     // Get checkbox values on pageload
-    $.each(formValues, function(key, value) {
+    $.each(zrdnFormValues, function(key, value) {
         $("#" + key).prop('checked', value);
     });
 

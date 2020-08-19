@@ -1,39 +1,61 @@
 <?php
+
 namespace ZRDN;
-require_once('class-shortcode.php');
-require_once('widget.php');
-if (!defined('ABSPATH')) exit;
+require_once( 'class-shortcode.php' );
+require_once( 'widget.php' );
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Output the label markup
- * @param $nutrition_label
- * @param $recipe
+ *
+ * @param Recipe $recipe
+ * @param array $settings
  * @param bool $is_shortcode
+ *
  * @return string
  */
-function zrdn_label_markup($nutrition_label, $recipe, $is_shortcode = false)
-{
-    $amp_on = false;
-    if (function_exists('is_amp_endpoint')) {
-        $amp_on = is_amp_endpoint();
-    }
 
-    $description = $recipe->preview ? '' : sprintf(__('Nutrition label for %s', "zip-recipes"), $recipe->recipe_title);
+function zrdn_label_markup($recipe, $settings, $is_shortcode = false ) {
+	$amp_on = false;
+	$html = "";
+	if ( function_exists( 'is_amp_endpoint' ) ) {
+		$amp_on = is_amp_endpoint();
+	}
 
-    $data = array_merge(get_object_vars($recipe), array(
-        'has_nutrition_data' => $recipe->has_nutrition_data,
-        'label_url' => $recipe->nutrition_label, //when it's an image
-        'description' => $description,
-        'hide_print_label' => Util::get_option('hide_print_nutrition_label'),
-        'show_label' => !Util::get_option('hide_nutrition_label'),
-        'label_display_method' => Util::get_option('nutrition_label_type'),
-    ));
+	$description = $recipe->preview
+		? ''
+		: sprintf( __( 'Nutrition label for %s', "zip-recipes" ),
+			$recipe->recipe_title );
 
-    $data['site_name'] = get_bloginfo('name');
-    $data['is_shortcode'] = $is_shortcode;
-    $data['amp_on'] = $amp_on;
+	$settings['description'] = $description;
+	$settings['site_name'] = get_bloginfo( 'name' );
+	$settings['amp_on']    = $amp_on;
+	if ( $recipe->has_nutrition_data ) {
+		if (Util::get_option( 'nutrition_label_type' ) != 'html' && $recipe->nutrition_label ){
+			$nutrition_label = Util::render_template( 'nutrition_label_image.php', $recipe, $settings );
+		} else {
+			$nutrition_label = Util::render_template( 'nutrition_label_html.php', $recipe, $settings );
+		}
 
-    $html = Util::view('NutritionLabel', $data);
-	return apply_filters('zrdn_nutrition_label', $html);
+		$args['nutritionlabel'] = $nutrition_label;
+		$args['hide_print'] = Util::get_option( 'hide_print_nutrition_label' );
+		$html = Util::render_template( 'nutrition_label.php', $recipe, $args );
+	}
+	return $html;
+
 }
-add_filter('zrdn__nutrition_get_label', __NAMESPACE__ . '\zrdn_label_markup', 10, 2);
+add_filter( 'zrdn__nutrition_get_label', __NAMESPACE__ . '\zrdn_label_markup', 10, 2 );
+
+/**
+ * Render nutrition label in recipe block
+ * @param Recipe $recipe
+ * @param array $settings
+ */
+
+function zrdn_nutrition_label( $recipe, $settings ){
+	echo zrdn_label_markup( $recipe, $settings, false);
+}
+add_action("zrdn_recipe_block_nutrition_label", __NAMESPACE__ . '\zrdn_nutrition_label', 10, 2);
+

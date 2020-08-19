@@ -15,7 +15,7 @@ abstract class PluginBase
 
     public function __construct()
     {
-
+		
 		if ($this->isDisabled()) {
             return false;
         }
@@ -24,7 +24,6 @@ abstract class PluginBase
 
         return true;
 	}
-
 
 	
 	public function zrdn_plugin_enqueue_settings_css () {
@@ -144,15 +143,15 @@ abstract class PluginBase
                    ),
 
                    array(
-                       'src' =>array('[\d ]'._x('g','short for gram','zip-recipes'),'[\d ]' . _x('g','short for grams, plural','zip-recipes')),
-                       'type' => 'metric',
+	                   'src' =>array('(\d )'._x('g','short for gram','zip-recipes').'(\,|\.|\ )','(\d )'._x('g','short for grams, plural','zip-recipes').'(\,|\.|\ )'),
+	                   'type' => 'metric',
                        'conversionUnit' => array('ounce','ounces'),
                        'ratio' => '0.0352739619',
                        'decimal_rounding' => 1,
                    ),
                     //untranslated
                     array(
-                        'src' =>array('[\d ]'.'g','[\d ]' . 'g'),
+                        'src' =>array('(\d )g(\,|\.|\ )','(\d )g(\,|\.|\ )'),
                         'type' => 'metric',
                         'conversionUnit' => array('ounce','ounces'),
                         'ratio' => '0.0352739619',

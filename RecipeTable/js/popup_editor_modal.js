@@ -3,14 +3,6 @@ jQuery(document).ready(function ($) {
     var args = top.tinymce.activeEditor.windowManager.getParams();
     var editor = args['editor'];
     var modal_width = args['width'];
-    //move image to normal form
-    if ($('.zrdn-recipe-image').length){
-        var image = $('.zrdn-recipe-image').parent().html();
-        $('#general').prepend('<div id="zrdn-popup-image">'+image+'</div>');
-        $('#zrdn-popup-image').append('<div class="zrdn-edit-image-text">' +
-            zrdn_editor.str_click_to_edit_image +
-            '</div>');
-    }
 
     //prevent form submit in popup mode
     $("#recipe-settings").submit(function(){

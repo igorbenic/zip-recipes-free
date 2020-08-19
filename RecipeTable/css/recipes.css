@@ -27,4 +27,18 @@
   user-select: all;
   /* Chrome and Opera */
 }
+.zrdn-recipes .column-details {
+  padding-top: 19px;
+}
+.zrdn-recipes .zrdn-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #fff;
+}
+.zrdn-recipes .zrdn-badge.popular {
+  background-color: #61ce70;
+}
+.zrdn-recipes .zrdn-badge.demo {
+  background-color: #29b6f6;
+}
 /*# sourceMappingURL=recipes.css.map */

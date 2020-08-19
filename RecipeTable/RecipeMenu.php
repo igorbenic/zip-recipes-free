@@ -15,7 +15,8 @@ function zrdn_save_post($post_id, $post_data){
     if (Util::has_shortcode($post_id, $post_data)){
 
         $pattern = Util::get_shortcode_pattern();
-        $classic_pattern = Util::get_shortcode_pattern(false, false, true);
+        $classic_pattern = Util::get_shortcode_pattern(false, false, 'classic');
+        $legacy_pattern = Util::get_shortcode_pattern(false, false, 'legacy');
         if (preg_match($pattern, $post_data->post_content, $matches)) {
             $recipe_id = intval($matches[1]);
             //check if this post is already linked to another recipe. If so, unlink it.
@@ -24,6 +25,9 @@ function zrdn_save_post($post_id, $post_data){
         } elseif (preg_match($classic_pattern, $post_data->post_content, $matches)) {
             $recipe_id = $matches[1];
             ZipRecipes::link_recipe_to_post($post_id, $recipe_id);
+        } elseif (preg_match($legacy_pattern, $post_data->post_content, $matches)) {
+	        $recipe_id = $matches[1];
+	        ZipRecipes::link_recipe_to_post($post_id, $recipe_id);
         }
     } else {
         //no shortcode, make sure there is no recipe attached.
@@ -186,7 +190,6 @@ function zrdn_unlink_recipe(){
     header("Content-Type: application/json");
     echo $response;
     exit;
-
 }
 
 add_action('wp_ajax_zrdn_get_embed_code', __NAMESPACE__.'\zrdn_get_embed_code');
@@ -195,21 +198,48 @@ function zrdn_get_embed_code(){
     if (!current_user_can('edit_posts')) return;
     $error = false;
     $embed='';
-
     if (!isset($_GET['video_url'])) {
         $error = true;
     }
 
     if (!$error){
-        $video_url = esc_url_raw($_GET['video_url']);
+	    $video_url = esc_url_raw($_GET['video_url']);
     }
 
     if (!$error){
-
-        $embed = wp_oembed_get($video_url);
-
+	    $embed = wp_oembed_get($video_url);
     }
+
     $data = array('success' => !$error, 'embed'=>$embed);
+    $response = json_encode($data);
+    header("Content-Type: application/json");
+    echo $response;
+    exit;
+
+}
+
+add_action('wp_ajax_zrdn_update_recipe_image', __NAMESPACE__.'\zrdn_update_recipe_image' );
+function zrdn_update_recipe_image(){
+    if (!current_user_can('edit_posts')) return;
+    $error = false;
+    if (!isset($_POST['recipe_image_id'])) {
+        $error = true;
+    }
+
+    if (!$error){
+	    $image_id = intval($_POST['recipe_image_id']);
+	    $image_url = esc_url_raw($_POST['recipe_image']);
+	    $recipe_id = intval($_POST['recipe_id']);
+    }
+
+    if (!$error){
+	    $recipe = new Recipe($recipe_id);
+        $recipe->recipe_image_id = $image_id;
+        $recipe->recipe_image = $image_url;
+        $recipe->save();
+    }
+
+    $data = array('success' => !$error);
     $response = json_encode($data);
     header("Content-Type: application/json");
     echo $response;
@@ -221,16 +251,59 @@ add_action('admin_menu',  __NAMESPACE__ . '\zrdn_recipe_admin_menu');
 function zrdn_recipe_admin_menu()
 {
     if (!current_user_can('edit_posts')) return;
+
     add_menu_page(
         __('Recipes', 'zip-recipes'),
         __('Recipes', 'zip-recipes'),
         'edit_posts',
         'zrdn-recipes',
         __NAMESPACE__ . '\zrdn_recipe_overview',
-        ZRDN_PLUGIN_URL . 'images/recipe-icon.svg',
+        ZRDN_PLUGIN_URL . 'images/zip-icon.svg',
         apply_filters('zrdn_menu_position', 50)
     );
+
+	add_submenu_page(
+		'zrdn-recipes',
+		__("Template", "zip-recipes"), // page_title
+		__("Template", "zip-recipes"), // menu_title
+		'manage_options', // capability
+		'zrdn-template', // menu_slug
+		__NAMESPACE__ . '\ZipRecipes::template_page' // callback function
+	);
+
+	add_submenu_page(
+		'zrdn-recipes',
+		__("Settings", "zip-recipes"), // page_title
+		__("Settings", "zip-recipes"), // menu_title
+		'manage_options', // capability
+		'zrdn-settings', // menu_slug
+		__NAMESPACE__ . '\ZipRecipes::settings_page' // callback function
+	);
+
+	do_action("zrdn__menu_page", array(
+		"capability" => 'manage_options',
+		"parent_slug" => 'zrdn-recipes',
+	));
 }
+
+
+
+/**
+ * Add custom style to show the recipes icon properly
+ */
+
+function zrdn_custom_icon_style(){
+    ?>
+    <style>
+        #adminmenu .toplevel_page_zrdn-recipes .wp-menu-image img{
+            padding: 4px 0 0 0;
+            opacity: 0.6;
+            height: 25px;
+        }
+    </style>
+    <?php
+}
+add_action('admin_head', __NAMESPACE__ . '\zrdn_custom_icon_style');
 
 function zrdn_image_sizes_js( $response, $attachment, $meta ){
     $size_array = array(
@@ -286,9 +359,6 @@ function zrdn_enqueue_style($hook){
     wp_enqueue_script("zrdn-conditions", ZRDN_PLUGIN_URL."RecipeTable/js/conditions.js",  array('jquery'), ZRDN_VERSION_NUM);
     $args = array(
         'admin_url' => admin_url('admin-ajax.php'),
-        'str_click_to_edit_image' => __("Click to edit this image","zip-recipes"),
-        'str_minutes' => __("minutes","zip-recipes"),
-        'str_hours' => __("hours","zip-recipes"),
         'str_remove' => __("clear image","zip-recipes"),
         'default_image' => ZRDN_PLUGIN_URL.'/images/recipe-default-bw.png',
         'nonce' => wp_create_nonce('zrdn_edit_recipe'),
@@ -299,7 +369,9 @@ function zrdn_enqueue_style($hook){
 
     wp_register_style('zrdn-editor', ZRDN_PLUGIN_URL."RecipeTable/css/editor.css", array(), ZRDN_VERSION_NUM, 'all');
     wp_enqueue_style('zrdn-editor');
-    wp_enqueue_media();
+	wp_enqueue_media();
+
+
 
 }
 
@@ -327,7 +399,7 @@ function zrdn_hide_admin_bar_css(){
 }
 
 function zrdn_recipe_overview(){
-    //if (!current_user_can('edit_posts')) return;
+
 
     $id = false;
     if (isset($_GET['id'])) {
@@ -453,7 +525,8 @@ function zrdn_process_update_recipe(){
                     //we have a linked recipe
                     $pattern = Util::get_shortcode_pattern();
                     $entire_pattern = Util::get_shortcode_pattern(false, true);
-                    $classic_pattern = Util::get_shortcode_pattern(false, false, true);
+                    $classic_pattern = Util::get_shortcode_pattern(false, false, 'classic');
+                    $legacy_pattern = Util::get_shortcode_pattern(false, false, 'legacy');
                     if (preg_match($pattern, $post->post_content, $matches)) {
                         $old_recipe_id = $matches[1];
                         $old_recipe = new Recipe($old_recipe_id);
@@ -464,7 +537,6 @@ function zrdn_process_update_recipe(){
                     } elseif (preg_match($entire_pattern, $post->post_content, $matches)){
                         $shortcode = Util::get_shortcode($recipe_id);
                         $content = preg_replace($entire_pattern, $shortcode, $post->post_content, 1);
-
                         //if nothing matched yet, this might be classic shortcode
                     } elseif (preg_match($classic_pattern, $post->post_content, $matches)) {
                         $old_recipe_id = $matches[1];
@@ -472,7 +544,14 @@ function zrdn_process_update_recipe(){
                         $old_recipe->post_id = false;
                         $old_recipe->save();
                         $new_shortcode = Util::get_shortcode($recipe_id);
-                        $content = preg_replace($pattern, $new_shortcode, $post->post_content, 1);
+                        $content = preg_replace($classic_pattern, $new_shortcode, $post->post_content, 1);
+                    } elseif (preg_match($legacy_pattern, $post->post_content, $matches)) {
+	                    $old_recipe_id = $matches[1];
+	                    $old_recipe = new Recipe($old_recipe_id);
+	                    $old_recipe->post_id = false;
+	                    $old_recipe->save();
+	                    $new_shortcode = Util::get_shortcode($recipe_id);
+	                    $content = preg_replace($legacy_pattern, $new_shortcode, $post->post_content, 1);
                     } else {
                         $content = $post->post_content;
                     }

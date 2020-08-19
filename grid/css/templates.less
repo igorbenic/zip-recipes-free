@@ -1,0 +1,513 @@
+@import "muuri.less";
+@default-block-height : 50px;
+@recipe-block-width: @gridblock_width_small - 4 * @grid_margin;
+@recipe-block-width-full: 2 * @recipe-block-width;
+@recipe-block-width-half:  @recipe-block-width - @grid_margin ;
+@brand-success : green;
+
+.error {
+    display:none;
+}
+label {
+    margin: 0;
+}
+.field-group {
+    display:flex;
+    flex-direction: column;
+
+    .zrdn-label {
+        min-width: 50%;
+    }
+}
+//get the ratings styling neat for the template view
+.br-wrapper {
+    margin-top:22px;
+}
+
+#zrdn-save-template-settings {
+    .field-group {
+        flex-direction: row;
+    }
+    .zrdn-save-template-settings {
+        margin-left:20px;
+    }
+}
+
+/* prevent color picker from getting below muuri grid, by moving it to the left */
+.wp-picker-holder .iris-picker {
+    left:-90px;
+}
+
+#zip-recipes label {
+    font-size: 12px;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+.zrdn__rating__user_rating {
+    display: none;
+}
+
+#zrdn-recipe-container {
+    width:@recipe-block-width-full+10;
+}
+#zrdn-recipe-container .zrdn-grid-active-element {
+    .sub-item-content .zrdn-recipe-block-content {
+        font-size: 16px;
+    }
+    h1, h2 {
+        margin:0;
+
+    }
+    h3, h4 {
+        margin:10px 0;
+    }
+
+    .zrdn-recipe-image img {
+        width:100%;
+        height:inherit;
+    }
+
+    ul, ol {
+        margin-left:35px;
+        li{
+            line-height:1.8em;
+            &:before {
+                top:2px;
+                left:-35px;
+                font-size: 17px;
+                line-height: 23px;
+            }
+        }
+    }
+}
+
+//not too strong, templates should be able to override this. Just for the wp common.css
+ul {
+    list-style:initial;
+}
+ ol {
+    list-style:decimal;
+}
+
+
+.zrdn-main-container  {
+    margin-top:20px;
+    .zrdn-width-0 {
+        display:none;
+    }
+    .zrdn-inactive-container {
+        >.item-container {
+            background-color:inherit;
+            box-shadow:inherit;
+        }
+        .item-container {
+            width:@gridblock_width_small - @grid_margin;
+            .item-content {
+                margin:0;
+            }
+        }
+
+        .zrdn-recipe-block-content{
+            display:none;
+        }
+
+    }
+
+    .zrdn-active-container {
+        .zrdn-recipe-block-label{
+            display:none;
+        }
+    }
+
+    .zrdn-grid {
+        .zrdn-item {
+            position:relative;
+            float:left;
+            min-height:850px;
+            margin-bottom:20px;
+            .item-container {
+                height:inherit;
+                min-height:850px;
+                .sub-item-content {
+                    height:@default-block-height - @grid_margin; /**/
+                    margin:0;
+                }
+            }
+        }
+    }
+}
+.zrdn-block-100 .zrdn-sub-grid {
+    min-height: @default-block-height;
+}
+.zrdn-block-50 .zrdn-sub-grid {
+    min-height: 2 * @default-block-height;
+}
+.zrdn-sub-grid {
+    position: relative;
+    .sub-item-content {
+        .zrdn-recipe-block {
+            box-shadow: 1px 1px #dedede;
+            background-color: #fff;
+            border-top:1px solid #dedede;
+            border-left:1px solid #dedede;
+            height: @default-block-height - 3 * @grid_margin;/**/
+            padding: @grid_margin;
+        }
+    }
+
+    &.zrdn-grid-active .sub-item-content {
+        .zrdn-recipe-block {
+        }
+    }
+
+}
+
+.zrdn-grid-item {
+
+    position: absolute;
+    //width: @recipe-block-width;
+    height: @default-block-height; /**/
+    z-index: 1;
+    &.muuri-item-hidden {
+        z-index: 0;
+    }
+    &.muuri-item-releasing {
+        z-index: 2;
+    }
+    &.muuri-item-dragging {
+        z-index: 3;
+    }
+    .sub-item-content {
+        position: relative;
+        width: @recipe-block-width;
+        font-size: 20px;
+        cursor: grab;
+    }
+    &.muuri-item-dragging,
+    &.muuri-item-releasing {
+        .sub-item-content {
+            .zrdn-recipe-block {
+                border-top:1px solid #dedede;
+                border-left:1px solid #dedede;
+                box-shadow: 1px 1px #dedede;
+                background-color: #fff;
+                padding: @grid_margin;
+
+                .zrdn-recipe-block-content{
+                    display:none;
+                }
+
+                //use trick to hide settings on drag
+                .zrdn-recipe-block-settings{
+                    visibility: hidden;
+                }
+                .zrdn-recipe-block-label {
+                    height :100%;
+                }
+            }
+        }
+    }
+}
+
+.zrdn-highlight-dragarea {
+    border:1px dashed #dedede !important;
+    margin-right:9px;
+    margin-bottom:20px;
+}
+.zrdn-grid-item.muuri-item-placeholder .zrdn-recipe-block {
+    border:1px dashed #dedede !important;
+    opacity:0.5;
+    .zrdn-recipe-block-content{
+        display:none;
+    }
+    .zrdn-recipe-block-label {
+        display:block;
+    }
+    //use trick to hide settings on drop
+    .zrdn-recipe-block-settings{
+        visibility: hidden;
+    }
+}
+
+@default-block-height-1: 1 * @default-block-height;
+@default-block-height-2: 2 * @default-block-height;
+@default-block-height-3: 3 * @default-block-height;
+@default-block-height-4: 4 * @default-block-height;
+@default-block-height-5: 5 * @default-block-height;
+@default-block-height-6: 6 * @default-block-height;
+@default-block-height-8: 8 * @default-block-height;
+@default-block-height-9: 9 * @default-block-height;
+@default-block-height-10: 10 * @default-block-height;
+@default-block-height-14: 14 * @default-block-height;
+.zrdn-active-container .item-container .zrdn-grid-item {
+
+    height: @default-block-height-2;
+    .sub-item-content {
+        height: @default-block-height-2 - @grid_margin;
+        .zrdn-recipe-block, .zrdn-recipe-block-content {
+            min-height: @default-block-height-2 - 3 * @grid_margin;
+        }
+    }
+
+    &.empty, &.divider, &.actions, &.recipe_title, &.summary, &.copyright {
+        height: @default-block-height-1;
+        .sub-item-content {
+            height: @default-block-height-1 - @grid_margin;
+            .zrdn-recipe-block, .zrdn-recipe-block-content {
+                min-height: @default-block-height-1 - 3 * @grid_margin;
+            }
+        }
+    }
+
+    &.details, &.category, &.notes {
+        height: @default-block-height-3;
+        .sub-item-content {
+            height: @default-block-height-3 - @grid_margin;
+            .zrdn-recipe-block, .zrdn-recipe-block-content {
+                min-height: @default-block-height-3 - 3 * @grid_margin;
+            }
+        }
+    }
+
+    &.author {
+        height: @default-block-height-2;
+        .sub-item-content {
+            height: @default-block-height-2 - @grid_margin;
+            .zrdn-recipe-block, .zrdn-recipe-block-content {
+                min-height: @default-block-height-2 - 3 * @grid_margin;
+            }
+        }
+    }
+
+    &.nutrition_text {
+        height: @default-block-height-5;
+        .sub-item-content {
+            height: @default-block-height-5 - @grid_margin;
+            .zrdn-recipe-block, .zrdn-recipe-block-content {
+                min-height: @default-block-height-5 - 3 * @grid_margin;
+            }
+        }
+    }
+
+     &.ingredients, &.instructions {
+        height: @default-block-height-6;
+        .sub-item-content {
+            height: @default-block-height-6 - @grid_margin;
+            .zrdn-recipe-block, .zrdn-recipe-block-content {
+                min-height: @default-block-height-6 - 3 * @grid_margin;
+            }
+        }
+    }
+
+    &.nutrition_label {
+        height: @default-block-height-14;
+        .sub-item-content {
+            height: @default-block-height-14 - @grid_margin;
+            .zrdn-recipe-block, .zrdn-recipe-block-content {
+                min-height: @default-block-height-14 - 3 * @grid_margin;
+            }
+        }
+    }
+
+
+    }
+
+#zrdn-recipe-container {
+    .zrdn-block {
+        min-height:@default-block-height-1;
+        padding:0;
+        &.zrdn-block-50 {
+            padding:0;
+        }
+    }
+    .zrdn-block-100 {
+        .recipe_image, .video {
+            height: @default-block-height-9;
+            .sub-item-content {
+                height: @default-block-height-9 - @grid_margin;
+                .zrdn-recipe-block {
+                    height: @default-block-height-9 - 3 * @grid_margin;
+                    .zrdn-recipe-image img {
+                        height: @default-block-height-9 - 3 * @grid_margin;
+                    }
+                }
+            }
+        }
+    }
+
+    .zrdn-block-50 {
+        .recipe_image, .video {
+            height: @default-block-height-5;
+            .sub-item-content {
+                height: @default-block-height-5 - @grid_margin;
+                .zrdn-recipe-block {
+                    height: @default-block-height-5 - 3 * @grid_margin;
+                    .zrdn-recipe-image img {
+                        height: @default-block-height-5 - 3 * @grid_margin;
+                    }
+                }
+            }
+        }
+
+        .ingredients, .instructions {
+            height: @default-block-height-8;
+            .sub-item-content {
+                height: @default-block-height-8 - @grid_margin;
+                .zrdn-recipe-block, .zrdn-recipe-block-content {
+                    min-height: @default-block-height-8 - 3 * @grid_margin;
+                }
+            }
+        }
+
+        .nutrition_text {
+            height: @default-block-height-8;
+            .sub-item-content {
+                height: @default-block-height-8 - @grid_margin;
+                .zrdn-recipe-block {
+                    height: @default-block-height-8 - 3 * @grid_margin;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+&.zrdn-block-50 {
+    width: @recipe-block-width-half - 0px;
+
+    .sub-item-content {
+        width: @recipe-block-width-half;
+    }
+}
+
+&.zrdn-block-100 {
+    width: @recipe-block-width-full;
+    .sub-item-content {
+        width: @recipe-block-width-full;
+    }
+}
+
+.zrdn-grid-active {
+
+    .zrdn-grid-item {
+
+        .zrdn-recipe-block {
+            margin: 0 @grid_margin;
+            padding:10px;
+        }
+    }
+}
+
+/*
+  column icon
+*/
+
+.zrdn-block {
+    position:relative;
+}
+.zrdn-block-icon {
+    cursor:pointer;
+    position: absolute;
+    right: -103px;
+    top: 0;
+    z-index: 5;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 1px 1px #dedede;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}
+.zrdn-add-block + .zrdn-add-block {
+    margin-left:20px;
+}
+//hide empty
+
+.zrdn-grid-inactive .empty{
+    display:none;
+}
+
+.empty.zrdn-grid-item .sub-item-content .zrdn-recipe-block {
+    box-shadow: 0 0 #dedede;
+    border: 1px dashed #dedede;
+}
+
+
+.zrdn-highlight-grid {
+    border:1px solid green !important;
+}
+.zrdn-highlight-grid-warn {
+    border:1px solid red !important;
+}
+
+
+.zrdn-reset-template-settings {
+    color:red;
+}
+
+.zrdn-settings-changed{
+    color:@brand-success;
+    float: left;
+    padding: 8px;
+}
+
+
+.zrdn-grid .zrdn-label, .zrdn-label {
+    margin:0;
+}
+
+.zrdn-loader > div {
+    background-color: #fff;
+}
+
+.zrdn-grid-item {
+
+    .zrdn-icon {
+        cursor:pointer;
+        position:absolute;
+        right:10px;
+        color:#8d8888;
+    }
+
+    .zrdn-recipe-block-settings{
+        display:none;
+        box-shadow: 1px 1px #dedede;
+        border-left: 1px solid #dedede;
+        width: 100%;
+        padding: 10px;
+        margin-left: -11px;
+    }
+
+    .zrdn-recipe-block.settings-open {
+        box-shadow: 1px 0px #dedede
+    }
+
+}
+
+/*
+        Upsell
+*/
+.zrdn-recipe-block-label {
+    &.zrdn-premium, &.zrdn-inactive {
+        color: #aaa8a8;
+    }
+}
+
+.zrdn-premium-link, .zrdn-inactive-block {
+    float:right;
+    font-size:14px;
+    font-style: italic;
+    color: #aaa8a8;
+    a {
+        font-size:14px;
+    }
+}
+
+
+
+
+
+

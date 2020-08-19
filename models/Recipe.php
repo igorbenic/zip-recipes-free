@@ -11,11 +11,10 @@ namespace ZRDN;
 add_action('admin_init', __NAMESPACE__. '\zrdn_update_recipe_table');
 function zrdn_update_recipe_table(){
 
-    if (get_option('zrdn_table_version', 1) !== ZRDN_VERSION_NUM){
+    if (get_option('zrdn_table_version', 1)!==ZRDN_VERSION_NUM){
         global $wpdb;
 
         $recipes_table = $wpdb->prefix . Recipe::TABLE_NAME;
-
         $charset_collate = Util::get_charset_collate();
 
         // Each column for create table statement is an array element
@@ -35,6 +34,7 @@ function zrdn_update_recipe_table(){
             'summary text',
             'prep_time text',
             'cook_time text',
+            'wait_time text',
             'yield text',
             'serving_size varchar(50)',
             'calories varchar(50)',
@@ -63,7 +63,7 @@ function zrdn_update_recipe_table(){
             'author varchar(50)',
             'video_url varchar(255)',
             'non_food int(11)',
-            'hits int(11)',
+	        'hits int(11)',
         );
 
         $all_columns = apply_filters('zrdn__db_recipe_columns', $columns);
@@ -116,9 +116,14 @@ class Recipe {
 		if ($image_url) {
 			$this->recipe_image = $image_url;
 		}
-		if ($this->recipe_id || $this->post_id){
-		    $this->load();
-        }
+
+		if ($this->recipe_id || $this->post_id) {
+			$this->load();
+			if ( isset($_GET['mode']) && $_GET['mode'] === 'zrdn-preview') {
+				$this->load_placeholders();
+			}
+		}
+
 	}
 
 	/**
@@ -142,12 +147,20 @@ class Recipe {
     /**
      * @var string
      */
+    public $permalink = false;
+
+    /**
+     * @var string
+     */
     public $author;
+
+    public $author_id;
 
     /**
      * @var string
      */
     public $video_url;
+    public $video_url_output;
 
 	/**
 	 * @var string
@@ -176,15 +189,42 @@ class Recipe {
 	 */
 	public $prep_time;
 
+    /**
+     * @var string
+     */
+    public $prep_time_formatted;
+
 	/**
 	 * @var string
 	 */
 	public $cook_time;
+    /**
+     * @var string
+     */
+	public $cook_time_formatted;
+	/**
+	 * @var string
+	 */
+	public $wait_time;
+	/**
+	 * @var string
+	 */
+	public $wait_time_formatted;
 
 	/**
 	 * @var string
 	 */
 	public $total_time;
+
+    /**
+     * @var string
+     */
+    public $total_time_formatted;
+
+    /**
+     * @var string
+     */
+    public $recipe_rating;
 
 	/**
 	 * @var string
@@ -275,12 +315,14 @@ class Recipe {
 	 * @var string
 	 */
 	public $notes;
+	public $formatted_notes = '';
 
 	/**
 	 * varchar(100)
 	 * @var string
 	 */
 	public $category;
+	public $categories;
 
 	/**
 	 * varchar(50)
@@ -345,15 +387,20 @@ class Recipe {
     public $is_featured_post_image = false;
 
     public $fat_daily;
-    public $saturated_fat_daily;
+    public $calories_daily;
+	public $hits;
+	public $saturated_fat_daily;
     public $cholesterol_daily;
     public $sodium_daily;
     public $carbs_daily;
     public $fiber_daily;
-    public $hits;
     public $has_nutrition_data = false;
     public $preview = false;
-
+    public $summary_rich = '';
+    public $nested_ingredients = array();
+    public $nested_instructions = array();
+    public $jsonld = '';
+    public $keywords = array();
 
 
     /**
@@ -434,9 +481,28 @@ class Recipe {
             }
         }
 
-        //set default author if empty
+	    if ($this->post_id){
+		    $post = get_post($this->post_id);
+		    if ($post) {
+			    $this->author_id = $post->post_author;
+			    $user_data = get_userdata($this->author_id);
+			    if ($user_data) {
+				    $this->author = $user_data->display_name;
+			    }
+		    }
+	    }
+
         $this->author = apply_filters('zrdn_author_value', $this->author, $this->recipe_id, $this->post_id);
         $this->total_time = $this->calculate_total_time_raw($this->prep_time, $this->cook_time);
+
+        //formatted times
+        $this->cook_time_formatted = $this->format_duration($this->cook_time);
+        $this->wait_time_formatted = $this->format_duration($this->wait_time);
+        $this->prep_time_formatted = $this->format_duration($this->prep_time);
+        $this->total_time_formatted = $this->format_duration($this->total_time);
+
+        //Recipe permalink
+        $this->permalink = get_permalink($this->post_id);
 
         //check if the connected post is a valid post
         $post = get_post($this->post_id);
@@ -460,10 +526,10 @@ class Recipe {
 
         //check if we should load the recipe image based on ID
         if ($this->recipe_image_id>0){
-            $this->recipe_image = $this->get_image_url_by_size($this->recipe_image_id, 'zrdn_recipe_image');
+            $this->recipe_image = $this->get_image_url_by_size($this->recipe_image_id, 'zrdn_recipe_image_main');
         }
+
         //check if image is also featured image for connected post
-        //@todo: deprecate this
         $this->is_featured_post_image = false;
         if ($this->post_id && Util::get_option('hide_on_duplicate_image')){
             $recipe_image_id = get_post_thumbnail_id( $this->post_id );
@@ -474,38 +540,47 @@ class Recipe {
 
         //set a separate json image
         //if this recipe has an image, use it
-        if (!empty($this->recipe_image)){
-            $this->recipe_image_json = $this->generate_recipe_image_json($this->recipe_image_id);
-        } elseif ($this->post_id>0){
-            $post_thumbnail_id = get_post_thumbnail_id($this->post_id);
-            $this->recipe_image_json = $this->generate_recipe_image_json($post_thumbnail_id);
-        } else {
-	        $this->recipe_image_json = $this->generate_recipe_image_json();
-        }
+	    if (!empty($this->recipe_image)){
+		    $this->recipe_image_json = $this->generate_recipe_image_json($this->recipe_image_id);
+	    } elseif ($this->post_id>0){
+		    $post_thumbnail_id = get_post_thumbnail_id($this->post_id);
+		    $this->recipe_image_json = $this->generate_recipe_image_json($post_thumbnail_id);
+	    } else {
+		    $this->recipe_image_json = $this->generate_recipe_image_json();
+	    }
 
         /**
          * Load the category from the post
          */
-        if (strlen($this->category)==0){
-            $post_categories = wp_get_post_categories($this->post_id);
-            $cats = array();
-            foreach ($post_categories as $c) {
-                $cat = get_category($c);
-                $cats[] = $cat->name;
+
+        $post_categories = wp_get_post_categories($this->post_id);
+        $cats = array();
+        $all_from_post = true;
+        foreach ($post_categories as $c) {
+            $cat = get_category($c);
+            $cats[] = $cat->name;
+	        $this->categories[] = $cat->term_id;
+            //if all categories are loaded from wordpress, we leave the categories string blank.
+            if (strpos( $this->category, $cat->name) === FALSE) {
+	            $all_from_post = false;
             }
-            $this->category = implode(', ',$cats);
         }
+		if (strlen($this->category)===0) $all_from_post = true;
+        $this->category = implode(', ',$cats);
+	    if ($all_from_post){
+		    $this->category = '';
+	    }
 
         /**
          * get daily values, which are based on other, stored values.
          */
-
         $this->fat_daily = self::calculate_daily_value('fat', $this->fat);
         $this->saturated_fat_daily = self::calculate_daily_value('saturated_fat', $this->saturated_fat);
         $this->cholesterol_daily = self::calculate_daily_value('cholesterol', $this->cholesterol);
         $this->sodium_daily = self::calculate_daily_value('sodium', $this->sodium);
         $this->carbs_daily = self::calculate_daily_value('carbs', $this->carbs);
         $this->fiber_daily = self::calculate_daily_value('fiber', $this->fiber);
+        $this->calories_daily = self::calculate_daily_value('calories', $this->calories);
         $this->has_nutrition_data = false;
         if (
             $this->calories != null ||
@@ -522,11 +597,22 @@ class Recipe {
             $this->has_nutrition_data = true;
         }
 
-        //check if post_id is a revision
+        if ( strlen($this->video_url) ) {
+	        $this->video_url_output = ( strpos( $this->video_url, '_value' )
+	                                    !== false ) ? $this->video_url
+		        : wp_oembed_get( $this->video_url );
+        }
+	    $this->formatted_notes = $this->richify_item($this->zrdn_format_image($this->notes), 'notes');
+	    $this->summary_rich =  $this->richify_item($this->zrdn_format_image($this->summary), 'summary');
+	    $this->nested_ingredients = $this->get_nested_items($this->ingredients);
+	    $this->nested_instructions = $this->get_nested_items($this->instructions);
+
+	    //check if post_id is a revision
         if ($this->post_id && get_post_type($this->post_id) === 'revision'){
             $this->post_id = false;
         }
 
+	    $this->jsonld = json_encode( $this->jsonld() );
     }
 
     /**
@@ -551,55 +637,55 @@ class Recipe {
 
     /**
      * Get json for images.
-     * @param int $image_id
+     * @param int|bool $image_id
      * @return array|string image_json
      */
 
-    public function generate_recipe_image_json($image_id=false){
+	public function generate_recipe_image_json($image_id=false){
 
-        $image_1x1 = $image_4x3 = $image_16x9 = false;
+		$image_1x1 = $image_4x3 = $image_16x9 = false;
 
-        //load in object
-        if ($this->json_image_1x1_id==0 || $this->json_image_1x1_id===$image_id) {
-            if ($image_id>0) {
-                //we first try to get three different ratio's
-                $image_1x1 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_1x1', false);
-                if (!$image_1x1) $image_1x1 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_1x1_s', false);
-            }
+		//load in object
+		if ($this->json_image_1x1_id==0 || $this->json_image_1x1_id===$image_id) {
+			if ($image_id>0) {
+				//we first try to get three different ratio's
+				$image_1x1 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_1x1', false);
+				if (!$image_1x1) $image_1x1 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_1x1_s', false);
+			}
 
-            if ($image_1x1) $this->json_image_1x1 = $image_1x1;
-        }
-        if ($this->json_image_4x3_id==0 || $this->json_image_4x3_id===$image_id) {
-            if ($image_id>0) {
-                //we first try to get three different ratio's
-                $image_4x3 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_4x3', false);
-                if (!$image_4x3) $image_4x3 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_4x3_s', false);
-            }
+			if ($image_1x1) $this->json_image_1x1 = $image_1x1;
+		}
+		if ($this->json_image_4x3_id==0 || $this->json_image_4x3_id===$image_id) {
+			if ($image_id>0) {
+				//we first try to get three different ratio's
+				$image_4x3 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_4x3', false);
+				if (!$image_4x3) $image_4x3 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_4x3_s', false);
+			}
 
-            if ($image_4x3) $this->json_image_4x3 = $image_4x3;
-        }
+			if ($image_4x3) $this->json_image_4x3 = $image_4x3;
+		}
 
-        if ($this->json_image_16x9_id==0 || $this->json_image_16x9_id===$image_id) {
-            if ($image_id>0) {
-                //we first try to get three different ratio's
-                $image_16x9 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_16x9', false);
-                if (!$image_16x9) $image_16x9 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_16x9_s', false);
+		if ($this->json_image_16x9_id==0 || $this->json_image_16x9_id===$image_id) {
+			if ($image_id>0) {
+				//we first try to get three different ratio's
+				$image_16x9 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_16x9', false);
+				if (!$image_16x9) $image_16x9 = $this->get_image_url_by_size($image_id, 'zrdn_recipe_image_json_16x9_s', false);
 
-            }
-            if ($image_16x9) $this->json_image_16x9 = $image_16x9;
-        }
+			}
+			if ($image_16x9) $this->json_image_16x9 = $image_16x9;
+		}
 
-        if ($this->json_image_1x1 && $this->json_image_4x3 && $this->json_image_16x9) {
-            return array(
-                $this->json_image_1x1,
-                $this->json_image_4x3,
-                $this->json_image_16x9,
-            );
-        } else {
-            //no ratio sizes found, so just return the image url as json image.
-            return $this->recipe_image;
-        }
-    }
+		if ($this->json_image_1x1 && $this->json_image_4x3 && $this->json_image_16x9) {
+			return array(
+				$this->json_image_1x1,
+				$this->json_image_4x3,
+				$this->json_image_16x9,
+			);
+		} else {
+			//no ratio sizes found, so just return the image url as json image.
+			return $this->recipe_image;
+		}
+	}
 
     /**
      * Load recipe with placeholders instead of actual data
@@ -611,29 +697,27 @@ class Recipe {
         $recipe = get_object_vars($this);
 
         foreach ($recipe as $fieldname => $value) {
-            $this->{$fieldname} = '{' . $fieldname . '_value}';
+        	if ($fieldname === 'recipe_image_id' ) continue;
+        	if (!$this->{$fieldname}) $this->{$fieldname} = '<span class="'.$fieldname . '_value">&nbsp;</span>';
         }
+        $this->has_nutrition_data = true;
         $actual_recipe_id = false;
         $actual_post_id = false;
         $this->total_time = NULL;
-        if (isset($_GET['id'])){
-            $actual_recipe = new Recipe(intval($_GET['id']));
-            $actual_recipe_id = $actual_recipe->recipe_id;
-            $actual_post_id = $actual_recipe->post_id;
-            $this->total_time = $this->calculate_total_time_raw($actual_recipe->prep_time, $actual_recipe->cook_time);
-        }
-        if (!$actual_post_id && isset($_GET['post_id'])){
-            $actual_post_id = intval($_GET['post_id']);
-        }
+        $this->author = apply_filters( 'zrdn_author_value', false, $actual_recipe_id, $actual_post_id);
 
-        $this->author = apply_filters('zrdn_author_value', false, $actual_recipe_id, $actual_post_id);
+        if (!$this->prep_time) $this->prep_time = 'PT99H99M';
+        if (!$this->cook_time) $this->cook_time = 'PT99H99M';
+        if (!$this->wait_time) $this->wait_time = 'PT99H99M';
+        if (!$this->keywords) $this->keywords = array('{keywords_value}' ,'{keywords_value}');
 
-        $this->prep_time = 'PT99H99M';
-        $this->cook_time = 'PT99H99M';
+        if (!$this->nutrition_label) $this->nutrition_label = ZRDN_PLUGIN_URL . '/images/s.png';
+	    $this->is_featured_post_image = false;
 
-        $this->nutrition_label = ZRDN_PLUGIN_URL . '/images/s.png';
-        $this->recipe_image = ZRDN_PLUGIN_URL.'/images/recipe-default-bw.png';
-        $this->is_featured_post_image = false;
+	    if (!$this->recipe_image_id) {
+	    	$this->recipe_image = ZRDN_PLUGIN_URL.'/images/recipe-default-bw.png';
+	    	$this->recipe_image_id = 0;
+	    }
 
         //get random recipe id for some functionality, like ratings
         if (!$actual_recipe_id) {
@@ -645,28 +729,117 @@ class Recipe {
         }
         $this->preview = true;
         $this->recipe_id = $recipe_id;
+	    $this->nested_ingredients = $this->get_nested_items($this->ingredients);
+	    $this->nested_instructions = $this->get_nested_items($this->instructions);
 
+	    if ($this->post_id) {
+		    $this->keywords = get_the_tags($this->post_id);
+	    } else {
+		    $this->keywords = array();
+	    }
     }
 
 	/**
-	 * track a recipe hit
+	 * Load defaults for the template editor
 	 */
 
-	public function track_hit(){
-		if (!$this->recipe_id) return;
+    public function load_default_data(){
+	    $this->recipe_image = ZRDN_PLUGIN_URL.'/images/demo-recipe.jpg';
+	    $this->recipe_image_id = 0;
+	    $this->recipe_title = __( 'Creme Brulee', 'zip-recipes' );
+	    $this->permalink = site_url();
+		$this->preview = false;
 
-		global $wpdb;
-		$table = $wpdb->prefix . self::TABLE_NAME;
-		$this->hits++;
-		$wpdb->update(
-			$table,
-			array(
-				'hits' => $this->hits,
-			),
-			array('recipe_id' => $this->recipe_id)
-		);
+	    $this->author_id = get_current_user_id();
+	    $user_data = get_userdata($this->author_id);
+	    if ($user_data) {
+		    $this->author = $user_data->display_name;
+	    }
 
-	}
+	    $this->video_url = 'https://www.youtube.com/watch?v=TZWdtqiBi08';
+	    $this->video_url_output = wp_oembed_get($this->video_url);
+	    $this->summary_rich = $this->summary = __("This is a great recipe for all occasions", "zip-recipes");
+	    $this->prep_time = 'PT0H20M';
+	    $this->cook_time = 'PT0H10M';
+	    $this->wait_time = 'PT0H10M';
+	    $this->total_time = 'PT0H30M';
+	    $this->cook_time_formatted = $this->format_duration($this->cook_time);
+	    $this->wait_time_formatted = $this->format_duration($this->wait_time);
+	    $this->prep_time_formatted = $this->format_duration($this->prep_time);
+	    $this->total_time_formatted = $this->format_duration($this->total_time);
+
+	    $this->recipe_rating = 5;
+	    $this->yield = '4';
+	    $this->serving_size = __("1 bowl", "zip-recipes");
+	    $this->calories = '406.74 kcal';
+	    $this->fat = '41.41 g';
+	    $this->carbs = '4.3 g';
+	    $this->protein = '5.26 g';
+	    $this->fiber = '0';
+	    $this->sugar = '3.79 g';
+	    $this->saturated_fat = '24.72 g';
+	    $this->sodium = '121.49 mg';
+	    $this->trans_fat = '';
+	    $this->cholesterol = '315.29 mg';
+
+	    $this->vitamin_a = '44.17 %';
+	    $this->vitamin_c = '0.8 %';
+	    $this->iron = '2.76 %';
+	    $this->calcium = '10.44 %';
+
+	    $this->fat_daily = self::calculate_daily_value('fat', $this->fat);
+	    $this->saturated_fat_daily = self::calculate_daily_value('saturated_fat', $this->saturated_fat);
+	    $this->cholesterol_daily = self::calculate_daily_value('cholesterol', $this->cholesterol);
+	    $this->sodium_daily = self::calculate_daily_value('sodium', $this->sodium);
+	    $this->carbs_daily = self::calculate_daily_value('carbs', $this->carbs);
+	    $this->fiber_daily = self::calculate_daily_value('fiber', $this->fiber);
+	    $this->calories_daily = self::calculate_daily_value('calories', $this->calories);
+	    $this->has_nutrition_data = true;
+
+	    $this->summary_rich = $this->summary = __("Easy to make, but with a big wow factor", "zip-recipes");
+	    $this->fat_daily;
+	    $this->calories_daily;
+	    $this->saturated_fat_daily;
+	    $this->cholesterol_daily;
+	    $this->sodium_daily;
+	    $this->carbs_daily;
+	    $this->fiber_daily;
+	    $this->ingredients = '2 cups heavy or light cream, or half-and-half'."\n".
+		                    '1 vanilla bean, split lengthwise, or 1 teaspoon vanilla extract'."\n".
+		                    '1/8 teaspoon salt'."\n".
+		                    '5 egg yolks'."\n".
+		                    '1/2 cup sugar, more for topping'."\n";
+
+	    $this->instructions =   'In a saucepan, combine cream, vanilla bean and salt and cook over low heat just until hot.'."\n".
+								'In a bowl, beat yolks and sugar together until light.'."\n".
+								'Pour into four 6-ounce ramekins and place ramekins in a baking dish'."\n".
+								'Fill dish with boiling water halfway up the sides of the dishes'."\n".
+								'Place ramekins in a broiler 2 to 3 inches from heat source'."\n";
+
+        $this->notes = __("Cool completely! Refrigerate for several hours and up to a couple of days", "zip-recipes");
+	    $this->nested_ingredients = $this->get_nested_items($this->ingredients);
+	    $this->nested_instructions = $this->get_nested_items($this->instructions);
+	    $this->formatted_notes =  $this->notes;
+	    $this->category;
+	    $this->categories = get_categories(array('number' => 2));
+	    $this->cuisine = __('French', 'zip-recipes');
+	    $this->created_at = time();
+
+	    $this->keywords = get_tags(array('number' => 3));
+	    if (empty($this->keywords)) {
+		    $this->keywords = array(
+			    $object = (object) [
+				    'name' => __( 'Example tag 1', 'zip-recipes' ),
+			    ],
+			    $object = (object) [
+				    'name' => __( 'Example tag 2', 'zip-recipes' ),
+			    ],
+			    $object = (object) [
+				    'name' => __( 'Example tag 3', 'zip-recipes' ),
+			    ],
+		    );
+	    }
+    }
 
     /**
      * Save recipe to database
@@ -694,6 +867,7 @@ class Recipe {
             'summary' => stripslashes(wp_kses_post($this->summary)),
             'prep_time' => Util::validate_time($this->prep_time),
             'cook_time' => Util::validate_time($this->cook_time),
+            'wait_time' => Util::validate_time($this->wait_time),
             'yield' => sanitize_text_field($this->yield),
             'serving_size' => stripslashes(sanitize_text_field($this->serving_size)),
             'calories' => sanitize_text_field($this->calories),
@@ -748,6 +922,42 @@ class Recipe {
     }
 
     /**
+     * Format an ISO8601 duration for human readibility
+     *
+     * @param $duration
+     * @return string
+     */
+    public function format_duration($duration)
+    {
+        if ($duration == null) {
+            return '';
+        }
+
+        $date_abbr = array(
+            'y' => array('singular' => __('%d year', 'zip-recipes'), 'plural' => __('%d years', 'zip-recipes')),
+            'm' => array('singular' => __('%d month', 'zip-recipes'), 'plural' => __('%d months', 'zip-recipes')),
+            'd' => array('singular' => __('%d day', 'zip-recipes'), 'plural' => __('%d days', 'zip-recipes')),
+            'h' => array('singular' => __('%d hour', 'zip-recipes'), 'plural' => __('%d hours', 'zip-recipes')),
+            'i' => array('singular' => __('%d minute', 'zip-recipes'), 'plural' => __('%d minutes', 'zip-recipes')),
+            's' => array('singular' => __('%d second', 'zip-recipes'), 'plural' => __('%d seconds', 'zip-recipes'))
+        );
+
+
+        try {
+            $time = new \DateInterval($duration);
+	        $minutes = $time->h * 60 + $time->i;
+	        if ($minutes > 1 ) {
+	        	$string = sprintf($date_abbr['i']['plural'], $minutes);
+	        } else {
+		        $string = sprintf($date_abbr['i']['singular'], $minutes);
+	        }
+        } catch (\Exception $e) {
+        }
+
+        return $string;
+    }
+
+    /**
      * if the nutrition label id is changed, we delete the old one to prevent cluttering of database
      */
 
@@ -765,6 +975,27 @@ class Recipe {
         }
     }
 
+	/**
+	 * track a recipe hit
+	 */
+
+	public function track_hit(){
+		if (!$this->recipe_id) return;
+		global $wpdb;
+		$table = $wpdb->prefix . self::TABLE_NAME;
+		$this->hits++;
+		$wpdb->update(
+			$table,
+			array(
+				'hits' => $this->hits,
+			),
+			array('recipe_id' => $this->recipe_id)
+		);
+
+	}
+
+
+
     /**
      * Get % from daily value
      *
@@ -780,7 +1011,7 @@ class Recipe {
         }
 
         //get number value
-        $value = str_replace(array(' ', 'mg', 'g', 'µg'), '', $value);
+        $value = str_replace(array(' ', 'mg', 'g', 'µg', 'kcal'), '', $value);
 
         $daily_values = array(
             'fat' => 65, //g
@@ -793,6 +1024,7 @@ class Recipe {
             'vitamin_c'=>60, //mg
             'iron'=>14,//mg
             'calcium'=>1100,//mg
+            'calories'=>2400,//mg
         );
 
 
@@ -801,7 +1033,6 @@ class Recipe {
         if (!isset($daily_values[$type])) return 0;
 
         $daily_value = $daily_values[$type];
-
         $p = round(($value/$daily_value)*100,1).'%';
         return $p;
     }
@@ -822,8 +1053,355 @@ class Recipe {
         return $recipe;
     }
 
+	/**
+	 * Get formatted items (ingredients or instructions) in a nested array (see return).
+	 * @param $items string Unformatted string of ingredients or instructions.
+	 *
+	 * @return array Nested array with formatted items for each sublist. E.g.:
+	 *  [
+	 *      ["4 skinless, boneless chicken breast halves", "1 1/2 tablespoons vegetable oil"]
+	 *      ["subtitle for second part", "4g of onions", "5g of beans"]
+	 * ]
+	 */
+	public function get_nested_items($items)
+	{
+		$nested_list = array();
+		if (!$items) {
+			return array();
+		}
+
+		$raw_items = explode("\n", $items);
+		foreach ($raw_items as $raw_item) {
+			// don't add items that are empty
+			if (strlen(trim($raw_item)) < 1) {
+				continue;
+			}
+			$number_of_sublists = count($nested_list);
+			$item_array = $this->zrdn_format_item($raw_item);
+			// if last item is an array
+			if ($number_of_sublists > 0 && is_array($nested_list[$number_of_sublists - 1])) {
+				$subtitle = $this->get_subtitle($raw_item);
+				if ($subtitle) {
+					array_push($nested_list, array($item_array));
+				} else {
+					array_push($nested_list[count($nested_list) - 1], $item_array);
+				}
+			} else {
+				array_push($nested_list, array($item_array));
+			}
+		}
+
+		if (isset($nested_list[0])) {
+			return $nested_list[0];
+		} else {
+			return array();
+		}
+	}
+
+	/**
+	 *  Return subtitle for item.
+	 * @param string $item //Raw ingredients/instructions item
+	 * @return string
+	 */
+	private function get_subtitle($item)
+	{
+		preg_match("/^!(.*)/", $item, $matches);
+
+		$title = "";
+		if (count($matches) > 1) {
+			$title = $matches[1];
+		}
+
+		return $title;
+	}
 
 
+	/**
+	 * Generate a json string for this recipe
+	 * @return array
+	 */
+
+	public function jsonld()
+	{
+		//if it's not a food item, return empty
+		if ($this->non_food) return array();
+
+		$formattedIngredientsArray = array();
+		foreach (explode("\n", $this->ingredients) as $item) {
+			$itemArray = $this->zrdn_format_item($item);
+			$formattedIngredientsArray[] = $itemArray['content'];
+		}
+
+		$formattedInstructionsArray = array();
+		foreach (explode("\n", $this->instructions) as $item) {
+			$itemArray = $this->zrdn_format_item($item);
+			$formattedInstructionsArray[] = $itemArray['content'];
+		}
+
+		$keywords= false;
+		$this->keywords =wp_get_post_tags( $this->post_id );
+		if ( $this->keywords ){
+			$keywords = implode(',',wp_list_pluck($this->keywords,'name'));
+		}
+
+		$recipe_json_ld = array(
+			"@context" => "http://schema.org",
+			"@type" => "Recipe",
+			"description" => trim(preg_replace('/\s+/', ' ', strip_tags($this->summary))),
+			"image" => $this->recipe_image_json,
+			"recipeIngredient" => $formattedIngredientsArray,
+			"name" => $this->recipe_title,
+			"recipeCategory" => $this->category,
+			"recipeCuisine" => $this->cuisine,
+			"nutrition" => array(
+				"@type" => "NutritionInformation",
+				"calories" => $this->calories,
+				"fatContent" => $this->fat,
+				"transFatContent" => $this->trans_fat,
+				"cholesterolContent" => $this->cholesterol,
+				"carbohydrateContent" => $this->carbs,
+				"proteinContent" => $this->protein,
+				"fiberContent" => $this->fiber,
+				"sugarContent" => $this->sugar,
+				"saturatedFatContent" => $this->saturated_fat,
+				"sodiumContent" => $this->sodium
+			),
+			"cookTime" => $this->cook_time,
+			"prepTime" => $this->prep_time,
+			"recipeInstructions" => $formattedInstructionsArray,
+			"recipeYield" => $this->yield,
+		);
+
+		if ($keywords){
+			$recipe_json_ld['keywords'] = $keywords;
+		}
+
+		if (!empty($this->video_url)){
+			$recipe_json_ld['video'] = $this->video_url;
+			$thumbnail_url = Util::youtube_thumbnail($this->video_url);
+			$recipe_json_ld['video'] = array(
+				"@type" => "VideoObject",
+				"name" => $this->recipe_title,
+				"embedUrl" =>  $this->video_url,
+			);
+
+			if ($thumbnail_url) {
+				$recipe_json_ld['video']["thumbnailUrl"] = $thumbnail_url;
+			}
+
+			if ($this->summary) {
+				$recipe_json_ld['video']["description"] = $this->summary;
+			}
+		}
+		if ($this->total_time) {
+			$recipe_json_ld["totalTime"] = $this->total_time;
+		}
+		$cleaned_recipe_json_ld = $this->clean_jsonld($recipe_json_ld);
+
+		$author = $this->author;
+		if ($author) {
+			$cleaned_recipe_json_ld["author"] = (object)array(
+				"@type" => "Person",
+				"name" => $author
+			);
+		}
+		$rating_data = apply_filters('zrdn__ratings_format_amp', '',$this->recipe_id, $this->post_id);
+		if ($rating_data && $rating_data['count']>0) {
+			$itemReviewed = $recipe_json_ld;
+			unset($itemReviewed['@context']);
+			$rating = array(
+				"bestRating" => $rating_data['max'],
+				"ratingValue" => $rating_data['rating'],
+				"itemReviewed" => $this->recipe_title,
+				"ratingCount" => $rating_data['count'],
+				"worstRating" => $rating_data['min']
+			);
+
+			$cleaned_recipe_json_ld["aggregateRating"] = (object)$rating;
+		}
+
+		return $cleaned_recipe_json_ld;
+	}
+
+	/**
+	 * Remove blank values from JSON-LD. It looks through nested arrays and considers them to be blank if
+	 * the all of their keys start with @. E.g.:
+	 *
+	 * @param $arr array in JSON LD format.
+	 *
+	 * @return array
+	 */
+	private function clean_jsonld($arr) {
+		$cleaned_crap = array_reduce(array_keys($arr), function ($acc, $key) use ($arr) {
+			$value = $arr[$key];
+			if (is_array($value)) {
+				$cleaned_array = $this->clean_jsonld($value);
+				// add array if it has keys that don't start with @
+				$array_has_data = count(array_filter(array_keys($cleaned_array), function ($elem) {
+						return substr($elem, 0, 1) !== '@';
+					})) > 0;
+
+				if ($array_has_data) {
+					$acc[$key] = $cleaned_array;
+				}
+			}
+			else {
+				if ($value !== "") {
+					$acc[$key] = $value;
+				}
+			}
+
+			return $acc;
+		}, array());
+
+		return $cleaned_crap;
+	}
+
+	/**
+	 * Processes markup for attributes like labels, images and links.
+	 * Changed behaviour in 4.5.2.7:
+	 *  - links (like [margarine|http://margarine.com] no longer include an
+	 *    'ingredient', 'ingredient-link', 'no-bullet', 'no-bullet-link' classes or a combination thereof
+	 *  - images (like %http://example.com/logo.png no longer include an
+	 *    'ingredient', 'ingredient-image', 'no-bullet', 'no-bullet-image' classes or a combination thereof
+	 *  - ids are no longer added
+	 * Syntax:
+	 * !Label
+	 * %image
+	 * [link|http://example.com/link]
+	 * @param string $item
+	 *
+	 * @return array {
+	 * @type string $type
+	 * @type string $content
+	 * }
+	 */
+	public function zrdn_format_item($item)
+	{
+		$formatted_item = $item;
+		if (preg_match("/^%(\S*)/", $item, $matches)) { // IMAGE Updated to only pull non-whitespace after some blogs were adding additional returns to the output
+			// type: image
+			// content: $matches[1]
+			$attributes = $this->zrdn_get_responsive_image_attributes($matches[1]);
+			return array('type' => 'image', 'content' => $matches[1], 'attributes' => $attributes); // Images don't also have labels or links so return the line immediately.
+		}
+
+		$retArray = array();
+		$subtitle = $this->get_subtitle($item);
+		if ($subtitle) { // subtitle
+			// type: subtitle
+			// content: formatted $item
+			$formatted_item = $subtitle;
+			$retArray['type'] = 'subtitle';
+		} else {
+			// type: default
+			// content: formatted $item
+			$retArray['type'] = 'default';
+		}
+
+		$retArray['content'] = $this->richify_item($formatted_item);
+
+		return $retArray;
+	}
+
+	/**
+	 * Get Responsive Image attributes from URL
+	 *
+	 * It checks image is not external and return images attributes like srcset, sized etc.
+	 *
+	 * @param string $url
+	 * @param int|bool $recipe_id
+	 * @return type
+	 */
+
+	public function zrdn_get_responsive_image_attributes($url)
+	{
+
+		/**
+		 * set up default array values
+		 */
+
+		$attributes = array();
+		$attributes['url'] = $url;
+		//if a recipe_id is passed, we try to use the recipe image id
+
+		if ($this->recipe_image_id>0){
+			$attachment_id = $this->recipe_image_id;
+		} else {
+			$attachment_id = attachment_url_to_postid($url);
+			if (!$attachment_id) $attachment_id = get_post_thumbnail_id();
+		}
+
+		$attributes['attachment_id'] = $attachment_id;
+		$attributes['srcset'] = '';
+		$attributes['sizes'] = '';
+		$attributes['title'] = '';
+		$attributes['alt'] = $this->recipe_title;
+		if ($attachment_id) {
+			$attributes['url'] = wp_get_attachment_image_url($attachment_id, 'large');
+			$image_meta = wp_get_attachment_metadata($attachment_id);
+			$attributes['alt'] = get_post_meta($attachment_id, '_wp_attachment_image_alt', TRUE);
+			$attributes['title'] = get_the_title($attachment_id);
+			$img_srcset = wp_get_attachment_image_srcset($attachment_id, 'large', $image_meta);
+			$attributes['srcset'] = esc_attr($img_srcset);
+			$img_sizes = wp_get_attachment_image_sizes($attachment_id, 'large');
+			$attributes['sizes'] = esc_attr($img_sizes);
+		}
+		return apply_filters('zrdn_image_attributes', $attributes);
+	}
+
+
+	/**
+	 * Convert Image URL to image tag
+	 *
+	 * @param String $item
+	 * @return String
+	 */
+	public function zrdn_format_image($item)
+	{
+		preg_match_all('/(%http|%https):\/\/[^ ]+(\.gif|\.jpg|\.jpeg|\.png)/', $item, $matches);
+		if (isset($matches[0]) && !empty($matches[0])) {
+			foreach ($matches[0] as $image) {
+				$attributes = $this->zrdn_get_responsive_image_attributes(str_replace('%', '', $image));
+				$html = "<img class='' src='{$attributes['url']}";
+				if (!empty($attributes['srcset'])) {
+					$html .= " srcset='{$attributes['srcset']}";
+				}
+				if (!empty($attributes['sizes'])) {
+					$html .= " sizes='{$attributes['sizes']}'";
+				}
+				if (!empty($attributes['alt'])) {
+					$html .= " alt='{$attributes['alt']}'";
+				} else if (!empty($attributes['title'])){
+					$html .= " alt='{$attributes['title']}'";
+				}
+				$html .= ' />';
+				$item = str_replace($image, $html, $item);
+			}
+		}
+
+		return apply_filters('zrdn_image_html' , $item);
+	}
+
+
+//	public function break($text)
+//	{
+//		$output = "";
+//		$split_string = explode("\r\n\r\n", $text, 10);
+//		foreach ($split_string as $str) {
+//			$output .=  $str ;
+//		}
+//		return $output;
+//	}
+
+	// Replaces the [a|b] pattern with text a that links to b
+	// Replaces _words_ with an italic span and *words* with a bold span
+	public static function richify_item($item)
+	{
+		$output = preg_replace('/\[([^\]\|\[]*)\|([^\]\|\[]*)\]/', '<a href="\\2" target="_blank">\\1</a>', $item);
+		$output = preg_replace('/(^|\s)\*([^\s\*][^\*]*[^\s\*]|[^\s\*])\*(\W|$)/', '\\1<span class="bold">\\2</span>\\3', $output);
+		return preg_replace('/(^|\s)_([^\s_][^_]*[^\s_]|[^\s_])_(\W|$)/', '\\1<span class="italic">\\2</span>\\3', $output);
+	}
 
     /**
      * Delete recipe from table
@@ -846,13 +1424,16 @@ class Recipe {
         return FALSE;
     }
 
-    /**
-     * Calculate Total time in raw format
-     *
-     * @param $prep_time
-     * @param $cook_time
-     * @return false|null|string
-     */
+
+	/**
+	 * Calculate Total time in raw format
+	 * @param $prep_time
+	 * @param $cook_time
+	 *
+	 * @return string|null
+	 * @throws \Exception
+	 */
+
     public function calculate_total_time_raw($prep_time, $cook_time)
     {
         $prep = ZipRecipes::zrdn_extract_time($prep_time);
@@ -911,6 +1492,8 @@ class Recipe {
         return $wpdb->update($table, $recipe, $where);
     }
 
+
+
 }
 
 
@@ -922,17 +1505,37 @@ function zrdn_unlink_recipe_from_post($recipe_id){
     if ($post_id){
         $post = get_post($post_id);
         if ($post){
-            $pattern = Util::get_shortcode_pattern($recipe_id);
 
-            if (preg_match($pattern, $post->post_content, $matches)) {
-                $content = preg_replace($pattern, '', $post->post_content, 1);
+            $pattern_gutenberg = Util::get_shortcode_pattern($recipe_id, false, 'gutenberg' );
+	        $pattern_classic = Util::get_shortcode_pattern($recipe_id, false, 'classic' );
+	        $pattern_legacy = Util::get_shortcode_pattern($recipe_id, false, 'legacy' );
+
+
+	        if (preg_match($pattern_gutenberg, $post->post_content, $matches)) {
+                $content = preg_replace($pattern_gutenberg, '', $post->post_content, 1);
 
                 $post = array(
                     'ID' => $post_id,
                     'post_content' => $content,
                 );
                 wp_update_post($post);
-            }
+            }elseif (preg_match($pattern_classic, $post->post_content, $matches)) {
+		        $content = preg_replace($pattern_classic, '', $post->post_content, 1);
+
+		        $post = array(
+			        'ID' => $post_id,
+			        'post_content' => $content,
+		        );
+		        wp_update_post($post);
+	        }elseif (preg_match($pattern_legacy, $post->post_content, $matches)) {
+		        $content = preg_replace($pattern_legacy, '', $post->post_content, 1);
+
+		        $post = array(
+			        'ID' => $post_id,
+			        'post_content' => $content,
+		        );
+		        wp_update_post($post);
+	        }
 
         }
     }
