@@ -1400,7 +1400,8 @@ class ZipRecipes {
                         $button = '<a href="https://ziprecipes.net/premium" target="_blank" class="button button-primary">'.$btn_title.'</a>';
                     }
                 } else {
-	                $button = '<a href="'.$grid_item['link'].'" target="_blank" class="zrdn-button">'.__("See it live on our demo website", "zip-recipes").'</a>';
+                    $button = '';
+	                if (isset($grid_item['link'])) $button = '<a href="'.$grid_item['link'].'" target="_blank" class="zrdn-button">'.__("See it live on our demo website", "zip-recipes").'</a>';
 	                $status = ZipRecipes::get_extension_status($index);
 	                $grid_item['title'] .= '<button class="zrdn-extension-label '.$status.'"></button>';
                 }
@@ -1829,15 +1830,13 @@ class ZipRecipes {
     public static function zrdn_check_image_editing_support()
     {
         if ((isset($_GET['page']) && $_GET['page']=='zrdn-settings')) {
-                    $is_exist = false;
-        if (extension_loaded('gd') || extension_loaded('imagick')) {
-            $is_exist = true;
-        } else {
-            zrdn_notice(__("For the best performance, Zip Recipes recommends ImageMagick or GD PHP extensions installed. Please contact your hosting company and request that they install ImageMagick or GD PHP extensions for you website.", "zip-recipes"), 'warning', true, true);
+            $is_exist = false;
+            if (extension_loaded('gd') || extension_loaded('imagick')) {
+                $is_exist = true;
+            } else {
+                zrdn_notice(__("For the best performance, Zip Recipes recommends ImageMagick or GD PHP extensions installed. Please contact your hosting company and request that they install ImageMagick or GD PHP extensions for you website.", "zip-recipes"), 'warning', true, true);
+            }
         }
-        }
-
-
     }
 
 
@@ -1886,28 +1885,6 @@ class ZipRecipes {
         $table = $wpdb->prefix . RecipeModel::TABLE_NAME;
         $selectStatement = $wpdb->prepare("SELECT * FROM {$table} WHERE post_id=%d", $post_id);
         return $wpdb->get_results($selectStatement);
-    }
-
-	/**
-	 * Install a demo recipe on activation
-	 */
-
-    public static function install_demo_recipe(){
-	    $args    = array(
-		    'searchFields' => 'recipe_title',
-            'search' => __('Demo Recipe', 'zip-recipes'),
-	    );
-
-	    $recipes  = Util::get_recipes( $args );
-	    if (count($recipes) == 0 ) {
-		    $recipe = new Recipe();
-		    $recipe->load_default_data();
-		    $recipe->recipe_title = __('Demo Recipe', 'zip-recipes');
-            $recipe->recipe_image_id = ZipRecipes::insert_media(ZRDN_PATH.'images', 'demo-recipe.jpg');
-            $recipe->save();
-		    update_option('zrdn_demo_recipe_id', $recipe->recipe_id);
-	    }
-
     }
 
 	/**
