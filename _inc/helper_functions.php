@@ -1,8 +1,6 @@
 <?php
 namespace ZRDN;
 
-
-
 /**
  * Show a notice with some info
  * @param string $msg

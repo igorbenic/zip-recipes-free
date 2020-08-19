@@ -116,8 +116,6 @@ if (!function_exists(__NAMESPACE__ . '\init')) {
 	}
 }
 
-require_once(ZRDN_PATH . 'functions.php');
-
 if (!function_exists(__NAMESPACE__ . '\zrdn_install_demo_recipe')) {
 	register_activation_hook( __FILE__,
 		__NAMESPACE__ . '\zrdn_install_demo_recipe' );
@@ -176,4 +174,38 @@ if (!function_exists(__NAMESPACE__ . '\zrdn_check_translations')) {
 			closedir($handle);
 		}
 	}
+}
+
+/**
+ * Load iframe has to hook into admin init, otherwise languages are not loaded yet.
+ *
+ * */
+if (!function_exists(__NAMESPACE__ . '\zrdn_maybe_load_iframe')) {
+	function zrdn_maybe_load_iframe()
+	{
+		// Setup query catch for recipe insertion popup.
+		if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=z_recipe') && !strpos($_SERVER['REQUEST_URI'], '&wrt=')) {
+			// pluggable.php is needed for current_user_can
+			require_once(ABSPATH . 'wp-includes/pluggable.php');
+
+			// user is logged in and can edit posts or pages
+			if (\current_user_can('edit_posts') || \current_user_can('edit_pages')) {
+				$get_info = $_REQUEST;
+				$post_id = isset($get_info["post_id"]) ? intval($get_info["post_id"]) : 0;
+
+				if (isset($get_info["recipe_post_id"]) &&
+				    !isset($get_info["add-recipe-button"]) &&
+				    strpos($get_info["recipe_post_id"], '-') !== false
+				) { // EDIT recipe
+					$recipe_id = preg_replace('/[0-9]*?\-/i', '', $get_info["recipe_post_id"]);
+					wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new","id"=>$recipe_id, "post_id" => $post_id,"popup"=>true),admin_url("admin.php")));
+
+				} else { // New recipe
+					wp_redirect(add_query_arg(array("page"=>"zrdn-recipes","action"=>"new", "post_id" => $post_id,"popup"=>true),admin_url("admin.php")));
+				}
+			}
+			exit;
+		}
+	}
+	add_action('admin_init', __NAMESPACE__ . '\zrdn_maybe_load_iframe', 30);
 }
