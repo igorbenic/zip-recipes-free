@@ -1545,15 +1545,7 @@ class ZipRecipes {
             require_once plugin_dir_path(__FILE__) . 'src/block.php';
         }
 
-        /**
-         * Loading translations
-         */
-        $pluginLangDir = plugin_basename(dirname(__FILE__)) . '/languages/';
-        $globalLangDir = WP_LANG_DIR; // full path
-        if (is_readable($globalLangDir)) {
-            load_plugin_textdomain('zip-recipes', false, $globalLangDir);
-        }
-        load_plugin_textdomain('zip-recipes', false, $pluginLangDir);
+	    load_plugin_textdomain('zip-recipes', FALSE,  ZRDN_PATH.'/languages/');
     }
 
 
