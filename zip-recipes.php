@@ -117,8 +117,6 @@ if (!function_exists(__NAMESPACE__ . '\init')) {
 }
 
 
-require_once(ZRDN_PATH . 'functions.php');
-
 if (!function_exists(__NAMESPACE__ . '\zrdn_run_first_install_init')) {
 	register_activation_hook( __FILE__,
 		__NAMESPACE__ . '\zrdn_run_first_install_init' );
@@ -131,7 +129,9 @@ if (!function_exists(__NAMESPACE__ . '\zrdn_run_first_install_init')) {
 
 		if (!get_option('zrdn_activated_once')) {
 			if (!class_exists(__NAMESPACE__ . '\Util')){
+				require_once( ZRDN_PATH . '/models/Recipe.php' );
 				require_once( ZRDN_PATH . '_inc/class.ziprecipes.util.php' );
+				require_once( ZRDN_PATH . 'class.ziprecipes.php' );
 			}
 
 			//demo recipe
