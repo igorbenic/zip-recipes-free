@@ -7,8 +7,8 @@ Author URI: https://www.really-simple-plugins.com
 Author: Rogier Lankhorst, Mark Wolters
 Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
-Requires at least: 4.2
-Tested up to: 5.4
+Requires at least: 4.8
+Tested up to: 5.5
 Stable tag: 7.0.0
 Requires PHP: 5.6
 
