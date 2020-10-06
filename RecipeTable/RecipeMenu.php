@@ -19,7 +19,7 @@ function zrdn_save_post($post_id, $post_data){
         $legacy_pattern = Util::get_shortcode_pattern(false, false, 'legacy');
         if (preg_match($pattern, $post_data->post_content, $matches)) {
             $recipe_id = intval($matches[1]);
-            //check if this post is already linked to another recipe. If so, unlink it.
+	        //check if this post is already linked to another recipe. If so, unlink it.
             //then link to current post.
             ZipRecipes::link_recipe_to_post($post_id, $recipe_id);
         } elseif (preg_match($classic_pattern, $post_data->post_content, $matches)) {
@@ -400,7 +400,6 @@ function zrdn_hide_admin_bar_css(){
 
 function zrdn_recipe_overview(){
 
-
     $id = false;
     if (isset($_GET['id'])) {
         $id = intval($_GET['id']);
@@ -446,30 +445,35 @@ function zrdn_recipe_overview(){
                                 }
                             }
                         }
-
-                });
+                    });
 
                 });
             });
         </script>
 
-        <div class="wrap zrdn-recipes">
-            <h1><?php _e("Recipes", 'zip-recipes') ?>
-                <a href="<?php echo admin_url('admin.php?page=zrdn-recipes&action=new'); ?>"
-                   class="page-title-action"><?php _e('Add recipe', 'zip-recipes') ?></a>
+        <div class="wrap zrdn-recipes" id="zip-recipes">
+            <?php Util::settings_header(apply_filters('zrdn_tabs', array()), false)?>
+            <div class="zrdn-recipes-overview-container">
+                <div class="zrdn-recipes-overview">
+                    <div class="zrdn-recipes-overview-header">
+                        <h1><?php _e("My Recipes", "zip-recipes")?></h1>
+                    </div>
+                    <div class="zrdn-recipes-overview-intro">
+                        <p><?php _e("Here you can find an overview of your recipes. You can add them to a post or page by copying the shortcode (classic editor) or using the Gutenberg block.", "zip-recipes")?></p>
+                    </div>
+                </div>
+                <a href="<?php echo admin_url('admin.php?page=zrdn-recipes&action=new');?>" class="zrdn-add-recipe button button-primary page-title-action"><?php _e('Add recipe', 'zip-recipes') ?></a>
                 <?php do_action('zrdn_after_recipes_overview_title'); ?>
-            </h1>
 
+                <form id="zrdn-recipe-filter" method="get" action="<?php echo add_query_arg(array('page'=>'zrdn-recipes'),admin_url('admin.php'))?>">
 
-            <form id="zrdn-recipe-filter" method="get"
-                  action="<?php echo add_query_arg(array('page'=>'zrdn-recipes'),admin_url('admin.php'))?>">
-
-                <?php
-                $recipes_table->search_box(__('Filter', 'zip-recipes'), 'zrdn-recipe');
-                $recipes_table->display();
-                ?>
-                <input type="hidden" name="page" value="zrdn-recipes"/>
-            </form>
+                    <?php
+                    $recipes_table->search_box(__('Filter', 'zip-recipes'), 'zrdn-recipe');
+                    $recipes_table->display();
+                    ?>
+                    <input type="hidden" name="page" value="zrdn-recipes"/>
+                </form>
+            </div>
         </div>
         <?php
     }

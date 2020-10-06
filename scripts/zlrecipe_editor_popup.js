@@ -65,7 +65,7 @@
                     o.content = t._convert_imgs_to_codes(o.content);
             });
 
-            // We need to restore these properites again in mobile devices
+            // We need to restore these properties again in mobile devices
             // because we change them to stop background scrolling once modal is open.
             var $body = jQuery('body');
             var bodyProps = {
@@ -127,13 +127,20 @@
             });
         },
         _convert_codes_to_imgs: function (co) {
-            return co.replace(/\[amd-zlrecipe-recipe:([0-9]+)\]/g, function (a, b) {
-                return '<img id="amd-zlrecipe-recipe-' + b + '" class="amd-zlrecipe-recipe" src="' + plugindir + '/images/zip-recipes-placeholder.png" alt="" />';
-            });
+            if (co.indexOf('amd-zlrecipe-recipe') !== -1 ){
+                return co.replace(/\[amd-zlrecipe-recipe:([0-9]+)\]/g, function (a, b) {
+                    return '<img id="amd-zlrecipe-recipe-' + b + '" class="amd-zlrecipe-recipe" src="' + plugindir + '/images/zip-recipes-placeholder.png" alt="" />';
+                });
+            } else {
+                return co.replace(/\[zrdn-recipe id="([0-9]+)"\]/g, function (a, b) {
+                    console.log("recipe id "+b);
+                    return '<img id="amd-zlrecipe-recipe-' + b + '" class="amd-zlrecipe-recipe" src="' + plugindir + '/images/zip-recipes-placeholder.png" alt="" />';
+                });
+            }
         },
         _convert_imgs_to_codes: function (co) {
             return co.replace(/\<img[^>]*?\sid="amd-zlrecipe-recipe-([0-9]+)[^>]*?\>/g, function (a, b) {
-                return '[amd-zlrecipe-recipe:' + b + ']';
+                return '[zrdn-recipe id="' + b + '"]';
             });
         },
         getInfo: function () {

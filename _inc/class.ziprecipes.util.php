@@ -87,7 +87,7 @@ class Util {
         if (Util::uses_gutenberg() && !Util::uses_elementor()){
             return '<!-- wp:zip-recipes/recipe-block {"id":"'.$recipe_id.'"} /-->';
         } else {
-            return '[zrdn-recipe id='.$recipe_id.']';
+            return '[zrdn-recipe id="'.$recipe_id.'"]';
         }
     }
 
@@ -140,7 +140,7 @@ class Util {
             if ($match_all){
 	            return '/(\[zrdn-recipe.*id=.*?\])/i';
             }
-            return '/(\[zrdn-recipe.*id=["|\']?([0-9]\d*).*?\])/i';
+            return '/\[zrdn-recipe.*id=["|\']?([0-9]\d*).*?\]/i';
         }
 
 	    if ( $type == 'gutenberg' ) {
@@ -284,6 +284,7 @@ class Util {
 
 	/**
 	 * @param $tabs
+     * @param $options
 	 */
 	public static function settings_header($tabs, $options) {
 		?>
@@ -291,7 +292,7 @@ class Util {
 		<div class="zrdn-settings-container">
 			<ul class="tabs">
 				<div class="tabs-content">
-					<img class="zrdn-settings-logo" src="<?= trailingslashit( ZRDN_PLUGIN_URL ) . "images/logo.png"?>" alt='Zip Recipes'>
+					<img class="zrdn-settings-logo" src="<?= trailingslashit( ZRDN_PLUGIN_URL ) . "images/logo-new.png"?>" alt='Zip Recipes'>
 					<div class="header-links">
 						<div class="tab-links">
 							<?php
@@ -300,19 +301,23 @@ class Util {
 								if (isset($data['cap']) && current_user_can( $data['cap'] ) ) continue;
 								$current = $first ? 'current' : '';
 								$first = false;
+
+								if (isset($_GET['page']) && $_GET['page'] === $data['page']) {
+									$url = '#'.$tab.'#top';
+                                } else {
+								    $url = add_query_arg(array('page' => $data['page'].'#'.$tab.'#top'), admin_url('admin.php'));
+                                }
 								?>
-								<li class="tab-link <?=$current?>"
-								    data-tab="<?=$tab?>"><a
-										class="tab-text tab-<?=$tab?>"
-										href="#<?=$tab?>#top"><?=$data['title']?></a>
+								<li class="tab-link <?=$current?>" data-tab="<?=$tab?>">
+                                    <a class="tab-text tab-<?=$tab?>" href="<?php echo $url?>"><?=$data['title']?></a>
 								</li>
-							<?php }?>
+							<?php } ?>
 						</div>
-						<div class="documentation-pro">
+						<div class="documentation-container">
 							<div class="documentation">
-								<a target="_blank" href="https://ziprecipes.net/knowledge-base-overview/"><?php _e( "Documentation",
-										" zip-recipes" ); ?></a>
+								<a target="_blank" href="https://ziprecipes.net/knowledge-base-overview/"><?php _e( "Documentation", "zip-recipes" ); ?></a>
 							</div>
+							<a target="_blank" href="https://ziprecipes.net/support" class="button button-primary"><?php _e( "Support", "zip-recipes" ); ?></a>
                             <?php if ($options) { ?>
 							<div id="zrdn-toggle-options">
 								<div id="zrdn-toggle-link-wrap">
@@ -401,7 +406,7 @@ class Util {
 		    array(
 			    'title' => __("General", " zip-recipes"),
 			    'source' => 'general',
-			    'class' => '',
+			    'class' => 'zrdn-general',
 			    'can_hide' => true,
 		    ),
 
@@ -427,19 +432,21 @@ class Util {
 		    ),
 
 		    array(
-			    'title' => __("Notifications", " zip-recipes"),
-			    'source' => "notifications",
-			    'class' => 'small',
-			    'can_hide' => true,
-		    ),
-
-		    array(
 			    'title' => __("Advanced", " zip-recipes"),
 			    'source' => "advanced",
 			    'class' => 'small',
 			    'can_hide' => true,
 		    ),
+
+		    array(
+			    'title' => __("Other plugins", " zip-recipes"),
+			    'source' => "other",
+			    'class' => 'half-height other-plugins',
+			    'can_hide' => true,
+                'template' => 'other-plugins.php',
+		    ),
 	    );
+	    $grid_items = apply_filters('zrdn_grid_items', $grid_items);
 	    return $grid_items;
     }
 
@@ -460,6 +467,7 @@ class Util {
 	 *
 	 * @return array
 	 */
+
 	public static function get_fields( $type = false, $plugins_only = false ) {
 		$result = array();
 
@@ -523,7 +531,6 @@ class Util {
 			'background_color' => array(
 				'type'               => 'colorpicker',
 				'source'             => 'template',
-				'default'             => '#ffffff',
 				'disabled'           => true,
 				'label'              => __( "Background color", 'zip-recipes' ),
 			),
@@ -580,7 +587,7 @@ class Util {
 				'type'               => 'checkbox',
 				'source'             => 'general',
 				'table'              => false,
-				'default'            => true,
+				'default'            => false,
 				'label'              => __( "Show summary on archive pages", 'zip-recipes' ),
 				'help'              => __( "You can choose to show the recipe summary instead of the recipe on archive pages.", 'zip-recipes' ),
 			),
@@ -756,6 +763,7 @@ class Util {
 				'type'      => 'select',
 				'source'    => 'social_sharing',
 				'table'     => false,
+				'reload_on_change'      => true,
 				'options'   => array(
 					'logo' => __( 'Official logo', 'zip-recipes' ),
 					'square' => __( 'Square', 'zip-recipes' ),
@@ -868,41 +876,30 @@ class Util {
 				'type'      => 'checkbox',
 				'source'    => 'actions',
 				'disabled'    => 'true',
+				'reload_on_change'      => true,
 				'table'     => false,
 				'label'     => sprintf( __( 'Add %s sharing button',
 					'zip-recipes' ), 'Yummly' ),
-//				'comment'   => sprintf( __( 'By enabling %s you agree to %sthe terms%s',
-//					'zip-recipes' ), 'Yummly',
-//					'<a target="_blank" href="https://www.yummly.com/toolterms" target="_blank">',
-//					'</a>' ),
-
 			),
 
 			'recipe_action_bigoven' => array(
 				'type'      => 'checkbox',
 				'source'    => 'actions',
 				'disabled'    => 'true',
-
+				'reload_on_change'      => true,
 				'table'     => false,
 				'label'     => sprintf( __( 'Add %s sharing button',
 					'zip-recipes' ), 'BigOven' ),
-//				'comment'   => sprintf( __( 'By enabling %s you agree to %sthe terms%s',
-//					'zip-recipes' ), 'BigOven',
-//					'<a target="_blank" href="https://www.bigoven.com/site/terms" target="_blank">',
-//					'</a>' ),
 			),
 
 			'recipe_action_pinterest' => array(
 				'type'      => 'checkbox',
 				'source'    => 'actions',
 				'table'     => false,
+				'reload_on_change'      => true,
 				'disabled'    => 'true',
 				'label'     => sprintf( __( 'Add %s sharing button',
 					'zip-recipes' ), 'Pinterest' ),
-//				'comment'   => sprintf( __( 'By enabling %s you agree to %sthe terms%s',
-//					'zip-recipes' ), 'Pinterest',
-//					'<a target="_blank" href="policy.pinterest.com/en/terms-of-service" target="_blank">',
-//					'</a>' ),
 			),
 
 			'ImperialMetricsConverter' => array(
@@ -979,25 +976,6 @@ class Util {
 					'zip-recipes' ),
 			),
 
-//			'use_custom_css' => array(
-//				'type'      => 'checkbox',
-//				'source'    => 'advanced',
-//				'table'     => false,
-//				'label'     => __( "Use custom CSS",
-//					'zip-recipes' ),
-//			),
-//
-//			'custom_css' => array(
-//				'type'      => 'css',
-//				'source'    => 'advanced',
-//				'table'     => false,
-//				'label'     => __( "Custom CSS",
-//					'zip-recipes' ),
-//				'condition' => array(
-//					'use_custom_css' => true,
-//				),
-//			),
-
 			'use_zip_css' => array(
 				'type'      => 'checkbox',
 				'source'    => 'advanced',
@@ -1007,30 +985,25 @@ class Util {
 					'zip-recipes' ),
 			),
 
-			'send_mail_when_rated' => array(
-				'type'      => 'checkbox',
-				'source'    => 'notifications',
+			'restart_tour' => array(
+				'type'      => 'button',
+				'source'    => 'advanced',
+				'post_get'    => 'get',
+				'action'    => 'zrdn_restart_tour',
 				'default'    => true,
 				'table'     => false,
-				'condition' => array(
-					'VisitorRating' => true,
-				),
-				'label'     => __( "Notify admin when a user rates your recipe",
+				'label'     => __( "Restart tour",
 					'zip-recipes' ),
 			),
 
-			'send_mail_when_reviewed' => array(
+			'import_ratings_to_reviews' => array(
 				'type'      => 'checkbox',
-				'source'    => 'notifications',
-				'default'   => true,
+				'source'    => 'advanced',
+				'disabled'    => true,
+				'default'    => true,
 				'table'     => false,
-				'condition' => array(
-					'RecipeReviews' => true,
-				),
-				'label'     => __( "Notify admin when a user reviews your recipe",
-					'zip-recipes' ),
+				'label'     => __( "Import ratings to reviews", 'zip-recipes' ),
 			),
-
 
 		);
 
@@ -1382,6 +1355,54 @@ class Util {
 		return $youtube_id;
 	}
 
+	/**
+	 * Get list of cuisines
+	 * @return array
+	 */
+	public static function get_cuisines(){
+        global $wpdb;
+		$table = $wpdb->prefix . "amd_zlrecipe_recipes";
+		return wp_list_pluck((array) $wpdb->get_results("SELECT DISTINCT cuisine from $table WHERE cuisine != '' "), 'cuisine');
+	}
+
+	/**
+     * Get list of categories connected to a recipe
+	 * @return array
+	 */
+
+	public static function get_recipe_categories(){
+		$all_categories = get_transient('zrdn_recipe_categories');
+		if (!$all_categories) {
+			$args = array(
+				'post_status'=>'publish',
+				'number' => -1,
+			);
+			$recipes = Util::get_recipes($args);
+			$all_categories = array();
+			$cats = array();
+			foreach ($recipes as $index => $recipe) {
+				$recipe = new Recipe($recipe->recipe_id);
+
+				$post_categories = wp_get_post_categories($recipe->post_id);
+				foreach ($post_categories as $c) {
+					$cat = get_category($c);
+					if (!isset($all_categories[$cat->slug])){
+						$all_categories[$cat->slug] = array(
+							'id' => $cat->cat_ID,
+							'name' => $cat->name,
+							'count' => $cat->category_count,
+						);
+					}
+
+				}
+
+			}
+			set_transient('zrdn_recipe_categories', $all_categories, HOUR_IN_SECONDS);
+		}
+
+		return $all_categories;
+    }
+
 
 
 	public static function remote_file_exists( $url ) {
@@ -1440,6 +1461,7 @@ class Util {
             'number' => 20,
             'order_by' => 'recipe_title',
             'search' =>'',
+            'cuisine' => '',
             'searchFields' => 'title',
             'orderby' => 'recipe_title',
             'order' => 'ASC',
@@ -1468,6 +1490,10 @@ class Util {
             }
             $search = sanitize_text_field($args['search']);
             $search_sql = " AND (".implode(" like '%$search%' OR ", $fields)." like '%$search%')";
+        }
+
+        if ( $args['cuisine'] !=='' ) {
+	        $search_sql .= " AND ( cuisine = '".$args['cuisine']."')";
         }
 
         $offset = $args['number']!=-1 ? $offset = "LIMIT $offset, $pagesize" : '';

@@ -1,8 +1,21 @@
 jQuery(document).ready(function($) {
+    $(document).on('click', '#zrdn-reset-layout', function(){
+        localStorage.removeItem('zrdnDashboardDefaultsSet');
+        window.localStorage.removeItem('zrdn_layout');
+        window.localStorage.removeItem('zrdn_toggle_data_id_undefined');
+        $('.zrdn-item').each(function() {
+            var toggle_id = $(this).data('id');
+            localStorage.setItem('zrdn_toggle_data_id_' + toggle_id, 'checked');
+        });
+        localStorage.removeItem("zrdnFormValues");
+        location.reload();
+    });
+
+    var grid;
     initGrid();
     function initGrid() {
-
-        var grid = new Muuri('.zrdn-grid', {
+        // $('#zip-recipes .tab-content.current').show();
+       grid = new Muuri('.zrdn-grid', {
             dragEnabled: true,
             dragStartPredicate: function(item, e) {
                 return e.target.className === 'zrdn-grid-title';
@@ -22,7 +35,6 @@ jQuery(document).ready(function($) {
             dragReleaseDuration: 400,
             dragReleaseEasing: 'ease',
             layoutOnInit: true,
-            // itemDraggingClass: 'muuri-item-dragging',
         })
         .on('move', function () {
             saveLayout(grid);
@@ -36,6 +48,9 @@ jQuery(document).ready(function($) {
         }
         // Must save the layout on first load, otherwise filtering the grid won't work on a new install.
         saveLayout(grid);
+
+
+
     }
 
     function serializeLayout(grid) {
@@ -52,21 +67,25 @@ jQuery(document).ready(function($) {
 
     function loadLayout(grid, serializedLayout) {
         var layout = JSON.parse(serializedLayout);
+
         var currentItems = grid.getItems();
         // // Add or remove the muuri-active class for each checkbox. Class is used in filtering.
         $('.zrdn-item').each(function(){
             var toggle_id = $(this).data('id');
             if ( typeof toggle_id === 'undefined' ) return;
 
-            if (localStorage.getItem("zrdn_toggle_data_id_"+toggle_id) === null) {
-                window.localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
-            }
+            //this line is important, as it handles changing number of blocks.
+            //if the layout has less blocks then there actually are, we add it here. Otherwise it ends up floating over another block
+            if (!layout.includes( toggle_id.toString() ) ) layout.push( toggle_id.toString() );
 
+            if (localStorage.getItem("zrdn_toggle_data_id_"+toggle_id) === null) {
+                localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
+            }
             //Add or remove the active class when the checkbox is checked/unchecked
-            if (window.localStorage.getItem('zrdn_toggle_data_id_'+toggle_id) === 'checked') {
-                $(this).addClass("muuri-active");
-            } else {
+            if (localStorage.getItem('zrdn_toggle_data_id_'+toggle_id) !== 'checked') {
                 $(this).removeClass("muuri-active");
+            } else {
+                $(this).addClass("muuri-active");
             }
         });
 
@@ -76,7 +95,6 @@ jQuery(document).ready(function($) {
         var newItems = [];
         var itemId;
         var itemIndex;
-
         for (var i = 0; i < layout.length; i++) {
             itemId = layout[i];
             itemIndex = currentItemIds.indexOf(itemId);
@@ -92,8 +110,8 @@ jQuery(document).ready(function($) {
         }
         catch(err) {
             console.log('error with grid, clear');
-            window.localStorage.removeItem('zrdn_layout');
-            window.localStorage.removeItem('layout');
+            localStorage.removeItem('zrdn_layout');
+            localStorage.removeItem('layout');
         }
     }
 
@@ -102,18 +120,24 @@ jQuery(document).ready(function($) {
     $('.zrdn-item').each(function(){
         var toggle_id = $(this).data('id');
         // Set defaults for localstorage checkboxes
-        if (!window.localStorage.getItem('zrdn_toggle_data_id_'+toggle_id)) {
-            window.localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
+        if (!localStorage.getItem('zrdn_toggle_data_id_'+toggle_id)) {
+            localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
         }
-
 
         $('#zrdn_toggle_data_id_'+toggle_id).change(function() {
             if (document.getElementById("zrdn_toggle_data_id_"+toggle_id).checked ) {
-                window.localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
+                localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'checked');
             } else {
-                window.localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'unchecked');
+               localStorage.setItem('zrdn_toggle_data_id_'+toggle_id, 'unchecked');
             }
-            initGrid();
+
+            var layout = window.localStorage.getItem('zrdn_layout');
+            if (layout) {
+                loadLayout(grid, layout);
+            } else {
+                grid.layout(true);
+            }
+
         });
     });
 
@@ -153,28 +177,33 @@ jQuery(document).ready(function($) {
     if (localStorage.getItem("zrdnDashboardDefaultsSet") === null) {
         checkboxes.each(function () {
             zrdnFormValues[this.id] = 'checked';
+            $("#" + this.id).prop('checked', 'checked' );
         });
         localStorage.setItem("zrdnFormValues", JSON.stringify(zrdnFormValues));
         localStorage.setItem('zrdnDashboardDefaultsSet', 'set');
     }
 
-    updateStorage();
     // Update storage checkbox value when checkbox value changes
     checkboxes.on("change", function(){
         updateStorage();
     });
 
-    function updateStorage(){
-        checkboxes.each(function(){
-            zrdnFormValues[this.id] = this.checked;
-        });
-        localStorage.setItem("zrdnFormValues", JSON.stringify(zrdnFormValues));
-    }
-
     // Get checkbox values on pageload
     $.each(zrdnFormValues, function(key, value) {
         $("#" + key).prop('checked', value);
     });
+    //make sure not all checkboxes are empty
+    var zrdnHasOneChecked = false;
+    checkboxes.each(function () {
+        if ( $(this).is(":checked") ) {
+            zrdnHasOneChecked = true;
+        }
+    });
+
+    if (!zrdnHasOneChecked){
+        console.log("not one checked, reset");
+        $('#zrdn-reset-layout').click();
+    }
 
     // Hide screen options by default
     $("#zrdn-toggle-dashboard").hide();
@@ -189,4 +218,11 @@ jQuery(document).ready(function($) {
             $("#zrdn-toggle-arrows").attr('class', 'dashicons dashicons-arrow-up-alt2');
         }
     });
+
+    function updateStorage(){
+        checkboxes.each(function(){
+            zrdnFormValues[this.id] = this.checked;
+        });
+        localStorage.setItem("zrdnFormValues", JSON.stringify(zrdnFormValues));
+    }
 });

@@ -14,8 +14,6 @@
   width: 50px;
 }
 .zrdn-selectable {
-  -webkit-touch-callout: all;
-  /* iOS Safari */
   -webkit-user-select: all;
   /* Safari */
   -khtml-user-select: all;
@@ -40,5 +38,8 @@
 }
 .zrdn-recipes .zrdn-badge.demo {
   background-color: #29b6f6;
+}
+.zrdn-recipes .zrdn-badge.nonfood {
+  background-color: #f4bf3e;
 }
 /*# sourceMappingURL=recipes.css.map */

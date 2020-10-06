@@ -131,6 +131,7 @@ if (!class_exists("ZRDN_Field")) {
                     if ($value === 'false') $value = false;
                     return $value==true ? true : false;
                 case 'colorpicker':
+                    return ($value);
                     return sanitize_hex_color($value);
                 case 'text':
                     return sanitize_text_field($value);
@@ -176,12 +177,14 @@ if (!class_exists("ZRDN_Field")) {
 
             $this->get_master_label($args);
 
+            $reload_on_save = isset($args['reload_on_change']) && $args["reload_on_change"] ? 1 : 0;
+
             if ($args['table']) {
                 echo '<tr class="zrdn-settings field-group' . esc_attr($hidden_class.' '.$condition_class) . '"';
                 echo $condition ? 'data-condition-question="' . esc_attr($condition_question) . '" data-condition-answer="' . esc_attr($condition_answer) . '"' : '';
                 echo '><th scope="row">';
             } else {
-                echo '<div class="field-group zrdn-' . $args['type'] . ' ' .  esc_attr($hidden_class.''.$first_class.' '.$condition_class) . '" ';
+                echo '<div data-reload_on_change="' . $reload_on_save . '" class="field-group zrdn-' . $args['type'] . ' ' .  esc_attr($hidden_class.''.$first_class.' '.$condition_class) . '" ';
                 echo $condition ? 'data-condition-question="' . esc_attr($condition_question) . '" data-condition-answer="' . esc_attr($condition_answer) . '"' : '';
                 echo '><div class="zrdn-label">';
             }
@@ -597,8 +600,8 @@ if (!class_exists("ZRDN_Field")) {
             <input type="hidden" name="<?php echo esc_html($fieldname) ?>" id="<?php echo esc_html($fieldname) ?>"
                    value="<?php echo esc_html($value) ?>" class="zrdn-color-picker-hidden">
             <input type="text" name="color_picker_container" data-hidden-input='<?php echo esc_html($fieldname) ?>'
-                   value="<?php echo esc_html($value) ?>" class="zrdn-color-picker"
-                   data-default-color="<?php echo esc_html($args['default']) ?>">
+                   data-alpha="true" data-default-color="rgba(0,0,0,0.85)" value="<?php echo esc_html($value) ?>" class="zrdn-color-picker"
+                   >
             <?php do_action('zrdn_after_field', $args); ?>
 
             <?php

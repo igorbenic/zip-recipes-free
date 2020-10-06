@@ -13,6 +13,6 @@
 		<button class="zrdn-extension-label friend">friend</button>
 	</div>
 	<div class="zrdn-column-text">
-		<?php _e("Extensions marked with the lover badge, are included in Zip Recipes Friend",'zip-recipes')?>
+		<?php _e("Extensions marked with the friend badge, are included in Zip Recipes Friend & Love",'zip-recipes')?>
 	</div>
 </div>

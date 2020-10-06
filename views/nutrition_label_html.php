@@ -14,7 +14,7 @@
             <thead>
             <tr>
                 <th colspan="3" class="small-info">
-					<?php _e( 'Amount Per Serving', 'zip-recipes' ) ?>: <span>{serving_size}</span>
+					<?php _e( 'Amount Per Serving', 'zip-recipes' ) ?>: <div class="nutrition-serving-size">{serving_size}</div>
                 </th>
             </tr>
             </thead>

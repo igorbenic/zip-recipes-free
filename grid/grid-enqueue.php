@@ -53,6 +53,18 @@ function zrdn_enqueue_template_assets( $hook ) {
 		ZRDN_VERSION_NUM );
 	wp_enqueue_script( 'zrdn-muuri' );
 	wp_enqueue_style( 'wp-color-picker' );
+	wp_register_script( 'wp-color-picker-alpha',  trailingslashit( ZRDN_PLUGIN_URL ).'/scripts/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '1.0.0', true );
+
+	$color_picker_strings = array(
+		'clear'            => __( 'Clear', 'textdomain' ),
+		'clearAriaLabel'   => __( 'Clear color', 'textdomain' ),
+		'defaultString'    => __( 'Default', 'textdomain' ),
+		'defaultAriaLabel' => __( 'Select default color', 'textdomain' ),
+		'pick'             => __( 'Select Color', 'textdomain' ),
+		'defaultLabel'     => __( 'Color value', 'textdomain' ),
+	);
+	wp_localize_script( 'wp-color-picker-alpha', 'wpColorPickerL10n', $color_picker_strings );
+	wp_enqueue_script( 'wp-color-picker-alpha' );
 	wp_register_script( 'zrdn-templates',
 		trailingslashit( ZRDN_PLUGIN_URL )
 		. 'grid/js/templates.js', array( "jquery", "zrdn-muuri", 'wp-color-picker' ),

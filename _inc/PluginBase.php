@@ -1,13 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gezimhome
- * Date: 2018-04-03
- * Time: 13:56
- */
-
 namespace ZRDN;
-
+/**
+ * Extends each plugin/addon with basic functions
+ * Class PluginBase
+ *
+ * @package ZRDN
+ */
 abstract class PluginBase
 {
     public $suffix = '';
@@ -15,8 +13,8 @@ abstract class PluginBase
 
     public function __construct()
     {
-		
-		if ($this->isDisabled()) {
+		error_log("loading plugin base ");
+	    if ($this->isDisabled()) {
             return false;
         }
 
@@ -24,6 +22,8 @@ abstract class PluginBase
 
         return true;
 	}
+
+
 
 	
 	public function zrdn_plugin_enqueue_settings_css () {
@@ -41,7 +41,6 @@ abstract class PluginBase
 
     private function isDisabled()
     {
-        $disabled = false;
         $pluginOptions = get_option('zrdn__plugins', array());
         if (isset($pluginOptions[get_class($this)]) && $pluginOptions[get_class($this)]["active"]) {
             $disabled = false;

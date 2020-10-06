@@ -93,8 +93,9 @@
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-grid-title .zrdn-extension-label {
   border-radius: 50%;
-  min-width: initial;
-  height: 20px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0;
 }
 #zrdn-dashboard .zrdn-gridless .item-content {
   width: 100%;
@@ -134,6 +135,9 @@
   text-align: center;
   width: 100%;
 }
+#zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content .zrdn-button-paragraph input[type=submit] {
+  margin-top: 10px;
+}
 #zrdn-dashboard .zrdn-gridless .zrdn-item[data-id="general"] .zrdn-button-paragraph {
   padding: 10px 0 0 10px;
 }
@@ -141,7 +145,9 @@
   display: none;
 }
 .zrdn-settings-logo {
-  width: 143px;
+  width: 156px;
+  height: 32px;
+  padding-top: 10px;
 }
 .tools_page_zrdn-settings-page #wpcontent {
   padding: 0;
@@ -162,7 +168,7 @@
   padding: 15px;
 }
 #zip-recipes .tab-content.current {
-  display: inherit;
+  display: block;
 }
 #zip-recipes .tab-text {
   color: #444444;
@@ -176,7 +182,7 @@
 }
 #zip-recipes .current .tab-text {
   padding-bottom: 25px;
-  border-bottom: 2px solid #d7263d;
+  border-bottom: 2px solid #000;
 }
 #zip-recipes ul.tabs {
   margin: 0px;
@@ -201,6 +207,28 @@
   background: #F1F1F1;
   padding: 15px;
 }
+.zrdn-recipes-overview-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.zrdn-recipes-overview-container .zrdn-add-recipe {
+  margin-top: 20px;
+}
+.zrdn-recipes-overview-container .zrdn-recipes-overview {
+  background-color: #fff;
+  margin-top: 20px;
+}
+.zrdn-recipes-overview-container .zrdn-recipes-overview .zrdn-recipes-overview-header {
+  padding: 10px 20px;
+}
+.zrdn-recipes-overview-container .zrdn-recipes-overview .zrdn-recipes-overview-header h1 {
+  font-weight: bold;
+  font-size: 15px;
+}
+.zrdn-recipes-overview-container .zrdn-recipes-overview .zrdn-recipes-overview-intro {
+  border-top: 1px solid #ededed;
+  padding: 10px 20px;
+}
 .zrdn-settings-container .tabs {
   background: #fff;
   display: flex;
@@ -222,9 +250,10 @@
   width: 100%;
   margin-left: 40px;
 }
-.zrdn-settings-container .documentation-pro {
+.zrdn-settings-container .documentation-container {
   display: flex;
   align-items: center;
+  margin-right: 20px;
 }
 .zrdn-settings-container .header-links {
   width: 90%;
@@ -422,62 +451,6 @@ widget
   width: 250px;
   margin-right: 10px;
   border: 1px solid #DEDEDE;
-}
-#zrdn-dashboard .item-content table {
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-  table-layout: fixed;
-  justify-content: normal;
-}
-#zrdn-dashboard .item-content table.dataTable .zrdn-selected {
-  background-color: rgba(41, 182, 246, 0.35);
-}
-#zrdn-dashboard .item-content table caption {
-  height: 50px;
-  text-align: left;
-  margin-top: -10px;
-  padding-bottom: 10px;
-}
-#zrdn-dashboard .item-content table tr {
-  height: 40px;
-  background-color: #f8f8f8;
-  padding: 0.35em;
-}
-#zrdn-dashboard .item-content table tbody tr {
-  border-bottom: 0.1em solid #DEDEDE;
-}
-#zrdn-dashboard .item-content table th,
-#zrdn-dashboard .item-content table td {
-  padding: 0.625em;
-  text-align: left;
-}
-#zrdn-dashboard .item-content table th {
-  letter-spacing: 0.1em;
-}
-#zrdn-dashboard .item-content table th:focus {
-  outline: none;
-}
-#zrdn-dashboard .item-content thead {
-  border-top: 1px solid #DEDEDE;
-}
-#zrdn-dashboard .item-content tbody {
-  color: #3c3c3c;
-}
-#zrdn-dashboard .item-content tr:nth-child(even) {
-  background-color: #FFFFFF;
-}
-#zrdn-dashboard .item-content tr:nth-child(odd) {
-  background-color: #FFFFFF;
-}
-#zrdn-dashboard .item-content tr:first-child {
-  border-top-left-radius: 0.55rem;
-  border-top-right-radius: 0.55rem;
-}
-#zrdn-dashboard .item-content tr:last-child {
-  margin-bottom: 0;
-  border-bottom-left-radius: 0.55rem;
-  border-bottom-right-radius: 0.55rem;
 }
 #zrdn-dashboard .zrdn-term a {
   text-decoration: none;
@@ -740,12 +713,6 @@ widget
   padding-top: 10px;
   margin-bottom: 25px;
   margin-left: -58px;
-}
-#zrdn-dashboard .icon-cog-alt {
-  display: inline-block;
-  font-size: 2.3em;
-  color: #d7263d;
-  vertical-align: middle;
 }
 #zrdn-dashboard .zrdn-settings-intro-text {
   font-size: 1.3em;
@@ -1152,10 +1119,61 @@ widget
 }
 #zrdn-toggle-link-wrap {
   width: 150px;
+  margin-left: 20px;
 }
 #zrdn-show-toggles {
   width: 135px !important;
   background-color: white !important;
   color: #0a6aa1 !important;
+}
+#zrdn-reset-layout {
+  margin-top: -6px;
+  margin-left: 40px;
+}
+/*
+    Other plugins
+ */
+/*
+Default bullet style
+ */
+.zrdn-bullet {
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: lightgrey;
+  text-decoration: none;
+}
+.zrdn-otherplugins-upsell {
+  display: flex !important;
+  flex-direction: row;
+  padding: 6px;
+  align-items: center;
+  color: #3c3c3c;
+}
+.zrdn-otherplugins-upsell .plugin-text a {
+  text-decoration: none;
+  color: #3c3c3c;
+}
+.zrdn-otherplugins-upsell .plugin-text a:hover {
+  color: #E366A1;
+}
+.zrdn-otherplugins-upsell .rsp-image {
+  margin-right: 5px;
+}
+.zrdn-otherplugins-upsell .wpsi-red {
+  background-color: red;
+}
+.zrdn-otherplugins-upsell .cmplz-blue {
+  background-color: #27ADEA;
+}
+.zrdn-otherplugins-upsell .rsssl-yellow {
+  background-color: #FBC43D;
+}
+.zrdn-otherplugins-upsell .plugin-status {
+  margin-left: auto;
+}
+.zrdn-item.other-plugins .item-container {
+  background-color: transparent;
 }
 /*# sourceMappingURL=style.css.map */

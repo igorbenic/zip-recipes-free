@@ -1,4 +1,18 @@
 @color-complianz: #29b6f6;
+
+/**
+color picker
+ */
+.zrdn-field {
+  .iris-picker.iris-border {
+    width: 258px !important;
+  }
+  //make sure input fields break on new line
+  .wp-picker-open + .wp-picker-input-wrap {
+    display: block;
+  }
+}
+
 /**
 Hide notices from other plugins
  */
@@ -11,12 +25,6 @@ Hide notices from other plugins
 #zrdn-preview iframe {
   width:1000px;
   height:800px;
-  //-webkit-transform:scale(0.8);
-  //-moz-transform-origin: top left;
-  //-webkit-transform-origin: top left;
-  //-o-transform-origin: top left;
-  //-ms-transform-origin: top left;
-  //transform-origin: top left;
 }
 
 #zip-recipes {
@@ -132,11 +140,9 @@ input:focus + .zrdn-slider {
 }
 
 .wp-core-ui .zrdn-recipe-save-button{
-
+  background-color: #fff;
+  padding-top:20px;
    .button-primary {
-     position: fixed;
-     z-index: 99999;
-     right: 0;
      //background: @color-complianz;
      //border-color: #F343A0 #be2174 #be2174;
      //box-shadow: 0 1px 0 #be2174;
@@ -171,7 +177,7 @@ Tabs
 .zrdn-tab {
   overflow: hidden;
   border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  background-color: #fff;
 }
 .zrdn-tab button {
   background-color: inherit;
@@ -181,13 +187,13 @@ Tabs
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
+  font-size:1.2em;
 }
 .zrdn-tab button:hover {
-  background-color: #ddd;
+  text-decoration: underline;
 }
 .zrdn-tab button.active {
-  background-color: #F343A0 ;
-  color: #fff;
+  font-weight:bold;
 }
 /* Style the tab content */
 .zrdn-tabcontent {
@@ -223,6 +229,7 @@ Tabs
 }
 .button .zrdn-loader  {
   width:initial;
+  color:#000;
 }
 .button .zrdn-loader.zrdn-loader-white > div {
   background-color: #fff;
@@ -270,17 +277,19 @@ Tabs
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  border: 1px solid #ccc;
   border-top:0;
   .zrdn-column {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding:30px;
+  }
+  .preview-column {
+    margin-left:20px;
   }
 }
 
 #recipe-settings {
+  padding:25px;
   //get the themes to display correctly
   .zip-recipes.autumn .ingredients_block .row {
     flex-wrap: inherit !important;
@@ -335,13 +344,15 @@ Tabs
 
 /* Define the styling of the text input fields */
 .zrdn-label {
-  margin:20px 0 0 0;
+  margin:20px 0 10px 0;
+
 }
 .zrdn-grid {
   .zrdn-label {
     margin:10px 0 10px 0;
   }
 }
+
 .zrdn-author-frame{
   overflow-x: hidden;
   height: 138px;
@@ -376,9 +387,9 @@ label {
 }
 input[type="text"], input[type="email"] {
   width: 80%;
-  //height: 30px;
   margin-bottom: 12px;
-  background-color: #F1F1F1;
+  background-color: #fff;
+  border-color:#dedede;
 }
 
 input[type="number"] {
@@ -387,27 +398,19 @@ input[type="number"] {
 textarea {
   width: 100%;
   height: 150px;
+  border-color:#dedede;
 }
 
 .validation {
   /* Show a checkmark when input is valid */
 
   &:valid {
-    //background: url(/../../../images/check.svg);
-    //background-size: 17px;
-    //background-repeat: no-repeat;
-    background-color: #F1F1F1;
-    //background-position: 3px 3px;
-    //padding-left: 25px;
+    background-color: #fff;
+
   }
   /* Show a cross when input is invalid */
   &:invalid {
-    //background: url(/../../../images/times.svg);
-    //background-size: 17px;
-    //background-repeat: no-repeat;
-    background-color: #F1F1F1;
-    //background-position: 3px 3px;
-    //padding-left: 25px;
+    background-color: #fff;
   }
 
 

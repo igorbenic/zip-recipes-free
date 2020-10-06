@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
         hideSettingsBlock($(item._element).find('.zrdn-recipe-block'));
         removeSingleUseBlocks();
         cssForEmptyGrids();
-        setSettingsChanged();
+        setSettingsChanged($(item._element));
         inActiveGrid.refreshItems();
         inActiveGrid.layout();
 
@@ -175,14 +175,19 @@ jQuery(document).ready(function($) {
     * */
 
     $(document).on( 'click', '.zrdn-grid-controls .zrdn-add-block', function(){
+        var isEmpty = false;
         var newIndex1 = getHighestIndex()+1;
         var newIndex2 = newIndex1+1;
         var newBlockWidth = $(this).data('width');
         var block = $('.zrdn-active-container .zrdn-block').first();
+
+        //if the template is empty, only invisible blocks are present
+        if (block.hasClass('zrdn-block-0')) {
+            isEmpty = true;
+        }
         var curIndex = block.find('.zrdn-sub-grid').data('grid_index');
         var iconTemplate1 = block.find('.zrdn-block-icon').clone();
         var iconTemplate2 = iconTemplate1.clone();
-
 
         /**
          * Copy the grid from this block
@@ -218,8 +223,8 @@ jQuery(document).ready(function($) {
         //if the current block = 50, check if it's odd or even, and insert before the
 
         if ( newBlockWidth === 50 ) {
-            newLeftColumn.removeClass('zrdn-block-100').addClass('zrdn-block-50');
-            newRightColumn.removeClass('zrdn-block-100').addClass('zrdn-block-50');
+            newLeftColumn.removeClass('zrdn-block-100').removeClass('zrdn-block-0').addClass('zrdn-block-50');
+            newRightColumn.removeClass('zrdn-block-100').removeClass('zrdn-block-0').addClass('zrdn-block-50');
 
             newLeftColumn.insertBefore(block);
             newRightColumn.insertBefore(block);
@@ -227,7 +232,7 @@ jQuery(document).ready(function($) {
             activateGrid(newIndex1);
             activateGrid(newIndex2);
         } else {
-            newLeftColumn.removeClass('zrdn-block-50').addClass('zrdn-block-100');
+            newLeftColumn.removeClass('zrdn-block-50').removeClass('zrdn-block-0').addClass('zrdn-block-100');
             newLeftColumn.insertBefore(block);
 
             activateGrid(newIndex1);
@@ -280,7 +285,6 @@ jQuery(document).ready(function($) {
         //clone multiple use elements back to source
             //but not if the source is "activeGrid"
         .on('receive', function (data) {
-            console.log(data);
             var el = data.item._element;
             var source = data.fromGrid._element;
             if ( !$(el).find('[data-single]').data('single') && !$(source).hasClass('zrdn-grid-active-element')) {
@@ -308,7 +312,7 @@ jQuery(document).ready(function($) {
             syncContainerHeight();
             showHideIcons();
             cssForEmptyGrids();
-            setSettingsChanged();
+            setSettingsChanged($(item._element));
             ActiveGridElement.refreshItems();
             ActiveGridElement.layout();
         });
@@ -389,7 +393,14 @@ jQuery(document).ready(function($) {
         });
     }
 
-    function setSettingsChanged(){
+    function setSettingsChanged(obj){
+
+        var parentFieldGroup = obj.closest('.field-group');
+        if (parentFieldGroup.length) {
+            if (parentFieldGroup.data('reload_on_change') == 1) {
+                zrdnSettingsChanged = true;
+            }
+        }
         var controls = $('.zrdn-active-container .zrdn-grid-controls');
         if (!controls.find('.zrdn-settings-changed').length) {
             controls.prepend('<div class="zrdn-settings-changed">' + zrdn.strings['settings_changed'] + '</div>');
@@ -420,14 +431,13 @@ jQuery(document).ready(function($) {
     $(document).on("change", "#zrdn-save-template-settings input[type=checkbox]", function () {
         zrdnSettingsChanged = true;
         zrdnUpdateStyle($(this));
-
     });
 
     /**
      * Keep track of drop down settings changes in template
      */
     $(document).on("change", "#zrdn-recipe-container select", function () {
-        setSettingsChanged();
+        setSettingsChanged($(this));
         var listType = $(this).val();
         var listClass = zrdnGetListClass(listType);
         var listElement = zrdnGetListElement(listType);
@@ -532,7 +542,9 @@ jQuery(document).ready(function($) {
             templateStructure.push(recipeBlock);
 
         });
-
+        if (!templateStructure.length){
+            templateStructure = false;
+        }
         /**
          * handle banner hide and show
          */
@@ -542,7 +554,7 @@ jQuery(document).ready(function($) {
             url: zrdn.admin_url,
             dataType: 'json',
             data: ({
-                nonce:zrdn.nonce,
+                nonce: zrdn.nonce,
                 template_structure: templateStructure,
                 action: 'zrdn_save_template'
             }),
@@ -748,6 +760,7 @@ jQuery(document).ready(function($) {
 
         if (fieldName.indexOf('background')!==-1) {
             $("#zrdn-recipe-container").css('background-color', value);
+            $("#zrdn-recipe-container .zrdn-sub-grid .sub-item-content .zrdn-recipe-block").css('background-color', value);
         }
 
         if (fieldName.indexOf('text')!==-1) {
@@ -770,10 +783,19 @@ jQuery(document).ready(function($) {
     //set default hidden or shown based on screensite
     var userScreenWidth = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
     var tab = $('[data-tab=Settings]');
+
+    // minimize wordpress menu below 1280
+    if ( userScreenWidth < 1280 ) {
+        if (!jQuery(document.body).hasClass('folded')) {
+            jQuery(document.body).addClass('folded');
+        }
+    }
+    
     var settingsColumn = $('.zrdn-item.grid-active[data-id=0]');
     if ( userScreenWidth < 1650 ) {
         settingsColumn.hide();
         tab.removeClass('current');
+
     }
 
     $(document).on('click', '.tab-Settings', function(){

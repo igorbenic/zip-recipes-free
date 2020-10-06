@@ -26,13 +26,13 @@
   height: 60px;
 }
 .zrdn-grid .zrdn-item .zrdn-grid-header .zrdn-grid-header-container {
-  margin: 0 30px;
+  margin: 0;
   border-bottom: 1px solid #cecece;
   height: 100%;
 }
 .zrdn-grid .zrdn-item .zrdn-grid-header .zrdn-grid-title {
   font-size: 20px;
-  padding: 26px 0;
+  padding: 26px 30px 0;
   font-weight: bold;
   float: left;
 }
@@ -93,6 +93,7 @@ label {
   flex-direction: row;
 }
 #zrdn-save-template-settings .zrdn-save-template-settings {
+  margin-top: 20px;
   margin-left: 20px;
 }
 /* prevent color picker from getting below muuri grid, by moving it to the left */
@@ -103,6 +104,7 @@ label {
   font-size: 12px;
   white-space: nowrap;
   margin-right: 10px;
+  font-weight: normal;
 }
 .zrdn__rating__user_rating {
   display: none;
@@ -176,7 +178,7 @@ ol {
 }
 .zrdn-main-container .zrdn-grid .zrdn-item .item-container {
   height: inherit;
-  min-height: 850px;
+  min-height: 630px;
 }
 .zrdn-main-container .zrdn-grid .zrdn-item .item-container .sub-item-content {
   height: 40px;
@@ -199,7 +201,7 @@ ol {
   border-left: 1px solid #dedede;
   height: 20px;
   /**/
-  padding: 10px;
+  padding: 12px 10px 8px 10px;
 }
 .zrdn-grid-item {
   position: absolute;
@@ -219,7 +221,7 @@ ol {
 .zrdn-grid-item .sub-item-content {
   position: relative;
   width: 360px;
-  font-size: 20px;
+  font-size: 13px;
   cursor: grab;
 }
 .zrdn-grid-item.muuri-item-dragging .sub-item-content .zrdn-recipe-block,
@@ -475,7 +477,11 @@ ol {
   border: 1px solid red !important;
 }
 .zrdn-reset-template-settings {
+  margin-top: 20px;
   color: red;
+  display: inline-block;
+  float: right;
+  margin-right: 20px;
 }
 .zrdn-settings-changed {
   color: green;
@@ -484,10 +490,13 @@ ol {
 }
 .zrdn-grid .zrdn-label,
 .zrdn-label {
+  margin: 10px 10px 10px 0;
+}
+#zrdn-save-template-settings .zrdn-grid .zrdn-label {
   margin: 0;
 }
 .zrdn-loader > div {
-  background-color: #fff;
+  background-color: #000;
 }
 .zrdn-grid-item .zrdn-icon {
   cursor: pointer;
@@ -496,6 +505,7 @@ ol {
   color: #8d8888;
 }
 .zrdn-grid-item .zrdn-recipe-block-settings {
+  background-color: #fff;
   display: none;
   box-shadow: 1px 1px #dedede;
   border-left: 1px solid #dedede;
@@ -517,11 +527,10 @@ ol {
 .zrdn-inactive-block {
   float: right;
   font-size: 14px;
-  font-style: italic;
-  color: #aaa8a8;
 }
 .zrdn-premium-link a,
 .zrdn-inactive-block a {
+  color: #29b6f6;
   font-size: 14px;
 }
 /*# sourceMappingURL=templates.css.map */

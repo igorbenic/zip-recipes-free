@@ -48,7 +48,7 @@ class Recipe_Table extends \WP_List_Table {
      * @since  2.6
      */
     public $args = array();
-
+    public $most_popular_id = false;
 
     /**
      * Get things started
@@ -60,6 +60,16 @@ class Recipe_Table extends \WP_List_Table {
 
     public function __construct() {
         global $status, $page;
+
+	    $args            = array(
+		    'order_by' => 'hits',
+		    'order'    => 'DESC',
+		    'number'   => 1,
+	    );
+	    $recipes         = Util::get_recipes( $args );
+	    if ( ! empty( $recipes ) ) {
+		    $this->most_popular_id = $recipes[0]->recipe_id;
+	    }
 
         // Set parent defaults
         parent::__construct( array(
@@ -92,6 +102,29 @@ class Recipe_Table extends \WP_List_Table {
 
 
         <p class="search-box">
+	        <?php
+                $cats = Util::get_recipe_categories();
+                $selected_category = isset($_GET['zrdn_category_filter']) ? esc_html($_GET['zrdn_category_filter']) : '';
+	        ?>
+	        <select name="zrdn_category_filter">
+		        <option value=""><?php _e("category", 'zip-recipes')?></option>
+		        <?php foreach ($cats as $slug => $cat){
+		        	$selected = $selected_category === $slug ? "selected" : '';
+		        	?>
+			        <option <?php echo $selected?> value="<?php echo esc_html($slug) ?>" ><?php echo esc_html($cat['name'])?></option>
+		        <?php } ?>
+	        </select>
+	        <?php
+            $cuisines = Util::get_cuisines();
+            $selected_cuisine = isset($_GET['zrdn_cuisine_filter']) ? esc_html($_GET['zrdn_cuisine_filter']) : ''; ?>
+	        <select name="zrdn_cuisine_filter">
+                <option value=""><?php _e("cuisine", 'zip-recipes')?></option>
+		        <?php foreach ( $cuisines as $cuisine ){
+			        $selected = $selected_cuisine === $cuisine ? "selected" : '';
+			        ?>
+                    <option <?php echo $selected?> value="<?php echo esc_html($cuisine)?>" ><?php echo esc_html($cuisine)?></option>
+		        <?php } ?>
+            </select>
             <label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
             <input type="text" value="<?php echo $this->get_search()?>" name="s">
             <?php submit_button( $text, 'button', false, false, array('ID' => 'search-submit') ); ?>
@@ -117,74 +150,121 @@ class Recipe_Table extends \WP_List_Table {
      *
      * @since 1.5
      *
-     * @param array $item Contains all the data of the customers
+     * @param Recipe $recipe
      * @param string $column_name The name of the column
      *
      * @return string Column Name
      */
-    public function column_default( $item, $column_name ) {
+    public function column_default( $recipe, $column_name ) {
         $value='';
 
         if ($column_name === 'ID') {
-            $value = $item['ID'];
+            $value = $recipe->recipe_id;
         }
 
-        return apply_filters( 'zrdn_recipe_column_' . $column_name, $value, $item['ID'] );
+        return apply_filters( 'zrdn_recipe_column_' . $column_name, $value, $recipe->recipe_id );
     }
 
-    public function column_name( $item ) {
-        $name       = ! empty( $item['name'] ) ? $item['name'] : '<em>' . __( 'Unnamed recipe','zip-recipes') . '</em>';
+	/**
+	 * @param Recipe $recipe
+	 *
+	 * @return string
+	 */
+    public function column_name( $recipe ) {
+        $name       = ! empty( $recipe->recipe_title ) ? $recipe->recipe_title : '<em>' . __( 'Unnamed recipe','zip-recipes') . '</em>';
         $name = apply_filters('zrdn_recipe_name', $name);
 
         $actions     = array(
-            'edit' => '<a href="' . admin_url( 'admin.php?page=zrdn-recipes&id=' . $item['ID'] ) . '">' . __( 'Edit', 'zip-recipes') . '</a>',
+            'edit' => '<a href="' . admin_url( 'admin.php?page=zrdn-recipes&id=' . $recipe->recipe_id ) . '">' . __( 'Edit', 'zip-recipes') . '</a>',
         );
 
-        $recipe = new Recipe($item['ID']);
         $preview_post_id = get_option('zrdn_preview_post_id');
         if ($recipe->post_id && $recipe->post_id !== $preview_post_id ){
-            $actions['unlink'] = '<a class="zrdn-recipe-action" data-action="unlink" data-id="'.$item['ID'].'" href="#">' . __( 'Unlink from post', 'zip-recipes') . '</a>';
-            $actions['delete'] = '<a class="zrdn-recipe-action zrdn-hidden" data-action="delete"  data-id="'.$item['ID'].'" href="#">' . __( 'Delete', 'zip-recipes') . '</a>';
+            $actions['unlink'] = '<a class="zrdn-recipe-action" data-action="unlink" data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Unlink from post', 'zip-recipes') . '</a>';
+            $actions['delete'] = '<a class="zrdn-recipe-action zrdn-hidden" data-action="delete"  data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Delete', 'zip-recipes') . '</a>';
             $actions['view_post'] = '<a href="'.add_query_arg(array('post'=>$recipe->post_id,'action'=>'edit'),admin_url('post.php')).'">' . __( 'View post', 'zip-recipes') . '</a>';
 
         } else {
-            $actions['delete'] = '<a class="zrdn-recipe-action" data-action="delete"  data-id="'.$item['ID'].'" href="#">' . __( 'Delete', 'zip-recipes') . '</a>';
+            $actions['delete'] = '<a class="zrdn-recipe-action" data-action="delete"  data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Delete', 'zip-recipes') . '</a>';
 
         }
 
         return $name  . $this->row_actions( $actions );
     }
 
-    public function column_shortcode( $item ) {
-        return '<div class="zrdn-selectable">[zrdn-recipe: id='.$item['ID'].']</div>';
+	/**
+     * Show the shortcode in the column
+	 * @param Recipe $recipe
+	 *
+	 * @return string
+	 */
+    public function column_shortcode( $recipe ) {
+        return '<div class="zrdn-selectable">[zrdn-recipe id='.$recipe->recipe_id.']</div>';
     }
 
-	public function column_views( $item ) {
-        $recipe = new Recipe($item['ID']);
+	/**
+     * Show the number of views in the column
+	 * @param Recipe $recipe
+	 *
+	 * @return int
+	 */
+	public function column_views( $recipe ) {
 		return $recipe->hits;
 	}
 
-	public function column_details( $item ) {
-		//get most populare recipes
-		$most_popular_id = false;
-	    $args            = array(
-		    'order_by' => 'hits',
-		    'order'    => 'DESC',
-		    'number'   => 1,
-	    );
-	    $recipes         = Util::get_recipes( $args );
-	    if ( ! empty( $recipes ) ) {
-		    $most_popular_id = $recipes[0]->recipe_id;
-	    }
+	/**
+	 * Show the author
+	 * @param Recipe $recipe
+	 *
+	 * @return string
+	 */
+	public function column_author( $recipe ) {
+		return $recipe->author;
+	}
 
-	    if ($most_popular_id === $item['ID'] ) {
+	/**
+	 * Show the category
+	 * @param Recipe $recipe
+	 *
+	 * @return string
+	 */
+	public function column_category( $recipe ) {
+		$cats = array();
+		if (is_array($recipe->categories) ) {
+			foreach ($recipe->categories as $category_id) {
+				$cat = get_category($category_id);
+				$cats[] = $cat->name;
+			}
+
+			echo implode(', ', $cats);
+		}
+
+
+	}
+
+	/**
+	 * Show the cuisine
+	 * @param Recipe $recipe
+	 *
+	 * @return string
+	 */
+	public function column_cuisine( $recipe ) {
+		return $recipe->cuisine;
+	}
+
+	/**
+	 * @param Recipe $recipe
+	 *
+	 * @return string
+	 */
+	public function column_details( $recipe ) {
+	    if ($this->most_popular_id === $recipe->recipe_id ) {
 		    return '<span class="zrdn-badge popular">'.__("Popular","zip-recipes").'</span>';
-	    }
-
-	    if (get_option('zrdn_demo_recipe_id') === $item['ID']) {
+	    }else if (get_option('zrdn_demo_recipe_id') === $recipe->recipe_id ) {
 		    return '<span class="zrdn-badge demo">'.__("Demo","zip-recipes").'</span>';
-
-	    }
+	    } elseif ( $recipe->non_food == true ) {
+			return '<span class="zrdn-badge nonfood">'.__("Non food","zip-recipes").'</span>';
+		}
 	}
 
     /**
@@ -197,7 +277,10 @@ class Recipe_Table extends \WP_List_Table {
         $columns = array(
             'ID'          => __( 'ID', 'zip-recipes'),
             'name'          => __( 'Name', 'zip-recipes'),
+            'category'          => __( 'Category', 'zip-recipes'),
             'views'          => __( 'Views', 'zip-recipes'),
+            'cuisine'          => __( 'Cuisine', 'zip-recipes'),
+            'author'          => __( 'Author', 'zip-recipes'),
             'shortcode'          => __( 'Shortcode', 'zip-recipes'),
             'details'          => '',
         );
@@ -263,6 +346,26 @@ class Recipe_Table extends \WP_List_Table {
         return ! empty( $_GET['s'] ) ? urldecode( trim( $_GET['s'] ) ) : false;
     }
 
+	/**
+	 * Retrieves the category filter
+	 *
+	 * @since 1.7
+	 * @return mixed string If search is present, false otherwise
+	 */
+	public function get_category_filter() {
+		return ! empty( $_GET['zrdn_category_filter'] ) ? urldecode( trim( $_GET['zrdn_category_filter'] ) ) : false;
+	}
+
+	/**
+	 * Retrieves the cuisine filter
+	 *
+	 * @since 1.7
+	 * @return mixed string If search is present, false otherwise
+	 */
+	public function get_cuisine_filter() {
+		return ! empty( $_GET['zrdn_cuisine_filter'] ) ? urldecode( trim( $_GET['zrdn_cuisine_filter'] ) ) : false;
+	}
+
     /**
      * Build all the reports data
      *
@@ -279,6 +382,8 @@ class Recipe_Table extends \WP_List_Table {
         $paged   = $this->get_paged();
         $offset  = $this->per_page * ( $paged - 1 );
         $search  = $this->get_search();
+        $category  = $this->get_category_filter();
+        $cuisine  = $this->get_cuisine_filter();
         $order   = isset( $_GET['order'] )   ? sanitize_text_field( $_GET['order'] )   : 'DESC';
         $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( $_GET['orderby'] ) : 'recipe_id';
 
@@ -292,16 +397,19 @@ class Recipe_Table extends \WP_List_Table {
 
         $args['search']  = $search;
 
-
+	    if (strlen($category)>0) {
+		    $args['category']  = $category;
+	    }
+	    if (strlen($cuisine)>0) {
+		    $args['cuisine']  = $cuisine;
+	    }
         $this->args = $args;
         $recipes  = Util::get_recipes( $args );
+
         if ( $recipes ) {
 
             foreach ( $recipes as $recipe ) {
-                $data[] = array(
-                    'ID'            => $recipe->recipe_id,
-                    'name'          => $recipe->recipe_title,
-                );
+                $data[] = new Recipe($recipe->recipe_id);
             }
         }
 

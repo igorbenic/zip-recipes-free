@@ -93,6 +93,36 @@ class ZipRecipes {
 
 	    //add official shortcode support
 	    add_shortcode( 'zrdn-recipe', __NAMESPACE__ . '\ZipRecipes::load_recipe_shortcode' );
+
+	    add_filter('zrdn_tabs', __NAMESPACE__ . '\ZipRecipes::add_menu_tabs');
+    }
+
+	/**
+     * Add tabs to the menu header
+	 * @param array $tabs
+	 *
+	 * @return array mixed
+	 */
+    public static function add_menu_tabs($tabs){
+	    $tabs = $tabs + array(
+		    'recipes' => array(
+			    'title' => __('Recipes', 'zip-recipes'),
+			    'page' => 'zrdn-recipes',
+		    ),
+		    'template' => array(
+			    'title' => __('Template', 'zip-recipes'),
+			    'page' => 'zrdn-template',
+		    ),
+		    'dashboard' => array(
+			    'title' => __('Settings', 'zip-recipes'),
+			    'page' => 'zrdn-settings',
+		    ),
+		    'extensions' => array(
+			    'title' => __('Extensions', 'zip-recipes'),
+			    'page' => 'zrdn-settings',
+		    ),
+	    );
+        return $tabs;
     }
 
 
@@ -239,6 +269,9 @@ class ZipRecipes {
 	    $pluginsPath = "$parentPath/plugins";
 	    $active_plugins = Util::get_active_plugins();
 
+        if ( count($active_plugins)>0) {
+	        require_once($pluginsPath.'/base.php');
+        }
 
 	    foreach ($active_plugins as $plugin_name){
 		    $pluginPath = $pluginsPath."/".$plugin_name.'/'.$plugin_name.'.php';
@@ -286,13 +319,15 @@ class ZipRecipes {
     }
 
     public static function enqueue_admin_assets($hook){
-	   if (strpos($hook, "zrdn-settings")===false ) return;
+	    if (strpos($hook, "zrdn")===false ) return;
 
 	    wp_register_style('zrdn-admin-styles',
 		    trailingslashit(ZRDN_PLUGIN_URL) . "admin/css/style.css", "",
 		    ZRDN_VERSION_NUM);
 	    wp_enqueue_style('zrdn-admin-styles');
 
+
+	   if (strpos($hook, "zrdn-settings")===false ) return;
 	    wp_enqueue_script( 'zrdn-ace', ZRDN_PLUGIN_URL . "admin/assets/ace/ace.js",
 		    array(), ZRDN_VERSION_NUM, false );
     }
@@ -606,7 +641,7 @@ class ZipRecipes {
 				'title' => __( "Actions", "zip-recipes" ),
 				'single' => true,
 				'settings' => true,
-				'settings_height' => 250,
+				'settings_height' => 275,
 			),
 			array(
 				'type' => 'divider',
@@ -831,11 +866,16 @@ class ZipRecipes {
 	    ob_start();
 
 		if ( !ZipRecipes::block_is_active($recipe_block) ) {
-		    if (ZipRecipes::block_is_premium($recipe_block)) {
-			    $html = __("Premium block, enable the premium plugin to activate this block.","zip-recipes");
+		    if ( is_admin() ) {
+			    if (ZipRecipes::block_is_premium($recipe_block)) {
+				    $html = __("Premium block, enable the premium plugin to activate this block.","zip-recipes");
+			    } else {
+				    $html = __("Inactive block, enable in the settings.","zip-recipes");
+			    }
 		    } else {
-			    $html = __("Inactive block, enable in the settings.","zip-recipes");
+		    	$html = '';
 		    }
+
         } else {
 			do_action("zrdn_recipe_block", $type, $recipe, $settings);
 			do_action("zrdn_recipe_block_$type", $recipe, $settings);
@@ -864,7 +904,9 @@ class ZipRecipes {
 	 */
 
 	public static function get_active_template_layout( ){
-		$recipe_blocks_layout = apply_filters('zrdn_default_recipe_blocks_layout', ZipRecipes::default_recipe_blocks() );
+
+		$template_name = Util::get_option('template');
+		$recipe_blocks_layout = apply_filters('zrdn_default_recipe_blocks_layout', ZipRecipes::default_recipe_blocks( $template_name ) );
 
 		$recipe_blocks_layout = get_option( 'zrdn_recipe_blocks_layout', $recipe_blocks_layout );
 		$recipe_blocks_layout[] = array(
@@ -949,42 +991,49 @@ class ZipRecipes {
 	    //make sure the last changes in the ingredients (which might not be saved yet) are saved before continuing
 	    if (!$error && isset($_POST["template_structure"])){
 		    $data = $_POST["template_structure"];
-		    $total_count = count($data);
+		    $data = $data==='false' ? false : $data;
+		    if ( $data ) {
+			    $total_count = $data ? count($data) : 0;
 
-		    //clean up empty column blocks, but not if it's the default set from the custom template.
-		    $is_default_custom_template = false;
-            if (count($data) === 3 && $data[0]['type'] === 'block-100' && $data[1]['type'] === 'block-50' && $data[2]['type'] === 'block-50') {
-                $is_default_custom_template = true;
+			    //clean up empty column blocks, but not if it's the default set from the custom template.
+			    $is_default_custom_template = false;
+			    if ($total_count === 3 && $data[0]['type'] === 'block-100' && $data[1]['type'] === 'block-50' && $data[2]['type'] === 'block-50') {
+				    $is_default_custom_template = true;
+			    }
+
+			    if (!$is_default_custom_template) {
+				    foreach ( $data as $index => $column ) {
+					    if ( ! isset( $column['blocks'] )
+					         || empty( $column['blocks'] )
+					    ) {
+						    if ( $column['type'] === 'block-100' ) {
+							    unset( $data[ $index ] );
+							    //if it's the last block, drop empty ones
+						    } else if ( $index + 1 === $total_count ) {
+							    unset( $data[ $index ] );
+						    }
+					    }
+				    }
+			    }
+
+			    //save block settings
+			    foreach ($data as $index => $column){
+				    if (!isset($column['blocks'])) continue;
+
+				    foreach($column['blocks'] as $block_index => $block ) {
+					    if (isset($block['settings'])) {
+						    foreach ($block['settings'] as $index => $setting) {
+							    $name = str_replace('zrdn_','',$setting['name']);
+							    Util::update_option($name, $setting['value']);
+						    }
+					    }
+				    }
+			    }
+            } else {
+		        //reset to empty custom when empty
+			    $data = array();
             }
 
-            if (!$is_default_custom_template) {
-	            foreach ( $data as $index => $column ) {
-		            if ( ! isset( $column['blocks'] )
-		                 || empty( $column['blocks'] )
-		            ) {
-			            if ( $column['type'] === 'block-100' ) {
-				            unset( $data[ $index ] );
-				            //if it's the last block, drop empty ones
-			            } else if ( $index + 1 === $total_count ) {
-				            unset( $data[ $index ] );
-			            }
-		            }
-	            }
-            }
-
-            //save block settings
-		    foreach ($data as $index => $column){
-		        if (!isset($column['blocks'])) continue;
-
-		        foreach($column['blocks'] as $index => $block ) {
-		            if (isset($block['settings'])) {
-		                foreach ($block['settings'] as $index => $setting) {
-		                    $name = str_replace('zrdn_','',$setting['name']);
-			                Util::update_option($name, $setting['value']);
-		                }
-                    }
-                }
-            }
             update_option('zrdn_recipe_blocks_layout', $data);
 	    }
 
@@ -1016,23 +1065,21 @@ class ZipRecipes {
         return $buttons;
     }
 
-
+	/**
+	 * Template settings page
+	 */
 
     public static function template_page(){
 	    if (!current_user_can('manage_options')) return;
 	    $tabs =  array(
 		    'Settings' => array(
-			    'title' => __('Settings', 'zip-recipes'),
+			    'title' => __('Toggle settings', 'zip-recipes'),
+                'page' => 'zrdn-template',
 		    ),
-//		    'Template' => array(
-//			    'title' => __('Template', 'zip-recipes'),
-//		    ),
 	    );
 	    ?>
 	    <div class="wrap" id="zip-recipes">
-		    <?php Util::settings_header($tabs, false);?>
-
-
+		    <?php Util::settings_header(apply_filters('zrdn_tabs', $tabs ), false);?>
 		    <?php
 		    $empty_recipe = new Recipe();
 		    $empty_recipe->load_default_data();
@@ -1071,7 +1118,7 @@ class ZipRecipes {
 					    if ( !ZipRecipes::block_is_active($data) ) {
 						    if (ZipRecipes::block_is_premium($data)) {
                                 $premium_link
-                                    = '<div class="zrdn-premium-link"><a target="_blank" class="zrdn-premium" href="https://ziprecipes.net/pricing">'
+                                    = '<div class="zrdn-premium-link"><a target="_blank" class="zrdn-premium" href="https://ziprecipes.net/premium">'
                                       . __( "premium", 'zip-recipes' )
                                       . '</a></div>';
                                 $premium_class = 'zrdn-premium';
@@ -1153,36 +1200,24 @@ class ZipRecipes {
 					$element = zrdn_grid_element();
 					$output = '';
 					foreach ($grid_items as $index => $grid_item) {
-						$output .= str_replace(array('{class}', '{title}', '{content}', '{index}', '{controls}'), array($grid_item['class'], $grid_item['title'],  $grid_item['content'], $index, $grid_item['controls']), $element);
+						$output .= str_replace(array('{class}', '{title}', '{content}', '{index}', '{controls}'), array($grid_item['class'].' zrdn-', $grid_item['title'],  $grid_item['content'], $index, $grid_item['controls']), $element);
 					}
 					echo str_replace('{content}', $output, $container);
 					?>
                 </div>
-
-
-
-
 			</div>
-
 	    </div>
 	    <?php
     }
 
-    // Adds 'Settings' page to the ZipRecipe module
+	/**
+	 * Zip Recipes general settings page
+	 */
     public static function settings_page() {
 
         if (!current_user_can('manage_options')) return;
         do_action('zrdn_on_settings_page' );
 	    $field = ZipRecipes::$field;
-
-	    $tabs = apply_filters('zrdn_tabs', array(
-            'dashboard' => array(
-                    'title' => __('Dashboard', 'zip-recipes'),
-            ),
-            'extensions' => array(
-                'title' => __('Extensions', 'zip-recipes'),
-            ),
-        ));
 
 	    ?>
         <div class="wrap" id="zip-recipes">
@@ -1208,13 +1243,14 @@ class ZipRecipes {
                             <?php
                         }
                         ?>
+                        <button id="zrdn-reset-layout" class="button button-secondary"><?php _e("Reset","zip-recipes")?></button>
                     </div>
                 </div>
             </div>
 
             <div id="zrdn-dashboard">
 
-                <?php Util::settings_header($tabs, true);?>
+                <?php Util::settings_header(apply_filters('zrdn_tabs', array()), true);?>
 
                 <div class="zrdn-main-container">
                     <!--    Dashboard tab   -->
@@ -1227,14 +1263,17 @@ class ZipRecipes {
                         $element = zrdn_grid_element();
 	                    $output = '';
 	                    foreach ($grid_items as $index => $grid_item) {
-		                    $fields = Util::get_fields($grid_item['source']);
 		                    ob_start();
+	                        if ( isset( $grid_item['template' ] ) ) {
+                                echo Util::render_template($grid_item['template']);
+                            } else {
+		                        $fields = Util::get_fields($grid_item['source']);
+		                        foreach ( $fields as $fieldname => $field_args ) {
+			                        $field->get_field_html( $field_args , $fieldname);
+		                        }
+		                        $field->save_button();
 
-		                    foreach ( $fields as $fieldname => $field_args ) {
-			                    $field->get_field_html( $field_args , $fieldname);
-		                    }
-
-		                    $field->save_button();
+                            }
 		                    $contents = ob_get_clean();
 		                    $output .= str_replace(array('{class}', '{title}', '{content}', '{index}','{controls}'), array($grid_item['class'], $grid_item['title'],  $contents, $index, ''), $element);
 	                    }
@@ -1253,6 +1292,10 @@ class ZipRecipes {
         </div><!--wrap close -->
         <?php
     }
+
+	/**
+	 * Show extension tabs
+	 */
 
     public static function extensions_tab(){
 	    $element = zrdn_grid_element();
@@ -1337,7 +1380,7 @@ class ZipRecipes {
         $extensions = array(
                 'general' => array(
                     'title' => __("About Extensions", "zip-recipes"),
-                    'class' => 'small',
+                    'class' => 'small zrdn-about-extensions',
                     'image'     => '',
                     'link'     => 'https://demo.ziprecipes.net/corn-salad/',
                     'description' => Util::render_template('about_extensions.php'),
@@ -1485,7 +1528,6 @@ class ZipRecipes {
 	    if (!isset($_GET['page']) || $_GET['page'] !== 'zrdn-settings') {
 	        return;
         }
-
 	    if (!isset($_POST['zrdn_nonce']) || !wp_verify_nonce($_POST['zrdn_nonce'], 'zrdn_save')) {
 	        return;
 	    }
@@ -1499,6 +1541,9 @@ class ZipRecipes {
 	    do_action("zrdn_after_update_options");
     }
 
+	/**
+	 * Save the settings
+	 */
 
 	public static function process_template_update(){
 
@@ -1523,17 +1568,8 @@ class ZipRecipes {
 
 
     /**
-     * Creates ZLRecipe tables in the db if they don't exist already.
-     * Don't do any data initialization in this routine as it is called on both install as well as
-     * every plugin load as an upgrade check.
-     *
-     * Updates the table if needed
-     *
-     * Plugin Ver       DB Ver
-     * 1.0 - 1.3        3.0
-     * 1.4x - 2.6       3.1  Adds Notes column to recipes table
-     * 4.1.0.10 -       3.2  Adds primary key, collation
-     * 4.2.0.20 -       3.3  Added carbs, protein, fiber, sugar, saturated fat, and sodium
+     * Basic setup of text domain and gutenberg.
+     * @todo move to more logical location
      */
     public static function zrdn_recipe_install()
     {
@@ -1545,7 +1581,15 @@ class ZipRecipes {
             require_once plugin_dir_path(__FILE__) . 'src/block.php';
         }
 
-	    load_plugin_textdomain('zip-recipes', FALSE,  ZRDN_PATH.'/languages/');
+        /**
+         * Loading translations
+         */
+        $pluginLangDir = plugin_basename(dirname(__FILE__)) . '/languages/';
+        $globalLangDir = WP_LANG_DIR; // full path
+        if (is_readable($globalLangDir)) {
+            load_plugin_textdomain('zip-recipes', false, $globalLangDir);
+        }
+        load_plugin_textdomain('zip-recipes', false, $pluginLangDir);
     }
 
 
@@ -1845,6 +1889,7 @@ class ZipRecipes {
 
     public static function link_recipe_to_post($post_id, $recipe_id)
     {
+
         //do not change links for revisions
         if (get_post_type($post_id)==='revision') return;
 

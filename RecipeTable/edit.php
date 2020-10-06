@@ -1,10 +1,6 @@
 <?php
 namespace ZRDN;
 do_action('zrdn_enqueue_scripts');
-
-//wp_enqueue_style('zrdn_recipe_editor_theme_css', get_stylesheet_uri(), array(), ZRDN_VERSION_NUM);
-//if (!current_user_can('edit_posts')) wp_die("You do not have permission to do this");
-
 $recipe_id = false;
 if (isset($_GET['id'])) {
     $recipe_id = intval($_GET['id']);
@@ -40,7 +36,9 @@ if (isset($_GET['post_id'])) {
 
 ?>
 
-<div class="wrap">
+<div class="wrap" id="zip-recipes">
+	<?php Util::settings_header(apply_filters('zrdn_tabs', array()), false)?>
+
     <?php
 
     //load the recipe
@@ -89,28 +87,27 @@ if (isset($_GET['post_id'])) {
             <?php zrdn_notice(__("Not all required fields are filled out!", "zip-recipes"), 'warning', true, false, false); ?>
         </div>
 
-        <div class="zrdn-tab">
-            <button class="zrdn-tablinks <?php if ($active_tab=='general') echo 'active'?>" type="button"
-                    data-tab="general"><?php _e("General", 'zip-recipes') ?></button>
-
-            <button class="zrdn-tablinks <?php if ($active_tab=='nutrition') echo 'active'?>" type="button" data-tab="nutrition">
-                <?php _e("Nutrition", 'zip-recipes') ?>
-            </button>
-            <button class="zrdn-tablinks <?php if ($active_tab=='snippets') echo 'active'?>" type="button" data-tab="snippets">
-                <?php _e("Rich Snippets", 'zip-recipes') ?>
-            </button>
-            <button class="zrdn-tablinks <?php if ($active_tab=='misc') echo 'active'?>" type="button" data-tab="misc">
-                <?php _e("Misc", 'zip-recipes') ?>
-            </button>
-        </div>
-
         <div class="zrdn-container">
             <div class="zrdn-column">
+                <div class="zrdn-tab">
+                    <button class="zrdn-tablinks <?php if ($active_tab=='general') echo 'active'?>" type="button"
+                            data-tab="general"><?php _e("General", 'zip-recipes') ?></button>
+
+                    <button class="zrdn-tablinks <?php if ($active_tab=='nutrition') echo 'active'?>" type="button" data-tab="nutrition">
+			            <?php _e("Nutrition", 'zip-recipes') ?>
+                    </button>
+                    <button class="zrdn-tablinks <?php if ($active_tab=='snippets') echo 'active'?>" type="button" data-tab="snippets">
+			            <?php _e("Rich Snippets", 'zip-recipes') ?>
+                    </button>
+                    <button class="zrdn-tablinks <?php if ($active_tab=='misc') echo 'active'?>" type="button" data-tab="misc">
+			            <?php _e("Misc", 'zip-recipes') ?>
+                    </button>
+                </div>
+
                 <!-- Tab content -->
                 <div class="zrdn-recipe-save-button">
                     <button type="submit" class="button button-primary save"><?php _e('Save', 'zip-recipes') ?></button>
                     <input type="submit" class="button button-primary exit" value="<?php _e('Save and close', 'zip-recipes') ?>">
-
                 </div>
                 <div id="general" class="zrdn-tabcontent <?php if ($active_tab=='general') echo 'active'?>">
 

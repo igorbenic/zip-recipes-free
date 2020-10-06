@@ -6,7 +6,14 @@
 @light-text-color: #3c3c3c;
 @border-color: #DEDEDE;
 @grey-light: #ededed;
-
+@color_open: #E366A1;
+//#wpfooter {
+//  background-image: url("../../images/really-simple-plugins.png");
+//  background-repeat: no-repeat;
+//  background-position-x: right;
+//  background-position-y: top;
+//  padding-top:30px;
+//}
 //recipe overview
 .zrdn-recipes {
   .column-details {
@@ -116,8 +123,9 @@
     }
     .zrdn-grid-title  .zrdn-extension-label{
       border-radius: 50%;
-      min-width:initial;
-      height:20px;
+      min-width: 15px;
+      height: 15px;
+      padding:0;
     }
     height: 100vh;
     min-height:2000px;
@@ -158,6 +166,9 @@
             text-align: center;
             width: 100%;
           }
+          input[type=submit]{
+            margin-top:10px;
+          }
         }
 
 
@@ -177,7 +188,9 @@
 }
 
 .zrdn-settings-logo{
-  width:143px;
+  width:156px;
+  height: 32px;
+  padding-top: 10px;
 }
 
 // Override default WP padding and margin on dashboard
@@ -211,7 +224,8 @@
   }
 
   .tab-content.current {
-    display: inherit;
+    //display: none;
+    display: block;
   }
 
   .tab-text {
@@ -227,7 +241,7 @@
 
   .current .tab-text {
     padding-bottom: 25px;
-    border-bottom: 2px solid @color-error;
+    border-bottom: 2px solid #000;
   }
 
   ul.tabs {
@@ -257,6 +271,29 @@
     padding: 15px;
   }
 }
+.zrdn-recipes-overview-container {
+  margin-left:20px;
+  margin-right:20px;
+  .zrdn-add-recipe {
+    margin-top:20px;
+  }
+  .zrdn-recipes-overview {
+    background-color:#fff;
+    margin-top: 20px;
+    .zrdn-recipes-overview-header {
+      padding: 10px 20px;
+      h1 {
+        font-weight: bold;
+        font-size: 15px;
+      }
+    }
+    .zrdn-recipes-overview-intro {
+      border-top: 1px solid @grey-light;
+      padding: 10px 20px;
+    }
+  }
+
+}
 
 .zrdn-settings-container {
   .tabs {
@@ -280,9 +317,10 @@
     width: 100%;
     margin-left: 40px;
   }
-  .documentation-pro {
+  .documentation-container {
     display: flex;
     align-items: center;
+    margin-right:20px;
   }
 
   .header-links {
@@ -479,100 +517,77 @@ widget
       margin-right: 10px;
       border: 1px solid #DEDEDE;
     }
-
-    table {
-      border-collapse: collapse;
-      margin: 0;
-      padding: 0;
-      table-layout: fixed;
-      justify-content: normal;
-    }
-    table.dataTable {
-      .zrdn-selected {
-        background-color:rgba(41, 182, 246, 0.35);
-      }
-    }
-    table caption {
-      //font-weight: 600;
-      //width: 50%;
-      //font-size: 1.5em;
-      height: 50px;
-      text-align: left;
-      margin-top: -10px;
-      padding-bottom: 10px;
-    }
-
-    //table.dataTable thead .sorting {
-    //  background-image: url("../images/sort_both.png");
-    //  background-repeat: no-repeat;
-    //  background-position: center right;
+    //
+    //table {
+    //  border-collapse: collapse;
+    //  margin: 0;
+    //  padding: 0;
+    //  table-layout: fixed;
+    //  justify-content: normal;
+    //}
+    //table.dataTable {
+    //  .zrdn-selected {
+    //    background-color:rgba(41, 182, 246, 0.35);
+    //  }
+    //}
+    //table caption {
+    //  //font-weight: 600;
+    //  //width: 50%;
+    //  //font-size: 1.5em;
+    //  height: 50px;
+    //  text-align: left;
+    //  margin-top: -10px;
+    //  padding-bottom: 10px;
     //}
     //
-    //table.dataTable thead .sorting_asc {
-    //  background-image: url("../images/sort_asc.png");
-    //  background-repeat: no-repeat;
-    //  background-position: center right;
+    //table tr {
+    //  height: 40px;
+    //  background-color: #f8f8f8;
+    //  padding: .35em;
     //}
     //
-    //table.dataTable thead .sorting_desc {
-    //  background-image: url("../images/sort_desc.png");
-    //  background-repeat: no-repeat;
-    //  background-position: center right;
+    //table tbody tr {
+    //  border-bottom: .1em solid @border-color;
     //}
-
-
-    table tr {
-      height: 40px;
-      background-color: #f8f8f8;
-      padding: .35em;
-    }
-
-    table tbody tr {
-      border-bottom: .1em solid @border-color;
-    }
-
-    table th,
-    table td {
-      padding: .625em;
-      text-align: left;
-    }
-
-    table th {
-      &:focus{outline:none;}
-      letter-spacing: .1em;
-    }
-
-    thead {
-      border-top: 1px solid #DEDEDE;
-    }
-
-    thead tr:first-of-type {
-      //background-color: #F5F6FA;
-      //color: #A3A6B4;
-    }
-
-    tbody {
-      color: @light-text-color;
-    }
-
-    tr:nth-child(even) {
-      background-color: #FFFFFF;
-    }
-
-    tr:nth-child(odd) {
-      background-color: #FFFFFF;
-    }
-
-    tr:first-child {
-      border-top-left-radius: .55rem;
-      border-top-right-radius: .55rem;
-    }
-
-    tr:last-child {
-      margin-bottom: 0;
-      border-bottom-left-radius: .55rem;
-      border-bottom-right-radius: .55rem;
-    }
+    //
+    //table th,
+    //table td {
+    //  padding: .625em;
+    //  text-align: left;
+    //}
+    //
+    //table th {
+    //  &:focus{outline:none;}
+    //  //letter-spacing: .1em;
+    //}
+    //
+    //thead {
+    //  border-top: 1px solid #DEDEDE;
+    //}
+    //
+    //
+    //tbody {
+    //  color: @light-text-color;
+    //}
+    //
+    //tr:nth-child(even) {
+    //  background-color: #FFFFFF;
+    //}
+    //
+    //tr:nth-child(odd) {
+    //  background-color: #FFFFFF;
+    //}
+    //
+    //tr:first-child {
+    //  border-top-left-radius: .55rem;
+    //  border-top-right-radius: .55rem;
+    //}
+    //
+    //tr:last-child {
+    //  margin-bottom: 0;
+    //  border-bottom-left-radius: .55rem;
+    //  border-bottom-right-radius: .55rem;
+    //}
   }
 
   .zrdn-term a {
@@ -938,13 +953,6 @@ widget
     padding-top: 10px;
     margin-bottom: 25px;
     margin-left: -58px;
-  }
-
-  .icon-cog-alt {
-    display: inline-block;
-    font-size: 2.3em;
-    color: #d7263d;
-    vertical-align: middle;
   }
 
   .zrdn-settings-intro-text {
@@ -1372,6 +1380,7 @@ widget
 
 #zrdn-toggle-link-wrap {
   width: 150px;
+  margin-left:20px;
 }
 
 
@@ -1379,4 +1388,71 @@ widget
   width: 135px !important;
   background-color: white !important;
   color: #0a6aa1 !important;
+}
+
+#zrdn-reset-layout {
+  margin-top: -6px;
+  margin-left: 40px;
+}
+
+
+/*
+    Other plugins
+ */
+/*
+Default bullet style
+ */
+.zrdn-bullet {
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: lightgrey;
+  text-decoration: none;
+}
+
+.zrdn-otherplugins-upsell {
+  display: flex !important; //we need important here, because the grid switch overrides it on element level
+  flex-direction: row;
+  padding: 6px;
+  align-items: center;
+  color: @light-text-color;
+
+  .plugin-text {
+    a {
+      text-decoration: none;
+      color: @light-text-color;
+      &:hover {
+        color: @color_open;
+      }
+    }
+  }
+
+  .rsp-image {
+    margin-right: 5px;
+  }
+
+  .wpsi-red {
+    background-color: red;
+  }
+
+  .cmplz-blue {
+    background-color: #27ADEA;
+  }
+
+  .rsssl-yellow {
+    background-color: #FBC43D;//#f4bf3e
+  }
+
+
+  .plugin-status {
+    margin-left: auto;
+  }
+}
+
+.zrdn-item.other-plugins{
+  .item-container {
+    background-color:transparent;
+  }
+
 }

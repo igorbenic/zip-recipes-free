@@ -33,14 +33,14 @@ function zrdn_label_markup($recipe, $settings, $is_shortcode = false ) {
 	$settings['site_name'] = get_bloginfo( 'name' );
 	$settings['amp_on']    = $amp_on;
 	if ( $recipe->has_nutrition_data ) {
-		if (Util::get_option( 'nutrition_label_type' ) != 'html' && $recipe->nutrition_label ){
+		if ($settings['nutrition_label_type'] != 'html' && $recipe->nutrition_label ){
 			$nutrition_label = Util::render_template( 'nutrition_label_image.php', $recipe, $settings );
 		} else {
 			$nutrition_label = Util::render_template( 'nutrition_label_html.php', $recipe, $settings );
 		}
 
 		$args['nutritionlabel'] = $nutrition_label;
-		$args['hide_print'] = Util::get_option( 'hide_print_nutrition_label' );
+		$args['hide_print'] = $settings['hide_print_nutrition_label'];
 		$html = Util::render_template( 'nutrition_label.php', $recipe, $args );
 	}
 	return $html;

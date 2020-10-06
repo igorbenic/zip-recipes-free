@@ -16,7 +16,8 @@
         jQuery(document).ready(function ($) {
             'use strict';
             var recipe_dropdown;
-            var regex = /(\[amd-zlrecipe-recipe:)[0-9]\d*(.*\])/i;
+            var regex_legacy = /(\[amd-zlrecipe-recipe:)[0-9]\d*(.*\])/i;
+            var regex = /(\[zrdn-recipe.*id=['|"])[0-9]\d*(.*\])/i;
             var unlinked_recipes = $('#zrdn_active_recipe_unlinked');
             var all_recipes = $('#zrdn_active_recipe');
 
@@ -42,7 +43,6 @@
             $(document).on('change', '#zrdn_active_recipe_unlinked', zrdn_update_selection);
             $(document).on('change', '#zrdn_active_recipe', zrdn_update_selection);
 
-
             function zrdn_update_selection(){
                 if (!unlinked_recipes.is(':hidden')){
                     recipe_dropdown = unlinked_recipes;
@@ -58,7 +58,12 @@
                 if (matches){
                     content = content.replace(regex, '$1'+recipe_id+'$2');
                 } else {
-                    content = content+'[amd-zlrecipe-recipe:'+recipe_id+']';
+                    content = content+'[zrdn-recipe id="'+recipe_id+'"]';
+                }
+
+                var matches_legacy = content.match(regex_legacy);
+                if (matches_legacy){
+                    content = content.replace(regex_legacy, '$1'+recipe_id+'$2');
                 }
 
                 if (oldContent !== content) {
