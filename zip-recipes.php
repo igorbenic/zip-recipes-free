@@ -102,6 +102,8 @@ if (!function_exists(__NAMESPACE__ . '\init')) {
 			require_once( ZRDN_PATH . 'upgrade-zip.php' );
 			require_once( ZRDN_PATH . 'grid/grid-enqueue.php' );
 			require_once( ZRDN_PATH . 'class-field.php' );
+			require_once( ZRDN_PATH . 'shepherd/tour.php' );
+
 		}
 
 		/**
