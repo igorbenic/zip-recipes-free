@@ -225,3 +225,16 @@ if (!function_exists(__NAMESPACE__ . '\zrdn_maybe_load_iframe')) {
 	}
 	add_action('admin_init', __NAMESPACE__ . '\zrdn_maybe_load_iframe', 30);
 }
+
+if ( ! function_exists( __NAMESPACE__ . '\zrdn_start_tour' ) ) {
+	/**
+	 * Start the tour of the plugin on activation
+	 */
+	function zrdn_start_tour() {
+		if ( ! get_site_option( 'zrdn_tour_shown_once' ) ) {
+			update_site_option( 'zrdn_tour_started', true );
+		}
+	}
+
+	register_activation_hook( __FILE__, __NAMESPACE__ . '\zrdn_start_tour' );
+}

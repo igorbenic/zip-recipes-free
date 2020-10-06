@@ -239,6 +239,9 @@ function zrdn_check_upgrade()
 	}
 
 	if ( $prev_version && version_compare($prev_version, '7.0.0', '<') ) {
+		update_site_option( 'zrdn_tour_shown_once', true );
+		update_site_option( 'zrdn_tour_started', false );
+
 		error_log("run upgrade script");
 		$zrdn_settings = get_option( 'zrdn_settings_general' );
 
