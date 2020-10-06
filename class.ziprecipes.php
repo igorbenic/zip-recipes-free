@@ -270,7 +270,7 @@ class ZipRecipes {
 	    $active_plugins = Util::get_active_plugins();
 
         if ( count($active_plugins)>0) {
-	        require_once($pluginsPath.'/base.php');
+	        if ( file_exists( $pluginsPath.'/base.php' ) ) require_once($pluginsPath.'/base.php');
         }
 
 	    foreach ($active_plugins as $plugin_name){
