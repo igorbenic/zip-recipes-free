@@ -115,7 +115,7 @@ if (!class_exists("ZRDN_Field")) {
 
             return $array;
         }
-        
+
 
         public static function sanitize($fieldname, $value)
         {
@@ -384,7 +384,7 @@ if (!class_exists("ZRDN_Field")) {
             $fieldname = 'zrdn_' . $args['fieldname'];
 	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             $default = $args['default'];
-            if (intval($value)==0) $value = $default;
+	        if ( $value ===FALSE ) $value = $default;
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
@@ -504,7 +504,7 @@ if (!class_exists("ZRDN_Field")) {
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
-        
+
 
 
         public
