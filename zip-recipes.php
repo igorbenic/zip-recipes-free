@@ -10,17 +10,13 @@ Version: 7.0.0
 Author: RogierLankhorst, markwolters
 Author URI: http://www.really-simple-plugins.com/
 License: GPLv3 or later
-
-Copyright 2019 Rogier Lankhorst
+Copyright 2020 Rogier Lankhorst
 This code is derived from the 2.6 version build of ZipList Recipe Plugin released by ZipList Inc.:
 http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPLv3 or later
-
 */
 
 /*
-    This file is part of Zip Recipes Plugin.
-
-    Zip Recipes Plugin is free software: you can redistribute it and/or modify
+    Zip Recipes is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
