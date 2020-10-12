@@ -115,11 +115,10 @@ if (!class_exists("ZRDN_Field")) {
 
             return $array;
         }
-        
+
 
         public static function sanitize($fieldname, $value)
         {
-            _log($_POST);
 	        $fields = Util::get_fields();
 
             if(isset($fields[$fieldname]['type'])) {
@@ -505,7 +504,7 @@ if (!class_exists("ZRDN_Field")) {
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
-        
+
 
 
         public

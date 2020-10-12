@@ -71,27 +71,8 @@ You can download and install the Zip Recipes plugin using the built-in WordPress
 
 = Which languages are supported? =
 
-Currently we have translations for:
-
- * Albanian
- * Arabic
- * Chinese
- * Danish
- * Dutch
- * Finnish
- * French
- * German
- * Greek
- * Italian
- * Japanese
- * Polish
- * Portuguese (Brazilian)
- * Russian
- * Serbian
- * Slovak
- * Spanish
- * Swedish
- * Is your language missing from this list, or it needs updating? No problem, [email us and help us translate Zip Recipes!](mailto:support@ziprecipes.net)
+For all supported languages, please check [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/zip-recipes/)
+If you need a new language, you can contribute there!
 
 = Do you have a premium version? =
 
@@ -124,6 +105,16 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 3. Easy to Use
 
 == Changelog ==
+= 7.0.0 =
+* Completely rebuilt Zip Recipes
+* PHP 7.4 ready
+* Dropped Twig
+* Improved html structure, for better SEO and Google performance
+* Improved Rich Snippet structure
+* Improved customization options
+* Drag & Drop recipe template
+* Added overridable templates
+
 = 6.4.7 =
 * Fix: prevent plugin conflicts with the review notice.
 
