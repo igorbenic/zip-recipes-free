@@ -302,10 +302,10 @@ class Util {
 								$current = $first ? 'current' : '';
 								$first = false;
 
-								if (isset($_GET['page']) && $_GET['page'] === $data['page']) {
+								if (!isset($_GET['id']) && isset($_GET['page']) && $_GET['page'] === $data['page']) {
 									$url = '#'.$tab.'#top';
                                 } else {
-								    $url = add_query_arg(array('page' => $data['page'].'#'.$tab.'#top'), admin_url('admin.php'));
+								    $url = add_query_arg(array('page' => $data['page'].'#'.$tab), admin_url('admin.php'));
                                 }
 								?>
 								<li class="tab-link <?=$current?>" data-tab="<?=$tab?>">
@@ -325,7 +325,7 @@ class Util {
 									        id="zrdn-show-toggles"
 									        class="button button button-upsell"
 									        aria-controls="screen-options-wrap"><?php _e( "Display options",
-											" zip-recipes" ); ?>
+											"zip-recipes" ); ?>
 										<span id="zrdn-toggle-arrows"
 										      class="dashicons dashicons-arrow-down-alt2"></span>
 									</button>
@@ -404,42 +404,42 @@ class Util {
     public static function grid_items(){
 	    $grid_items = array(
 		    array(
-			    'title' => __("General", " zip-recipes"),
+			    'title' => __("General", "zip-recipes"),
 			    'source' => 'general',
 			    'class' => 'zrdn-general',
 			    'can_hide' => true,
 		    ),
 
 		    array(
-			    'title' => __("Nutrition", " zip-recipes"),
+			    'title' => __("Nutrition", "zip-recipes"),
 			    'source' => "nutrition",
 			    'class' => 'small',
 			    'can_hide' => true,
 		    ),
 
 		    array(
-			    'title' => __("Authors", " zip-recipes"),
+			    'title' => __("Authors", "zip-recipes"),
 			    'source' => "authors",
 			    'class' => 'small',
 			    'can_hide' => true,
 		    ),
 
 		    array(
-			    'title' => __("Add-ons", " zip-recipes"),
+			    'title' => __("Add-ons", "zip-recipes"),
 			    'source' => "plugins",
 			    'class' => 'small',
 			    'can_hide' => true,
 		    ),
 
 		    array(
-			    'title' => __("Advanced", " zip-recipes"),
+			    'title' => __("Advanced", "zip-recipes"),
 			    'source' => "advanced",
 			    'class' => 'small',
 			    'can_hide' => true,
 		    ),
 
 		    array(
-			    'title' => __("Other plugins", " zip-recipes"),
+			    'title' => __("Other plugins", "zip-recipes"),
 			    'source' => "other",
 			    'class' => 'half-height other-plugins',
 			    'can_hide' => true,
@@ -528,9 +528,18 @@ class Util {
 				'label'     => __( 'Border radius', 'zip-recipes' ),
 			),
 
+			'box_shadow' => array(
+				'type'               => 'checkbox',
+				'source'             => 'template',
+				'default'             => false,
+				'disabled'           => true,
+				'label'              => __( "Box shadow", 'zip-recipes' ),
+			),
+
 			'background_color' => array(
 				'type'               => 'colorpicker',
 				'source'             => 'template',
+				'default'            => 'rgba(0,0,0,0)',
 				'disabled'           => true,
 				'label'              => __( "Background color", 'zip-recipes' ),
 			),
@@ -565,14 +574,6 @@ class Util {
 				'default'             => '#f37226',
 				'disabled'           => true,
 				'label'              => __( "Link color", 'zip-recipes' ),
-			),
-
-			'box_shadow' => array(
-				'type'               => 'checkbox',
-				'source'             => 'template',
-				'default'             => false,
-				'disabled'           => true,
-				'label'              => __( "Box shadow", 'zip-recipes' ),
 			),
 
 			'jump_to_recipe_link' => array(
@@ -1041,6 +1042,55 @@ class Util {
 	    }
     }
 
+	/**
+     * Get a demo recipe id. Fall back to random recipe
+     *
+	 * @return int
+	 */
+    public static function get_demo_recipe_id(){
+	    $demo_recipe_id = get_option('zrdn_demo_recipe_id');
+	    if (!$demo_recipe_id){
+		    $recipes = Util::get_recipes( array() );
+		    if ( count( $recipes ) > 0 ) {
+			    $demo_recipe_id = $recipes[0]->recipe_id;
+		    }
+	    }
+
+	    return $demo_recipe_id;
+    }
+
+	/**
+	 * @param int $demo_recipe_id
+	 *
+	 * @return int|\WP_Error
+	 */
+    public static function get_preview_post_id( $recipe_id ){
+	    $preview_post_id = get_option('zrdn_preview_post_id');
+	    //if not, create one.
+	    if (!$preview_post_id) {
+		    $page = array(
+			    'post_title'   => __("Zip Recipes preview post", "zip-recipes"),
+			    'post_type'    => "post",
+			    'post_status'  => 'private',
+			    'post_content'  => __("Save your recipe to see the preview", "zip-recipes"),
+		    );
+
+		    // Insert the post into the database
+		    $preview_post_id = wp_insert_post( $page );
+		    update_option('zrdn_preview_post_id',$preview_post_id);
+	    }
+	    //set post content to current recipe
+	    if ($recipe_id) {
+		    $shortcode = Util::get_shortcode($recipe_id);
+		    $args = array(
+			    'post_content' => $shortcode,
+			    'ID'           => $preview_post_id,
+		    );
+		    wp_update_post( $args );
+	    }
+	    return $preview_post_id;
+    }
+
     /**
 	 * Get list class for certain list style
 	 * @param string $list_style
@@ -1103,6 +1153,7 @@ class Util {
 	public static function is_plugin_active($plugin){
 		$fields = self::get_fields(false, $plugins = true);
 		if ($plugin === 'CustomTemplates') return true;
+		if ($plugin === 'structured-data') return true;
 
 		if (isset($fields[$plugin])){
 			return Util::get_option($plugin);

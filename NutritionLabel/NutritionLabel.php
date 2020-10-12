@@ -32,16 +32,17 @@ function zrdn_label_markup($recipe, $settings, $is_shortcode = false ) {
 	$settings['description'] = $description;
 	$settings['site_name'] = get_bloginfo( 'name' );
 	$settings['amp_on']    = $amp_on;
+	$nutrition_label_type = isset($settings['nutrition_label_type']) ? $settings['nutrition_label_type'] : 'html';
 	if ( $recipe->has_nutrition_data ) {
-		if ($settings['nutrition_label_type'] != 'html' && $recipe->nutrition_label ){
-			$nutrition_label = Util::render_template( 'nutrition_label_image.php', $recipe, $settings );
+		if ( $nutrition_label_type != 'html' && $recipe->nutrition_label ){
+			$nutrition_label = Util::render_template( 'nutrition-label-image.php', $recipe, $settings );
 		} else {
-			$nutrition_label = Util::render_template( 'nutrition_label_html.php', $recipe, $settings );
+			$nutrition_label = Util::render_template( 'nutrition-label-html.php', $recipe, $settings );
 		}
 
 		$args['nutritionlabel'] = $nutrition_label;
-		$args['hide_print'] = $settings['hide_print_nutrition_label'];
-		$html = Util::render_template( 'nutrition_label.php', $recipe, $args );
+		$args['hide_print'] = isset($settings['hide_print_nutrition_label']) ? $settings['hide_print_nutrition_label'] : false;
+		$html = Util::render_template( 'nutrition-label.php', $recipe, $args );
 	}
 	return $html;
 

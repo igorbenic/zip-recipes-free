@@ -47,7 +47,7 @@ if ($recipe->yield){
 <?php if($recipe->wait_time_formatted){ ?>
     <div class="zrdn-details-item zrdn-wait-time">
         <div class="<?php echo $label_class?>">
-			<?php echo apply_filters('zrdn_label', __('Wait Time', 'zip-recipes'), 'cook-time')?>
+			<?php echo apply_filters('zrdn_label', __('Wait Time', 'zip-recipes'), 'wait-time')?>
         </div>
         <div class="zrdn-value zrdn-element_wait_time">{wait_time_formatted}</div>
     </div>

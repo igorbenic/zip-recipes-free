@@ -15,8 +15,12 @@ namespace ZRDN;
     ?>
     <?php wp_nonce_field('zrdn_edit_template', 'zrdn_edit_template_nonce')?>
     <input type="hidden" value="0" name="zrdn-reset-template">
-    <button type="button" class="button button-primary zrdn-save-template-settings"><?php _e( "Save",
-			"zip-recipes" ) ?></button>
-    <a href="#" class="zrdn-reset-template-settings"><?php _e( "Reset",
-			"zip-recipes" ) ?></a>
+
+    <div class="zrdn-row-bottom">
+        <div class="zrdn-button-container">
+            <button type="button" class="button button-primary zrdn-save-template-settings"><?php _e( "Save", "zip-recipes" ) ?></button>
+            <a href="#" class="zrdn-reset-template-settings"><?php _e( "Reset", "zip-recipes" ) ?></a>
+        </div>
+    </div>
+
 </form>

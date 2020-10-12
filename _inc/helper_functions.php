@@ -17,27 +17,21 @@ function zrdn_notice($msg, $type = 'notice', $echo = true, $include_css=false, $
     if ($include_css){
         $html .= "<style>
             .zrdn-panel {
-              color: #383d41;
-              background-color: #e2e3e5;
-              border: 1px solid #d6d8db;
+              color: #fff;
+              background-color: #29b6f6;
+              border: 1px solid #29b6f6;
               padding: 10px 15px;
               border-radius: 0.25rem;
               margin: 10px 0;
             }
-            .zrdn-panel.zrdn-notice {
-              background-color: #d9edf7;
-              border-color: #bcdff1;
-              color: #31708f;
-            }
+
             .zrdn-panel.zrdn-success {
-              background-color: #dff0d8;
-              border-color: #d0e9c6;
-              color: #3c763d;
+              background-color: #61ce70;
+              border-color: #61ce70;
             }
             .zrdn-panel.zrdn-warning {
-              color: #856404;
-              background-color: #fff3cd;
-              border-color: #ffeeba;
+              background-color: #f8be2e;
+              border-color: #f8be2e;
             }
             </style>";
     }

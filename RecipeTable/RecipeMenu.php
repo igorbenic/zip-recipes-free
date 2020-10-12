@@ -388,9 +388,15 @@ function zrdn_hide_admin_bar_css(){
         html.wp-toolbar {
             padding-top: 0;
         }
+
         .zrdn-column.preview-column {
             display:none;
         }
+
+        .zrdn-settings-container {
+            display:none;
+        }
+
         .update-nag {
             display:none;
         }

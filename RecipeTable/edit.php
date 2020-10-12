@@ -36,7 +36,7 @@ if (isset($_GET['post_id'])) {
 
 ?>
 
-<div class="wrap" id="zip-recipes">
+<div class="wrap edit-recipe" id="zip-recipes">
 	<?php Util::settings_header(apply_filters('zrdn_tabs', array()), false)?>
 
     <?php
@@ -110,9 +110,6 @@ if (isset($_GET['post_id'])) {
                     <input type="submit" class="button button-primary exit" value="<?php _e('Save and close', 'zip-recipes') ?>">
                 </div>
                 <div id="general" class="zrdn-tabcontent <?php if ($active_tab=='general') echo 'active'?>">
-
-                    <h3><?php _e("General", 'zip-recipes') ?></h3>
-                    <?php //offer option to go to post if post_id is linked.?>
                     <?php
                     $preview_post_id = get_option('zrdn_preview_post_id');
                     if ( !$zrdn_popup && $recipe->post_id && $recipe->post_id !== $preview_post_id ){
@@ -133,14 +130,14 @@ if (isset($_GET['post_id'])) {
                         } ?>
                     <?php
                     if ($recipe->is_featured_post_image && Util::get_option('hide_on_duplicate_image') ){
-                        zrdn_notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"), 'warning');
+                        zrdn_notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes") );
                     }
                     $tags = wp_get_post_tags( $recipe->post_id );
                     if ($recipe->post_id && !$tags){
                         zrdn_notice(
                                 sprintf(__("You haven't added any tags to your post yet. In your post you can %sadd%s some tags relevant to this recipe. These will get added as keywords to your recipes microdata.", "zip-recipes"),
                             '<a href="'.add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')).'">','</a>')
-                                , 'warning', true, false, false);
+                                , 'notice', true, false, false);
                     }
 
                     $fields = array();
@@ -149,7 +146,7 @@ if (isset($_GET['post_id'])) {
 		                    array(
 			                    'type'                  => 'upload',
 			                    'fieldname'             => 'recipe_image',
-			                    'low_resolution_notice' => __( "Low resoltion, please upload a better quality image.",
+			                    'low_resolution_notice' => __( "Low resolution, please upload a better quality image.",
 				                    'zip-recipes' ),
 			                    'size'                  => 'zrdn_recipe_image',
 			                    'value'                 => $recipe->recipe_image,
@@ -220,7 +217,7 @@ if (isset($_GET['post_id'])) {
                             'fieldname' => 'instructions',
                             'value' => $recipe->instructions,
                             'label' => __("Instructions", 'zip-recipes'),
-                            'comment' =>sprintf(__("Put each item on a separate line. There is no need to use bullets for your ingredients. You can also create labels, [hyperlinks|domain.com], *bold*, _italic_ effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
+                            'comment' =>sprintf(__("Put each item on a separate line. There is no need to use bullets for your instructions. You can also create labels, [hyperlinks|domain.com], *bold*, _italic_ effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
                         ),
 
                         array(
@@ -295,8 +292,6 @@ if (isset($_GET['post_id'])) {
 
                 <!-- Tab content -->
                 <div id="nutrition" class="zrdn-tabcontent <?php if ($active_tab=='nutrition') echo 'active'?>">
-
-                    <h3><?php _e("Nutrition", 'zip-recipes') ?></h3>
                     <?php zrdn_notice(__("If you enter the fields below, a HTML and CSS Google friendly nutrition label will be shown below your recipe.", "zip-recipes"), 'notice', true, false, false);
                     ?>
 
@@ -407,14 +402,11 @@ if (isset($_GET['post_id'])) {
                     }
                     ?>
 
-
                 </div><!--tab content -->
 
 
                 <!-- Tab content -->
                 <div id="snippets" class="zrdn-tabcontent <?php if ($active_tab=='snippets') echo 'active'?>">
-
-                    <h3><?php _e("Nutrition", 'zip-recipes') ?></h3>
                     <?php zrdn_notice(__("Google prefers three images in the ratio's 1x1, 4x3 and 16x9. These are generated automatically by Zip Recipes, but you can change the selected images here. Use a high resolution image. If you reset an image, it will default to the generated image based on the main recipe image, or if there is no recipe image, the linked post image.", "zip-recipes"), 'notice', true, false, false);
                     ?>
 
@@ -461,8 +453,6 @@ if (isset($_GET['post_id'])) {
                 <!-- Tab content -->
                 <div id="misc" class="zrdn-tabcontent <?php if ($active_tab=='misc') echo 'active'?>">
 
-                    <h3><?php _e("Misc", 'zip-recipes') ?></h3>
-
                     <?php $misc_fields = array(
                         array(
                             'type' => 'checkbox',
@@ -491,30 +481,7 @@ if (isset($_GET['post_id'])) {
                         $post_permalink = get_permalink($recipe->post_id);
                     } else {
                         //check if we have our default private post
-                        $preview_post_id = get_option('zrdn_preview_post_id');
-	                    //if not, create one.
-	                    if (!$preview_post_id) {
-	                        $page = array(
-			                    'post_title'   => __("Zip Recipes preview post", "zip-recipes"),
-			                    'post_type'    => "post",
-			                    'post_status'  => 'private',
-			                    'post_content'  => __("Save your recipe to see the preview", "zip-recipes"),
-		                    );
-
-	                        // Insert the post into the database
-		                    $preview_post_id = wp_insert_post( $page );
-		                    update_option('zrdn_preview_post_id',$preview_post_id);
-                        }
-                        //set post content to current recipe
-	                    if ($recipe_id) {
-		                    $shortcode = Util::get_shortcode($recipe_id);
-		                    $args = array(
-			                    'post_content' => $shortcode,
-			                    'ID'           => $preview_post_id,
-		                    );
-		                    wp_update_post( $args );
-	                    }
-
+                        $preview_post_id = Util::get_preview_post_id( $recipe_id );
                         $post_permalink = get_permalink($preview_post_id);
                     }?>
                     <input type="hidden" name="zrdn_post_permalink" value = "<?php echo $post_permalink?>">

@@ -756,8 +756,8 @@ class Recipe {
 		    $this->author = $user_data->display_name;
 	    }
 
-	    $this->video_url = 'https://www.youtube.com/watch?v=TZWdtqiBi08';
-	    $this->video_url_output = wp_oembed_get($this->video_url);
+	    $this->video_url = 'https://www.youtube.com/embed/FKqN8wNBbcI';
+	    $this->video_url_output = '<iframe width="1120" height="630" src="https://www.youtube.com/embed/FKqN8wNBbcI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>';
 	    $this->summary_rich = $this->summary = __("This is a great recipe for all occasions", "zip-recipes");
 	    $this->prep_time = 'PT0H20M';
 	    $this->cook_time = 'PT0H10M';

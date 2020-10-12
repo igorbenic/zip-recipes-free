@@ -17,7 +17,7 @@
 
             editor.addButton('zrdn_buttons', {
                 title: 'Create or edit recipe',
-                image: url + '/../images/zip-recipes-icon-16.png',
+                image: url + '/../images/zip-recipes-icon-20.png',
                 onclick: function () {
                     var recipe_id = null;
 

@@ -115,10 +115,11 @@ if (!class_exists("ZRDN_Field")) {
 
             return $array;
         }
-
+        
 
         public static function sanitize($fieldname, $value)
         {
+            _log($_POST);
 	        $fields = Util::get_fields();
 
             if(isset($fields[$fieldname]['type'])) {
@@ -131,9 +132,9 @@ if (!class_exists("ZRDN_Field")) {
                     if ($value === 'false') $value = false;
                     return $value==true ? true : false;
                 case 'colorpicker':
-                    return ($value);
-                    return sanitize_hex_color($value);
-                case 'text':
+                    //sanitize_hex_color does not work here because we use RGBA for transparent options
+	                return sanitize_text_field($value);
+	            case 'text':
                     return sanitize_text_field($value);
                 case 'multicheckbox':
                 case 'authors':
@@ -504,7 +505,7 @@ if (!class_exists("ZRDN_Field")) {
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
-
+        
 
 
         public
@@ -600,7 +601,7 @@ if (!class_exists("ZRDN_Field")) {
             <input type="hidden" name="<?php echo esc_html($fieldname) ?>" id="<?php echo esc_html($fieldname) ?>"
                    value="<?php echo esc_html($value) ?>" class="zrdn-color-picker-hidden">
             <input type="text" name="color_picker_container" data-hidden-input='<?php echo esc_html($fieldname) ?>'
-                   data-alpha="true" data-default-color="rgba(0,0,0,0.85)" value="<?php echo esc_html($value) ?>" class="zrdn-color-picker"
+                   data-alpha="true" data-default-color="<?php echo $args['default']?>" value="<?php echo esc_html($value) ?>" class="zrdn-color-picker"
                    >
             <?php do_action('zrdn_after_field', $args); ?>
 
@@ -856,14 +857,12 @@ if (!class_exists("ZRDN_Field")) {
             wp_nonce_field('zrdn_save', 'zrdn_nonce');
             ?>
             <div class="zrdn-save-button">
-                <input class="button button-primary" type="submit" name="zrdn-save"
-                       value="<?php _e("Save", 'zip-recipes') ?>">
+                <div class="zrdn-button-border">
+                    <input class="button button-primary" type="submit" name="zrdn-save" value="<?php _e("Save", 'zip-recipes') ?>">
+                </div>
             </div>
-
             <?php
         }
-
-
 
 
         /**

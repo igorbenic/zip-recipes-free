@@ -394,7 +394,6 @@ jQuery(document).ready(function($) {
     }
 
     function setSettingsChanged(obj){
-
         var parentFieldGroup = obj.closest('.field-group');
         if (parentFieldGroup.length) {
             if (parentFieldGroup.data('reload_on_change') == 1) {
@@ -418,13 +417,14 @@ jQuery(document).ready(function($) {
     $(document).on("change", "#zrdn-save-template-settings select", function () {
         zrdnSettingsChanged = true;
         zrdnUpdateStyle($(this));
-
     });
     $(document).on("keyup", "#zrdn-save-template-settings input", function () {
         zrdnSettingsChanged = true;
         zrdnUpdateStyle($(this));
     });
     $(document).on("change", "#zrdn-save-template-settings input", function () {
+        //don't track colorpicker here
+        if ($(this).hasClass('wp-color-picker')) return;
         zrdnSettingsChanged = true;
         zrdnUpdateStyle($(this));
     });
@@ -687,14 +687,23 @@ jQuery(document).ready(function($) {
         }, false);
     }
 
-    //colorpicker in the wizard
+    $(document).on('change', 'input[name=color_picker_container]', function(){
+        var container_id = $(this).data('hidden-input');
+        zrdnSettingsChanged = true;
+        $('#' + container_id).val( $(this).val() );
+        zrdnUpdateStyle($('#' + container_id));
+    });
+
     $('.zrdn-color-picker').wpColorPicker({
             change:
                 function (event, ui) {
-                    var container_id = $(event.target).data('hidden-input');
-                    $('#' + container_id).val(ui.color.toString());
-                    zrdnSettingsChanged = true;
-                    zrdnUpdateStyle($('#' + container_id));
+                    if (event.hasOwnProperty('originalEvent')) {
+                        var container_id = $(event.target).data('hidden-input');
+                        $('#' + container_id).val(ui.color.toString());
+                        zrdnSettingsChanged = true;
+                        zrdnUpdateStyle($('#' + container_id));
+                    }
+
                 }
         }
     );
@@ -760,7 +769,6 @@ jQuery(document).ready(function($) {
 
         if (fieldName.indexOf('background')!==-1) {
             $("#zrdn-recipe-container").css('background-color', value);
-            $("#zrdn-recipe-container .zrdn-sub-grid .sub-item-content .zrdn-recipe-block").css('background-color', value);
         }
 
         if (fieldName.indexOf('text')!==-1) {

@@ -1,7 +1,7 @@
 <?php if ( empty($recipe->nested_ingredients) && !$recipe->preview ) return;?>
 <?php $label_class = apply_filters('zrdn_label_class','zrdn-recipe-label zrdn-ingredients-label', 'ingredients'); ?>
 <h3 class="<?php echo $label_class?>">
-    <?php echo apply_filters('zrdn_label', __('Ingredients', 'zip-recipes'), 'ingredients')?>
+    <?php echo apply_filters('zrdn_label', __('Ingredients', 'zip-recipes') , 'ingredients' )?>
 </h3>
 
 <?php do_action('zrdn_before_ingredients', $recipe, $settings);?>

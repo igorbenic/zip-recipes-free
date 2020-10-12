@@ -31,7 +31,7 @@
   height: 100%;
 }
 .zrdn-grid .zrdn-item .zrdn-grid-header .zrdn-grid-title {
-  font-size: 20px;
+  font-size: 1.2em;
   padding: 26px 30px 0;
   font-weight: bold;
   float: left;
@@ -43,13 +43,13 @@
 .zrdn-grid .zrdn-item .item-container {
   background-color: #fff;
   position: relative;
-  box-shadow: 1px 1px #dedede;
+  box-shadow: 0px 0px 5px 5px rgba(222, 222, 222, 0.2);
   width: 780px;
   height: 480px;
 }
 .zrdn-grid .zrdn-item .item-container .item-content {
   clear: both;
-  margin: 15px;
+  margin: 0 20px;
   height: calc(100% - 100px);
   padding-top: 15px;
   padding-bottom: 10px;
@@ -91,10 +91,11 @@ label {
 }
 #zrdn-save-template-settings .field-group {
   flex-direction: row;
+  padding: 5px 10px;
 }
 #zrdn-save-template-settings .zrdn-save-template-settings {
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 10px;
+  margin-left: 0;
 }
 /* prevent color picker from getting below muuri grid, by moving it to the left */
 .wp-picker-holder .iris-picker {
@@ -118,6 +119,7 @@ label {
 #zrdn-recipe-container .zrdn-grid-active-element h1,
 #zrdn-recipe-container .zrdn-grid-active-element h2 {
   margin: 0;
+  line-height: 0.9em;
 }
 #zrdn-recipe-container .zrdn-grid-active-element h3,
 #zrdn-recipe-container .zrdn-grid-active-element h4 {
@@ -153,6 +155,9 @@ ol {
 }
 .zrdn-main-container .zrdn-width-0 {
   display: none;
+}
+.zrdn-main-container .zrdn-inactive-container .zrdn-sub-grid .sub-item-content .zrdn-recipe-block {
+  background-color: #fff;
 }
 .zrdn-main-container .zrdn-inactive-container > .item-container {
   background-color: inherit;
@@ -195,8 +200,9 @@ ol {
   position: relative;
 }
 .zrdn-sub-grid .sub-item-content .zrdn-recipe-block {
+  border-radius: 5px;
   box-shadow: 1px 1px #dedede;
-  background-color: #fff;
+  background-color: transparent;
   border-top: 1px solid #dedede;
   border-left: 1px solid #dedede;
   height: 20px;
@@ -220,7 +226,7 @@ ol {
 }
 .zrdn-grid-item .sub-item-content {
   position: relative;
-  width: 360px;
+  width: 300px;
   font-size: 13px;
   cursor: grab;
 }
@@ -245,12 +251,14 @@ ol {
   height: 100%;
 }
 .zrdn-highlight-dragarea {
-  border: 1px dashed #dedede !important;
   margin-right: 9px;
   margin-bottom: 20px;
+  border: 1px solid #61ce70 !important;
+  background-color: #e9f8eb !important;
 }
 .zrdn-grid-item.muuri-item-placeholder .zrdn-recipe-block {
-  border: 1px dashed #dedede !important;
+  border: 1px solid #61ce70 !important;
+  background-color: #e9f8eb !important;
   opacity: 0.5;
 }
 .zrdn-grid-item.muuri-item-placeholder .zrdn-recipe-block .zrdn-recipe-block-content {
@@ -451,7 +459,7 @@ ol {
 .zrdn-block-icon {
   cursor: pointer;
   position: absolute;
-  right: -103px;
+  right: -100px;
   top: 0;
   z-index: 5;
   background-color: #fff;
@@ -462,6 +470,7 @@ ol {
 }
 .zrdn-add-block + .zrdn-add-block {
   margin-left: 20px;
+  margin-right: 20px;
 }
 .zrdn-grid-inactive .empty {
   display: none;
@@ -471,10 +480,22 @@ ol {
   border: 1px dashed #dedede;
 }
 .zrdn-highlight-grid {
-  border: 1px solid green !important;
+  border: 1px solid #61ce70 !important;
+  background-color: #e9f8eb !important;
+  -webkit-transition: background-color 1s ease-in;
+  -moz-transition: background-color 1s ease-in;
+  -o-transition: background-color 1s ease-in;
+  -ms-transition: background-color 1s ease-in;
+  transition: background-color 1s ease-in;
 }
 .zrdn-highlight-grid-warn {
-  border: 1px solid red !important;
+  border: 1px solid #d7263d !important;
+  background-color: #f3bcc3 !important;
+  -webkit-transition: background-color 1s ease-in;
+  -moz-transition: background-color 1s ease-in;
+  -o-transition: background-color 1s ease-in;
+  -ms-transition: background-color 1s ease-in;
+  transition: background-color 1s ease-in;
 }
 .zrdn-reset-template-settings {
   margin-top: 20px;
@@ -484,7 +505,7 @@ ol {
   margin-right: 20px;
 }
 .zrdn-settings-changed {
-  color: green;
+  color: #61ce70;
   float: left;
   padding: 8px;
 }

@@ -12,7 +12,7 @@ if (!class_exists("zrdn_review")) {
             if (isset(self::$_this))
                 wp_die(sprintf(__('%s is a singleton class and you cannot create a second instance.', 'zip-recipes'), get_class($this)));
 //	        update_option( 'zrdn_review_notice_shown', false );
-//	        update_option('zrdn_activation_time', strtotime("-2 month"));
+//	        update_option('zrdn_activation_time', strtotime("-3 month"));
             self::$_this = $this;
             //show review notice, only to free users
             if (defined("ZRDN_FREE") && !is_multisite()) {
@@ -77,7 +77,7 @@ if (!class_exists("zrdn_review")) {
             </style>
             <div id="message" class="updated fade notice is-dismissible zrdn-review really-simple-plugins" style="border-left:4px solid #333">
                 <div class="zrdn-container">
-                    <div class="zrdn-review-image"><img width=80px" src="<?php echo ZRDN_PLUGIN_URL?>images/icon-128x128.png" alt="review-logo"></div>
+                    <div class="zrdn-review-image"><img width=80px" src="<?php echo ZRDN_PLUGIN_URL?>images/zip-icon-pink.svg" style="height:86px;margin:5px" alt="review-logo"></div>
                     <div style="margin-left:30px">
                         <p>
 	                    <?php echo $intro ?>&nbsp;

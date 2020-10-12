@@ -270,7 +270,7 @@ class ZipRecipes {
 	    $active_plugins = Util::get_active_plugins();
 
         if ( count($active_plugins)>0) {
-	        if ( file_exists( $pluginsPath.'/base.php' ) ) require_once($pluginsPath.'/base.php');
+	        require_once($pluginsPath.'/base.php');
         }
 
 	    foreach ($active_plugins as $plugin_name){
@@ -622,7 +622,7 @@ class ZipRecipes {
 			),
 			array(
 				'type' => 'VisitorRating',
-				'title' => __( "Visitor rating", "zip-recipes" ),
+				'title' => __( "Visitor Rating", "zip-recipes" ),
 				'single' => true,
 				'settings' => false,
 				'premium' => true,
@@ -1078,6 +1078,19 @@ class ZipRecipes {
 		    ),
 	    );
 	    ?>
+        <style>
+            .zrdn-grid .grid-active.small.zrdn-inactive-container{
+                width:320px;
+            }
+            .zrdn-grid .grid-active.small.zrdn-inactive-container .item-container{
+                width:300px;
+            }
+
+            .zrdn-grid .grid-active.small.zrdn-inactive-container .zrdn-grid-item .sub-item-content{
+                width:300px;
+            }
+
+        </style>
 	    <div class="wrap" id="zip-recipes">
 		    <?php Util::settings_header(apply_filters('zrdn_tabs', $tabs ), false);?>
 		    <?php
@@ -1173,7 +1186,7 @@ class ZipRecipes {
 
 					$grid_items = array(
 						array(
-							'title' => __("Settings", " zip-recipes"),
+							'title' => __("Settings", "zip-recipes"),
 							'source' => 'general',
 							'class' => 'small',
 							'can_hide' => true,
@@ -1181,14 +1194,14 @@ class ZipRecipes {
 							'controls' => '',
 						),
 						array(
-							'title' => __("Inactive", " zip-recipes"),
+							'title' => __("Inactive", "zip-recipes"),
 							'class' => 'small zrdn-inactive-container',
 							'can_hide' => true,
 							'content' => $inactive,
 							'controls' => '',
 						),
 						array(
-							'title' => __("Template", " zip-recipes"),
+							'title' => __("Template", "zip-recipes"),
 							'source' => 'general',
 							'class' => 'zrdn-active-container',
 							'content' => $active,
@@ -1224,7 +1237,7 @@ class ZipRecipes {
             <div id="zrdn-toggle-wrap">
                 <div id="zrdn-toggle-dashboard">
                     <div id="zrdn-toggle-dashboard-text">
-                        <?php _e("Select which dashboard items should be displayed", " zip-recipes") ?>
+                        <?php _e("Select which dashboard items should be displayed", "zip-recipes") ?>
                     </div>
                     <div id="zrdn-checkboxes">
                         <?php
@@ -1370,9 +1383,7 @@ class ZipRecipes {
 
 	    $other_extensions_content = '';
 	    foreach ($other_extensions as $index => $other_extension ) {
-
 		    $status = ZipRecipes::get_extension_status($index);
-
 		    $other_extension['color'] = $status;
 		    $other_extensions_content .= Util::render_template('extension-bulleted-item.php', false, $other_extension);
 	    }
@@ -1387,7 +1398,7 @@ class ZipRecipes {
                 ),
 
                 'AutomaticNutrition' => array(
-                    'title' => "Automatic Nutrition",
+                    'title' => __("Automatic Nutrition", "zip-recipes"),
                     'class' => 'small',
                     'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/nutrition.jpg',
                     'link'     => 'https://demo.ziprecipes.net/tres-leches/',
@@ -1395,7 +1406,7 @@ class ZipRecipes {
                 ),
 
                 'ServingAdjustment' => array(
-	                'title' => "Serving Adjustments",
+	                'title' => __("Serving Adjustments", "zip-recipes"),
 	                'class' => 'small',
 	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/servingadjustments.jpg',
 	                'link'     => 'https://demo.ziprecipes.net/best-guacamole-ever/',
@@ -1403,7 +1414,7 @@ class ZipRecipes {
                 ),
 
                 'RecipeGrid2' => array(
-	                'title' => "Recipe Gallery",
+	                'title' => __("Recipe Gallery", "zip-recipes"),
 	                'class' => 'small',
 	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/recipegrid2.jpg',
 	                'link'     => 'https://demo.ziprecipes.net/recipe-gallery/',
@@ -1423,19 +1434,13 @@ class ZipRecipes {
                 ),
         );
 
-
-
         $extensions = apply_filters('zrdn_extensions', $extensions);
-
 	    $output = "";
 	    ?>
         <div id="extensions" class="zrdn-gridless tab-content">
             <div class="zrdn-grid">
             <?php
-
-
             foreach ($extensions as $index => $grid_item){
-
                 if ($index === 'general') {
                     $btn_title = apply_filters('zrdn_upgrade_button', __('Get Premium', 'zip-recipes'));
                     if (strtolower($btn_title) === 'account'){
@@ -1457,8 +1462,7 @@ class ZipRecipes {
 	                $content = Util::render_template('extension-grid.php', false, $grid_item);
                 }
 
-	            $output .= str_replace(array('{class}', '{title}', '{content}', '{index}', '{controls}', 'grid-active'), array($grid_item['class'], $grid_item['title'],  $content, $index, '', ''), $element);
-
+	            $output .= str_replace( array('{class}', '{title}', '{content}', '{index}', '{controls}', 'grid-active'), array($grid_item['class'], $grid_item['title'],  $content, $index, '', ''), $element);
             }
             echo $output;
             ?>
@@ -1477,6 +1481,9 @@ class ZipRecipes {
     public static function get_extension_status($extension){
 	    $is_lover = defined('ZRDN_PRODUCT_ID') && ZRDN_PRODUCT_ID === 1843;
 	    $is_friend = defined('ZRDN_PRODUCT_ID') && ZRDN_PRODUCT_ID === 1851;
+
+	    if ( $extension === 'structured-data' && ($is_lover || $is_friend) ) return 'active';
+
 	    if (in_array($extension, self::$addons_lover) && !in_array($extension, self::$addons_friend)){
 		    if ( $is_lover ) {
 			    if (Util::is_plugin_active($extension)) {
@@ -1488,7 +1495,7 @@ class ZipRecipes {
 			    return 'lover';
 		    }
 	    } elseif (in_array($extension, self::$addons_friend)){
-		    if ( $is_friend ) {
+		    if ( $is_friend ||  $is_lover ) {
 			    if (Util::is_plugin_active($extension)) {
 				    return 'active';
 			    } else {
@@ -1943,7 +1950,6 @@ class ZipRecipes {
 		$year = date('Y', time());
 		$month = date('n', time());
 		if (!file_exists(trailingslashit($filepath).$filename)) {
-			error_log("file does not exist");
 			return false;
 		}
 

@@ -75,7 +75,7 @@
 
             editor.addButton('zrdn_buttons', {
                 title: 'Zip Recipes',
-                image: url + '/../images/zrecipes-icon.png',
+                image: url + '/../images/zip-recipes-icon-20.png',
                 onclick: function () {
                     var recipe_id = null;
 

@@ -3,11 +3,15 @@
 @recipe-block-width: @gridblock_width_small - 4 * @grid_margin;
 @recipe-block-width-full: 2 * @recipe-block-width;
 @recipe-block-width-half:  @recipe-block-width - @grid_margin ;
-@brand-success : green;
 @color-complianz: #29b6f6;
+@brand-primary: #F343A0;
+@brand-friend: #27b6f6;
+@color-success: #61ce70;
+@color-error: #d7263d;
 
 .error {
     display:none;
+    
 }
 label {
     margin: 0;
@@ -26,12 +30,14 @@ label {
 }
 
 #zrdn-save-template-settings {
+
     .field-group {
         flex-direction: row;
+        padding:5px 10px;
     }
     .zrdn-save-template-settings {
-        margin-top:20px;
-        margin-left:20px;
+        margin-top:10px;
+        margin-left: 0;
     }
 }
 
@@ -60,7 +66,7 @@ label {
     }
     h1, h2 {
         margin:0;
-
+        line-height:0.9em;
     }
     h3, h4 {
         margin:10px 0;
@@ -100,11 +106,19 @@ ul {
         display:none;
     }
     .zrdn-inactive-container {
+        .zrdn-sub-grid {
+            .sub-item-content {
+                .zrdn-recipe-block {
+                    background-color: #fff;
+                }
+            }
+        }
         >.item-container {
             background-color:inherit;
             box-shadow:inherit;
         }
         .item-container {
+            width:@gridblock_width_small - @grid_margin;
             width:@gridblock_width_small - @grid_margin;
             .item-content {
                 margin:0;
@@ -150,8 +164,9 @@ ul {
     position: relative;
     .sub-item-content {
         .zrdn-recipe-block {
+            border-radius:5px;
             box-shadow: 1px 1px #dedede;
-            background-color: #fff;
+            background-color: transparent;
             border-top:1px solid #dedede;
             border-left:1px solid #dedede;
             height: @default-block-height - 3 * @grid_margin;/**/
@@ -184,7 +199,7 @@ ul {
     }
     .sub-item-content {
         position: relative;
-        width: @recipe-block-width;
+        width: 300px;
         font-size: 13px;
         cursor: grab;
     }
@@ -215,12 +230,14 @@ ul {
 }
 
 .zrdn-highlight-dragarea {
-    border:1px dashed #dedede !important;
     margin-right:9px;
     margin-bottom:20px;
+    border:1px solid @color-success !important;
+    background-color: lighten(@color-success, 35%) !important;
 }
 .zrdn-grid-item.muuri-item-placeholder .zrdn-recipe-block {
-    border:1px dashed #dedede !important;
+    border:1px solid @color-success !important;
+    background-color: lighten(@color-success, 35%) !important;
     opacity:0.5;
     .zrdn-recipe-block-content{
         display:none;
@@ -415,7 +432,7 @@ ul {
 .zrdn-block-icon {
     cursor:pointer;
     position: absolute;
-    right: -103px;
+    right: -100px;
     top: 0;
     z-index: 5;
     background-color: #fff;
@@ -427,6 +444,7 @@ ul {
 }
 .zrdn-add-block + .zrdn-add-block {
     margin-left:20px;
+    margin-right:20px;
 }
 //hide empty
 
@@ -441,10 +459,22 @@ ul {
 
 
 .zrdn-highlight-grid {
-    border:1px solid green !important;
+    border:1px solid @color-success !important;
+    background-color: lighten(@color-success, 35%) !important;
+    -webkit-transition: background-color 1s ease-in;
+    -moz-transition: background-color 1s ease-in;
+    -o-transition: background-color 1s ease-in;
+    -ms-transition: background-color 1s ease-in;
+    transition: background-color 1s ease-in;
 }
 .zrdn-highlight-grid-warn {
-    border:1px solid red !important;
+    border:1px solid @color-error !important;
+    background-color: lighten(@color-error, 35%) !important;
+    -webkit-transition: background-color 1s ease-in;
+    -moz-transition: background-color 1s ease-in;
+    -o-transition: background-color 1s ease-in;
+    -ms-transition: background-color 1s ease-in;
+    transition: background-color 1s ease-in;
 }
 
 
@@ -457,7 +487,7 @@ ul {
 }
 
 .zrdn-settings-changed{
-    color:@brand-success;
+    color: @color-success;
     float: left;
     padding: 8px;
 }

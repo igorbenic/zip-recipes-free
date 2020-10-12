@@ -78,6 +78,8 @@
   padding: 3px 10px;
   height: 27px;
   margin-right: 2px;
+  right: 25px;
+  position: absolute;
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-extension-label.lover {
   background-color: #F343A0;
@@ -90,6 +92,10 @@
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-extension-label.zrdn-hide-bullet {
   display: none;
+}
+#zrdn-dashboard .zrdn-gridless .zrdn_extension_explanation_container .zrdn-extension-label {
+  position: relative;
+  margin-left: 25px;
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-grid-title .zrdn-extension-label {
   border-radius: 50%;
@@ -112,13 +118,14 @@
 #zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content {
   display: block;
 }
-#zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content p,
+#zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content div.zrdn-desc,
 #zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content .zrdn-license-container {
-  margin: 15px 30px;
+  margin: 0 25px;
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content .zrdn-extension-image {
   height: 250px;
   overflow: hidden;
+  margin-bottom: 15px;
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content .zrdn-button-paragraph {
   margin: 0;
@@ -127,7 +134,8 @@
   bottom: 42px;
   height: 7px;
   white-space: nowrap;
-  width: 100%;
+  width: 340px;
+  padding: 20px;
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content .zrdn-button-paragraph .zrdn-button {
   position: absolute;
@@ -141,13 +149,49 @@
 #zrdn-dashboard .zrdn-gridless .zrdn-item[data-id="general"] .zrdn-button-paragraph {
   padding: 10px 0 0 10px;
 }
+.zrdn-row-bottom {
+  position: absolute;
+  bottom: 42px;
+  height: 7px;
+  white-space: nowrap;
+  width: 330px;
+  padding: 25px 0;
+}
+.zrdn-row-bottom .zrdn-button-container {
+  margin: 20px 0 0 0;
+  border-top: 1px solid #ededed;
+  position: relative;
+}
+.zrdn-row-bottom .zrdn-button-container .zrdn-button {
+  position: absolute;
+  bottom: -33px;
+  text-align: center;
+  width: 100%;
+  margin-top: 15px;
+}
+.zrdn-row-bottom .zrdn-button-container .button {
+  margin-top: 15px;
+}
+.zrdn-row-bottom .zrdn-button-container input[type=submit] {
+  margin-top: 15px;
+}
+.zrdn-gridless .zrdn-row-bottom {
+  padding: 25px;
+}
+.zrdn-gridless .zrdn-row-bottom .zrdn-button-container {
+  margin: 40px 0 0 0;
+}
 .update-nag {
   display: none;
 }
 .zrdn-settings-logo {
-  width: 156px;
-  height: 32px;
+  height: 25px;
   padding-top: 10px;
+}
+@media screen and (max-width: 1300px) {
+  .zrdn-settings-logo {
+    display: none;
+  }
 }
 .tools_page_zrdn-settings-page #wpcontent {
   padding: 0;
@@ -185,8 +229,8 @@
   border-bottom: 2px solid #000;
 }
 #zip-recipes ul.tabs {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   list-style: none;
   height: 70px;
 }
@@ -194,7 +238,7 @@
   background: none;
   color: #222;
   display: inline-block;
-  padding: 15px 15px 15px 15px;
+  padding: 15px 25px;
   cursor: pointer;
   margin: 0;
 }
@@ -212,7 +256,11 @@
   margin-right: 20px;
 }
 .zrdn-recipes-overview-container .zrdn-add-recipe {
-  margin-top: 20px;
+  margin-top: 40px;
+  margin-bottom: -35px;
+}
+.zrdn-recipes-overview-container .search-box select {
+  vertical-align: initial;
 }
 .zrdn-recipes-overview-container .zrdn-recipes-overview {
   background-color: #fff;
@@ -250,6 +298,11 @@
   width: 100%;
   margin-left: 40px;
 }
+@media only screen and (max-width: 1300px) {
+  .zrdn-settings-container .tabs-content {
+    margin-left: 0;
+  }
+}
 .zrdn-settings-container .documentation-container {
   display: flex;
   align-items: center;
@@ -261,8 +314,23 @@
   justify-content: space-between;
 }
 .zrdn-settings-container .tab-links {
-  margin-left: 100px;
+  margin-left: 75px;
   color: #3c3c3c;
+}
+@media only screen and (max-width: 1300px) {
+  .zrdn-settings-container .tab-links {
+    margin-left: 0;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .zrdn-settings-container .documentation-container {
+    display: none;
+  }
+}
+@media only screen and (max-width: 680px) {
+  .zrdn-settings-container .tabs {
+    display: none;
+  }
 }
 .zrdn-settings-container .documentation {
   margin-right: 25px;
@@ -1080,7 +1148,7 @@ widget
 #zrdn-dashboard .zrdn_extension_explanation_container,
 #zip-recipes .zrdn_extension_explanation_container {
   display: flex;
-  margin: 15px 30px;
+  margin: 15px 0;
 }
 #zrdn-dashboard .zrdn_extension_explanation_container .zrdn-column-badge,
 #zip-recipes .zrdn_extension_explanation_container .zrdn-column-badge {

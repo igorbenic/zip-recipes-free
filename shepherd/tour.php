@@ -67,48 +67,15 @@ class zrdn_tour {
 			wp_enqueue_script( 'zrdn-shepherd-tour' );
 
 			$logo
-				   = '<span class="cmplz-tour-logo"><img class="cmplz-tour-logo" style="width: 70px; height: 15px;" src="'
-				     . ZRDN_PLUGIN_URL . '/images/logo-new.png"></span>';
+				   = '<span class="cmplz-tour-logo"><img class="cmplz-tour-logo" style="height:55px;margin:5px" src="'
+				     .         ZRDN_PLUGIN_URL . 'images/zip-icon-pink.svg"></span>';
 			$html  = '<div class="cmplz-tour-logo-text">' . $logo
 			         . '<span class="cmplz-tour-text">{content}</span></div>';
 
-			$demo_recipe_id = false;//get_option('zrdn_demo_recipe_id');
-			if (!$demo_recipe_id){
-				$recipes = Util::get_recipes( array() );
-				if ( count( $recipes ) > 0 ) {
-					$demo_recipe_id = $recipes[0]->recipe_id;
-				}
-			}
-
+			$demo_recipe_id = Util::get_demo_recipe_id();
 			if (!$demo_recipe_id) return;
+			$recipe_post_id =Util::get_preview_post_id( $demo_recipe_id );
 
-			$recipe = new Recipe($demo_recipe_id);
-
-			$preview_post_id = get_option('zrdn_preview_post_id');
-			//if not, create one.
-			if (!$preview_post_id) {
-				$page = array(
-					'post_title'   => __("Zip Recipes preview post", "zip-recipes"),
-					'post_type'    => "post",
-					'post_status'  => 'private',
-					'post_content'  => __("Save your recipe to see the preview", "zip-recipes"),
-				);
-
-				// Insert the post into the database
-				$preview_post_id = wp_insert_post( $page );
-				update_option('zrdn_preview_post_id',$preview_post_id);
-			}
-			//set post content to current recipe
-			if ($demo_recipe_id) {
-				$shortcode = Util::get_shortcode($demo_recipe_id);
-				$args = array(
-					'post_content' => $shortcode,
-					'ID'           => $preview_post_id,
-				);
-				wp_update_post( $args );
-			}
-
-			$recipe_post_id = $recipe->post_id;
 			$steps = array(
 				0 => array(
 					'title'  => __( 'Welcome to Zip Recipes', 'zip-recipes' ),
@@ -136,11 +103,12 @@ class zrdn_tour {
 					'text'   => __( "In our settings overview you will find general settings for your recipe card and demo's for our templates. If you need help configuring, please ask support or have a look at our documentation.", 'zip-recipes' ),
 					'attach' => '.zrdn-general',
 					'position' => 'right',
+					'click' => '.tab-dashboard',
 					'link'   => add_query_arg( array( "page" => "zrdn-settings"), admin_url( "admin.php" ) ),
 				),
 				4 => array(
 					'title'  => __( 'Extensions', 'zip-recipes' ),
-					'text'   => __( "Have a look at our premium add-ons for ZIP Recipes, taking your recipes to whole new level!", 'zip-recipes' ),
+					'text'   => __( "Have a look at our premium add-ons for ZIP Recipes, taking your recipes to a whole new level!", 'zip-recipes' ),
 					'attach' => '.zrdn-about-extensions',
 					'position' => 'right',
 					'click' => '.tab-extensions',

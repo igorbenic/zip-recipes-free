@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zip-recipes\n"
 "Report-Msgid-Bugs-To: hello@ziprecipes.net\n"
-"POT-Creation-Date: 2019-09-09 10:07+0000\n"
-"PO-Revision-Date: 2019-11-26 17:31+0000\n"
-"Last-Translator: Odry <tyusel@gmail.com>\n"
+"POT-Creation-Date: 2020-10-01 08:19+0200\n"
+"PO-Revision-Date: 2020-10-01 06:37+0000\n"
+"Last-Translator: \n"
 "Language-Team: Swedish\n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
@@ -17,740 +17,153 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Loco-Version: 2.3.1; wp-5.2.4"
+"X-Loco-Version: 2.4.3; wp-5.5.1"
 
-#: class-field.php:17 class-review.php:14 NutritionLabel/class-shortcode.php:11
+#: NutritionLabel/NutritionLabel.php:29
+#, php-format
+msgid "Nutrition label for %s"
+msgstr "Näringsdeklaration för %s"
+
+#: NutritionLabel/class-shortcode.php:11 class-field.php:17 class-review.php:13
+#: plugins/ImperialMetricsConverter/class-geoip.php:28
+#: plugins/MostPopularRecipes/class-shortcode.php:11
 #, php-format
 msgid "%s is a singleton class and you cannot create a second instance."
 msgstr "%s är en enskild klass som du inte kan skapa fler instanser för."
 
-#: class-field.php:353
-msgid "(h)"
-msgstr "(h)"
+#: NutritionLabel/widget.php:16 class.ziprecipes.php:711
+msgid "Nutrition Label"
+msgstr "Näringsdeklaration"
 
-#: class-field.php:362
-msgid "(m)"
-msgstr "(m)"
+#: NutritionLabel/widget.php:17
+msgid "Show the Nutrition Label for a recipe"
+msgstr "Visa näringsdeklarationen för recept"
 
-#: class-review.php:56
-#, php-format
-msgid "You already have %s recipes on your site, awesome!"
-msgstr "Du har redan %s-recept på din webbplats. Grymt!"
-
-#: class-review.php:62
-#, php-format
-msgid ""
-"If you have a moment, please consider leaving a review on WordPress.org to "
-"spread the word. We greatly appreciate it! If you have any questions or "
-"feedback, leave us a %smessage%s."
-msgstr ""
-"Om du har tid över skulle vi uppskatta om du skrev en recension på Wordpress."
-"org för att sprida ordet. Det skulle betyda mycket för oss! Om du har några "
-"frågor eller synpunkter kan du %skontakta%s oss."
-
-#: class-review.php:66
-msgid "Leave a review"
-msgstr "Skriv en recension"
-
-#: class-review.php:69
-msgid "Maybe later"
-msgstr "Kanske senare"
-
-#: class-review.php:72
-msgid "No thanks"
-msgstr "Nej tack"
-
-#: class.ziprecipes.php:743
-msgid "Use text for the nutritional info"
-msgstr "Använd text för näringsinnehåll"
-
-#: class.ziprecipes.php:1033
-#, php-format
-msgid "%d year"
-msgstr "%d år"
-
-#: class.ziprecipes.php:1033
-#, php-format
-msgid "%d years"
-msgstr "%d år"
-
-#: class.ziprecipes.php:1034
-#, php-format
-msgid "%d month"
-msgstr "%d månad"
-
-#: class.ziprecipes.php:1034
-#, php-format
-msgid "%d months"
-msgstr "%d månader"
-
-#: class.ziprecipes.php:1035
-#, php-format
-msgid "%d day"
-msgstr "%d dag"
-
-#: class.ziprecipes.php:1035
-#, php-format
-msgid "%d days"
-msgstr "%d dagar"
-
-#: class.ziprecipes.php:1036
-#, php-format
-msgid "%d hour"
-msgstr "%d timme"
-
-#: class.ziprecipes.php:1036
-#, php-format
-msgid "%d hours"
-msgstr "%d timmar"
-
-#: class.ziprecipes.php:1037
-#, php-format
-msgid "%d minute"
-msgstr "%d minut"
-
-#: class.ziprecipes.php:1037
-#, php-format
-msgid "%d minutes"
-msgstr "%d minuter"
-
-#: class.ziprecipes.php:1038
-#, php-format
-msgid "%d second"
-msgstr "%d sekund"
-
-#: class.ziprecipes.php:1038
-#, php-format
-msgid "%d seconds"
-msgstr "%d sekunder"
-
-# Is the ", your" supposed to be translated as well?
-#: twig-strings.php:6
-msgid ""
-"Like this plugin? The premium version includes lots of cool extra features, "
-"your "
-msgstr ""
-"Gillar du denna plugin? Premiumversionen inkluderar flera häftiga "
-"extrafunktioner."
-
-#: twig-strings.php:7
-#, php-format
-msgid "20% fast adapter discount"
-msgstr "20 % rabatt för tidiga testare"
-
-# This translation depends on where it's used.
-#: twig-strings.php:8
-msgid " is still valid!"
-msgstr "är fortfarande giltig!"
-
-#: twig-strings.php:9
-msgid "check out premium"
-msgstr "kolla in premium"
-
-# The current translation will sound best if this is adding a code at a checkout or something in that vein. Otherwise "lägg till rabatt" could work.
-#: twig-strings.php:10
-msgid "apply discount"
-msgstr "använd rabattkod"
-
-#: twig-strings.php:11
-msgid "dismiss"
-msgstr "avfärda"
-
-#: twig-strings.php:12 views/notice.twig:2
-msgid ""
-"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
-"extensions installed. Please contact your hosting company and request that "
-"they install ImageMagick or GD PHP extensions for you website."
-msgstr ""
-"För bäst prestanda rekommenderar Zip Recipes att installera ImageMagick- "
-"eller GD PHP-tillägg. Vänligen kontakta ditt webbhotell och be att de "
-"installerar ImageMagic- eller GD PHP-tillägg för din webbplats."
-
-#: twig-strings.php:13 views/NutritionLabel.twig:17
-msgid "Nutrition Facts"
+#: NutritionLabel/widget.php:55 class.ziprecipes.php:718
+msgid "Nutrition info"
 msgstr "Näringsinnehåll"
 
-#: twig-strings.php:14 views/NutritionLabel.twig:23
-msgid "Serves"
-msgstr "Portioner"
-
-#: twig-strings.php:15 views/NutritionLabel.twig:29
-msgid "Amount Per Serving"
-msgstr "Mängd per portion:"
-
-#: twig-strings.php:16 RecipeTable/edit.php:280 views/NutritionLabel.twig:36
-msgid "Calories"
-msgstr "Kalorier"
-
-# If this is the EU nutritional tag DRI it should probably be more specifically "dagligt referensintag".
-#: twig-strings.php:17 views/NutritionLabel.twig:44
-msgid "% Daily Value*"
-msgstr "% av dagligt intag*"
-
-#: twig-strings.php:18 views/NutritionLabel.twig:49
-msgid "Total Fat"
-msgstr "Fett (totalt)"
-
-#: twig-strings.php:19 views/NutritionLabel.twig:60
-msgid "Saturated Fat"
-msgstr "Mättat fett"
-
-#: twig-strings.php:20 views/NutritionLabel.twig:71
-msgid "Trans Fat"
-msgstr "Transfett:"
-
-#: twig-strings.php:21 RecipeTable/edit.php:334 views/NutritionLabel.twig:79
-msgid "Cholesterol"
-msgstr "Kolesterol"
-
-#: twig-strings.php:22 RecipeTable/edit.php:310 views/NutritionLabel.twig:88
-msgid "Sodium"
-msgstr "Natrium"
-
-#: twig-strings.php:23 twig-strings.php:24 views/NutritionLabel.twig:97
-msgid "Total Carbohydrate"
-msgstr "Kolhydrater (totalt)"
-
-#: twig-strings.php:25 views/NutritionLabel.twig:108
-msgid "Dietary Fiber"
-msgstr "Kostfibrer"
-
-#: twig-strings.php:26 views/NutritionLabel.twig:119
-msgid "Sugars"
-msgstr "Socker"
-
-#: twig-strings.php:27 RecipeTable/edit.php:292 views/NutritionLabel.twig:127
-msgid "Protein"
-msgstr "Protein"
-
-#: twig-strings.php:28 RecipeTable/edit.php:346 views/NutritionLabel.twig:140
-msgid "Vitamin A"
-msgstr "A-vitamin"
-
-#: twig-strings.php:29 twig-strings.php:30 RecipeTable/edit.php:340
-#: views/NutritionLabel.twig:144
-msgid "Vitamin C"
-msgstr "C-vitamin"
-
-#: twig-strings.php:31 RecipeTable/edit.php:352 views/NutritionLabel.twig:154
-msgid "Iron"
-msgstr "Järn"
-
-# If this is the EU nutritional tag DRI it should probably be more specifically "dagligt referensintag".
-#: twig-strings.php:32 views/NutritionLabel.twig:161
-msgid ""
-"* Percent Daily Values are based on a 2,000 calorie diet. Your daily values "
-"may be higher or lower depending on your calorie needs."
-msgstr ""
-"*procent av dagligt intag baseras på en 2000-kaloriers diet. Ditt "
-"rekommenderade dagliga intag kan vara högre eller lägre beroende på ditt "
-"kaloribehov."
-
-#: twig-strings.php:33 twig-strings.php:63 twig-strings.php:101
-#: RecipeTable/edit.php:198 views/settings.twig:99
-msgid "Ingredients"
-msgstr "Ingredienser"
-
-#: twig-strings.php:34
-msgid ""
-"Put each ingredient on a separate line.  There is no need to use bullets for "
-"your ingredients.<br />\n"
-"                        You can also create labels, hyperlinks, bold/italic "
-"effects and even add images!"
-msgstr ""
-"Lägg varje ingrediens på en separat linje. Det finns ingen anledning till "
-"att använda punkter för dina ingredienser.<br />\n"
-"                        Du kan även skapa etiketter, hyperlänkar, "
-"tjock/kursiv stil och dessutom lägga till bilder!"
-
-#: twig-strings.php:36 twig-strings.php:71 RecipeTable/edit.php:205
-#: views/settings.twig:130
-msgid "Instructions"
-msgstr "Instruktioner"
-
-#: twig-strings.php:37 views/settings_promo.twig:12
-msgid "Like the plugin, or need more features?"
-msgstr "Gillar du denna plugin eller saknar du en funktion?"
-
-#: twig-strings.php:38 views/settings_promo.twig:14
-msgid "Optimized for Google"
-msgstr "Optimerat för Google"
-
-#: twig-strings.php:39 views/settings_promo.twig:15
-msgid "Cool looking themes"
-msgstr "Häftiga teman"
-
-#: twig-strings.php:40 views/settings_promo.twig:16
-msgid "Automatic serving adjustment"
-msgstr "Automatisk portionsjustering"
-
-#: twig-strings.php:41 views/settings_promo.twig:17
-msgid "Author setting for Google"
-msgstr "Författarinställning för Google"
-
-#: twig-strings.php:42 views/settings_promo.twig:18
-msgid "Ratings and reviews"
-msgstr "Betyg och recensioner"
-
-#: twig-strings.php:43 views/settings_promo.twig:19
-msgid "Save recipes on social media"
-msgstr "Spara recept på sociala media"
-
-#: twig-strings.php:44 views/settings_promo.twig:20
-msgid "Recipe index"
-msgstr "Receptindex"
-
-#: twig-strings.php:45 views/settings_promo.twig:21
-msgid "Automatic nutrition calculation"
-msgstr "Automatisk näringsberäkning"
-
-#: twig-strings.php:46 views/settings_promo.twig:22
-msgid "Search by ingredients"
-msgstr "Sök via ingredienser"
-
-#: twig-strings.php:47 views/settings_promo.twig:23
-msgid "Recipe picture gallery"
-msgstr "Receptets bildgalleri"
-
-#: twig-strings.php:48 views/settings_promo.twig:24
-msgid "Mobile friendly"
-msgstr "Mobilvänlig"
-
-#: twig-strings.php:49 views/settings.twig:26
-msgid "Zip Recipes Settings"
-msgstr "Zip Recipes-inställningar"
-
-#: twig-strings.php:50 views/settings.twig:27
-msgid "For more customization options, see our knowledgebase:"
-msgstr "Besök vår kunskapsbank för fler anpassningsval."
-
-#: twig-strings.php:51 views/settings.twig:35
-msgid "Custom Print Button"
-msgstr "Anpassad utskriftsknapp"
-
-#: twig-strings.php:52 views/settings.twig:45
-msgid "Zip Recipes Plugin Link"
-msgstr "Zip Recipes-pluginlänk"
-
-#: twig-strings.php:53 views/settings.twig:49
-msgid "Printed Output: Recipe Permalink"
-msgstr "Utskrift: receptets permalänk"
-
-#: twig-strings.php:54 views/settings.twig:53
-msgid "Printed Output: Copyright Statement"
-msgstr "Utskrift: upphovsrättspolicy"
-
-#: twig-strings.php:55 views/settings.twig:60
-msgid "Recipe Card Look & Feel"
-msgstr "Receptskortets utseende & känsla"
-
-#: twig-strings.php:56 views/settings.twig:63
-msgid "Stylesheet"
-msgstr "Stilmall"
-
-#: twig-strings.php:57 views/settings.twig:67
-msgid "Recipe Title"
-msgstr "Receptrubrik"
-
-#: twig-strings.php:58 views/settings.twig:71
-msgid "Print Button"
-msgstr "Skriv ut-knapp"
-
-#: twig-strings.php:59 twig-strings.php:78 views/settings.twig:75
-msgid "Hide image when duplicate of post"
-msgstr "Dölj bild om dublett med inläggsbilden"
-
-#: twig-strings.php:60 twig-strings.php:80 views/settings.twig:80
-msgid "Image Width"
-msgstr "Bildbredd"
-
-#: twig-strings.php:61 twig-strings.php:81 views/settings.twig:84
-msgid "Image Display"
-msgstr "Bildvisning"
-
-#: twig-strings.php:62 views/settings.twig:92
-msgid "Border Style"
-msgstr "Kantlinjestil"
-
-#: twig-strings.php:64 views/settings.twig:102
-msgid "Ingredients Label"
-msgstr "Innehållsdeklaration"
-
-#: twig-strings.php:65 views/settings.twig:108
-msgid "Ingredients List Type"
-msgstr "Innehållets listtyp"
-
-#: twig-strings.php:66 views/settings.twig:111 views/settings.twig:142
-msgid "List"
-msgstr "Lista"
-
-#: twig-strings.php:67 views/settings.twig:114 views/settings.twig:145
-msgid "Numbered List"
-msgstr "Nummerlista"
-
-#: twig-strings.php:68 views/settings.twig:117 views/settings.twig:148
-msgid "Bulleted List"
-msgstr "Punktlista"
-
-#: twig-strings.php:69 views/settings.twig:120 views/settings.twig:151
-msgid "Paragraphs"
-msgstr "Paragrafer"
-
-#: twig-strings.php:70 views/settings.twig:123 views/settings.twig:154
-msgid "Divs"
-msgstr "Diverse"
-
-#: twig-strings.php:72 views/settings.twig:133
-msgid "Instructions Label"
-msgstr "Instruktionsanvisning"
-
-#: twig-strings.php:73 views/settings.twig:139
-msgid "Instructions List Type"
-msgstr "Instruktionens listtyp"
-
-#: twig-strings.php:74 views/settings.twig:159
-msgid "Other Options"
-msgstr "Fler val"
-
-#: twig-strings.php:75 views/settings.twig:64
-msgid "Use Zip Recipes style"
-msgstr "Använd Zip Recipes-stil"
-
-#: twig-strings.php:76 views/settings.twig:68
-msgid "Hide Recipe Title in post (still shows in print view)"
-msgstr "Dölj receptrubriken i inlägg (visas fortfarande i utskriftsvyn)"
-
-#: twig-strings.php:77 views/settings.twig:72
-msgid "Hide Print Button"
-msgstr "Dölj skriv ut-knappen"
-
-#: twig-strings.php:79 views/settings.twig:76
-msgid "Hide recipe image when recipe image is the same as the post image"
-msgstr "Dölj receptbilder när receptbilden är samma som i inlägget"
-
-#: twig-strings.php:82 views/settings.twig:86
-msgid "Hide Image in post"
-msgstr "Dölj bild i inlägget"
-
-#: twig-strings.php:83 views/settings.twig:88
-msgid "Hide Image in print view"
-msgstr "Dölj bild i utskriftsvyn"
-
-# "Skriv ut" is the common verb to print something, while "utskrift" is what you receive by the printing.
-#: twig-strings.php:84 plugins/CustomTemplates/views/_blocks.twig:35
-msgid "Print"
-msgstr "Skriv ut"
-
-#: twig-strings.php:85
-msgid "Prep Time:"
-msgstr "Förberedelsetid:"
-
-#: twig-strings.php:86
-msgid "Cook Time:"
-msgstr "Tillagningstid:"
-
-# Minor correction. Swedish doesn't use capitalisation for every word.
-#: twig-strings.php:87
-msgid "Total Time:"
-msgstr "Total tid:"
-
-#: twig-strings.php:88
-msgid "Cuisine:"
-msgstr "Kök:"
-
-#: twig-strings.php:89
-msgid "Servings:"
-msgstr "Portioner"
-
-#: twig-strings.php:90
-msgid "Serving Size:"
-msgstr "Portionsstorlek:"
-
-#: twig-strings.php:91
-msgid "Calories per serving:"
-msgstr "Kalorier per portion:"
-
-#: twig-strings.php:92
-msgid "Fat per serving:"
-msgstr "Fett per portion:"
-
-#: twig-strings.php:93
-msgid "Saturated fat per serving:"
-msgstr "Mättat fett per portion:"
-
-#: twig-strings.php:94
-msgid "Carbs per serving:"
-msgstr "Kolhydrater per portion:"
-
-#: twig-strings.php:95
-msgid "Protein per serving:"
-msgstr "Protein per portion:"
-
-#: twig-strings.php:96
-msgid "Fiber per serving:"
-msgstr "Fiber per portion:"
-
-#: twig-strings.php:97
-msgid "Sugar per serving:"
-msgstr "Socker per portion:"
-
-#: twig-strings.php:98
-msgid "Sodium per serving:"
-msgstr "Natrium per portion:"
-
-#: twig-strings.php:99
-msgid "Trans fat per serving:"
-msgstr "Transfett per portion:"
-
-#: twig-strings.php:100
-msgid "Cholesterol per serving:"
-msgstr "Kolesterol per portion:"
-
-#: twig-strings.php:102 plugins/VisitorRating/views/render.twig:5
-#: plugins/RecipeReviews/views/render.twig:5
-msgid "stars"
-msgstr "stjärnor"
-
-#: twig-strings.php:103 plugins/VisitorRating/VisitorRating.php:63
-#: plugins/VisitorRating/views/render.twig:16
-#: plugins/RecipeReviews/views/render.twig:16
-msgid "Your rating:"
-msgstr "Ditt betyg:"
-
-#: twig-strings.php:104 plugins/VisitorRating/views/render.twig:21
-#: plugins/RecipeReviews/views/render.twig:21
-#: plugins/RecipeReviews/views/comments_fields.twig:2
-msgid "Rate this recipe"
-msgstr "Betygsätt detta recept"
-
-#: twig-strings.php:105 plugins/VisitorRating/views/render.twig:5
-#: plugins/VisitorRating/views/render.twig:39
-#: plugins/VisitorRating/views/render.twig:41
-#: plugins/RecipeReviews/views/render.twig:5
-#: plugins/RecipeReviews/views/render.twig:39
-#: plugins/RecipeReviews/views/render.twig:41
-msgid "ratings"
-msgstr "betyg"
-
-#: twig-strings.php:106 plugins/RecipeReviews/views/comments_modify.twig:1
-#: plugins/RecipeReviews/views/comment_meta_box.twig:1
-msgid "Rating"
-msgstr "Betyg"
-
-#: twig-strings.php:107
-msgid "Prep"
-msgstr "Förberedelse"
-
-# This is very dependent on where it appears. Cook as in boiling (opposed to frying) would be "Koka". Otherwise it's "laga (mat)" or "tillaga". I've chosen "tillaga" which is a very general word for making food.
-#: twig-strings.php:108
-msgid "Cook"
-msgstr "Tillaga"
-
-#: twig-strings.php:109
-msgid "Ready in"
-msgstr "Färdigt om"
-
-#: twig-strings.php:110 RecipeTable/edit.php:235
-msgid "Notes"
-msgstr "Anteckningar"
-
-#: twig-strings.php:111
-msgid "Nutrition information"
-msgstr "Näringsinnehåll"
-
-#: twig-strings.php:112 plugins/RecipeActions/views/recipe_actions.twig:9
-msgid "Save to BigOven"
-msgstr "Spara till BigOven"
-
-#: twig-strings.php:113
-msgid "Category:"
-msgstr "Kategori:"
-
-#: twig-strings.php:114 plugins/Authors/views/render.twig:3
-msgid "Author:"
-msgstr "Författare:"
-
-#: twig-strings.php:115
-msgid "Fiber:"
-msgstr "Fiber:"
-
-#: twig-strings.php:116
-msgid "Calories:"
-msgstr "Kalorier"
-
-#: twig-strings.php:117
-msgid "Carbs:"
-msgstr "Kolhydrater:"
-
-#: twig-strings.php:118
-msgid "Cholesterol:"
-msgstr "Kolesterol:"
-
-#: twig-strings.php:119
-msgid "Choose an option"
-msgstr "Välj ett alternativ"
-
-#: twig-strings.php:120
-msgid "Deactivate License"
-msgstr "Inaktivera licens"
-
-#: twig-strings.php:121
-msgid "Fat:"
-msgstr "Fett:"
-
-#: twig-strings.php:122
-msgid "Protein:"
-msgstr "Protein:"
-
-#: twig-strings.php:123
-msgid "Sodium:"
-msgstr "Natrium:"
-
-# Depends on grammatical gender, but it seems more likely to be "totalt" than "total".
-#: twig-strings.php:124
-msgid "Total:"
-msgstr "Totalt:"
-
-#: twig-strings.php:125
-msgid "Error"
-msgstr "Fel"
-
-#: twig-strings.php:126
-msgid "Trans fat:"
-msgstr "Transfett:"
-
-#: twig-strings.php:127
-msgid "You do not have permission to install plugin updates"
-msgstr "Du har inte behörighet att installera pluginuppdateringar"
-
-#: twig-strings.php:128
-msgid "Use custom authors"
-msgstr "Använd anpassade författare"
-
-#: twig-strings.php:129
-msgid "Use custom authors instead of default WordPress post authors."
-msgstr ""
-"Använd anpassade författare istället för Wordpress standardval för inlägg."
-
-#: twig-strings.php:130
-msgid "Start"
-msgstr "Start"
-
-#: twig-strings.php:131
-msgid "Saturated fat:"
-msgstr "Mättat fett:"
-
-#: twig-strings.php:132
-msgid "Recipe Reviews"
-msgstr "Receptrecensioner"
-
-#: twig-strings.php:133
-msgid "Prep:"
-msgstr "Förberedelse:"
-
-# fixed grammars.
-#: twig-strings.php:134
-msgid "Print this recipe"
-msgstr "Skriv ut receptet"
-
-#: twig-strings.php:135
-msgid "Prep Time"
-msgstr "Förberedningstid"
-
-#: twig-strings.php:136
-msgid "Generate label"
-msgstr "Skapa etikett"
-
-#: twig-strings.php:137
-msgid "Enter your license key"
-msgstr "Ange din licensnyckel"
-
-#: twig-strings.php:138
-msgid "Cook Time"
-msgstr "Tillagningstid"
-
-#: twig-strings.php:139
-msgid "Clear label"
-msgstr "Rensa etikett"
-
-#: twig-strings.php:140
-msgid "Activate License"
-msgstr "Aktivera licens"
-
-#: twig-strings.php:141
-msgid "active"
-msgstr "aktiv"
-
-#: twig-strings.php:142
-msgid "An error occurred while updating the license data, please try again."
-msgstr ""
-"Ett fel uppstod med att uppdatera din licensdata. Vänligen försök igen."
-
-#: RecipeTable/RecipeMenu.php:225 RecipeTable/RecipeMenu.php:226
-#: RecipeTable/RecipeMenu.php:351 RecipeTable/class-recipe-table.php:67
+#: RecipeTable/RecipeMenu.php:256 RecipeTable/RecipeMenu.php:257
+#: RecipeTable/class-recipe-table.php:77 class.ziprecipes.php:109
 msgid "Recipes"
 msgstr "Recept"
 
-#: RecipeTable/RecipeMenu.php:257
-msgid "Click to edit this image"
-msgstr "Klicka för att ändra denna bild"
+#: RecipeTable/RecipeMenu.php:267 RecipeTable/RecipeMenu.php:268
+#: class.ziprecipes.php:113 class.ziprecipes.php:1191
+msgid "Template"
+msgstr ""
 
-#: RecipeTable/RecipeMenu.php:258
-msgid "minutes"
-msgstr "minuter"
+#: RecipeTable/RecipeMenu.php:276 RecipeTable/RecipeMenu.php:277
+#: class.ziprecipes.php:117 class.ziprecipes.php:189 class.ziprecipes.php:1176
+#: shepherd/tour.php:101
+msgid "Settings"
+msgstr ""
 
-#: RecipeTable/RecipeMenu.php:259
-msgid "hours"
-msgstr "timmar"
-
-#: RecipeTable/RecipeMenu.php:260
+#: RecipeTable/RecipeMenu.php:362 class.ziprecipes.php:485
 msgid "clear image"
 msgstr "rensa bild"
 
-#: RecipeTable/RecipeMenu.php:353
+#: RecipeTable/RecipeMenu.php:459
+msgid "My Recipes"
+msgstr ""
+
+#: RecipeTable/RecipeMenu.php:462
+msgid ""
+"Here you can find an overview of your recipes. You can add them to a post or "
+"page by copying the shortcode (classic editor) or using the Gutenberg block."
+msgstr ""
+
+#: RecipeTable/RecipeMenu.php:465
 msgid "Add recipe"
 msgstr "Lägg till recept"
 
-#: RecipeTable/RecipeMenu.php:362
+#: RecipeTable/RecipeMenu.php:471
 msgid "Filter"
 msgstr "Filter"
 
-#: RecipeTable/class-recipe-table.php:66
+#: RecipeTable/class-recipe-table.php:76 RecipeTable/metabox.php:17
 msgid "Recipe"
 msgstr "Recept"
 
-#: RecipeTable/class-recipe-table.php:112 RecipeTable/edit.php:160
+#: RecipeTable/class-recipe-table.php:110
+#, fuzzy
+#| msgid "Category:"
+msgid "category"
+msgstr "Kategori:"
+
+#: RecipeTable/class-recipe-table.php:121
+#, fuzzy
+#| msgid "Cuisine:"
+msgid "cuisine"
+msgstr "Kök:"
+
+#: RecipeTable/class-recipe-table.php:145 RecipeTable/edit.php:168
 msgid "Title"
 msgstr "Rubrik"
 
-#: RecipeTable/class-recipe-table.php:136
+#: RecipeTable/class-recipe-table.php:174
 msgid "Unnamed recipe"
 msgstr "Namnlöst recept"
 
-#: RecipeTable/class-recipe-table.php:140
+#: RecipeTable/class-recipe-table.php:178 class-field.php:843
 msgid "Edit"
 msgstr "Ändra"
 
-#: RecipeTable/class-recipe-table.php:145 RecipeTable/edit.php:123
+#: RecipeTable/class-recipe-table.php:183 RecipeTable/edit.php:126
 msgid "Unlink from post"
 msgstr "Ta bort länk från inlägg"
 
-#: RecipeTable/class-recipe-table.php:146
-#: RecipeTable/class-recipe-table.php:150
+#: RecipeTable/class-recipe-table.php:184
+#: RecipeTable/class-recipe-table.php:188
 msgid "Delete"
 msgstr "Radera"
 
-#: RecipeTable/class-recipe-table.php:147
+#: RecipeTable/class-recipe-table.php:185 class.ziprecipes.php:228
 msgid "View post"
 msgstr "Visa inlägg"
 
-#: RecipeTable/class-recipe-table.php:166
+#: RecipeTable/class-recipe-table.php:262
+msgid "Popular"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:264
+msgid "Demo"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:266
+msgid "Non food"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:278
 msgid "ID"
 msgstr "ID"
 
-#: RecipeTable/class-recipe-table.php:167
+#: RecipeTable/class-recipe-table.php:279
 msgid "Name"
 msgstr "Namn"
+
+#: RecipeTable/class-recipe-table.php:280 RecipeTable/edit.php:238
+#: views/category.php:14 views/category.php:29
+msgid "Category"
+msgstr "Kategori"
+
+#: RecipeTable/class-recipe-table.php:281
+msgid "Views"
+msgstr ""
+
+#: RecipeTable/class-recipe-table.php:282 RecipeTable/edit.php:246
+#: views/category.php:4
+msgid "Cuisine"
+msgstr "Kök"
+
+#: RecipeTable/class-recipe-table.php:283 class.ziprecipes.php:654
+#: plugins/Authors/Authors.php:102
+msgid "Author"
+msgstr "Författare"
+
+#: RecipeTable/class-recipe-table.php:284
+msgid "Shortcode"
+msgstr ""
 
 #: RecipeTable/edit.php:50
 msgid "New recipe"
@@ -764,27 +177,33 @@ msgstr "Inställningarna har sparats!"
 msgid "Not all required fields are filled out!"
 msgstr "Alla fält som krävs har inte fyllts i!"
 
-#: RecipeTable/edit.php:92 RecipeTable/edit.php:112
+#: RecipeTable/edit.php:94 RecipeTable/edit.php:114
+#: _inc/class.ziprecipes.util.php:407
 msgid "General"
 msgstr "Allmänt"
 
-#: RecipeTable/edit.php:95 RecipeTable/edit.php:266
+#: RecipeTable/edit.php:97 RecipeTable/edit.php:299 RecipeTable/edit.php:417
+#: _inc/class.ziprecipes.util.php:414
 msgid "Nutrition"
 msgstr "Näring"
 
-#: RecipeTable/edit.php:98 RecipeTable/edit.php:380
+#: RecipeTable/edit.php:100
+msgid "Rich Snippets"
+msgstr ""
+
+#: RecipeTable/edit.php:103 RecipeTable/edit.php:464
 msgid "Misc"
 msgstr "Blandat"
 
-#: RecipeTable/edit.php:106
+#: RecipeTable/edit.php:109 class-field.php:859 views/template_settings.php:18
 msgid "Save"
 msgstr "Spara"
 
-#: RecipeTable/edit.php:107
+#: RecipeTable/edit.php:110
 msgid "Save and close"
 msgstr "Spara och stäng"
 
-#: RecipeTable/edit.php:117
+#: RecipeTable/edit.php:120
 msgid ""
 "This recipe is linked to a post, but this post has been trashed. You can "
 "untrash the post, or link the recipe to another post or page"
@@ -792,16 +211,15 @@ msgstr ""
 "Detta recept är länkat till ett inlägg som har slängts. Du kan antingen ta "
 "tillbaka inlägget eller länka receptet till ett annat inlägg eller sida"
 
-#: RecipeTable/edit.php:121
+#: RecipeTable/edit.php:124
 msgid "Edit linked post"
 msgstr "Ändra länkat inlägg"
 
-#: RecipeTable/edit.php:126
+#: RecipeTable/edit.php:129
 msgid "View"
 msgstr "Visa"
 
-# There is no one good standard term for "front end". The term is mostly used untranslated by people in the industry. As it seems to be directed towards the users will "framsidan" or possibly "användarsidan" feel more helpful.
-#: RecipeTable/edit.php:133
+#: RecipeTable/edit.php:136
 msgid ""
 "Your recipe image is the same as your post image. The image will be hidden "
 "on the front end."
@@ -809,7 +227,7 @@ msgstr ""
 "Din receptbild är samma som inläggsbilden. Bilden kommer att döljas på "
 "framsidan."
 
-#: RecipeTable/edit.php:138
+#: RecipeTable/edit.php:141
 #, php-format
 msgid ""
 "You haven't added any tags to your post yet. In your post you can %sadd%s "
@@ -820,50 +238,71 @@ msgstr ""
 "till%s relevanta taggar för detta recept i ditt inlägg. Dessa kommer att "
 "läggas till som nyckelord för ditt recepts mikrodata."
 
-#: RecipeTable/edit.php:161
+#: RecipeTable/edit.php:152
+msgid "Low resoltion, please upload a better quality image."
+msgstr ""
+
+#: RecipeTable/edit.php:157
+msgid "Recipe image"
+msgstr ""
+
+#: RecipeTable/edit.php:169
 msgid "My recipe"
 msgstr "Mitt recept"
 
-#: RecipeTable/edit.php:168
+#: RecipeTable/edit.php:176
 msgid "Prep time"
 msgstr "Förberedningstid"
 
-#: RecipeTable/edit.php:174
+#: RecipeTable/edit.php:182
 msgid "Cook time"
 msgstr "Tillagningstid"
 
-#: RecipeTable/edit.php:181
+#: RecipeTable/edit.php:189
+msgid "Wait time"
+msgstr ""
+
+#: RecipeTable/edit.php:196
 msgid "Serving size"
 msgstr "Portionsstorlek"
 
-#: RecipeTable/edit.php:182
+#: RecipeTable/edit.php:197
 msgid "1 slice"
 msgstr "1 skiva"
 
-#: RecipeTable/edit.php:189
+#: RecipeTable/edit.php:204
 msgid "Servings"
 msgstr "Portioner"
 
-#: RecipeTable/edit.php:190
+#: RecipeTable/edit.php:205
 msgid "4 persons"
 msgstr "4 personer"
 
-#: RecipeTable/edit.php:199
+#: RecipeTable/edit.php:206
+msgid "How many people this recipe serves"
+msgstr ""
+
+#: RecipeTable/edit.php:215 class.ziprecipes.php:697 views/ingredients.php:4
+msgid "Ingredients"
+msgstr "Ingredienser"
+
+#: RecipeTable/edit.php:216 RecipeTable/edit.php:223
 #, php-format
 msgid ""
-"Put each ingredient on a separate line. There is no need to use bullets for "
-"your ingredients. You can also create labels, hyperlinks, bold/italic "
-"effects and even add images! %sRead more%s"
+"Put each item on a separate line. There is no need to use bullets for your "
+"ingredients. You can also create labels, [hyperlinks|domain.com], *bold*, "
+"_italic_ effects and even add images! %sRead more%s"
 msgstr ""
-"Lägg varje ingrediens på en separat linje. Det finns ingen anledning till "
-"att använda punkter för dina ingredienser. Du kan även skapa etiketter, "
-"hyperlänkar, tjock/kursiv stil och dessutom lägga till bilder!"
 
-#: RecipeTable/edit.php:211
+#: RecipeTable/edit.php:222 class.ziprecipes.php:704 views/instructions.php:4
+msgid "Instructions"
+msgstr "Instruktioner"
+
+#: RecipeTable/edit.php:230
 msgid "Instruction video"
 msgstr "Instruktionsvideo"
 
-#: RecipeTable/edit.php:212
+#: RecipeTable/edit.php:231
 msgid ""
 "A video is a great way to improve your ranking and will get picked up by "
 "Google's rich snippets."
@@ -871,36 +310,42 @@ msgstr ""
 "En video är ett bra sätt för att öka din rankning och kommer att tas upp som "
 "strukturerad data av Google."
 
-#: RecipeTable/edit.php:218
-msgid "Category"
-msgstr "Kategori"
-
-#: RecipeTable/edit.php:219
+#: RecipeTable/edit.php:239
 msgid "Bread"
 msgstr "Bröd"
 
-#: RecipeTable/edit.php:226
-msgid "Cuisine"
-msgstr "Kök"
-
-#: RecipeTable/edit.php:227
+#: RecipeTable/edit.php:247 models/Recipe.php:825
 msgid "French"
 msgstr "Franska"
 
-#: RecipeTable/edit.php:243
-msgid "Description"
-msgstr "Beskrivning"
+#: RecipeTable/edit.php:254 class.ziprecipes.php:690 views/notes.php:6
+msgid "Notes"
+msgstr "Anteckningar"
 
-#: RecipeTable/edit.php:250
+#: RecipeTable/edit.php:262 class.ziprecipes.php:665
+msgid "Summary"
+msgstr ""
+
+#: RecipeTable/edit.php:269
 #, php-format
 msgid ""
-"Rank even better in Google? Also get the author field in your schema.org "
-"markup. Available in %sall plans%s"
+"Need to set a custom author instead of a default WordPress editor? Custom "
+"authors is a feature available in %sall plans%s"
 msgstr ""
-"Vill du ranka högre på Google? Du får även författarfältet till din schema."
-"org-stilsättning. Tillgänglig i %sall plans%s"
 
-#: RecipeTable/edit.php:274
+#: RecipeTable/edit.php:281
+msgid ""
+"The recipe category has been moved to the WordPress categories. You can now "
+"assign a category to your post in the WordPress post editor"
+msgstr ""
+
+#: RecipeTable/edit.php:300
+msgid ""
+"If you enter the fields below, a HTML and CSS Google friendly nutrition "
+"label will be shown below your recipe."
+msgstr ""
+
+#: RecipeTable/edit.php:309
 #, php-format
 msgid ""
 "Tired of looking up all nutrition data? You can generate the nutrition data "
@@ -909,206 +354,922 @@ msgstr ""
 "Trött på att leta efter näringsdata? Du kan generera näringsdata automatiskt "
 "med %sZip Recipes Lover%s"
 
-#: RecipeTable/edit.php:286
+#: RecipeTable/edit.php:315 views/nutrition_label_html.php:24
+#: views/nutrition_text.php:11
+msgid "Calories"
+msgstr "Kalorier"
+
+#: RecipeTable/edit.php:321 views/nutrition_text.php:35
 msgid "Carbs"
 msgstr "Kolhydrater"
 
-#: RecipeTable/edit.php:298
+#: RecipeTable/edit.php:327 views/nutrition_label_html.php:115
+#: views/nutrition_text.php:43
+msgid "Protein"
+msgstr "Protein"
+
+#: RecipeTable/edit.php:333 views/nutrition_text.php:51
 msgid "Fiber"
 msgstr "Fiber"
 
-#: RecipeTable/edit.php:304
+#: RecipeTable/edit.php:339 views/nutrition_text.php:59
 msgid "Sugar"
 msgstr "Socker"
 
-#: RecipeTable/edit.php:316
+#: RecipeTable/edit.php:345 views/nutrition_label_html.php:76
+#: views/nutrition_text.php:67
+msgid "Sodium"
+msgstr "Natrium"
+
+#: RecipeTable/edit.php:351 views/nutrition_text.php:19
 msgid "Fat"
 msgstr "Fett"
 
-#: RecipeTable/edit.php:322
+#: RecipeTable/edit.php:357
 msgid "Saturated fat"
 msgstr "Mättat fett"
 
-#: RecipeTable/edit.php:328
+#: RecipeTable/edit.php:363 views/nutrition_text.php:75
 msgid "Trans fat"
 msgstr "Transfett"
 
-#: RecipeTable/edit.php:358 views/NutritionLabel.twig:150
+#: RecipeTable/edit.php:369 views/nutrition_label_html.php:67
+#: views/nutrition_text.php:83
+msgid "Cholesterol"
+msgstr "Kolesterol"
+
+#: RecipeTable/edit.php:375 views/nutrition_label_html.php:132
+msgid "Vitamin C"
+msgstr "C-vitamin"
+
+#: RecipeTable/edit.php:381 views/nutrition_label_html.php:128
+msgid "Vitamin A"
+msgstr "A-vitamin"
+
+#: RecipeTable/edit.php:387 views/nutrition_label_html.php:142
+msgid "Iron"
+msgstr "Järn"
+
+#: RecipeTable/edit.php:393 views/nutrition_label_html.php:138
 msgid "Calcium"
 msgstr "Kalcium"
 
-#: RecipeTable/edit.php:387
+#: RecipeTable/edit.php:418
+msgid ""
+"Google prefers three images in the ratio's 1x1, 4x3 and 16x9. These are "
+"generated automatically by Zip Recipes, but you can change the selected "
+"images here. Use a high resolution image. If you reset an image, it will "
+"default to the generated image based on the main recipe image, or if there "
+"is no recipe image, the linked post image."
+msgstr ""
+
+#: RecipeTable/edit.php:424 RecipeTable/edit.php:433 RecipeTable/edit.php:442
+msgid ""
+"Image resolution too low, or image size not generated. You should use an "
+"image of at least 250x250 pixels"
+msgstr ""
+
+#: RecipeTable/edit.php:429
+msgid "1x1 snippet image"
+msgstr ""
+
+#: RecipeTable/edit.php:438
+msgid "4x3 snippet image"
+msgstr ""
+
+#: RecipeTable/edit.php:447
+msgid "16x9 snippet image"
+msgstr ""
+
+#: RecipeTable/edit.php:471
 msgid "Mark recipe as non food"
 msgstr "Markera receptet som icke-mat"
 
-#: NutritionLabel/NutritionLabel.php:24
-#, php-format
-msgid "Nutrition label for %s"
-msgstr "Näringsdeklaration för %s"
-
-#: NutritionLabel/widget.php:16
-msgid "Nutrition Label"
-msgstr "Näringsdeklaration"
-
-#: NutritionLabel/widget.php:17
-msgid "Show the Nutrition Label for a recipe"
-msgstr "Visa näringsdeklarationen för recept"
-
-#: NutritionLabel/widget.php:55
-msgid "Nutrition info"
-msgstr "Näringsinnehåll"
-
-#: controllers/EndpointController.php:226
-#: controllers/EndpointController.php:236
-msgid "Invalid recipe ID or recipe not found"
-msgstr "Ogiltigt recept-ID eller så kunde receptet inte hittas"
-
-#: controllers/EndpointController.php:258
-msgid "Invalid recipe fields"
-msgstr "Ogiltigt receptfält"
-
-# Corrected.
-#: controllers/EndpointController.php:267
-msgid "Can't create recipe"
-msgstr "Kan inte skapa receptet"
-
-# Corrected.
-#: controllers/EndpointController.php:287
-msgid "Can't update recipe"
-msgstr "Kan inte uppdatera receptet"
-
-#: views/toolbar.php:123
-msgid "Recipe selection updated. Time to save!"
-msgstr "Receptsmarkeringen har uppdateras. Dags att spara!"
-
-#: views/toolbar.php:124
-msgid ""
-"Selecting a recipe that is linked to another post will unlink it from that "
-"post!"
+#: RecipeTable/edit.php:498
+msgid "Zip Recipes preview post"
 msgstr ""
-"Genom att markera ett recept som är länkat till ett annat inlägg kommer den "
-"tidigare länken att förloras!"
 
-#: views/toolbar.php:125
-msgid "Show only recipes without post"
-msgstr "Visa endast recept utan inlägg"
-
-#: views/toolbar.php:128 views/toolbar.php:136
-msgid "No recipe selected"
-msgstr "Inget recept valt"
-
-#: views/toolbar.php:148
-msgid "Edit recipe"
-msgstr "Ändra recept"
-
-#: views/toolbar.php:155
-msgid "Create and insert new recipe"
-msgstr "Skapa och infoga nya recept"
-
-#: views/toolbar.php:158
-msgid ""
-"Creating and inserting a new recipe will unlink the current recipe from this "
-"post."
+#: RecipeTable/edit.php:501
+msgid "Save your recipe to see the preview"
 msgstr ""
-"Genom att skapa eller infoga ett nytt recept kommer det nuvarande receptets "
-"länk att tas bort från detta inlägg."
 
-#: src/block.php:87
-msgid "Recipe not found"
-msgstr "Receptet hittades inte"
+#: RecipeTable/edit.php:527
+msgid "The preview requires the recipe to be connected to a published post"
+msgstr ""
 
-# Only metric weights are used in Sweden. I have translated it into Swedish, but it is an archaic/uncommon word when it comes to weights.
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:26
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:52
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:58
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:64
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:70
-msgid "ounce"
-msgstr "uns"
-
-# Only metric weights are used in Sweden. I have translated it into Swedish, but it is an archaic/uncommon word when it comes to weights.
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:26
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:52
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:58
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:64
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:70
-msgid "ounces"
-msgstr "uns"
-
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:28
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:34
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:40
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:46
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:50
+#: _inc/PluginBase.php:96 _inc/PluginBase.php:110 _inc/PluginBase.php:117
+#: _inc/PluginBase.php:124 _inc/PluginBase.php:137
 msgid "gram"
 msgstr "gram"
 
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:28
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:34
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:40
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:46
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:50
+#: _inc/PluginBase.php:96 _inc/PluginBase.php:110 _inc/PluginBase.php:117
+#: _inc/PluginBase.php:124 _inc/PluginBase.php:137
 msgctxt "plural"
 msgid "grams"
 msgstr "gram"
 
-# Only metric weights are used in Sweden. I have translated it into Swedish, but it is an archaic/uncommon word when it comes to weights.
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:32
-msgid "oz"
-msgstr "uns"
+#: _inc/PluginBase.php:145
+msgctxt "short for gram"
+msgid "g"
+msgstr ""
 
-# Only metric weights are used in Sweden. I have translated it into Swedish, but it is an archaic/uncommon word when it comes to weights.
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:38
-msgid "pound"
-msgstr "pund"
+#: _inc/PluginBase.php:145
+msgctxt "short for grams, plural"
+msgid "g"
+msgstr ""
 
-# Only metric weights are used in Sweden. I have translated it into Swedish, but it is an archaic/uncommon word when it comes to weights.
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:38
-msgid "pounds"
-msgstr "pund"
-
-# Only metric weights are used in Sweden. I have translated it into Swedish, but it is an archaic/uncommon word when it comes to weights.
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:44
-msgid "lb"
-msgstr "pund"
-
-# Only metric weights are used in Sweden. I have translated it into Swedish, but it is an archaic/uncommon word when it comes to weights.
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:44
-msgid "lbs"
-msgstr "pund"
-
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:56
-msgid "[\\d ]g"
-msgstr "[\\d ]g"
-
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:56
-msgctxt "plural"
-msgid "[\\d ]g"
-msgstr "[\\d ]g"
-
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:62
+#: _inc/PluginBase.php:168
 msgid "kilogram"
 msgstr "kilogram"
 
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:62
+#: _inc/PluginBase.php:168
 msgctxt "plural"
 msgid "kilograms"
 msgstr "kilogram"
 
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:68
+#: _inc/PluginBase.php:176
 msgid "kg"
 msgstr "kg"
 
-#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:68
+#: _inc/PluginBase.php:176
 msgctxt "plural"
 msgid "kgs "
 msgstr "kg"
 
-#: plugins/Authors/Authors.php:104
-msgid "Author"
-msgstr "Författare"
+#: _inc/PluginBase.php:191
+msgid "kilo"
+msgstr ""
 
-#: plugins/Authors/Authors.php:111
+#: _inc/PluginBase.php:191
+msgctxt "plural"
+msgid "kilos "
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:318
+msgid "Documentation"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:320 class.ziprecipes.php:196
+msgid "Support"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:327
+msgid "Display options"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:421
+msgid "Authors"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:428
+msgid "Add-ons"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:435
+msgid "Advanced"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:442
+msgid "Other plugins"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:479
+msgid "Default"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:480
+msgid "Custom"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:481
+msgid "Autumn"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:482
+msgid "Canada"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:483
+msgid "Cozy Orange"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:484
+msgid "Vanilla"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:485
+msgid "Vera"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:496
+msgid "Recipe presets"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:497
+#, php-format
+msgid "To get more templates, check out %spremium%s"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:505
+msgid "No border"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:506
+msgid "Solid"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:507
+msgid "Dotted"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:508
+msgid "Dashed"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:509
+msgid "Double"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:512
+#, fuzzy
+#| msgid "Border Style"
+msgid "Border style"
+msgstr "Kantlinjestil"
+
+#: _inc/class.ziprecipes.util.php:520
+msgid "Border width"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:528
+msgid "Border radius"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:536
+msgid "Background color"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:544
+msgid "Border color"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:552
+msgid "Text color"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:560
+msgid "Primary color"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:568
+msgid "Link color"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:576
+msgid "Box shadow"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:583
+msgid "Enable jump to recipe link"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:584
+msgid ""
+"You can add a link at the top of each recipe which scrolls down to the "
+"recipe on the page when the user clicks it."
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:592
+msgid "Show summary on archive pages"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:593
+msgid ""
+"You can choose to show the recipe summary instead of the recipe on archive "
+"pages."
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:600 _inc/class.ziprecipes.util.php:633
+msgid "List, no bullets"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:601 _inc/class.ziprecipes.util.php:634
+msgid "Numbered List"
+msgstr "Nummerlista"
+
+#: _inc/class.ziprecipes.util.php:602 _inc/class.ziprecipes.util.php:635
+msgid "Bulleted List"
+msgstr "Punktlista"
+
+#: _inc/class.ziprecipes.util.php:603 _inc/class.ziprecipes.util.php:636
+msgid "Bordered numbers | circle"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:604 _inc/class.ziprecipes.util.php:637
+msgid "Bordered numbers | square"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:605 _inc/class.ziprecipes.util.php:638
+msgid "Colored numbers | disc"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:606 _inc/class.ziprecipes.util.php:639
+msgid "Colored numbers | square"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:607 _inc/class.ziprecipes.util.php:640
+msgid "Counter"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:608 _inc/class.ziprecipes.util.php:641
+msgid "Circles"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:609 _inc/class.ziprecipes.util.php:642
+msgid "Squares"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:610 _inc/class.ziprecipes.util.php:643
+msgid "Discs"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:611 _inc/class.ziprecipes.util.php:644
+msgid "Blocks"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:625
+msgid "Ingredients List Type"
+msgstr "Innehållets listtyp"
+
+#: _inc/class.ziprecipes.util.php:658
+msgid "Instructions List Type"
+msgstr "Instruktionens listtyp"
+
+#: _inc/class.ziprecipes.util.php:665
+#, php-format
+msgid "Copyright %s"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:667
+msgid "Copyright statement"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:682
+msgid "Image Width"
+msgstr "Bildbredd"
+
+#: _inc/class.ziprecipes.util.php:683
+msgid "Set the image width in pixels"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:690
+msgid "Hide recipe image when post image is the same"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:691
+msgid ""
+"When enabled, the recipe image will be hidden if it's the same as the image "
+"in the post"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:701
+msgid "Hide Image in print view"
+msgstr "Dölj bild i utskriftsvyn"
+
+#: _inc/class.ziprecipes.util.php:713
+msgid "Hide link to recipe in print view"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:714
+msgid ""
+"The link is a direct link to the recipe, at the bottom of your recipe "
+"printout"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:721
+msgid "Hide nutrition label in print view"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:732 _inc/class.ziprecipes.util.php:739
+#: _inc/class.ziprecipes.util.php:746 _inc/class.ziprecipes.util.php:753
+#: _inc/class.ziprecipes.util.php:760
+msgid "Hide label"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:769
+msgid "Official logo"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:770
+msgid "Square"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:771
+msgid "Round"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:774
+msgid "Label style"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:780
+msgid "Image resolution too low, or image size not generated"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:784
+msgid "Custom Print Button"
+msgstr "Anpassad utskriftsknapp"
+
+#: _inc/class.ziprecipes.util.php:792
+msgid "Use custom authors"
+msgstr "Använd anpassade författare"
+
+#: _inc/class.ziprecipes.util.php:793
+msgid ""
+"By default, Zip Recipes uses WordPress authors. You can use your own, custom "
+"authors as well."
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:794
+#, php-format
+msgid "The custom author field is a %spremium%s feature"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:803
+msgid "Select a default author"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:814
+msgid "Manage authors"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:815
+msgid "Add and remove your authors"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:828
+#, php-format
+msgid "To automatically generate nutrition data, check out %spremium%s"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:829
+msgid "Enable the Automatic Nutrition generator"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:836
+msgid "HTML format"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:837 class.ziprecipes.php:677
+msgid "Image"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:844
+msgid "Choose nutrition label display method"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:845
+msgid ""
+"You can choose if you want to show the label in html format, which can be "
+"understood better by search engines, or in image format"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:853
+msgid "Import nutrition data for all recipes"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:854
+msgid ""
+"This will process in the background, and may take a while. It will pause if "
+"you close the browser, or disable the setting."
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:863
+msgid "Social Recipe sharing"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:864
+#, php-format
+msgid "Check out %spremium%s to see our recipe sharing features"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:873
+msgid "Add Print Button"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:882 _inc/class.ziprecipes.util.php:892
+#: _inc/class.ziprecipes.util.php:902
+#, php-format
+msgid "Add %s sharing button"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:912
+msgid "Imperial Metrics Converter"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:922
+msgid "Recipe Gallery"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:936
+#: plugins/VisitorRating/VisitorRating.php:427
+msgid "Visitor Rating"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:949 class.ziprecipes.php:633
+#: plugins/RecipeReviews/RecipeReviews.php:102
+#: plugins/RecipeReviews/RecipeReviews.php:748
+msgid "Recipe Reviews"
+msgstr "Receptrecensioner"
+
+#: _inc/class.ziprecipes.util.php:967
+msgid "Recipe Search"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:976
+#, fuzzy
+#| msgid "Automatic serving adjustment"
+msgid "Automatic Serving Adjustment"
+msgstr "Automatisk portionsjustering"
+
+#: _inc/class.ziprecipes.util.php:985
+msgid "Use Zip Recipes style"
+msgstr "Använd Zip Recipes-stil"
+
+#: _inc/class.ziprecipes.util.php:996
+msgid "Restart tour"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:1006
+msgid "Import ratings to reviews"
+msgstr ""
+
+#: class-field.php:208
+msgid "This field is required. Please complete the question before continuing"
+msgstr ""
+
+#: class-field.php:424
+msgid "(h)"
+msgstr "(h)"
+
+#: class-field.php:433
+msgid "(m)"
+msgstr "(m)"
+
+#: class-field.php:728
+msgid "Choose an option"
+msgstr "Välj ett alternativ"
+
+#: class-field.php:844 class.ziprecipes.php:1246 views/template_settings.php:20
+msgid "Reset"
+msgstr ""
+
+#: class-review.php:57
+#, php-format
+msgid "You already have %s recipes on your site, awesome!"
+msgstr "Du har redan %s-recept på din webbplats. Grymt!"
+
+#: class-review.php:84
+#, php-format
+msgid ""
+"If you have a moment, please consider leaving a review on WordPress.org to "
+"spread the word. We greatly appreciate it! If you have any questions or "
+"feedback, leave us a %smessage%s."
+msgstr ""
+"Om du har tid över skulle vi uppskatta om du skrev en recension på Wordpress."
+"org för att sprida ordet. Det skulle betyda mycket för oss! Om du har några "
+"frågor eller synpunkter kan du %skontakta%s oss."
+
+#: class-review.php:89
+msgid "Leave a review"
+msgstr "Skriv en recension"
+
+#: class-review.php:91
+msgid "Maybe later"
+msgstr "Kanske senare"
+
+#: class-review.php:92
+msgid "Don't show again"
+msgstr ""
+
+#: class.ziprecipes.php:121 shepherd/tour.php:108
+msgid "Extensions"
+msgstr ""
+
+#: class.ziprecipes.php:202
+msgid "Upgrade to premium"
+msgstr ""
+
+#: class.ziprecipes.php:251 views/toolbar.php:153
+msgid "Edit recipe"
+msgstr "Ändra recept"
+
+#: class.ziprecipes.php:254
+msgid "Insert new recipe"
+msgstr ""
+
+#: class.ziprecipes.php:481
+msgid "Click to edit this image"
+msgstr "Klicka för att ändra denna bild"
+
+#: class.ziprecipes.php:483
+msgid "minutes"
+msgstr "minuter"
+
+#: class.ziprecipes.php:484
+msgid "hours"
+msgstr "timmar"
+
+#: class.ziprecipes.php:619
+#, fuzzy
+#| msgid "Recipe Title"
+msgid "Recipe title"
+msgstr "Receptrubrik"
+
+#: class.ziprecipes.php:625
+msgid "Visitor rating"
+msgstr ""
+
+#: class.ziprecipes.php:641
+msgid "Actions"
+msgstr ""
+
+#: class.ziprecipes.php:648
+msgid "Divider"
+msgstr ""
+
+#: class.ziprecipes.php:659
+msgid "Categories"
+msgstr ""
+
+#: class.ziprecipes.php:671
+msgid "Details"
+msgstr ""
+
+#: class.ziprecipes.php:684
+msgid "Video"
+msgstr ""
+
+#: class.ziprecipes.php:724 views/tags.php:5
+msgid "Tags"
+msgstr ""
+
+#: class.ziprecipes.php:731
+msgid "Social"
+msgstr ""
+
+#: class.ziprecipes.php:738
+msgid "Copyright"
+msgstr ""
+
+#: class.ziprecipes.php:871
+msgid "Premium block, enable the premium plugin to activate this block."
+msgstr ""
+
+#: class.ziprecipes.php:873
+msgid "Inactive block, enable in the settings."
+msgstr ""
+
+#: class.ziprecipes.php:917
+msgid "Link to recipe"
+msgstr ""
+
+#: class.ziprecipes.php:983
+msgid "You do not have manage options permissions."
+msgstr ""
+
+#: class.ziprecipes.php:988
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:166
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:476
+msgid "An unexpected error has occurred. Please try again"
+msgstr "Ett oväntat fel har uppstått. Vänligen försök igen."
+
+#: class.ziprecipes.php:1041
+msgid "Successfully saved the template"
+msgstr ""
+
+#: class.ziprecipes.php:1076
+msgid "Toggle settings"
+msgstr ""
+
+#: class.ziprecipes.php:1122
+msgid "premium"
+msgstr ""
+
+#: class.ziprecipes.php:1126 class.ziprecipes.php:1184
+msgid "Inactive"
+msgstr ""
+
+#: class.ziprecipes.php:1196
+msgid "Add full column"
+msgstr ""
+
+#: class.ziprecipes.php:1196
+msgid "Add half column"
+msgstr ""
+
+#: class.ziprecipes.php:1227
+msgid "Select which dashboard items should be displayed"
+msgstr ""
+
+#: class.ziprecipes.php:1304
+msgid "Compact and clean"
+msgstr ""
+
+#: class.ziprecipes.php:1309
+msgid "Powerful and colorful"
+msgstr ""
+
+#: class.ziprecipes.php:1314
+msgid "Warm and beautiful"
+msgstr ""
+
+#: class.ziprecipes.php:1319
+msgid "A smooth looking recipe"
+msgstr ""
+
+#: class.ziprecipes.php:1324
+msgid "Grey background for contrast"
+msgstr ""
+
+#: class.ziprecipes.php:1329
+msgid "Simplicity sometimes is best"
+msgstr ""
+
+#: class.ziprecipes.php:1336
+msgid "Search by ingredients"
+msgstr "Sök via ingredienser"
+
+#: class.ziprecipes.php:1341
+msgid "Social sharing with BigOven, Yummly and Pinterest"
+msgstr ""
+
+#: class.ziprecipes.php:1346
+msgid "Star ratings for your recipes"
+msgstr ""
+
+#: class.ziprecipes.php:1352
+msgid "Text-based reviews of your recipes"
+msgstr ""
+
+#: class.ziprecipes.php:1357
+msgid "Imperial - Metric converter"
+msgstr ""
+
+#: class.ziprecipes.php:1361
+msgid "All extensions are optimized for Google's structured data"
+msgstr ""
+
+#: class.ziprecipes.php:1382
+msgid "About Extensions"
+msgstr ""
+
+#: class.ziprecipes.php:1394
+msgid "Automatically generate all nutritional values of your recipe."
+msgstr ""
+
+#: class.ziprecipes.php:1402
+msgid ""
+"Visitors can adjust the ingredients to the number of servings they need: it "
+"won't get easier for your visitors!"
+msgstr ""
+
+#: class.ziprecipes.php:1410
+msgid ""
+"Display your recipes in this beautiful, dynamically filterable grid gallery"
+msgstr ""
+
+#: class.ziprecipes.php:1414
+msgid "Templates"
+msgstr ""
+
+#: class.ziprecipes.php:1420
+msgid "And even more!"
+msgstr ""
+
+#: class.ziprecipes.php:1440
+msgid "Get Premium"
+msgstr ""
+
+#: class.ziprecipes.php:1448
+msgid "See it live on our demo website"
+msgstr ""
+
+#: class.ziprecipes.php:1513
+msgid "Jump to recipe"
+msgstr ""
+
+#: class.ziprecipes.php:1680 models/Recipe.php:937
+#, php-format
+msgid "%d year"
+msgstr "%d år"
+
+#: class.ziprecipes.php:1680 models/Recipe.php:937
+#, php-format
+msgid "%d years"
+msgstr "%d år"
+
+#: class.ziprecipes.php:1681 models/Recipe.php:938
+#, php-format
+msgid "%d month"
+msgstr "%d månad"
+
+#: class.ziprecipes.php:1681 models/Recipe.php:938
+#, php-format
+msgid "%d months"
+msgstr "%d månader"
+
+#: class.ziprecipes.php:1682 models/Recipe.php:939
+#, php-format
+msgid "%d day"
+msgstr "%d dag"
+
+#: class.ziprecipes.php:1682 models/Recipe.php:939
+#, php-format
+msgid "%d days"
+msgstr "%d dagar"
+
+#: class.ziprecipes.php:1683 models/Recipe.php:940
+#, php-format
+msgid "%d hour"
+msgstr "%d timme"
+
+#: class.ziprecipes.php:1683 models/Recipe.php:940
+#, php-format
+msgid "%d hours"
+msgstr "%d timmar"
+
+#: class.ziprecipes.php:1684 models/Recipe.php:941
+#, php-format
+msgid "%d minute"
+msgstr "%d minut"
+
+#: class.ziprecipes.php:1684 models/Recipe.php:941
+#, php-format
+msgid "%d minutes"
+msgstr "%d minuter"
+
+#: class.ziprecipes.php:1685 models/Recipe.php:942
+#, php-format
+msgid "%d second"
+msgstr "%d sekund"
+
+#: class.ziprecipes.php:1685 models/Recipe.php:942
+#, php-format
+msgid "%d seconds"
+msgstr "%d sekunder"
+
+#: class.ziprecipes.php:1874
+msgid ""
+"For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
+"extensions installed. Please contact your hosting company and request that "
+"they install ImageMagick or GD PHP extensions for you website."
+msgstr ""
+"För bäst prestanda rekommenderar Zip Recipes att installera ImageMagick- "
+"eller GD PHP-tillägg. Vänligen kontakta ditt webbhotell och be att de "
+"installerar ImageMagic- eller GD PHP-tillägg för din webbplats."
+
+#: controllers/EndpointController.php:105
+msgid "Invalid recipe ID or recipe not found"
+msgstr "Ogiltigt recept-ID eller så kunde receptet inte hittas"
+
+#: grid/grid-enqueue.php:65
+msgid "Settings changed, you should save!"
+msgstr ""
+
+#: models/Recipe.php:749
+msgid "Creme Brulee"
+msgstr ""
+
+#: models/Recipe.php:761
+msgid "This is a great recipe for all occasions"
+msgstr ""
+
+#: models/Recipe.php:773
+msgid "1 bowl"
+msgstr ""
+
+#: models/Recipe.php:799
+msgid "Easy to make, but with a big wow factor"
+msgstr ""
+
+#: models/Recipe.php:819
+msgid ""
+"Cool completely! Refrigerate for several hours and up to a couple of days"
+msgstr ""
+
+#: models/Recipe.php:832
+msgid "Example tag 1"
+msgstr ""
+
+#: models/Recipe.php:835
+msgid "Example tag 2"
+msgstr ""
+
+#: models/Recipe.php:838
+msgid "Example tag 3"
+msgstr ""
+
+#: plugins/Authors/Authors.php:109
 #, php-format
 msgid ""
 "Author will be set automatically to your post author. If you want to use "
@@ -1117,142 +1278,36 @@ msgstr ""
 "Författare kommer att väljas automatiskt för ditt inlägg. Om du vill anpassa "
 "författare kan du göra det i %sinställningar%s."
 
-#: plugins/Licensing/Licensing.php:68 plugins/Licensing/Licensing.php:69
-#: plugins/Licensing/Licensing.php:163
-msgid "License"
-msgstr "Licens"
-
-#: plugins/Licensing/Licensing.php:88
-msgid ""
-"You haven't activated your Zip Recipes license yet. To get all future "
-"updates, enter your license on the settings page."
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:33
+msgid "Import completed"
 msgstr ""
-"Du har inte aktiverat din Zip Recipes-licens ännu. Vänligen ange din licens "
-"på inställningssidan för att få alla framtida uppdateringar "
 
-#: plugins/Licensing/Licensing.php:89
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:38
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:79
 #, php-format
-msgid "Go to the %ssettings page%s or %spurchase a license%s"
-msgstr "Gå till %sinställningar%s eller %sköp en licens%s"
-
-#: plugins/Licensing/Licensing.php:168
-msgid "Could not connect to ziprecipes.net. Please try again later."
-msgstr "Kunde inte ansluta till ziprecipes.net. Vänligen försök igen senare."
-
-#: plugins/Licensing/Licensing.php:171
-msgid "a 5 sites or unlimited sites license"
-msgstr "en licens för 5 webbplatser eller en för ett obegränsat antal"
-
-#: plugins/Licensing/Licensing.php:171
-msgid "an unlimited sites license"
-msgstr "en obegränsad webbplatslicens"
-
-#: plugins/Licensing/Licensing.php:174
-#, php-format
-msgid ""
-"You have 0 activations left on your %s sites license. If you need more "
-"activations you can upgrade your current license to %s on your %saccount%s"
+msgid "Import %s of %s in progress"
 msgstr ""
-"Du har 0 aktiveringar kvar för din %s-webbplatslicens. Om du behöver fler "
-"aktiveringar kan du uppgradera din nuvarande licens till %s på ditt %skonto%s"
 
-#: plugins/Licensing/Licensing.php:182
-msgid "Your license is valid, but not activated on this site"
-msgstr "Din licens är giltig, men har inte aktiveras på denna webbplats"
-
-#: plugins/Licensing/Licensing.php:184
-msgid "Your license does not seem to be valid. Please check your license key"
-msgstr ""
-"Din licens verkar inte vara giltig. Vänligen kontrollera din licensnyckel."
-
-#: plugins/Licensing/Licensing.php:188
-#, php-format
-msgid "Your license is valid, and expires on: %s"
-msgstr "Din licens är giltig och löper ut den %s."
-
-#: plugins/Licensing/Licensing.php:190
-msgid "Enter your license here so you keep receiving updates and support."
-msgstr ""
-"Ange din licens här för att fortsätta att få uppdateringar och support."
-
-#: plugins/Licensing/Licensing.php:204
-msgid "License Key"
-msgstr "Licensnyckel"
-
-#: plugins/Licensing/Licensing.php:245
-msgid "This is not a valid license"
-msgstr "Detta är ingen giltig licens"
-
-#: plugins/Licensing/Licensing.php:250
-msgid "Your license is expired. Please renew your license at %ziprecipes.net%s"
-msgstr ""
-"Din licens har löpt ut. Vänligen förnya din licens på %ziprecipes.net%s"
-
-#: plugins/Licensing/Licensing.php:253
-#, php-format
-msgid "Your license has been revoked. Please contact %ssupport%s"
-msgstr "Din licens har upphävts. Vänligen kontakta %ssupporten%s"
-
-#: plugins/Licensing/Licensing.php:256
-#, php-format
-msgid ""
-"Your license could not be found in the database. Please contact %ssupport%s"
-msgstr ""
-"Det gick inte att hitta din licens i databasen. Vänligen kontakta "
-"%ssupporten%s"
-
-#: plugins/Licensing/Licensing.php:260
-msgid "Your license has not yet been activated for this domain."
-msgstr "Din licens har inte aktiverats för denna domän."
-
-#: plugins/Licensing/Licensing.php:263
-msgid "Your license key appears to be invalid."
-msgstr "Din licensnyckel verkar vara ogiltig."
-
-#: plugins/Licensing/Licensing.php:266
-msgid ""
-"You have no activations left on your license. Please upgrade your license at "
-"%ziprecipes.net%s"
-msgstr ""
-"Du har inga aktiveringar kvar för din licens. Vänligen uppgradera din licens "
-"på %ziprecipes.net%s"
-
-#: plugins/Licensing/Licensing.php:273
-msgid "Your license is valid, but has not yet been activated for this domain."
-msgstr "Din licens är giltig, men har ännu inte aktiveras för denna domän."
-
-#: plugins/Licensing/Licensing.php:282
-msgid "license data error"
-msgstr "licensdatafel"
-
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:106
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:140
 msgid "Use separate ingredients list for nutrition generation"
 msgstr "Använd separata ingredienslistor för näringsgenerering"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:107
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:141
 msgid ""
-"If you're not using English or Spanish, or you just want te exclude some "
+"If you're not using English or Spanish, or you just want to exclude some "
 "ingredients from the nutrition generation, you can use this field, which is "
 "used for the nutrition data only"
 msgstr ""
-"Om du inte använder engelska eller spanska, eller om du bara vill exkludera "
-"någon ingrediens från näringsgenerering, kan du använda detta fält som "
-"endast används för näringsdata"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:113
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:147
 msgid "Ingredients for nutrition generation"
 msgstr "Ingredienser för näringsgenerering"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:127
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:161
 msgid "You do not have edit permissions."
 msgstr "Du saknar redigeringsbehörigheter."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:132
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:348
-msgid "An unexpected error has occurred. Please try again"
-msgstr "Ett oväntat fel har uppstått. Vänligen försök igen."
-
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:137
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:171
 msgid ""
 "Your PHP is mis-configured. It's missing CURL extension. Please contact your "
 "host."
@@ -1260,12 +1315,16 @@ msgstr ""
 "Din PHP är felinställd. Den saknar CURL-tillägg. Vänligen kontakta ditt "
 "webbhotell."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:147
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:359
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:181
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:487
 msgid "Recipe not found. Please save your recipe first."
 msgstr "Receptet hittades inte. Vänligen spara ditt recept först."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:154
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:221
+msgid "Successfully generated nutrition data"
+msgstr "Näringsdata har genererats"
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:297
 msgid ""
 "Your license is not activated. Please activate your license to be able to "
 "use the Nutrition Generator."
@@ -1273,13 +1332,13 @@ msgstr ""
 "Din licens är inte aktiverad. Vänligen aktivera din licens för att kunna "
 "använda näringsgeneratorn."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:215
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:357
 #, php-format
 msgid "The %s field should not be empty"
 msgstr "%sfältet bör inte vara tomt"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:225
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:243
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:367
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:385
 msgid ""
 "We had trouble understanding your ingredients. Please try removing some to "
 "see if any are not recognized by the API. If needed, you can create a "
@@ -1289,74 +1348,629 @@ msgstr ""
 "är någon som inte uppfattas av API:n. Om det behövs kan du även skapa ett "
 "separat API-ingrediensfält genom att bocka i inställningen här nedanför."
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:309
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:317
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:448
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:456
 msgid "Did not receive nutrition image url"
 msgstr "Erhöll ingen näringsbildslänk"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:327
-msgid "Successfully generated nutrition data"
-msgstr "Näringsdata har genererats"
-
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:401
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:529
 msgid "Successfully cleared nutrition data"
 msgstr "Näringsdata har rensats"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:638
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:712
 msgid "Automatic Nutrition generation"
 msgstr "Automatiskt näringsgenerering"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:646
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:720
 msgid "To generate the Nutrition data, you should save the recipe first"
 msgstr "För att generera näringsdata måste du spara receptet först"
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:654
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:728
 msgid "Update"
 msgstr "Uppdatera"
 
-#: views/settings.twig:46
-msgid "Hide plugin link"
-msgstr "Dölj pluginlänk"
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:728
+msgid "Generate label"
+msgstr "Skapa etikett"
 
-#: views/settings.twig:50
-msgid "Hide permalink in printed output"
-msgstr "Dölj permalänk i utskrift"
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:729
+msgid "Clear label"
+msgstr "Rensa etikett"
 
-#: views/settings.twig:81
-msgid "pixels"
-msgstr "pixlar"
-
-#: views/settings.twig:104
-msgid "Hide Ingredients label"
-msgstr "Dölj innehållsdeklaration"
-
-#: views/settings.twig:135
-msgid "Hide Instructions label"
-msgstr "Dölj instruktionsanvisning"
-
-#: plugins/PluginManagement/views/notice.twig:2
-msgid ""
-"VisitorRating and RecipeReviews cannot be active at the same time. If you "
-"want to allow anonymous ratings, activate VisitorRating. If you want to "
-"require comments with ratings activate RecipeReviews."
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:57
+msgid "Imperial"
 msgstr ""
-"VisitorRating och RecipeReviews kan inte vara aktiverade samtidigt. Aktivera "
-"VisitorRating om du vill tillåta anonyma betyg. Aktivera RecipeReviews om du "
-"vill kräva kommentarer för betygsättning."
 
-#: plugins/PluginManagement/views/notice-comments.twig:2
-msgid ""
-"Recipe Reviews only works with WordPress comments or Jetpack Comments. <a "
-"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">"
-"Learn more</a>"
+#: plugins/ImperialMetricsConverter/ImperialMetricsConverter.php:58
+msgid "Metric"
 msgstr ""
-"Receptrecensioner funkar endast med WordPress- eller Jetpack-kommentarer. <a "
-"href=\"https://www.ziprecipes.net/docs/recipe-reviews/\" target=\"_blank\">"
-"Läs mer</a>"
+
+#: plugins/Licensing/Licensing.php:66
+msgid "Upgrade"
+msgstr ""
+
+#: plugins/Licensing/Licensing.php:68
+msgid "Account"
+msgstr ""
+
+#: plugins/Licensing/Licensing.php:85 plugins/Licensing/Licensing.php:102
+msgid "License"
+msgstr "Licens"
+
+#: plugins/Licensing/Licensing.php:165
+msgid ""
+"You haven't activated your Zip Recipes license yet. To get all future "
+"updates, enter your license on the settings page."
+msgstr ""
+"Du har inte aktiverat din Zip Recipes-licens ännu. Vänligen ange din licens "
+"på inställningssidan för att få alla framtida uppdateringar "
+
+#: plugins/Licensing/Licensing.php:166
+#, php-format
+msgid "Go to the %ssettings page%s or %spurchase a license%s"
+msgstr "Gå till %sinställningar%s eller %sköp en licens%s"
+
+#: plugins/Licensing/Licensing.php:245
+msgid "Could not connect to ziprecipes.net. Please try again later."
+msgstr "Kunde inte ansluta till ziprecipes.net. Vänligen försök igen senare."
+
+#: plugins/Licensing/Licensing.php:248
+msgid "a 5 sites or unlimited sites license"
+msgstr "en licens för 5 webbplatser eller en för ett obegränsat antal"
+
+#: plugins/Licensing/Licensing.php:248
+msgid "an unlimited sites license"
+msgstr "en obegränsad webbplatslicens"
+
+#: plugins/Licensing/Licensing.php:251
+#, php-format
+msgid ""
+"You have 0 activations left on your %s sites license. If you need more "
+"activations you can upgrade your current license to %s on your %saccount%s"
+msgstr ""
+"Du har 0 aktiveringar kvar för din %s-webbplatslicens. Om du behöver fler "
+"aktiveringar kan du uppgradera din nuvarande licens till %s på ditt %skonto%s"
+
+#: plugins/Licensing/Licensing.php:259
+msgid "Your license is valid, but not activated on this site"
+msgstr "Din licens är giltig, men har inte aktiveras på denna webbplats"
+
+#: plugins/Licensing/Licensing.php:261
+msgid "Your license does not seem to be valid. Please check your license key"
+msgstr ""
+"Din licens verkar inte vara giltig. Vänligen kontrollera din licensnyckel."
+
+#: plugins/Licensing/Licensing.php:265
+#, php-format
+msgid "Your license is valid, and expires on: %s"
+msgstr "Din licens är giltig och löper ut den %s."
+
+#: plugins/Licensing/Licensing.php:267
+msgid "Enter your license here so you keep receiving updates and support."
+msgstr ""
+"Ange din licens här för att fortsätta att få uppdateringar och support."
+
+#: plugins/Licensing/Licensing.php:282
+msgid "License Key"
+msgstr "Licensnyckel"
+
+#: plugins/Licensing/Licensing.php:288
+msgid "active"
+msgstr "aktiv"
+
+#: plugins/Licensing/Licensing.php:290
+msgid "Deactivate License"
+msgstr "Inaktivera licens"
+
+#: plugins/Licensing/Licensing.php:292
+msgid "Activate License"
+msgstr "Aktivera licens"
+
+#: plugins/Licensing/Licensing.php:295
+msgid "Enter your license key"
+msgstr "Ange din licensnyckel"
+
+#: plugins/Licensing/Licensing.php:302
+msgid "Save changes"
+msgstr ""
+
+#: plugins/Licensing/Licensing.php:314
+msgid "This is not a valid license"
+msgstr "Detta är ingen giltig licens"
+
+#: plugins/Licensing/Licensing.php:319
+msgid "Your license is expired. Please renew your license at %ziprecipes.net%s"
+msgstr ""
+"Din licens har löpt ut. Vänligen förnya din licens på %ziprecipes.net%s"
+
+#: plugins/Licensing/Licensing.php:322
+#, php-format
+msgid "Your license has been revoked. Please contact %ssupport%s"
+msgstr "Din licens har upphävts. Vänligen kontakta %ssupporten%s"
+
+#: plugins/Licensing/Licensing.php:325
+#, php-format
+msgid ""
+"Your license could not be found in the database. Please contact %ssupport%s"
+msgstr ""
+"Det gick inte att hitta din licens i databasen. Vänligen kontakta "
+"%ssupporten%s"
+
+#: plugins/Licensing/Licensing.php:329
+msgid "Your license has not yet been activated for this domain."
+msgstr "Din licens har inte aktiverats för denna domän."
+
+#: plugins/Licensing/Licensing.php:332
+msgid "Your license key appears to be invalid."
+msgstr "Din licensnyckel verkar vara ogiltig."
+
+#: plugins/Licensing/Licensing.php:335
+msgid ""
+"You have no activations left on your license. Please upgrade your license at "
+"%ziprecipes.net%s"
+msgstr ""
+"Du har inga aktiveringar kvar för din licens. Vänligen uppgradera din licens "
+"på %ziprecipes.net%s"
+
+#: plugins/Licensing/Licensing.php:342
+msgid "Your license is valid, but has not yet been activated for this domain."
+msgstr "Din licens är giltig, men har ännu inte aktiveras för denna domän."
+
+#: plugins/Licensing/Licensing.php:351
+msgid "license data error"
+msgstr "licensdatafel"
+
+#: plugins/Licensing/Licensing.php:400 plugins/Licensing/Licensing.php:455
+msgid "An error occurred while updating the license data, please try again."
+msgstr ""
+"Ett fel uppstod med att uppdatera din licensdata. Vänligen försök igen."
+
+#: plugins/Licensing/ZRDN_SL_Plugin_Updater.php:262
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+
+#: plugins/Licensing/ZRDN_SL_Plugin_Updater.php:270
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+
+#: plugins/Licensing/ZRDN_SL_Plugin_Updater.php:514
+msgid "You do not have permission to install plugin updates"
+msgstr "Du har inte behörighet att installera pluginuppdateringar"
+
+#: plugins/Licensing/ZRDN_SL_Plugin_Updater.php:514
+msgid "Error"
+msgstr "Fel"
+
+#: plugins/MostPopularRecipes/widget.php:15
+msgid "Most Popular Recipes"
+msgstr ""
+
+#: plugins/MostPopularRecipes/widget.php:16
+msgid "Show the most popular recipes"
+msgstr ""
+
+#: plugins/MostPopularRecipes/widget.php:144
+msgid "Best Rated Recipes"
+msgstr ""
+
+#: plugins/MostPopularRecipes/widget.php:145
+msgid "Show the highest rated recipes"
+msgstr ""
+
+#: plugins/RecipeActions/views/RecipeActions.php:8
+msgid "Save to BigOven"
+msgstr "Spara till BigOven"
+
+#: plugins/RecipeGrid2/RecipeGrid2.php:382
+msgid "All"
+msgstr ""
+
+#: plugins/RecipeGrid2/views/grid-item.php:2
+#, php-format
+msgid "%s by %s"
+msgstr ""
+
+#: plugins/RecipeGrid2/views/grid-wrap.php:20
+msgid "type to search"
+msgstr ""
+
+#: plugins/RecipeGrid2/views/grid-wrap.php:34
+msgid "LOAD MORE"
+msgstr ""
+
+#: plugins/RecipeGrid2/views/grid-wrap.php:35
+msgid "All recipes loaded"
+msgstr ""
+
+#: plugins/RecipeReviews/RecipeReviews.php:79
+#: plugins/VisitorRating/VisitorRating.php:71
+msgid "Notifications"
+msgstr ""
+
+#: plugins/RecipeReviews/RecipeReviews.php:155
+msgid "Notify admin when a user reviews your recipe"
+msgstr ""
+
+#: plugins/RecipeReviews/RecipeReviews.php:247
+#: plugins/RecipeReviews/views/RecipeReviews.php:31
+#: plugins/VisitorRating/VisitorRating.php:91
+#: plugins/VisitorRating/views/VisitorRating.php:31
+msgid "Your rating:"
+msgstr "Ditt betyg:"
+
+#: plugins/RecipeReviews/RecipeReviews.php:275
+#: plugins/VisitorRating/VisitorRating.php:349
+#, php-format
+msgid "New %s star rating on %s"
+msgstr ""
+
+#: plugins/RecipeReviews/RecipeReviews.php:276
+#: plugins/VisitorRating/VisitorRating.php:352
+#, php-format
+msgid "You have received a new %s star rating on %s"
+msgstr ""
+
+#: plugins/RecipeReviews/RecipeReviews.php:769
+msgid "No reviews"
+msgstr ""
+
+#: plugins/RecipeReviews/views/RecipeReviews.php:5
+#: plugins/VisitorRating/views/VisitorRating.php:5
+msgid "stars"
+msgstr "stjärnor"
+
+#: plugins/RecipeReviews/views/RecipeReviews.php:5
+#: plugins/RecipeReviews/views/RecipeReviews.php:44
+#: plugins/RecipeReviews/views/RecipeReviews.php:46
+#: plugins/VisitorRating/views/VisitorRating.php:5
+#: plugins/VisitorRating/views/VisitorRating.php:44
+#: plugins/VisitorRating/views/VisitorRating.php:46
+msgid "ratings"
+msgstr "betyg"
+
+#: plugins/RecipeReviews/views/RecipeReviews.php:36
+#: plugins/RecipeReviews/views/comments_fields.php:2
+#: plugins/VisitorRating/views/VisitorRating.php:36
+msgid "Rate this recipe"
+msgstr "Betygsätt detta recept"
+
+#: plugins/RecipeReviews/views/comment_meta_box.php:1
+#: plugins/RecipeReviews/views/comments_modify.php:1
+msgid "Rating"
+msgstr "Betyg"
+
+#: plugins/VisitorRating/VisitorRating.php:51
+msgid "Notify admin when a user rates your recipe"
+msgstr ""
+
+#: shepherd/tour.php:80
+msgid "Welcome to Zip Recipes"
+msgstr ""
+
+#: shepherd/tour.php:81
+msgid ""
+"Create beautiful recipes with extended features, optimized for Google. Start "
+"with creating your recipe template or take the tour."
+msgstr ""
+
+#: shepherd/tour.php:87 shepherd/tour.php:94 shepherd/tour.php:173
+msgid "Create your template"
+msgstr ""
+
+#: shepherd/tour.php:88
+msgid ""
+"Here you will be able to style your recipe card. You can select one of our "
+"favorite templates or customize your recipe card to your liking with our "
+"drag & drop editor."
+msgstr ""
+
+#: shepherd/tour.php:95
+msgid ""
+"Edit your recipe blocks for more customization. Drag blocks to inactive or "
+"shuffle them around. You're in control! Want to start over, press reset "
+"template or load a new predefined template"
+msgstr ""
+
+#: shepherd/tour.php:102
+msgid ""
+"In our settings overview you will find general settings for your recipe card "
+"and demo's for our templates. If you need help configuring, please ask "
+"support or have a look at our documentation."
+msgstr ""
+
+#: shepherd/tour.php:109
+msgid ""
+"Have a look at our premium add-ons for ZIP Recipes, taking your recipes to "
+"whole new level!"
+msgstr ""
+
+#: shepherd/tour.php:116
+msgid "Create your recipe"
+msgstr ""
+
+#: shepherd/tour.php:117
+msgid ""
+"Here you can start creating your recipes and have an overview of the most "
+"important metrics per recipe, including your most popular recipes."
+msgstr ""
+
+#: shepherd/tour.php:124
+msgid "Editing your recipes"
+msgstr ""
+
+#: shepherd/tour.php:125
+msgid ""
+"The WYSIWYG editor will lead you through the process of creating each new "
+"recipe. A preview will be available immediately. Want to create a recipe "
+"directly in your WordPress editor. No problem!."
+msgstr ""
+
+#: shepherd/tour.php:135
+msgid "Editing in Gutenberg"
+msgstr ""
+
+#: shepherd/tour.php:136 shepherd/tour.php:143
+msgid ""
+"Add a Zip Recipes block, then click the block, and the 'cog' wheel on the "
+"right top to add a new recipe, or to choose an existing recipe."
+msgstr ""
+
+#: shepherd/tour.php:142 shepherd/tour.php:157
+msgid "The end"
+msgstr ""
+
+#: shepherd/tour.php:150
+msgid "Editing in classic editor"
+msgstr ""
+
+#: shepherd/tour.php:151
+msgid ""
+"Click on 'create recipe' to start creating a new recipe, or choose an "
+"existing recipe."
+msgstr ""
+
+#: shepherd/tour.php:158
+msgid ""
+"Get started. Start with your new template and go from there. You can start "
+"the tour anytime under Settings. Good luck!"
+msgstr ""
+
+#: shepherd/tour.php:171
+msgid "Next"
+msgstr ""
+
+#: shepherd/tour.php:172
+msgid "Previous"
+msgstr ""
+
+#: shepherd/tour.php:175
+msgid "End tour"
+msgstr ""
+
+#: src/block.php:88
+msgid "Recipe not found"
+msgstr "Receptet hittades inte"
+
+#: views/about_extensions.php:1
+msgid ""
+"Get the full benefits of Zip Recipes by upgrading to a premium plan, with "
+"lots of great add-ons. Even better, each add-on we will add to the plan in "
+"the future will automatically become available for you."
+msgstr ""
+
+#: views/about_extensions.php:8
+msgid ""
+"Extensions marked with the lover badge, are included in Zip Recipes Lover"
+msgstr ""
+
+#: views/about_extensions.php:16
+msgid ""
+"Extensions marked with the friend badge, are included in Zip Recipes Friend "
+"& Love"
+msgstr ""
+
+#: views/actions.php:6
+msgid "Print"
+msgstr "Skriv ut"
+
+#: views/actions.php:14 views/actions.php:15
+msgid "Print this recipe"
+msgstr "Skriv ut receptet"
+
+#: views/author.php:19
+msgid "by"
+msgstr ""
+
+#: views/details.php:14
+msgid "Persons"
+msgstr ""
+
+#: views/details.php:23
+#, fuzzy
+#| msgid "Serving Size:"
+msgid "Serving Size"
+msgstr "Portionsstorlek:"
+
+#: views/details.php:32
+msgid "Prep Time"
+msgstr "Förberedningstid"
+
+#: views/details.php:41
+msgid "Cook Time"
+msgstr "Tillagningstid"
+
+#: views/details.php:50
+msgid "Wait Time"
+msgstr ""
+
+#: views/details.php:59
+#, fuzzy
+#| msgid "Total Time:"
+msgid "Total Time"
+msgstr "Total tid:"
+
+#: views/nutrition_label_html.php:4
+msgid "Nutrition Facts"
+msgstr "Näringsinnehåll"
+
+#: views/nutrition_label_html.php:11
+msgid "Serves"
+msgstr "Portioner"
+
+#: views/nutrition_label_html.php:17
+msgid "Amount Per Serving"
+msgstr "Mängd per portion:"
+
+#: views/nutrition_label_html.php:32
+msgid "% Daily Value*"
+msgstr "% av dagligt intag*"
+
+#: views/nutrition_label_html.php:37
+msgid "Total Fat"
+msgstr "Fett (totalt)"
+
+#: views/nutrition_label_html.php:48
+msgid "Saturated Fat"
+msgstr "Mättat fett"
+
+#: views/nutrition_label_html.php:59
+msgid "Trans Fat"
+msgstr "Transfett:"
+
+#: views/nutrition_label_html.php:85
+msgid "Total Carbohydrate"
+msgstr "Kolhydrater (totalt)"
+
+#: views/nutrition_label_html.php:96
+msgid "Dietary Fiber"
+msgstr "Kostfibrer"
+
+#: views/nutrition_label_html.php:107
+msgid "Sugars"
+msgstr "Socker"
+
+#: views/nutrition_label_html.php:149
+msgid ""
+"* Percent Daily Values are based on a 2,000 calorie diet. Your daily values "
+"may be higher or lower depending on your calorie needs."
+msgstr ""
+"*procent av dagligt intag baseras på en 2000-kaloriers diet. Ditt "
+"rekommenderade dagliga intag kan vara högre eller lägre beroende på ditt "
+"kaloribehov."
+
+#: views/nutrition_text.php:27
+msgid "Saturated"
+msgstr ""
+
+#: views/other-plugins.php:14
+msgid "Install"
+msgstr ""
+
+#: views/other-plugins.php:18
+msgid "Upgrade to pro"
+msgstr ""
+
+#: views/other-plugins.php:21
+msgid "Installed"
+msgstr ""
+
+#: views/other-plugins.php:53
+msgid "WP Search Insights - Track searches on your website"
+msgstr ""
+
+#: views/other-plugins.php:64
+msgid "Complianz Privacy Suite - Consent Management as it should be "
+msgstr ""
+
+#: views/other-plugins.php:75
+msgid "Really Simple SSL - Your Website SSL in one click"
+msgstr ""
+
+#: views/promo.php:56
+#, php-format
+msgid ""
+"Like this plugin? The premium version includes lots of cool extra features, "
+"your 20% fast adapter discount is still valid!"
+msgstr ""
+
+#: views/promo.php:59
+msgid "check out premium"
+msgstr "kolla in premium"
+
+#: views/promo.php:60
+msgid "apply discount"
+msgstr "använd rabattkod"
+
+#: views/promo.php:61
+msgid "dismiss"
+msgstr "avfärda"
+
+#: views/social_sharing.php:1
+msgid "Share on social"
+msgstr ""
+
+#: views/tags.php:27
+msgid "No tags found"
+msgstr ""
+
+#: views/toolbar.php:128
+msgid "Recipe selection updated. Time to save!"
+msgstr "Receptsmarkeringen har uppdateras. Dags att spara!"
+
+#: views/toolbar.php:129
+msgid ""
+"Selecting a recipe that is linked to another post will unlink it from that "
+"post!"
+msgstr ""
+"Genom att markera ett recept som är länkat till ett annat inlägg kommer den "
+"tidigare länken att förloras!"
+
+#: views/toolbar.php:130
+msgid "Show only recipes without post"
+msgstr "Visa endast recept utan inlägg"
+
+#: views/toolbar.php:133 views/toolbar.php:141
+msgid "No recipe selected"
+msgstr "Inget recept valt"
+
+#: views/toolbar.php:160
+msgid "Create and insert new recipe"
+msgstr "Skapa och infoga nya recept"
+
+#: views/toolbar.php:163
+msgid ""
+"Creating and inserting a new recipe will unlink the current recipe from this "
+"post."
+msgstr ""
+"Genom att skapa eller infoga ett nytt recept kommer det nuvarande receptets "
+"länk att tas bort från detta inlägg."
+
+#: zip-recipes-lover.php:50
+msgid "Zip Recipes cannot be activated. The plugin requires PHP 5.6 or higher"
+msgstr ""
+
+#: zip-recipes-lover.php:56
+msgid ""
+"Zip Recipes cannot be activated. The plugin requires WordPress 4.6 or higher"
+msgstr ""
+
+#: zip-recipes-lover.php:146 zip-recipes-lover.php:153
+msgid "Demo Recipe"
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Zip Recipes Lover"
 msgstr "Zip Recipes Lover"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://www.ziprecipes.net/"
+msgstr "http://www.ziprecipes.net/"
 
 #. Description of the plugin/theme
 msgid ""
@@ -1365,12 +1979,6 @@ msgid ""
 msgstr ""
 "En plugin som lägger till all nödvändig mikrodata till dina recept så att de "
 "dyker upp i Googles receptsök"
-
-# The link has just been copied in the translation, however you probably want it to be "https://ziprecipes.net" in both the original and the translation.
-#. Plugin URI of the plugin/theme
-#. Author URI of the plugin/theme
-msgid "http://www.ziprecipes.net/"
-msgstr "http://www.ziprecipes.net/"
 
 #. Author of the plugin/theme
 msgid "RogierLankhorst"

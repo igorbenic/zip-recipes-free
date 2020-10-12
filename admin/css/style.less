@@ -43,6 +43,7 @@
 
 
 #zrdn-dashboard {
+  
   .zrdn-gridless {
 
     .zrdn-grid-title {
@@ -108,6 +109,9 @@
       padding: 3px 10px;
       height: 27px;
       margin-right: 2px;
+      right: 25px;
+      position: absolute;
+
       &.lover {
         background-color: @brand-primary;
       }
@@ -119,6 +123,12 @@
       }
       &.zrdn-hide-bullet {
         display:none;
+      }
+    }
+    .zrdn_extension_explanation_container {
+      .zrdn-extension-label {
+        position:relative;
+        margin-left:25px;
       }
     }
     .zrdn-grid-title  .zrdn-extension-label{
@@ -140,17 +150,21 @@
       }
       position:relative;
       float:left;
+
       .item-container .item-content {
         display: block;
 
-        p, .zrdn-license-container {
-          margin: 15px 30px;
+        div.zrdn-desc, .zrdn-license-container {
+          margin: 0 25px;
         }
 
         .zrdn-extension-image {
           height:250px;
           overflow:hidden;
+          margin-bottom:15px;
         }
+
+
 
         .zrdn-button-paragraph {
           margin:0;
@@ -159,7 +173,9 @@
           bottom: 42px;
           height: 7px;
           white-space: nowrap;
-          width: 100%;
+          width: 340px;
+          padding:20px;
+
           .zrdn-button {
             position: absolute;
             bottom: -33px;
@@ -170,8 +186,6 @@
             margin-top:10px;
           }
         }
-
-
       }
     }
     .zrdn-item[data-id="general"] {
@@ -183,14 +197,54 @@
   }
 }
 
+.zrdn-row-bottom {
+  position: absolute;
+  bottom: 42px;
+  height: 7px;
+  white-space: nowrap;
+  width: 330px;
+  padding:25px 0;
+  .zrdn-button-container {
+    margin:20px 0 0 0;
+    border-top: 1px solid @grey-light;
+    position:relative;
+    .zrdn-button {
+      position: absolute;
+      bottom: -33px;
+      text-align: center;
+      width: 100%;
+      margin-top: 15px;
+    }
+    .button {
+      margin-top:15px;
+    }
+    input[type=submit]{
+      margin-top:15px;
+    }
+  }
+}
+
+.zrdn-gridless {
+  .zrdn-row-bottom {
+    padding:25px;
+    .zrdn-button-container {
+      margin:40px 0 0 0;
+    }
+  }
+}
+
 .update-nag{
   display:none;
 }
 
 .zrdn-settings-logo{
-  width:156px;
-  height: 32px;
+  height: 25px;
   padding-top: 10px;
+}
+@media screen and (max-width: 1300px) {
+  .zrdn-settings-logo {
+    display:none;
+  }
 }
 
 // Override default WP padding and margin on dashboard
@@ -245,8 +299,8 @@
   }
 
   ul.tabs {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     list-style: none;
     height: 70px;
   }
@@ -255,7 +309,7 @@
     background: none;
     color: #222;
     display: inline-block;
-    padding: 15px 15px 15px 15px;
+    padding: 15px 25px;
     cursor: pointer;
     margin: 0;
   }
@@ -275,8 +329,16 @@
   margin-left:20px;
   margin-right:20px;
   .zrdn-add-recipe {
-    margin-top:20px;
+    margin-top: 40px;
+    margin-bottom: -35px;
   }
+
+  .search-box {
+    select  {
+      vertical-align: initial;
+    }
+  }
+
   .zrdn-recipes-overview {
     background-color:#fff;
     margin-top: 20px;
@@ -317,6 +379,11 @@
     width: 100%;
     margin-left: 40px;
   }
+  @media only screen and (max-width: 1300px) {
+    .tabs-content{
+      margin-left:0;
+    }
+  }
   .documentation-container {
     display: flex;
     align-items: center;
@@ -329,8 +396,23 @@
     justify-content: space-between;
   }
   .tab-links {
-    margin-left: 100px;
+    margin-left: 75px;
     color: @light-text-color;
+  }
+  @media only screen and (max-width: 1300px) {
+    .tab-links {
+      margin-left:0;
+    }
+  }
+  @media only screen and (max-width: 1200px) {
+    .documentation-container {
+      display:none;
+    }
+  }
+  @media only screen and (max-width: 680px) {
+    .tabs {
+      display:none;
+    }
   }
   .documentation {
     margin-right: 25px;
@@ -471,12 +553,6 @@ widget
     width: 50px;
   }
 
-  //.zrdn-select-date-range {
-  //  float: right;
-  //  margin-right: 180px;
-  //  margin-top: 5px;
-  //}
-
   //hide the "25 entries" dropdown
   .dataTables_length{
     display:none;
@@ -492,8 +568,6 @@ widget
     flex-flow: row wrap;
     word-break: break-all;
   }
-
-
 
   /*
     General table styling
@@ -517,77 +591,6 @@ widget
       margin-right: 10px;
       border: 1px solid #DEDEDE;
     }
-    //
-    //table {
-    //  border-collapse: collapse;
-    //  margin: 0;
-    //  padding: 0;
-    //  table-layout: fixed;
-    //  justify-content: normal;
-    //}
-    //table.dataTable {
-    //  .zrdn-selected {
-    //    background-color:rgba(41, 182, 246, 0.35);
-    //  }
-    //}
-    //table caption {
-    //  //font-weight: 600;
-    //  //width: 50%;
-    //  //font-size: 1.5em;
-    //  height: 50px;
-    //  text-align: left;
-    //  margin-top: -10px;
-    //  padding-bottom: 10px;
-    //}
-    //
-    //table tr {
-    //  height: 40px;
-    //  background-color: #f8f8f8;
-    //  padding: .35em;
-    //}
-    //
-    //table tbody tr {
-    //  border-bottom: .1em solid @border-color;
-    //}
-    //
-    //table th,
-    //table td {
-    //  padding: .625em;
-    //  text-align: left;
-    //}
-    //
-    //table th {
-    //  &:focus{outline:none;}
-    //  //letter-spacing: .1em;
-    //}
-    //
-    //thead {
-    //  border-top: 1px solid #DEDEDE;
-    //}
-    //
-    //
-    //tbody {
-    //  color: @light-text-color;
-    //}
-    //
-    //tr:nth-child(even) {
-    //  background-color: #FFFFFF;
-    //}
-    //
-    //tr:nth-child(odd) {
-    //  background-color: #FFFFFF;
-    //}
-    //
-    //tr:first-child {
-    //  border-top-left-radius: .55rem;
-    //  border-top-right-radius: .55rem;
-    //}
-    //
-    //tr:last-child {
-    //  margin-bottom: 0;
-    //  border-bottom-left-radius: .55rem;
-    //  border-bottom-right-radius: .55rem;
-    //}
   }
 
   .zrdn-term a {
@@ -1335,7 +1338,7 @@ widget
 
   .zrdn_extension_explanation_container {
     display:flex;
-    margin: 15px 30px;
+    margin: 15px 0;
     .zrdn-column-badge {
       flex: 25%;
     }
@@ -1343,6 +1346,7 @@ widget
       flex: 75%;
     }
   }
+
 }
 
 

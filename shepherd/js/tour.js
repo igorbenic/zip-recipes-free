@@ -123,10 +123,6 @@ function initTour(){
 		}
 	}
 }
-	// $(document).on('click', '[data-id=1] .button-primary', function(){
-	// 	console.log("cancelling");
-	// 	cancel_tour();
-	// });
 
 	/**
 	 * Cancel tour

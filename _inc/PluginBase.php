@@ -13,7 +13,6 @@ abstract class PluginBase
 
     public function __construct()
     {
-		error_log("loading plugin base ");
 	    if ($this->isDisabled()) {
             return false;
         }
