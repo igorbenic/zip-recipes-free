@@ -100,11 +100,16 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 
 == Screenshots ==
 
-1. Beautiful recipes on all devices
-2. Optimized for Google
-3. Easy to Use
+1. A Template Editor with Endless Possibilities
+2. WYSIWYG Editor when Creating a Recipe
+3. Simple Recipe Cards with Nutrition Labels
+4. Structured Data Optimized for Google
+5. Overview of the most Important Recipe Data
+6. Style it to Match your Recipe Articles
+7. For more information, please visit [ziprecipes.net](https://ziprecipes.net)
 
 == Changelog ==
+
 = 7.0.0 =
 * Completely rebuilt Zip Recipes
 * PHP 7.4 ready
