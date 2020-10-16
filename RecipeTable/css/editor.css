@@ -29,6 +29,7 @@ Hide notices from other plugins
 }
 #zip-recipes .form-table th {
   padding: 15px 0;
+  width: initial;
 }
 #zip-recipes label {
   font-weight: normal;
@@ -144,7 +145,7 @@ Tabs
 */
 .zrdn-tab {
   overflow: hidden;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #dedede;
   background-color: #fff;
 }
 .zrdn-tab button {
@@ -274,6 +275,9 @@ Tabs
   border-radius: 0.25rem;
   margin: 10px 0;
 }
+.zrdn-panel.zrdn-notice a {
+  color: #fff;
+}
 .zrdn-panel.zrdn-success {
   background-color: #61ce70;
   border-color: #61ce70;
@@ -304,11 +308,14 @@ Tabs
 .zrdn-label {
   margin: 20px 0 10px 0;
 }
+.zrdn-checkbox .zrdn-label {
+  margin: 6px 0 10px 0;
+}
 #zip-recipes.edit-recipe .zrdn-label label {
   font-weight: bold;
 }
 .zrdn-grid .zrdn-label {
-  margin: 10px 0 10px 0;
+  margin: 6px 0 10px 0;
 }
 .zrdn-author-frame {
   overflow-x: hidden;

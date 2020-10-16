@@ -119,11 +119,15 @@ html {
 #zrdn-recipe-container ol {
   margin-left: 20px;
 }
-#zrdn-recipe-container ul.zrdn-ingredients-list.nobullets,
-#zrdn-recipe-container ol.zrdn-ingredients-list.nobullets {
+#zrdn-recipe-container ul.nobullets,
+#zrdn-recipe-container ol.nobullets {
   list-style: none;
   margin-left: 0;
   padding-left: 0;
+}
+#zrdn-recipe-container ul.nobullets li,
+#zrdn-recipe-container ol.nobullets li {
+  list-style: none;
 }
 #zrdn-recipe-container ol.zrdn-numbered li,
 #zrdn-recipe-container ul.zrdn-numbered li,

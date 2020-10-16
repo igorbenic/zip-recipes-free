@@ -1144,6 +1144,15 @@ class Recipe {
 			$keywords = implode(',',wp_list_pluck($this->keywords,'name'));
 		}
 
+		$category = '';
+		if (is_array($this->categories) && count($this->categories)>0){
+			$category_id = $this->categories[0];
+			$cat = get_category($category_id);
+			$category = $cat->name;
+		} else if((!is_array($this->categories) || count($this->categories)==0) && $this->category){
+			$category =  $this->category;
+		}
+
 		$recipe_json_ld = array(
 			"@context" => "http://schema.org",
 			"@type" => "Recipe",
@@ -1151,7 +1160,7 @@ class Recipe {
 			"image" => $this->recipe_image_json,
 			"recipeIngredient" => $formattedIngredientsArray,
 			"name" => $this->recipe_title,
-			"recipeCategory" => $this->category,
+			"recipeCategory" => $category,
 			"recipeCuisine" => $this->cuisine,
 			"nutrition" => array(
 				"@type" => "NutritionInformation",
@@ -1177,13 +1186,20 @@ class Recipe {
 		}
 
 		if (!empty($this->video_url)){
-			$recipe_json_ld['video'] = $this->video_url;
 			$thumbnail_url = Util::youtube_thumbnail($this->video_url);
 			$recipe_json_ld['video'] = array(
 				"@type" => "VideoObject",
 				"name" => $this->recipe_title,
 				"embedUrl" =>  $this->video_url,
+				"contentUrl" =>  $this->video_url,
 			);
+
+			$post_id = $this->post_id;
+			if ($post_id ) {
+				$post = get_post( $post_id );
+				$publish_date = get_post_time('U', false, $post->ID);
+				$recipe_json_ld['video']['uploadDate'] = date('Y-m-d', $publish_date );
+			}
 
 			if ($thumbnail_url) {
 				$recipe_json_ld['video']["thumbnailUrl"] = $thumbnail_url;
@@ -1191,6 +1207,8 @@ class Recipe {
 
 			if ($this->summary) {
 				$recipe_json_ld['video']["description"] = $this->summary;
+			} else {
+				$recipe_json_ld['video']["description"] =  $this->recipe_title;
 			}
 		}
 		if ($this->total_time) {
@@ -1219,7 +1237,6 @@ class Recipe {
 
 			$cleaned_recipe_json_ld["aggregateRating"] = (object)$rating;
 		}
-
 		return $cleaned_recipe_json_ld;
 	}
 

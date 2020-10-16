@@ -3,7 +3,8 @@ namespace ZRDN;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-use Cassandra\Custom;
+//use Cassandra\Custom;
+
 use ZRDN\Recipe as RecipeModel;
 class ZipRecipes {
 

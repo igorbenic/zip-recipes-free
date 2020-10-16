@@ -237,7 +237,6 @@ function zrdn_check_upgrade()
 		$zrdn_labels['hide_ingredients_label'] = $value;
 		update_option('zrdn_settings_labels', $zrdn_labels);
 	}
-
 	if ( $prev_version && version_compare($prev_version, '7.0.0', '<') ) {
 		update_site_option( 'zrdn_tour_shown_once', true );
 		update_site_option( 'zrdn_tour_started', false );

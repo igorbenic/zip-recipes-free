@@ -1,3 +1,6 @@
+.notice:not(.really-simple-plugins) {
+  display: none;
+}
 .zrdn-recipes .column-details {
   padding-top: 19px;
 }
@@ -145,6 +148,9 @@
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content .zrdn-button-paragraph input[type=submit] {
   margin-top: 10px;
+}
+#zrdn-dashboard .zrdn-gridless .zrdn-item .item-container .item-content .zrdn-license-container .zrdn-button-paragraph {
+  width: 680px;
 }
 #zrdn-dashboard .zrdn-gridless .zrdn-item[data-id="general"] .zrdn-button-paragraph {
   padding: 10px 0 0 10px;
@@ -296,7 +302,7 @@
 .zrdn-settings-container .tabs-content {
   display: flex;
   width: 100%;
-  margin-left: 40px;
+  margin-left: 25px;
 }
 @media only screen and (max-width: 1300px) {
   .zrdn-settings-container .tabs-content {
@@ -314,7 +320,7 @@
   justify-content: space-between;
 }
 .zrdn-settings-container .tab-links {
-  margin-left: 75px;
+  margin-left: 25px;
   color: #3c3c3c;
 }
 @media only screen and (max-width: 1300px) {

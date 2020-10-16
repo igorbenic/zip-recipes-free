@@ -117,10 +117,13 @@ html{scroll-behavior:smooth}
   /* Ingredients */
   ul, ol {
     margin-left: @default-margin;
-    &.zrdn-ingredients-list.nobullets {
+    &.nobullets {
       list-style: none;
       margin-left:0;
       padding-left: 0;
+      li {
+        list-style: none;
+      }
     }
   }
 

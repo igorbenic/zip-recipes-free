@@ -1335,6 +1335,7 @@ class Util {
 	 *
 	 * @return bool|string
 	 */
+
 	public static function youtube_thumbnail( $src ) {
 		$thumbnail = false;
 		$youtube_pattern

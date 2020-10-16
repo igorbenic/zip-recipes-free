@@ -14,6 +14,10 @@
 //  background-position-y: top;
 //  padding-top:30px;
 //}
+.notice:not(.really-simple-plugins){
+  display:none;
+}
+
 //recipe overview
 .zrdn-recipes {
   .column-details {
@@ -186,6 +190,12 @@
             margin-top:10px;
           }
         }
+
+        .zrdn-license-container {
+          .zrdn-button-paragraph {
+            width:680px;
+          }
+        }
       }
     }
     .zrdn-item[data-id="general"] {
@@ -193,6 +203,7 @@
         padding:10px 0 0 10px;
       }
     }
+
 
   }
 }
@@ -377,7 +388,7 @@
   .tabs-content {
     display: flex;
     width: 100%;
-    margin-left: 40px;
+    margin-left: 25px;
   }
   @media only screen and (max-width: 1300px) {
     .tabs-content{
@@ -396,7 +407,7 @@
     justify-content: space-between;
   }
   .tab-links {
-    margin-left: 75px;
+    margin-left: 25px;
     color: @light-text-color;
   }
   @media only screen and (max-width: 1300px) {

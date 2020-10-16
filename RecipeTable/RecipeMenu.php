@@ -468,7 +468,7 @@ function zrdn_recipe_overview(){
                         <p><?php _e("Here you can find an overview of your recipes. You can add them to a post or page by copying the shortcode (classic editor) or using the Gutenberg block.", "zip-recipes")?></p>
                     </div>
                 </div>
-                <a href="<?php echo admin_url('admin.php?page=zrdn-recipes&action=new');?>" class="zrdn-add-recipe button button-primary page-title-action"><?php _e('Add recipe', 'zip-recipes') ?></a>
+                <a href="<?php echo admin_url('admin.php?page=zrdn-recipes&action=new');?>" class="zrdn-add-recipe button button-primary"><?php _e('Add recipe', 'zip-recipes') ?></a>
                 <?php do_action('zrdn_after_recipes_overview_title'); ?>
 
                 <form id="zrdn-recipe-filter" method="get" action="<?php echo add_query_arg(array('page'=>'zrdn-recipes'),admin_url('admin.php'))?>">

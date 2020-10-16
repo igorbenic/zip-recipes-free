@@ -559,6 +559,7 @@ jQuery(document).ready(function($) {
                 action: 'zrdn_save_template'
             }),
             success: function (response) {
+
                 btn.prop('disabled', false);
                 btn.html(btnHtml);
                 resetSettingsChanged();
