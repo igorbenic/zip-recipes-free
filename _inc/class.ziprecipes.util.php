@@ -1214,21 +1214,19 @@ class Util {
 				if ( $index_in_sub_array !== false ) {
 					unset($recipe_blocks_layout[ $index ]['blocks'][ $index_in_sub_array ]);
 				}
-
 				//if no blocks left, set previous or next one to 100 if this is a 50 block, and remove this one
 				if ( count($column_blocks['blocks']) === 1 ){
 					if ( $column_blocks['type'] === 'block-50' ) {
 						if ($index % 2 == 0) {
-							$recipe_blocks_layout[$index-1]['type'] = 'block-100';
-						} else {
 							$recipe_blocks_layout[$index+1]['type'] = 'block-100';
+						} else {
+							$recipe_blocks_layout[$index-1]['type'] = 'block-100';
 						}
 					}
 					unset($recipe_blocks_layout[$index]);
 				}
 			}
 		}
-
 		return $recipe_blocks_layout;
 	}
 
@@ -1270,6 +1268,18 @@ class Util {
 			update_option("zrdn_settings_$new_source", $new_settings );
 		}
 	}
+
+	/**
+     * Get old setting
+	 * @param string $fieldname
+	 * @param string $type
+	 *
+	 * @return mixed
+	 */
+	public static function get_old_setting($fieldname, $type){
+		$old_image_options = get_option( "zrdn_settings_$type");
+		return isset($old_image_options[$fieldname]) ? $old_image_options[$fieldname] : false;
+    }
 
 	/**
 	 * Get the value for a ZRDN field

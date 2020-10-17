@@ -164,7 +164,6 @@ jQuery(document).ready(function($) {
         }
     }
 
-
     /**
      * Checkboxes
      */

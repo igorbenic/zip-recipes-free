@@ -251,6 +251,7 @@ ol {
   height: 100%;
 }
 .zrdn-highlight-dragarea {
+  border-radius: 5px;
   margin-right: 9px;
   margin-bottom: 20px;
   border: 1px solid #61ce70 !important;

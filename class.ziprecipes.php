@@ -470,6 +470,13 @@ class ZipRecipes {
 
 	    if ( isset($_GET['mode']) && $_GET['mode'] === 'zrdn-preview') {
 	        if (current_user_can('edit_posts')) {
+		        $user_id = get_current_user_id();
+		        $recipe_id = intval($_GET['id']);
+		        $stored_temp_recipe_data = get_transient('zrdn_preview_recipe_data');
+		        if ($stored_temp_recipe_data) unset($stored_temp_recipe_data[$user_id][$recipe_id]);
+		        set_transient('zrdn_preview_recipe_data', $stored_temp_recipe_data , HOUR_IN_SECONDS);
+
+		        set_transient('zrdn_preview_recipe_data', $stored_temp_recipe_data , HOUR_IN_SECONDS);
 		        wp_register_style('zrdn-editor-preview', plugins_url('styles/zrdn-preview' . self::$suffix . '.css', __FILE__), array(), ZRDN_VERSION_NUM, 'all');
 		        wp_enqueue_style('zrdn-editor-preview');
 		        wp_register_script( 'zrdn-editor-preview',
@@ -481,8 +488,6 @@ class ZipRecipes {
 			        'admin_url'               => admin_url( 'admin-ajax.php' ),
 			        'str_click_to_edit_image' => __( "Click to edit this image",
 				        "zip-recipes" ),
-			        'str_minutes'             => __( "minutes", "zip-recipes" ),
-			        'str_hours'               => __( "hours", "zip-recipes" ),
 			        'str_remove'              => __( "clear image",
 				        "zip-recipes" ),
 			        'default_image'           => ZRDN_PLUGIN_URL

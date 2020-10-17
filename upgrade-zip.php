@@ -237,6 +237,7 @@ function zrdn_check_upgrade()
 		$zrdn_labels['hide_ingredients_label'] = $value;
 		update_option('zrdn_settings_labels', $zrdn_labels);
 	}
+
 	if ( $prev_version && version_compare($prev_version, '7.0.0', '<') ) {
 		update_site_option( 'zrdn_tour_shown_once', true );
 		update_site_option( 'zrdn_tour_started', false );
@@ -311,7 +312,6 @@ function zrdn_check_upgrade()
 			update_option( 'zrdn_settings_general',$zrdn_settings );
 		}
 
-
 		if (isset($zrdn_settings['border_style'])) {
 			$current_border_style = $zrdn_settings['border_style'];
 			$template_settings    = get_option( 'zrdn_settings_template' );
@@ -361,22 +361,23 @@ function zrdn_check_upgrade()
 		Util::migrate_setting('social', 'plugins', 'RecipeActions');
 
 		$blocks = get_option( 'zrdn_recipe_blocks_layout', array() );
-		$copyright = Util::get_option('copyright_statement');
-		if (strlen($copyright) === 0 ) {
+
+		$copyright = Util::get_old_setting('copyright_statement', 'general');
+		if (!$copyright || strlen($copyright) === 0 ) {
 			$blocks = Util::remove_block_from_array($blocks, 'copyright');
 		}
 
-		$hide_title = Util::get_option('hide_title');
+		$hide_title = Util::get_old_setting('hide_title', 'general');
 		if ( $hide_title ) {
 			$blocks = Util::remove_block_from_array($blocks, 'recipe_title' );
 		}
 
-		$hide_image = Util::get_option('hide_image');
+		$hide_image = Util::get_old_setting('hide_image', 'image');
 		if ( $hide_image ) {
 			$blocks = Util::remove_block_from_array($blocks, 'recipe_image' );
 		}
 
-		$show_text_nutrition = Util::get_option('show_textual_nutrition_information');
+		$show_text_nutrition = Util::get_old_setting('show_textual_nutrition_information', 'nutrition');
 		if ( !$show_text_nutrition ) {
 			$blocks = Util::remove_block_from_array($blocks, 'nutrition_text' );
 		}

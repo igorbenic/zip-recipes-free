@@ -339,8 +339,6 @@ add_filter ( 'wp_prepare_attachment_for_js',  __NAMESPACE__ .'\zrdn_image_sizes_
 
 add_action('admin_enqueue_scripts', __NAMESPACE__ . '\zrdn_enqueue_style');
 function zrdn_enqueue_style($hook){
-
-
     if (strpos($hook, 'zrdn') === FALSE) return;
 
     if ((isset($_GET['page']) && $_GET['page']=='zrdn-recipes')) {
@@ -363,7 +361,8 @@ function zrdn_enqueue_style($hook){
         'default_image' => ZRDN_PLUGIN_URL.'/images/recipe-default-bw.png',
         'nonce' => wp_create_nonce('zrdn_edit_recipe'),
         'image_placeholder' => ZRDN_PLUGIN_URL . '/images/s.png',
-
+        'str_minutes'             => __( "minutes", "zip-recipes" ),
+        'str_hours'               => __( "hours", "zip-recipes" ),
     );
     wp_localize_script('zrdn-editor', 'zrdn_editor', $args);
 

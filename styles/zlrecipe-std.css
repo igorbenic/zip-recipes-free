@@ -129,6 +129,10 @@ html {
 #zrdn-recipe-container ol.nobullets li {
   list-style: none;
 }
+#zrdn-recipe-container ol li,
+#zrdn-recipe-container ul li {
+  margin-top: 8px;
+}
 #zrdn-recipe-container ol.zrdn-numbered li,
 #zrdn-recipe-container ul.zrdn-numbered li,
 #zrdn-recipe-container ol.zrdn-bullets li,
@@ -175,6 +179,7 @@ html {
   width: 26px;
   line-height: 20px;
   font-size: 17px;
+  top: 0;
 }
 #zrdn-recipe-container ol.zrdn-solid li:before,
 #zrdn-recipe-container ul.zrdn-solid li:before {

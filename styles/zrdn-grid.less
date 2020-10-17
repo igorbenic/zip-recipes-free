@@ -13,6 +13,7 @@
   }
   .zrdn-block-50 {
     flex-basis:50%;
+    max-width:50%;
     padding: 0.5 * @default-margin;
 
   }
@@ -25,10 +26,14 @@
   .zrdn-block-wrap + .zrdn-block-wrap {
     margin:20px 0;
   }
+  .zrdn-block-wrap {
+    max-width:100%;
+  }
 
   @media only screen and (max-width: 600px) {
     .zrdn-block-50 {
       flex-basis:100%;
+      max-width:100%;
     }
   }
 

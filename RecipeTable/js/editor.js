@@ -62,58 +62,85 @@ jQuery(document).ready(function ($) {
 
     /**
      *  Initialize the preview fields with placeholders
+     *  Populate with current and updated values
      */
     var preview = $('#zrdn-preview');
-    syncPreview();
+    var preview_page_loaded = false;
+    syncPreview(false);
     function syncPreview(forceField){
         forceField = typeof forceField !== 'undefined' ? forceField : false;
 
         if (preview.length) {
-        var field;
-        var zrdn_variables = [];
-        $('.zrdn-field input').each(function () {
-            var name = $(this).attr("name");
-            if (typeof name === 'undefined') return;
-            field = newField(name, $(this).val() );
-            zrdn_variables.push(field);
-        });
+            var field;
+            var zrdn_variables = [];
+            $('.zrdn-field input').each(function () {
+                var name = $(this).attr("name");
+                if (typeof name === 'undefined') return;
+                field = newField(name, $(this).val() );
+                zrdn_variables.push(field);
+            });
 
-        $('.zrdn-field textarea').each(function () {
-            if ($(this).hasClass('wp-editor-area')) return;
-            var name = $(this).attr("name");
-            if (typeof name === 'undefined') return;
-            field = newField(name, zrdn_parse_textarea($(this)));
-            zrdn_variables.push(field);
-        });
+            $('.zrdn-field textarea').each(function () {
+                if ($(this).hasClass('wp-editor-area')) return;
+                var name = $(this).attr("name");
+                if (typeof name === 'undefined') return;
+                field = newField(name, zrdn_parse_textarea($(this)));
+                zrdn_variables.push(field);
+            });
 
-        if (forceField) {
-            zrdn_variables.push(forceField);
+            if (forceField) {
+                zrdn_variables.push(forceField);
+            }
+            
+            var recipe_id = $('input[name=zrdn_recipe_id]').val();
+            field = newField('recipe_id', recipe_id );
+            zrdn_variables.push(field);
+
+            var permalink = $('input[name=zrdn_post_permalink]').val();
+            if (permalink.length ===0 ) return;
+            var url = permalink+'?mode=zrdn-preview&id='+recipe_id;
+            var preview_iframe;
+            var recipeContainer;
+
+            if (!preview_page_loaded ){
+                //get page from front end based on post id
+                preview.html('<iframe id="preview_iframe" width="1024" height="0" src="' + url+'"></iframe>');
+                preview.find('iframe').attr('src', url).on( 'load' , function () {
+                    preview_iframe = document.getElementById('preview_iframe');
+                    recipeContainer = preview_iframe.contentDocument.getElementById('zrdn-recipe-container');
+                    zrdnUpdateFields(zrdn_variables, $(recipeContainer));
+                    resizeIframe(preview_iframe);
+
+                    preview.animate({"height": "768px"});
+                    preview_page_loaded = true;
+                });
+            } else {
+                preview_iframe = document.getElementById('preview_iframe');
+                recipeContainer = preview_iframe.contentDocument.getElementById('zrdn-recipe-container');
+                zrdnUpdateFields(zrdn_variables, $(recipeContainer));
+            }
         }
+    }
 
-        field = newField('recipe_id', $('input[name=zrdn_recipe_id]').val());
-        zrdn_variables.push(field);
+    function zrdnUpdateFields(fields, container){
+        for (var key in fields) {
+            if (fields.hasOwnProperty(key)) {
+                var field = fields[key];
+                //in some cases, clean up sibs
+                var fieldObj= container.find(".zrdn-element_"+field.name);
 
-        var permalink = $('input[name=zrdn_post_permalink]').val();
-        if (permalink.length ===0 ) return;
-
-        var url = permalink+'?mode=zrdn-preview';
-        for (var key in zrdn_variables) {
-            if (zrdn_variables.hasOwnProperty(key)) {
-                field = zrdn_variables[key];
-                url += ('&' + field.name + '=' + field.value);
+                if (fieldObj.prop("tagName")==='OL' || fieldObj.prop("tagName")==='UL'){
+                    fieldObj.nextAll().remove();
+                }
+                field.value = decodeURIComponent( field.value );
+                fieldObj.html((field.value));
             }
         }
 
-        //get page from front end based on post id
-        preview.html('<iframe id="preview_iframe" width="1024" height="0" src="' + url+'"></iframe>');
-        preview.find('iframe').attr('src', url).on( 'load' , function () {
-            var preview_iframe = document.getElementById('preview_iframe');
-            resizeIframe(preview_iframe);
-            preview.animate({"height": "768px"});
-        });
+        maybeShowNutritionLabel(fields, container);
+        zrdn_parse_time(fields, container );
+        zrdn_get_video_embed(fields, container );
     }
-}
-
 
     // //Was needed a timeout since RTE is not initialized when this code run.
     setTimeout(function () {
@@ -150,9 +177,6 @@ jQuery(document).ready(function ($) {
 
             frame.oHeight = cHeight;
         }
-
-        // // Call again to check whether the content height has changed.
-        // setTimeout( function() { resize( frame ); }, 250 );
     }
 
 
@@ -277,9 +301,7 @@ jQuery(document).ready(function ($) {
         }
 
         //preserve linebreaks by transforming them to br
-        console.log(parentTag);
         placeholderHtml = '<' + parentTag + '>'+placeholderHtml+'</' + parentTag + '>';
-        console.log(placeholderHtml);
 
         return placeholderHtml;
     }
@@ -330,7 +352,6 @@ jQuery(document).ready(function ($) {
             {
                 var thumbnail_id = images[iii].id;
                 var image = false;
-                console.log(images[iii]);
                 if (images[iii].attributes.sizes.hasOwnProperty(size)) {
                     image = images[iii].attributes.sizes[size];
                 } else if(images[iii].attributes.sizes.hasOwnProperty(size+'_s')) {
@@ -355,5 +376,115 @@ jQuery(document).ready(function ($) {
 
         media_uploader.open();
     });
+
+
+
+    function zrdn_parse_time(fields, container){
+        var prep = new Object();
+        var cook = new Object();
+        var wait = new Object();
+        for (var key in fields) {
+
+            if (fields.hasOwnProperty(key)) {
+                var field = fields[key];
+                var name = field.name;
+
+                if (name.indexOf('prep') != -1) {
+                    if (name.indexOf('minute') !== -1) {
+                        prep.minutes = field.value;
+                    }
+                    if (name.indexOf('hour') !== -1) {
+                        prep.hours = field.value;
+                    }
+                }
+
+                if (name.indexOf('cook') != -1) {
+                    if (name.indexOf('minute') !== -1) {
+                        cook.minutes = field.value;
+                    }
+                    if (name.indexOf('hour') !== -1) {
+                        cook.hours = field.value;
+                    }
+                }
+
+                if (name.indexOf('wait') != -1) {
+                    if (name.indexOf('minute') !== -1) {
+                        wait.minutes = field.value;
+                    }
+                    if (name.indexOf('hour') !== -1) {
+                        wait.hours = field.value;
+                    }
+                }
+
+            }
+            container.find('.zrdn-element_prep_time').html(getTimeString(prep.hours, prep.minutes));
+            container.find('.zrdn-element_cook_time').html(getTimeString(cook.hours, cook.minutes));
+            container.find('.zrdn-element_wait_time').html(getTimeString(wait.hours, wait.minutes));
+            container.find('.zrdn-element_total_time').html(getTimeString(parseInt(prep.hours)+parseInt(cook.hours), parseInt(prep.minutes) + parseInt(cook.minutes)));
+
+        }
+    }
+
+    function getTimeString(hours, minutes){
+        var timeString = '';
+        if (hours > 0) {
+            timeString += hours + ' '+zrdn_editor.str_hours;
+        }
+
+        if (minutes > 0) {
+            if (timeString.length > 0) minutes = ', ' + minutes;
+            timeString += minutes + ' '+ zrdn_editor.str_minutes;
+        }
+        return timeString;
+    }
+
+
+
+    /**
+     * hide nutrition label if no data available
+     */
+
+    function maybeShowNutritionLabel(fields, container){
+        if (!$("#zrdn-nutrition-label").length) return;
+        var caloriesField = getFieldByName(fields, 'calories');
+        var label = container.find("#zrdn-nutrition-label");
+        if (parseInt(caloriesField.value) === 0) {
+            label.hide();
+        } else {
+            label.show();
+        }
+    }
+
+
+    function zrdn_get_video_embed(fields, container){
+        var videoField = getFieldByName(fields, 'video_url');
+        var video_url = videoField.value;
+        $.ajax({
+            type: "GET",
+            url: zrdn_editor.admin_url,
+            dataType: 'json',
+            data: ({
+                video_url : video_url,
+                action: 'zrdn_get_embed_code',
+            }),
+            success: function (response) {
+                if (response.success) {
+                    container.find(".zrdn-element_"+videoField.name).html(response.embed);
+                }
+            }
+        });
+    }
+
+    function getFieldByName(fields, name){
+        for (var key in fields) {
+            if (fields.hasOwnProperty(key)) {
+                var field = fields[key];
+                if (field.name === name) {
+                    return field;
+                }
+            }
+        }
+        return false;
+    }
 
 });

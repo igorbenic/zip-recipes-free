@@ -1078,13 +1078,14 @@ class Recipe {
 			}
 			$number_of_sublists = count($nested_list);
 			$item_array = $this->zrdn_format_item($raw_item);
+
 			// if last item is an array
 			if ($number_of_sublists > 0 && is_array($nested_list[$number_of_sublists - 1])) {
 				$subtitle = $this->get_subtitle($raw_item);
 				if ($subtitle) {
 					array_push($nested_list, array($item_array));
 				} else {
-					array_push($nested_list[count($nested_list) - 1], $item_array);
+					array_push($nested_list[$number_of_sublists - 1], $item_array);
 				}
 			} else {
 				array_push($nested_list, array($item_array));
@@ -1092,7 +1093,7 @@ class Recipe {
 		}
 
 		if (isset($nested_list[0])) {
-			return $nested_list[0];
+			return $nested_list;
 		} else {
 			return array();
 		}

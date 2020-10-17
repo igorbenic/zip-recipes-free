@@ -129,6 +129,9 @@ html{scroll-behavior:smooth}
 
   @default-bullet-color: #E35899;
   ol, ul {
+    li {
+      margin-top:8px;
+    }
     &.zrdn-numbered li, &.zrdn-bullets li {
       counter-increment: inst;
       display: block;
@@ -168,6 +171,7 @@ html{scroll-behavior:smooth}
       width: 26px;
       line-height:20px;
       font-size:17px;
+      top:0;
     }
     &.zrdn-solid li:before{
       background-color: @default-bullet-color;

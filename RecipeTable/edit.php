@@ -474,9 +474,7 @@ if (isset($_GET['post_id'])) {
                     <input type="hidden" name="zrdn_ingredients_list_type" value = "<?php echo $list_type_ingredients?>">
                     <input type="hidden" name="zrdn_instructions_list_type" value = "<?php echo $list_type_instructions?>">
 
-
                     <?php
-                    $post_permalink = '';
                     if ($recipe->post_id && get_post_type($recipe->post_id) !== 'trash'){
                         $post_permalink = get_permalink($recipe->post_id);
                     } else {
@@ -490,7 +488,12 @@ if (isset($_GET['post_id'])) {
 
             <div class="zrdn-column preview-column">
                 <div id="zrdn-preview">
-                    <?php if (!$post_permalink) {
+                    <?php
+                    /**
+                     * Test if we have access to the post url, or if it is blocked by mod security or similar
+                     */
+
+                    if (!$post_permalink) {
                         echo __('The preview requires the recipe to be connected to a published post', "zip-recipes");
                     } ?>
                     <div id="zrdn-skeleton">
