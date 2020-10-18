@@ -129,6 +129,10 @@ jQuery(document).ready(function ($) {
                 //in some cases, clean up sibs
                 var fieldObj= container.find(".zrdn-element_"+field.name);
 
+                //nutrition text values are different
+                var nutrition_element = container.find('.'+field.name+' .zrdn-nutrition-value');
+                if ( nutrition_element.length ) fieldObj = nutrition_element;
+
                 if (fieldObj.prop("tagName")==='OL' || fieldObj.prop("tagName")==='UL'){
                     fieldObj.nextAll().remove();
                 }

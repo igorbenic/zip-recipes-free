@@ -7,7 +7,8 @@
 
 $list_style = $settings['instructions_list_type'];
 $list_type  = \ZRDN\Util::get_list_type( $list_style );
-$list_class = \ZRDN\Util::get_list_class( $list_style );if ( $recipe->preview ) {
+$list_class = \ZRDN\Util::get_list_class( $list_style );
+if ( $recipe->preview ) {
         $recipe->nested_instructions[] = array(
 	        array(
             'type' => 'default',

@@ -4,9 +4,9 @@
             <h4 class="nutrition-facts__title"><?php _e( 'Nutrition Facts',
 					'zip-recipes' ) ?></h4>
             <h5 class="nutrition-facts__title">
-                            <span>
-                            {recipe_title}
-                            </span>
+                <span>
+                {recipe_title}
+                </span>
             </h5>
             <p><?php _e( 'Serves', 'zip-recipes' ) ?>: <span>{yield}</span>
         </header>
@@ -24,7 +24,7 @@
                     <strong><?php _e( 'Calories', 'zip-recipes' ) ?></strong>
                 </th>
                 <td>
-                    <span>{calories}</span>
+                    <span class="zrdn-element_calories">{calories}</span>
                 </td>
             </tr>
             <tr class="thick-row">

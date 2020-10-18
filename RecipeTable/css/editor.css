@@ -327,6 +327,10 @@ Tabs
 .zrdn-checkbox .zrdn-field {
   float: right;
 }
+.zrdn-pre-comment {
+  flex-basis: 100%;
+  height: 0;
+}
 .zrdn-comment {
   float: left;
   font-size: 12px;

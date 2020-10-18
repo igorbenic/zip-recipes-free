@@ -91,6 +91,7 @@ label {
 }
 #zrdn-save-template-settings .field-group {
   flex-direction: row;
+  flex-wrap: wrap;
   padding: 5px 10px;
 }
 #zrdn-save-template-settings .zrdn-save-template-settings {
