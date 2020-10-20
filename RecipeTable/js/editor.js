@@ -1,7 +1,4 @@
 jQuery(document).ready(function ($) {
-    var typingTimer;
-    var doneTypingInterval = 800;
-
     $(document).on('click', '.zrdn-add-author', function () {
         var field = $('.zrdn-template').get(0).outerHTML;
         $(this).closest('.field-group').find('.zrdn-author-frame').append(field);
@@ -22,7 +19,6 @@ jQuery(document).ready(function ($) {
                 div = null;
                 return contents;
             })(this[0]));
-
     };
 
     /**
@@ -66,7 +62,7 @@ jQuery(document).ready(function ($) {
      */
     var preview = $('#zrdn-preview');
     var preview_page_loaded = false;
-    syncPreview(false);
+    syncPreview();
     function syncPreview(forceField){
         forceField = typeof forceField !== 'undefined' ? forceField : false;
 
@@ -127,16 +123,17 @@ jQuery(document).ready(function ($) {
             if (fields.hasOwnProperty(key)) {
                 var field = fields[key];
                 //in some cases, clean up sibs
-                var fieldObj= container.find(".zrdn-element_"+field.name);
-
+                var fieldObj = container.find(".zrdn-element_"+field.name);
                 //nutrition text values are different
                 var nutrition_element = container.find('.'+field.name+' .zrdn-nutrition-value');
                 if ( nutrition_element.length ) fieldObj = nutrition_element;
-
-                if (fieldObj.prop("tagName")==='OL' || fieldObj.prop("tagName")==='UL'){
-                    fieldObj.nextAll().remove();
-                }
                 field.value = decodeURIComponent( field.value );
+
+                if (fieldObj.prop("tagName") === 'OL' || fieldObj.prop("tagName") === 'UL' ){
+                    fieldObj.nextAll().remove();
+                    field.value = field.value.replace( field.value.substr(0,4), '');
+                    field.value = field.value.replace(field.value.slice(field.value.length - 5), '');
+                }
                 fieldObj.html((field.value));
             }
         }
@@ -189,12 +186,7 @@ jQuery(document).ready(function ($) {
      */
 
     $(document).on('keyup', 'input[type=text]', function (e) {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(syncPreview, doneTypingInterval);
-    });
-
-    $(document).on('keydown', 'input[type=text]', function (e) {
-        clearTimeout(typingTimer);
+        syncPreview();
     });
 
     /**
@@ -202,12 +194,7 @@ jQuery(document).ready(function ($) {
      */
 
     $(document).on('keyup mouseup', 'input[type=number]', function (e) {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(syncPreview, doneTypingInterval);
-    });
-
-    $(document).on('keydown mousedown', 'input[type=number]', function (e) {
-        clearTimeout(typingTimer);
+        syncPreview();
     });
 
     /**
@@ -215,12 +202,7 @@ jQuery(document).ready(function ($) {
      */
 
     $(document).on('keyup', 'textarea', function (e) {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(syncPreview, doneTypingInterval);
-    });
-
-    $(document).on('keydown', 'textarea', function (e) {
-        clearTimeout(typingTimer);
+        syncPreview();
     });
 
     function newField(name, value) {
