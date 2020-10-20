@@ -1060,7 +1060,7 @@ class Util {
     }
 
 	/**
-	 * @param int $demo_recipe_id
+	 * @param int $recipe_id
 	 *
 	 * @return int|\WP_Error
 	 */

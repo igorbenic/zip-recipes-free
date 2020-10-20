@@ -96,7 +96,44 @@ class ZipRecipes {
 	    add_shortcode( 'zrdn-recipe', __NAMESPACE__ . '\ZipRecipes::load_recipe_shortcode' );
 
 	    add_filter('zrdn_tabs', __NAMESPACE__ . '\ZipRecipes::add_menu_tabs');
+	    add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::run_first_install_init', 20 );
     }
+
+	/**
+	 * Install a demo recipe on activation
+	 */
+
+	public static function run_first_install_init() {
+	    if (!get_option('zrdn_activated_once')) {
+
+			//demo recipe
+			$args = array(
+				'searchFields' => 'recipe_title',
+				'search'       => __( 'Demo Recipe', 'zip-recipes' ),
+			);
+
+			$recipes = Util::get_recipes( $args );
+			if ( count( $recipes ) == 0 ) {
+				$recipe = new Recipe();
+				$recipe->load_default_data();
+				$recipe->recipe_title    = __( 'Demo Recipe', 'zip-recipes' );
+				$recipe->recipe_image_id = ZipRecipes::insert_media( ZRDN_PATH
+				                                                     . 'images',
+					'demo-recipe.jpg' );
+				$recipe->save();
+				update_option( 'zrdn_demo_recipe_id', $recipe->recipe_id );
+			}
+
+			//set some defaults
+			$settings = get_option('zrdn_settings_general');
+			$zrdn_print['show_summary_on_archive_pages'] = true;
+			update_option('zrdn_settings_general', $settings);
+			update_option('zrdn_activated_once', true);
+		}
+	}
+
+
+
 
 	/**
      * Add tabs to the menu header

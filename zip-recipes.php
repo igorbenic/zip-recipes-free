@@ -115,47 +115,21 @@ if (!function_exists(__NAMESPACE__ . '\init')) {
 }
 
 
-if (!function_exists(__NAMESPACE__ . '\zrdn_run_first_install_init')) {
-	register_activation_hook( __FILE__,
-		__NAMESPACE__ . '\zrdn_run_first_install_init' );
+if (!function_exists(__NAMESPACE__ . '\zrdn_set_defaults')) {
+	register_activation_hook( __FILE__, __NAMESPACE__ . '\zrdn_set_defaults' );
 
 	/**
-	 * Install a demo recipe on activation
+	 * set defaults on activation
 	 */
 
-	function zrdn_run_first_install_init() {
-
-		if (!get_option('zrdn_activated_once')) {
-			if (!class_exists(__NAMESPACE__ . '\Util')){
-				require_once( ZRDN_PATH . '/models/Recipe.php' );
-				require_once( ZRDN_PATH . '_inc/class.ziprecipes.util.php' );
-				require_once( ZRDN_PATH . 'class.ziprecipes.php' );
-			}
-
-			//demo recipe
-			$args = array(
-				'searchFields' => 'recipe_title',
-				'search'       => __( 'Demo Recipe', 'zip-recipes' ),
-			);
-
-			$recipes = Util::get_recipes( $args );
-			if ( count( $recipes ) == 0 ) {
-				$recipe = new Recipe();
-				$recipe->load_default_data();
-				$recipe->recipe_title    = __( 'Demo Recipe', 'zip-recipes' );
-				$recipe->recipe_image_id = ZipRecipes::insert_media( ZRDN_PATH
-				                                                     . 'images',
-					'demo-recipe.jpg' );
-				$recipe->save();
-				update_option( 'zrdn_demo_recipe_id', $recipe->recipe_id );
-			}
-
+	function zrdn_set_defaults() {
+		if (!get_option('zrdn_defaults_set')) {
 			//set some defaults
 			$settings = get_option('zrdn_settings_general');
 			$zrdn_print['show_summary_on_archive_pages'] = true;
 			update_option('zrdn_settings_general', $settings);
 
-			update_option('zrdn_activated_once', true);
+			update_option('zrdn_defaults_set', true);
 		}
 	}
 }
