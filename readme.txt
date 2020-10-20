@@ -16,20 +16,24 @@ Zip Recipes is the best way to easily create professional-looking recipes fully 
 
 == Description ==
 
-Get started with the intuitive editor and create professional recipes for your food blog. With schema.org, Recipe JSON-LD metadata optimized for Google, your recipe will reach more people than before!
+Get started with the intuitive template editor and create professional recipes for your food blog. With schema.org, Recipe JSON-LD metadata optimized for Google, your recipes will reach more people than before!
 
-1. Easy to create recipes
-2. More visitors
-3. Professional recipes
+1. Endless possibilities with the template editor and a wide range of settings.
+2. Optimize your recipes for Google and other search engines and increase your organic reach.
+3. Professional looking recipes for any device.
+4. WYSIWYG Editors for adding new recipes of creating your recipe template.
+5. Awesome support.
 
 Still got questions? [Go to our website for support](https://www.ziprecipes.net/support) or [email us](mailto:support@ziprecipes.net).
 
 Zip Recipes is on [GitHub](https://github.com/rlankhorst/zip-recipes-free) as well!
 
-## 1. Easy to create recipes
+## 1. Endless possibilities with the template editor and a wide range of settings.
 Zip Recipes is the fastest way to create a recipe. The best way to build a following is to keep your readers coming back for new recipes for them to try. To speed up your workflow and save you time creating recipes, we provide:
 
-- **Easy Copy & Pasting**: You can copy & paste the recipes you already have from Microsoft Word or other programs.
+[email us](mailto:support@ziprecipes.net)
+- **WYSIWYG Editors** Adding new recipes of creating your recipe template has never been so easy. [Sneak Preview](https://ziprecipes.net/video-a-quick-introduction-to-the-template-editor/)
+- **Easy Copy/Pasting**: You can copy & paste the recipes you already have from Microsoft Word or other programs.
 - **Flexible Editor**: Our flexible editor works how you work by allowing you to add recipes to posts, pages or custom post types.
 - **Featured Image Support**: You only have to set one image for your post or page if you use featured images. If you don't provide a recipe image, Zip Recipes will add the featured image to Google's rich snippet.
 - **No coding required**: We made Zip Recipes easy to use so you don’t need computer knowledge to start publishing your recipes. Even a complete novice can do it!
@@ -117,7 +121,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 * Improved html structure, for better SEO and Google performance
 * Improved Rich Snippet structure
 * Improved customization options
-* Drag & Drop recipe template
+* Drag & Drop recipe template editor
 * Added overridable templates
 
 = 6.4.7 =
