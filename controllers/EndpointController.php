@@ -88,11 +88,13 @@ class ZRDN_API_Endpoint_Controller extends WP_REST_Controller {
         $recipes = $wpdb->get_results("SELECT * FROM $table");
         if (!$recipes || count($recipes)==0) $output = array();
         foreach ($recipes as $recipe) {
+        	$preview_post_id = Util::get_preview_post_id(false);
+        	$post_id = $recipe->post_id === $preview_post_id ? 0 : $recipe->post_id;
             $output[] =
                 array(
                     'id' => $recipe->recipe_id,
                     'title' => $recipe->recipe_title,
-                    'post_id' => $recipe->post_id,
+                    'post_id' => $post_id,
                 );
         }
         return ZRDN_REST_Response::success($output);

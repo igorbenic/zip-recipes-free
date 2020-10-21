@@ -122,7 +122,8 @@
         $recipes = $wpdb->get_results("SELECT * FROM $table");
         $recipes = wp_list_pluck($recipes, 'recipe_title', 'recipe_id');
 
-        $unlinked_recipes = $wpdb->get_results($wpdb->prepare("SELECT * FROM $table where post_id = NULL or post_id = 0 or post_id = %s", $post_id));
+        $preview_post_id = Util::get_preview_post_id(false);
+        $unlinked_recipes = $wpdb->get_results($wpdb->prepare("SELECT * FROM $table where post_id = NULL or post_id = 0 or post_id = %s or post_id = %s", $post_id, $preview_post_id));
         $unlinked_recipes = wp_list_pluck($unlinked_recipes, 'recipe_title', 'recipe_id');
         ?>
         <div id="zrdn_update_feedback" style="display:none"><?php zrdn_notice(__("Recipe selection updated. Time to save!","zip-recipes"), 'success', true, true)?></div>

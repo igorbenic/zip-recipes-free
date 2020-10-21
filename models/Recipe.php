@@ -107,7 +107,7 @@ class Recipe {
 		if ($post_id) {
 			$this->post_id = $post_id;
 		}
-		if ($recipe_id) {
+		if ($recipe_id !== false ) {
 			$this->recipe_id = $recipe_id;
 		}
 		if ($title) {
@@ -117,13 +117,12 @@ class Recipe {
 			$this->recipe_image = $image_url;
 		}
 
-		if ($this->recipe_id || $this->post_id) {
+		//in preview, we should load placeholders if no recipe id is known
+		if ( !$this->recipe_id && isset($_GET['mode']) && $_GET['mode'] === 'zrdn-preview') {
+			$this->load_placeholders();
+		} else if ($this->recipe_id || $this->post_id) {
 			$this->load();
-			if ( isset($_GET['mode']) && $_GET['mode'] === 'zrdn-preview') {
-				$this->load_placeholders();
-			}
 		}
-
 	}
 
 	/**
@@ -454,7 +453,6 @@ class Recipe {
         );
 
         return $nutrition_data;
-
     }
 
     /**
@@ -467,10 +465,11 @@ class Recipe {
             $recipe_data = $this->db_select($this->recipe_id);
         }
 
-        if (!$recipe_data && $this->post_id){
+        if (!$recipe_data && $this->post_id ){
             $recipe_data = $this->db_select_by_post_id($this->post_id);
             if ($recipe_data) $this->recipe_id = $recipe_data->recipe_id;
         }
+
         if ($recipe_data) {
             $db_recipe = get_object_vars($recipe_data);
             foreach ($this as $fieldname => $value) {
@@ -558,6 +557,7 @@ class Recipe {
         $all_from_post = true;
         foreach ($post_categories as $c) {
             $cat = get_category($c);
+            if (!is_category($cat) ) continue;
             $cats[] = $cat->name;
 	        $this->categories[] = $cat->term_id;
             //if all categories are loaded from wordpress, we leave the categories string blank.
@@ -942,18 +942,29 @@ class Recipe {
             's' => array('singular' => __('%d second', 'zip-recipes'), 'plural' => __('%d seconds', 'zip-recipes'))
         );
 
-
         try {
             $time = new \DateInterval($duration);
-	        $minutes = $time->h * 60 + $time->i;
-	        if ($minutes > 1 ) {
-	        	$string = sprintf($date_abbr['i']['plural'], $minutes);
-	        } else {
-		        $string = sprintf($date_abbr['i']['singular'], $minutes);
+	        $minutes =  $time->i;
+	        $hours = $time->h;
+	        $hour_string = $minute_string = '';
+	        if ($minutes >0 ) {
+		        if ($minutes > 1 ) {
+	        	    $minute_string = sprintf($date_abbr['i']['plural'], $minutes);
+		        } else {
+			        $minute_string = sprintf($date_abbr['i']['singular'], $minutes);
+		        }
 	        }
+	        if ($hours >0 ) {
+		        if ( $hours > 1 ) {
+			        $hour_string = sprintf( $date_abbr['h']['plural'], $hours );
+		        } else {
+			        $hour_string = sprintf( $date_abbr['h']['singular'], $hours );
+		        }
+		        if (strlen($minute_string)>0) $hour_string .= ', ';
+	        }
+	        $string = $hour_string . $minute_string;
         } catch (\Exception $e) {
         }
-
         return $string;
     }
 

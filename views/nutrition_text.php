@@ -39,7 +39,7 @@
 	<?php } ?>
 
 	<?php if ( $recipe->protein ) { ?>
-        <div class="zrdn-text-nutrition-item carbs">
+        <div class="zrdn-text-nutrition-item protein">
             <div class="zrdn-nutrition-title"><?php _e( 'Protein', 'zip-recipes' ) ?></div>
             <div class="zrdn-nutrition-value"><?php echo \ZRDN\Util::minimal_number($recipe->protein) ?></div>
             <div class="zrdn-nutrition-percentage"></div>

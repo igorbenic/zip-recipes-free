@@ -149,13 +149,18 @@ jQuery(document).ready(function($) {
     var tab = window.location.hash.substr(1).replace('#top','');
     $('ul.tabs li').click(function () {
         var tab_id = $(this).attr('data-tab');
-
+        if (tab_id ==='dashboard'){
+            $('#zrdn-show-toggles').show();
+        } else{
+            $('#zrdn-show-toggles').hide();
+        }
         $('ul.tabs li').removeClass('current');
         $('.tab-content').removeClass('current');
 
         $(this).addClass('current');
         $("#" + tab_id).addClass('current');
     });
+
     var href = $('.tab-'+tab).attr('href');
     if (typeof href !== 'undefined'){
         if (href.indexOf('#'+tab) !== -1 ) {

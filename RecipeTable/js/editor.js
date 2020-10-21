@@ -135,6 +135,11 @@ jQuery(document).ready(function ($) {
                     field.value = field.value.replace(field.value.slice(field.value.length - 5), '');
                 }
                 fieldObj.html((field.value));
+
+                //check for value class fields
+                var value_element = container.find('.zrdn-fieldvalue-'+field.name);
+                if ( value_element.length ) fieldObj = value_element;
+                fieldObj.html((field.value));
             }
         }
 

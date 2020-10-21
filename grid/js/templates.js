@@ -701,6 +701,8 @@ jQuery(document).ready(function($) {
                     if (event.hasOwnProperty('originalEvent')) {
                         var container_id = $(event.target).data('hidden-input');
                         $('#' + container_id).val(ui.color.toString());
+                        console.log("colorpicker");
+
                         zrdnSettingsChanged = true;
                         zrdnUpdateStyle($('#' + container_id));
                     }

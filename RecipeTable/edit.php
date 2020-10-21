@@ -157,7 +157,7 @@ if (isset($_GET['post_id'])) {
 	                    );
                     }
 
-                    $fields += array(
+                    $fields = array_merge($fields,  array(
                         array(
                             'type' => 'text',
                             'fieldname' => 'recipe_title',
@@ -266,7 +266,7 @@ if (isset($_GET['post_id'])) {
                             'label' => sprintf(__('Need to set a custom author instead of a default WordPress editor? Custom authors is a feature available in %sall plans%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
                             'media' => false,
                         ),
-                    );
+                    ) );
 
                     /**
                      * Category saved in recipe is deprecated, we move to wordpress categories
@@ -444,11 +444,7 @@ if (isset($_GET['post_id'])) {
                         $field->get_field_html($field_args);
                     }
                     ?>
-
-
                 </div><!--tab content -->
-
-
 
                 <!-- Tab content -->
                 <div id="misc" class="zrdn-tabcontent <?php if ($active_tab=='misc') echo 'active'?>">
@@ -475,10 +471,11 @@ if (isset($_GET['post_id'])) {
                     <input type="hidden" name="zrdn_instructions_list_type" value = "<?php echo $list_type_instructions?>">
 
                     <?php
-                    if ($recipe->post_id && get_post_type($recipe->post_id) !== 'trash'){
+                    if ( $recipe->post_id && get_post_type($recipe->post_id) !== 'trash' ){
                         $post_permalink = get_permalink($recipe->post_id);
                     } else {
                         //check if we have our default private post
+                        if ( !$recipe_id ) $recipe_id = 0;
                         $preview_post_id = Util::get_preview_post_id( $recipe_id );
                         $post_permalink = get_permalink($preview_post_id);
                     }?>

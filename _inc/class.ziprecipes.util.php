@@ -81,7 +81,7 @@ class Util {
 
     public static function get_shortcode($recipe_id)
     {
-        if (!$recipe_id) return false;
+        if ($recipe_id === false ) return false;
 
         //even if on gutenberg, with elementor we have to use classic shortcodes.
         if (Util::uses_gutenberg() && !Util::uses_elementor()){
@@ -1060,14 +1060,19 @@ class Util {
     }
 
 	/**
+	 * Get a preview post id, optionally with a shortcode for a recipe
 	 * @param int $recipe_id
 	 *
 	 * @return int|\WP_Error
 	 */
     public static function get_preview_post_id( $recipe_id ){
 	    $preview_post_id = get_option('zrdn_preview_post_id');
+
+	    //make sure it exists. Otherwise we need to create a new one.
+	    $post = get_post( $preview_post_id );
+
 	    //if not, create one.
-	    if (!$preview_post_id) {
+	    if (!$post) {
 		    $page = array(
 			    'post_title'   => __("Zip Recipes preview post", "zip-recipes"),
 			    'post_type'    => "post",
@@ -1080,7 +1085,7 @@ class Util {
 		    update_option('zrdn_preview_post_id',$preview_post_id);
 	    }
 	    //set post content to current recipe
-	    if ($recipe_id) {
+	    if ( $recipe_id !== false ) {
 		    $shortcode = Util::get_shortcode($recipe_id);
 		    $args = array(
 			    'post_content' => $shortcode,
