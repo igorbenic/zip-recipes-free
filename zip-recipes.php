@@ -7,8 +7,8 @@ Plugin URI: http://www.ziprecipes.net/
 Plugin GitHub: https://github.com/hgezim/zip-recipes-plugin
 Description: A plugin that adds all the necessary microdata to your recipes, so they will show up in Google's Recipe Search
 Version: 7.0.0
-Author: RogierLankhorst, markwolters
-Author URI: http://www.really-simple-plugins.com/
+Author: Really Simple Plugins
+Author URI: https://www.really-simple-plugins.com/
 License: GPLv3 or later
 Copyright 2020 Rogier Lankhorst
 This code is derived from the 2.6 version build of ZipList Recipe Plugin released by ZipList Inc.:

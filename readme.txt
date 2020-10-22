@@ -31,7 +31,6 @@ Zip Recipes is on [GitHub](https://github.com/rlankhorst/zip-recipes-free) as we
 ## 1. Endless possibilities with the template editor and a wide range of settings.
 Zip Recipes is the fastest way to create a recipe. The best way to build a following is to keep your readers coming back for new recipes for them to try. To speed up your workflow and save you time creating recipes, we provide:
 
-[email us](mailto:support@ziprecipes.net)
 - **WYSIWYG Editors** Adding new recipes of creating your recipe template has never been so easy. [Sneak Preview](https://ziprecipes.net/video-a-quick-introduction-to-the-template-editor/)
 - **Easy Copy/Pasting**: You can copy & paste the recipes you already have from Microsoft Word or other programs.
 - **Flexible Editor**: Our flexible editor works how you work by allowing you to add recipes to posts, pages or custom post types.
@@ -47,15 +46,15 @@ Zip Recipes is the fastest way to create a recipe. The best way to build a follo
 
 ## 3. Professional looking recipes
 Some readers need a lot of information before even trying to re-create your recipe.
+
 - **Nutrition information**: Zip Recipes includes nutrition information, cook and prep time, notes and more
 - **Rich Snippets**: When users search for recipes, Google will show them the rich snippets with image, rating, nutrition info, cook and preptime, etc.
 - **Beautiful print layout**: When clicking the print button, your users will get a beautiful formatted print view.
 
-
-## Love Zip Recipes? =
+## Love Zip Recipes?
 If you enjoy this plugin and you want your site to have the best recipe features, consider purchasing the [premium version](https://ziprecipes.net/premium).
 
-= Premium features =
+## Premium features
 * Automatic Nutrition generation
 * Automatic serving adjustment for your users
 * Choose form several themes
