@@ -1070,13 +1070,12 @@ class Util {
 
 	    //if it's trashed, restore it.
 	    if ( get_post_status( $post ) === 'trash' ) {
-		    $post = array(
+		    $updated_post = array(
 			    'post_title'   => __("Zip Recipes preview post (do not delete)", "zip-recipes"),
 			    'ID'    => $post->ID,
 			    'post_status'  => 'private',
 		    );
-		    wp_update_post($post);
-		    update_option('zrdn_preview_post_id', $post->ID);
+		    wp_update_post($updated_post);
         }
 
 	    //set post content to current recipe
