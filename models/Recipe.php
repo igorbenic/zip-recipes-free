@@ -557,7 +557,10 @@ class Recipe {
         $all_from_post = true;
         foreach ($post_categories as $c) {
             $cat = get_category($c);
-            if (!is_category($cat) ) continue;
+            if (!term_exists($c) ) {
+            	continue;
+            }
+
             $cats[] = $cat->name;
 	        $this->categories[] = $cat->term_id;
             //if all categories are loaded from wordpress, we leave the categories string blank.
@@ -1157,6 +1160,7 @@ class Recipe {
 		}
 
 		$category = '';
+
 		if (is_array($this->categories) && count($this->categories)>0){
 			$category_id = $this->categories[0];
 			$cat = get_category($category_id);
@@ -1165,10 +1169,14 @@ class Recipe {
 			$category =  $this->category;
 		}
 
+		$description = $this->summary;
+		if (strlen($description)===0) $description = $this->recipe_title;
+		$description = trim(preg_replace('/\s+/', ' ', strip_tags($description)));
+
 		$recipe_json_ld = array(
 			"@context" => "http://schema.org",
 			"@type" => "Recipe",
-			"description" => trim(preg_replace('/\s+/', ' ', strip_tags($this->summary))),
+			"description" => $description,
 			"image" => $this->recipe_image_json,
 			"recipeIngredient" => $formattedIngredientsArray,
 			"name" => $this->recipe_title,

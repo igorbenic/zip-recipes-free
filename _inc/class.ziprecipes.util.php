@@ -667,13 +667,6 @@ class Util {
 				'label'     => __( "Copyright statement", 'zip-recipes' ),
 			),
 
-//			'set_image_width' => array(
-//				'type'               => 'checkbox',
-//				'source'             => 'recipe_image',
-//				'table'              => false,
-//				'label'              => __( "Set image width", 'zip-recipes' ),
-//			),
-
 			'image_width' => array(
 				'type'               => 'number',
 				'source'             => 'recipe_image',
@@ -689,9 +682,6 @@ class Util {
 				'table'              => false,
 				'label'              => __( "Hide recipe image when post image is the same", 'zip-recipes' ),
 				'help'              => __( "When enabled, the recipe image will be hidden if it's the same as the image in the post", 'zip-recipes' ),
-//				'condition' => array(
-//					'hide_image' => false,
-//				),
 			),
 
 			'hide_print_image' => array(
@@ -700,9 +690,6 @@ class Util {
 				'table'     => false,
 				'label'     => __( "Hide Image in print view", 'zip-recipes' ),
 				'default'   => true,
-//				'condition' => array(
-//					'add_print_button' => false,
-//				),
 			),
 
 			'hide_permalink' => array(
@@ -720,9 +707,6 @@ class Util {
 				'table'     => false,
 				'label'     => __( 'Hide nutrition label in print view',
 					'zip-recipes' ),
-//				'condition' => array(
-//					'add_print_button' => false,
-//				),
 			),
 
 			'hide_ingredients_label' => array(
@@ -1070,11 +1054,10 @@ class Util {
 
 	    //make sure it exists. Otherwise we need to create a new one.
 	    $post = get_post( $preview_post_id );
-
 	    //if not, create one.
 	    if (!$post) {
 		    $page = array(
-			    'post_title'   => __("Zip Recipes preview post", "zip-recipes"),
+			    'post_title'   => __("Zip Recipes preview post (do not delete)", "zip-recipes"),
 			    'post_type'    => "post",
 			    'post_status'  => 'private',
 			    'post_content'  => __("Save your recipe to see the preview", "zip-recipes"),
@@ -1084,6 +1067,18 @@ class Util {
 		    $preview_post_id = wp_insert_post( $page );
 		    update_option('zrdn_preview_post_id',$preview_post_id);
 	    }
+
+	    //if it's trashed, restore it.
+	    if ( get_post_status( $post ) === 'trash' ) {
+		    $post = array(
+			    'post_title'   => __("Zip Recipes preview post (do not delete)", "zip-recipes"),
+			    'ID'    => $post->ID,
+			    'post_status'  => 'private',
+		    );
+		    wp_update_post($post);
+		    update_option('zrdn_preview_post_id', $post->ID);
+        }
+
 	    //set post content to current recipe
 	    if ( $recipe_id !== false ) {
 		    $shortcode = Util::get_shortcode($recipe_id);
