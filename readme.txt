@@ -9,7 +9,7 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
 Requires at least: 4.8
 Tested up to: 5.5
-Stable tag: 7.0.1
+Stable tag: 7.0.2
 Requires PHP: 5.6
 
 Zip Recipes is the best way to easily create professional-looking recipes fully optimized for Google and your website visitors.
@@ -37,6 +37,8 @@ Zip Recipes is the fastest way to create a recipe. The best way to build a follo
 - **Featured Image Support**: You only have to set one image for your post or page if you use featured images. If you don't provide a recipe image, Zip Recipes will add the featured image to Google's rich snippet.
 - **No coding required**: We made Zip Recipes easy to use so you don’t need computer knowledge to start publishing your recipes. Even a complete novice can do it!
 - **Extensive support** through knowledgebase articles and responsive support.
+
+https://www.youtube.com/watch?v=-0yMFwgolzQ
 
 ## 2. More visitors | Rank higher in Google
 - **Schema.org and JSON LD**: your recipes will include all the necessary microdata so Google understands them, and will show rich snippets e.g. cooking time and other labels.
@@ -112,6 +114,9 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 7. For more information, please visit [ziprecipes.net](https://ziprecipes.net)
 
 == Changelog ==
+= 7.0.2 =
+* Fix: numbering restarting after image in ingredients/instructions props @yaneli20
+
 = 7.0.1 =
 * Fix: categories check using term_exists instead of is_category
 

@@ -22,7 +22,6 @@ foreach($recipe->nested_instructions as $instruction_lines) {
 	foreach ($instruction_lines as $instruction) { ?>
 
 		<?php if ( $instruction['type'] == 'image' ) { ?>
-			<?php echo '</' . $list_type . '>'; ?>
             <img class="<?php if ( $settings['hide_print_image'] )
 				echo "zrdn-hide-print" ?>"
                  src="<?php echo $instruction['attributes']['url']; ?>"
@@ -30,9 +29,6 @@ foreach($recipe->nested_instructions as $instruction_lines) {
 				<?php if ( $instruction['attributes']['sizes'] ) { ?> sizes="<?php echo $instruction['attributes']['sizes'] ?>"<?php } ?>
 				<?php if ( $instruction['attributes']['title'] ) { ?> alt="<?php echo $instruction['attributes']['title'] ?>" <?php } ?>
             />
-			<?php echo '<' . $list_type
-			           . ' class="zrdn-list zrdn-instructions-list '
-			           . $list_class . '"">'; ?>
 		<?php } elseif ( $instruction['type'] == 'subtitle' ) { ?>
 			<?php echo '</' . $list_type . '>'; ?>
             <h4 class="zrdn-subtitle"> <?php echo $instruction['content'] ?></h4>

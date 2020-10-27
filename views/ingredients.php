@@ -23,15 +23,11 @@ echo '<' . $list_type . ' class="zrdn-list zrdn-ingredients-list '.$list_class.'
 foreach ( $recipe->nested_ingredients as $ingredient_lines ) {
     foreach ($ingredient_lines as $ingredient) {
         if ( $ingredient['type'] == 'image' ) { ?>
-
-            <?php echo '</' . $list_type . '>';?>
-                <img class="<?php if($settings['hide_print_image']) echo "zrdn-hide-print" ?>" src="<?php echo $ingredient['attributes']['url']; ?>"
-                <?php if($ingredient['attributes']['srcset']){ ?> srcset="<?php echo $ingredient['attributes']['srcset']?>"<?php } ?>
-                <?php if($ingredient['attributes']['sizes']){?> sizes="<?php echo $ingredient['attributes']['sizes'] ?>"<?php } ?>
-                <?php if($ingredient['attributes']['title']){ ?> alt="<?php echo $ingredient['attributes']['title'] ?>" <?php } ?>
+            <img class="<?php if($settings['hide_print_image']) echo "zrdn-hide-print" ?>" src="<?php echo $ingredient['attributes']['url']; ?>"
+            <?php if($ingredient['attributes']['srcset']){ ?> srcset="<?php echo $ingredient['attributes']['srcset']?>"<?php } ?>
+            <?php if($ingredient['attributes']['sizes']){?> sizes="<?php echo $ingredient['attributes']['sizes'] ?>"<?php } ?>
+            <?php if($ingredient['attributes']['title']){ ?> alt="<?php echo $ingredient['attributes']['title'] ?>" <?php } ?>
             />
-            <?php echo '<' . $list_type . ' class="zrdn-list zrdn-ingredients-list '.$list_class.'">';?>
-
         <?php } elseif ( $ingredient['type'] == 'subtitle' ) { ?>
 
             <?php echo '</' . $list_type . '>';?>
