@@ -18,15 +18,15 @@ $services = array(
 //        'color' => '#000000',
 //    ),
 
-    array(
-        'name' => 'pinterest',
-        'action' => 'href="#" onClick="zrdnPopupCenter(\'https://www.pinterest.com/pin/create/button\',\'Pinterest\',600,500); return false;"',
-        'color' => '#E60023',
-    ),
+	array(
+		'name' => 'pinterest',
+		'action' => "href='javascript:void((function()%7Bvar%20e=document.createElement(&apos;script&apos;);e.setAttribute(&apos;type&apos;,&apos;text/javascript&apos;);e.setAttribute(&apos;charset&apos;,&apos;UTF-8&apos;);e.setAttribute(&apos;src&apos;,&apos;https://assets.pinterest.com/js/pinmarklet.js?r=&apos;+Math.random()*99999999);document.body.appendChild(e)%7D)());'",
+		'color' => '#E60023',
+	),
 
     array(
         'name' => 'reddit',
-        'action' => 'href="#" onClick="zrdnPopupCenter(\'http://www.reddit.com/submit?url='.$url.'&title=".esc_html($title)."\',\'Reddit\',600,500); return false;"',
+        'action' => 'href="#" onClick="zrdnPopupCenter(\'http://www.reddit.com/submit?url='.$url.'&title='.esc_html($title).'\',\'Reddit\',600,500); return false;"',
         'color' => '#E60023',
     ),
 
