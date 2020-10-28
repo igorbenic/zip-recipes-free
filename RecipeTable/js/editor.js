@@ -236,7 +236,7 @@ jQuery(document).ready(function ($) {
         values.forEach(function (element) {
             //check if this is multi part
             if (element.substring(0, 1) === '!') {
-                placeholderHtml += '</' + parentTag + '><b>' + element.substring(1) + '</b><' + parentTag + '>';
+                placeholderHtml += '</' + parentTag + '><h4 class="zrdn-subtitle">' + element.substring(1) + '</h4><' + parentTag + '>';
 
                 //images
             } else if (element.substring(0, 1) === '%') {
@@ -246,7 +246,7 @@ jQuery(document).ready(function ($) {
                 if (match) {
                     var percent_image = match[0];
                     var image = percent_image.substring(1);
-                    placeholderHtml += '<li>' + element.replace(percent_image, '<img style="max-width:100%" src="' + image + '">') + '</li>';
+                    placeholderHtml += element.replace(percent_image, '<img style="max-width:100%" src="' + image + '">');
                 }
             } else {
                 //default
