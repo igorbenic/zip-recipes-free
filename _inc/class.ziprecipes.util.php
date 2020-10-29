@@ -771,6 +771,7 @@ class Util {
 			'Authors' => array(
 				'type'               => 'checkbox',
 				'source'             => 'authors',
+				'is_plugin'         => true,
 				'disabled'           => true,
 				'table'              => false,
 				'label'              => __( "Use custom authors", 'zip-recipes' ),

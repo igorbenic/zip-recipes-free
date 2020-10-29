@@ -480,6 +480,7 @@ class Recipe {
             }
         }
 
+        $custom_author = $this->author;
 	    if ($this->post_id){
 		    $post = get_post($this->post_id);
 		    if ($post) {
@@ -491,7 +492,9 @@ class Recipe {
 		    }
 	    }
 
-        $this->author = apply_filters('zrdn_author_value', $this->author, $this->recipe_id, $this->post_id);
+        $this->author = apply_filters('zrdn_author_value', $this->author, $custom_author, $this->recipe_id, $this->post_id);
+        $this->author_id = apply_filters('zrdn_author_id', $this->author_id, $custom_author, $this->recipe_id, $this->post_id);
+
         $this->total_time = $this->calculate_total_time_raw($this->prep_time, $this->cook_time);
 
         //formatted times

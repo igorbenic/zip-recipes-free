@@ -50,14 +50,15 @@ jQuery(document).ready(function($) {
 
 
         var media_uploader = null;
+        var zrdn_img;
         $(document).on( 'click','.zrdn-element_recipe_image img, .dashicons-edit', function()
         {
-            var img;
             if ($(this).hasClass('dashicons-edit')){
-                img = $(this).closest('.zrdn-recipe-image').find('img');
+                zrdn_img = $(this).closest('.zrdn-recipe_image').find('img');
             } else {
-                img = $(this);
+                zrdn_img = $(this);
             }
+
             media_uploader = wp.media({
                 frame:    "post",
                 state:    "insert",
@@ -65,13 +66,8 @@ jQuery(document).ready(function($) {
             });
 
             media_uploader.on("insert", function(){
-                img.wrap( '<div class="loading-gif"></div>' );
-                $(img).load(function(){
-                    img.unwrap();
-                });
                 var length = media_uploader.state().get("selection").length;
                 var images = media_uploader.state().get("selection").models;
-
                 for(var iii = 0; iii < length; iii++)
                 {
                     var thumbnail_id = images[iii].id;
@@ -87,7 +83,6 @@ jQuery(document).ready(function($) {
                     }
                     var image_url = image['url'];
 
-                    img.attr('src', image_url);
                     //save new value
                     $.ajax({
                         type: "POST",
@@ -101,7 +96,8 @@ jQuery(document).ready(function($) {
                         }),
                         success: function (response) {
                             if (response.success) {
-
+                                zrdn_img.attr('src', image_url);
+                                zrdn_img.attr('srcset', image_url);
                             }
                         }
                     });

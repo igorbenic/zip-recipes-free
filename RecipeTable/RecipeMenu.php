@@ -120,11 +120,9 @@ function zrdn_update_recipe_from_popup(){
                 if (isset($formdata['zrdn_'.$fieldname."_hours"]) && isset($formdata['zrdn_'.$fieldname."_minutes"])) {
                     $recipe->{$fieldname} = 'PT'.intval($formdata['zrdn_'.$fieldname.'_hours']).'H'.intval($formdata['zrdn_'.$fieldname."_minutes"]).'M';
                 }
-
             }
             $recipe = apply_filters('zrdn_save_recipe', $recipe);
             $recipe->save();
-
         }
 
         //saving of fields here
@@ -505,7 +503,6 @@ function zrdn_process_update_recipe(){
      */
 
     if (isset($_POST['zrdn_save_recipe']) && wp_verify_nonce($_POST['zrdn_save_recipe'], 'zrdn_save_recipe')) {
-
         /**
          * adding new recipe
          */
@@ -603,7 +600,6 @@ function zrdn_process_update_recipe(){
         }
 
         $recipe = apply_filters('zrdn_save_recipe', $recipe);
-
         $recipe->save();
 
         //if recipe was just created, redirect to single edit page
