@@ -841,8 +841,8 @@ if (!class_exists("ZRDN_Field")) {
             <input type="hidden" data-size="<?php echo $args['size']?>" class="zrdn-image-upload-field" name="zrdn_<?php echo esc_html($args['fieldname']) ?>"
                    value="<?php echo esc_url($value) ?>">
             <div>
-            <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-uploader" type="button" value="<?php _e('Edit', 'zip-recipes') ?>">
-            <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-reset" type="button" value="<?php _e('Reset', 'zip-recipes') ?>">
+                <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-uploader" type="button" value="<?php _e('Edit', 'zip-recipes') ?>">
+                <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-reset" type="button" value="<?php _e('Reset', 'zip-recipes') ?>">
             </div>
             <img class="zrdn-preview-snippet" width="<?php echo $width?>" height="<?php echo $height?>" src="<?php echo $src?>">
             <?php do_action('zrdn_after_field', $args); ?>

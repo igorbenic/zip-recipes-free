@@ -140,24 +140,18 @@ if (isset($_GET['post_id'])) {
                                 , 'notice', true, false, false);
                     }
 
-                    $fields = array();
-                    if ($zrdn_popup) {
-	                    $fields = array(
-		                    array(
-			                    'type'                  => 'upload',
-			                    'fieldname'             => 'recipe_image',
-			                    'low_resolution_notice' => __( "Low resolution, please upload a better quality image.",
-				                    'zip-recipes' ),
-			                    'size'                  => 'zrdn_recipe_image',
-			                    'value'                 => $recipe->recipe_image,
-			                    'thumbnail_id'          => $recipe->recipe_image_id,
-			                    'label'                 => __( "Recipe image",
-				                    'zip-recipes' ),
-		                    ),
-	                    );
-                    }
-
-                    $fields = array_merge($fields,  array(
+                    $fields = array(
+                        array(
+                            'type'                  => 'upload',
+                            'fieldname'             => 'recipe_image',
+                            'low_resolution_notice' => __( "Low resolution, please upload a better quality image.",
+                                'zip-recipes' ),
+                            'size'                  => 'zrdn_recipe_image',
+                            'value'                 => $recipe->recipe_image,
+                            'thumbnail_id'          => $recipe->recipe_image_id,
+                            'label'                 => __( "Recipe image",
+                                'zip-recipes' ),
+                        ),
                         array(
                             'type' => 'text',
                             'fieldname' => 'recipe_title',
@@ -266,7 +260,7 @@ if (isset($_GET['post_id'])) {
                             'label' => sprintf(__('Need to set a custom author instead of a default WordPress editor? Custom authors is a feature available in %sall plans%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
                             'media' => false,
                         ),
-                    ) );
+                    );
 
                     /**
                      * Category saved in recipe is deprecated, we move to wordpress categories

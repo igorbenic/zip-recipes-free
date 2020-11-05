@@ -773,6 +773,7 @@ class Util {
 				'source'             => 'authors',
 				'is_plugin'         => true,
 				'disabled'           => true,
+				'is_plugin' => true,
 				'table'              => false,
 				'label'              => __( "Use custom authors", 'zip-recipes' ),
 				'help'              => __( "By default, Zip Recipes uses WordPress authors. You can use your own, custom authors as well.", 'zip-recipes' ),

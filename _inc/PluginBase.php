@@ -141,7 +141,7 @@ abstract class PluginBase
                    ),
 
                    array(
-	                   'src' =>array('(\d )'._x('g','short for gram','zip-recipes').'(\,|\.|\ )','(\d )'._x('g','short for grams, plural','zip-recipes').'(\,|\.|\ )'),
+	                   'src' =>array('[\d ]'._x('g','short for gram','zip-recipes').'(\,|\.|\ )','[\d ]'._x('g','short for grams, plural','zip-recipes').'(\,|\.|\ )'),
 	                   'type' => 'metric',
                        'conversionUnit' => array('ounce','ounces'),
                        'ratio' => '0.0352739619',
@@ -149,7 +149,7 @@ abstract class PluginBase
                    ),
                     //untranslated
                     array(
-                        'src' =>array('(\d )g(\,|\.|\ )','(\d )g(\,|\.|\ )'),
+                        'src' =>array('[\d ]g(\,|\.|\ )','[\d ]g(\,|\.|\ )'),
                         'type' => 'metric',
                         'conversionUnit' => array('ounce','ounces'),
                         'ratio' => '0.0352739619',

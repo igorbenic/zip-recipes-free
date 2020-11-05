@@ -888,7 +888,7 @@ class Recipe {
             'ingredients_alt' => stripslashes(wp_kses_post($this->ingredients_alt)),
             'enable_ingredients_alt' => sanitize_title($this->enable_ingredients_alt),
             'instructions' => stripslashes(wp_kses_post($this->instructions)),
-            'notes' => stripslashes(wp_kses_post($this->notes)),
+            'notes' => wp_kses_post($this->notes),
             'category' => stripslashes(sanitize_text_field($this->category)),
             'cuisine' => stripslashes(sanitize_text_field($this->cuisine)),
             'trans_fat' =>sanitize_text_field( $this->trans_fat),
@@ -1423,24 +1423,40 @@ class Recipe {
 		return apply_filters('zrdn_image_html' , $item);
 	}
 
+	/**
+	 * Insert line breaks
+	 * @param string $text
+	 *
+	 * @return string
+	 */
+	public function insert_breaks($text)
+	{
+		$output = "";
+		$split_string = explode("\r\n\r\n", $text, 10);
 
-//	public function break($text)
-//	{
-//		$output = "";
-//		$split_string = explode("\r\n\r\n", $text, 10);
-//		foreach ($split_string as $str) {
-//			$output .=  $str ;
-//		}
-//		return $output;
-//	}
+		foreach ($split_string as $str) {
+			$output .=  $str.'<br>';
+		}
+		return $output;
+	}
 
-	// Replaces the [a|b] pattern with text a that links to b
-	// Replaces _words_ with an italic span and *words* with a bold span
-	public static function richify_item($item)
+	/**
+	 *  Replaces the [a|b] pattern with text a that links to b
+	 *  Replaces _words_ with an italic span and *words* with a bold span
+	 * @param string $item
+	 * @param bool $type
+	 *
+	 * @return string
+	 */
+	public function richify_item($item, $type=false)
 	{
 		$output = preg_replace('/\[([^\]\|\[]*)\|([^\]\|\[]*)\]/', '<a href="\\2" target="_blank">\\1</a>', $item);
 		$output = preg_replace('/(^|\s)\*([^\s\*][^\*]*[^\s\*]|[^\s\*])\*(\W|$)/', '\\1<span class="bold">\\2</span>\\3', $output);
-		return preg_replace('/(^|\s)_([^\s_][^_]*[^\s_]|[^\s_])_(\W|$)/', '\\1<span class="italic">\\2</span>\\3', $output);
+		$output = preg_replace('/(^|\s)_([^\s_][^_]*[^\s_]|[^\s_])_(\W|$)/', '\\1<span class="italic">\\2</span>\\3', $output);
+		if ($type === 'notes' || $type === 'summary') {
+			$output = $this->insert_breaks($output);
+		}
+		return $output;
 	}
 
     /**

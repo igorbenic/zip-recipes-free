@@ -72,6 +72,7 @@ jQuery(document).ready(function ($) {
             $('.zrdn-field input').each(function () {
                 var name = $(this).attr("name");
                 if (typeof name === 'undefined') return;
+                if ( name === 'zrdn_recipe_image' || name ==='zrdn_recipe_image_id') return;
                 field = newField(name, $(this).val() );
                 zrdn_variables.push(field);
             });
@@ -326,6 +327,10 @@ jQuery(document).ready(function ($) {
         //cleanup
         container.find('.zrdn-image-resolution-warning').hide();
 
+        if (fieldname === 'zrdn_recipe_image') {
+            size = 'full';
+        }
+
         media_uploader = wp.media({
             frame:    "post",
             state:    "insert",
@@ -356,6 +361,15 @@ jQuery(document).ready(function ($) {
                     container.find('.zrdn-preview-snippet').attr('src',image_url);
                     $('input[name='+fieldname+'_id]').val(thumbnail_id);
                     $('input[name='+fieldname+']').val(image_url);
+                    if (fieldname === 'zrdn_recipe_image') {
+                        var preview_iframe = document.getElementById('preview_iframe');
+                        var recipeContainer = preview_iframe.contentDocument.getElementById('zrdn-recipe-container');
+                        var zrdn_img = $(recipeContainer).find('.zrdn-recipe-image img');
+                        if (zrdn_img.length) {
+                            zrdn_img.attr('src', image_url);
+                            zrdn_img.attr('srcset', image_url);
+                        }
+                    }
 
                 } else {
                     container.find('.zrdn-image-resolution-warning').show();
