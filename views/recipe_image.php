@@ -1,10 +1,9 @@
-<?php if( !$recipe->is_featured_post_image ) {?>
+<?php
+if( !$recipe->is_featured_post_image ) {?>
 	<?php if( $recipe->recipe_image_id !==FALSE || $recipe->preview ) {
-		?>
+	    ?>
         <div class="zrdn-recipe-image <?php if($settings['hide_print_image']) echo "zrdn-hide-print"?> zrdn-element_recipe_image">
             <?php
-
-
                 if ( $recipe->preview || $recipe->recipe_image_id === 0 ) {
                     echo '<img src="'.$recipe->recipe_image.'">';
                 } else {

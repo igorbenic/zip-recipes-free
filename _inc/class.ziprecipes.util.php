@@ -667,15 +667,6 @@ class Util {
 				'label'     => __( "Copyright statement", 'zip-recipes' ),
 			),
 
-			'image_width' => array(
-				'type'               => 'number',
-				'source'             => 'recipe_image',
-				'table'              => false,
-				'default'              => '',
-				'label'              => __( "Image Width", 'zip-recipes' ),
-				'help'              => __( "Set the image width in pixels", 'zip-recipes' ),
-			),
-
 			'hide_on_duplicate_image' => array(
 				'type'               => 'checkbox',
 				'source'             => 'recipe_image',
@@ -689,7 +680,6 @@ class Util {
 				'source'    => 'recipe_image',
 				'table'     => false,
 				'label'     => __( "Hide Image in print view", 'zip-recipes' ),
-				'default'   => true,
 			),
 
 			'hide_permalink' => array(
@@ -1051,6 +1041,7 @@ class Util {
 	 *
 	 * @return int|\WP_Error
 	 */
+
     public static function get_preview_post_id( $recipe_id ){
 	    $preview_post_id = get_option('zrdn_preview_post_id');
 
@@ -1487,8 +1478,8 @@ class Util {
 
 	/**
 	 * Update option
-	 * @param $fieldname
-	 * @param $value
+	 * @param string $fieldname
+	 * @param mixed $value
 	 *
 	 * @return bool
 	 */

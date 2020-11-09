@@ -720,7 +720,7 @@ class ZipRecipes {
 				'title' => __( "Image", "zip-recipes" ),
 				'single' => true,
 				'settings' => true,
-				'settings_height' => 300,
+				'settings_height' => 170,
 			),
 			array(
 				'type' => 'video',
