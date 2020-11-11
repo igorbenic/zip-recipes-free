@@ -1147,13 +1147,13 @@ class Recipe {
 		$formattedIngredientsArray = array();
 		foreach (explode("\n", $this->ingredients) as $item) {
 			$itemArray = $this->zrdn_format_item($item);
-			$formattedIngredientsArray[] = $itemArray['content'];
+			$formattedIngredientsArray[] = strip_tags($itemArray['content']);
 		}
 
 		$formattedInstructionsArray = array();
 		foreach (explode("\n", $this->instructions) as $item) {
 			$itemArray = $this->zrdn_format_item($item);
-			$formattedInstructionsArray[] = $itemArray['content'];
+			$formattedInstructionsArray[] = strip_tags($itemArray['content']);
 		}
 
 		$keywords= false;
