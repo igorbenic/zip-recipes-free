@@ -472,6 +472,10 @@ jQuery(document).ready(function($) {
         $('#zrdn-save-template-settings').submit();
     });
 
+    var saveBtn = $('.zrdn-button-container').clone();
+    saveBtn.find('button').addClass('zrdn-template-only-save');
+    $('.zrdn-active-container .item-container #zrdn-recipe-container').append(saveBtn);
+
     /**
      * Save settings
      */
@@ -545,6 +549,11 @@ jQuery(document).ready(function($) {
         if (!templateStructure.length){
             templateStructure = false;
         }
+
+        if ($(this).hasClass('zrdn-template-only-save')) {
+            zrdnSettingsChanged = false;
+        }
+
         /**
          * handle banner hide and show
          */
@@ -701,12 +710,9 @@ jQuery(document).ready(function($) {
                     if (event.hasOwnProperty('originalEvent')) {
                         var container_id = $(event.target).data('hidden-input');
                         $('#' + container_id).val(ui.color.toString());
-                        console.log("colorpicker");
-
                         zrdnSettingsChanged = true;
                         zrdnUpdateStyle($('#' + container_id));
                     }
-
                 }
         }
     );

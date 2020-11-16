@@ -6,6 +6,5 @@
             <div class="zrdn-recipe-block-content {class}">{content}</div>
             <div class="zrdn-recipe-block-settings {class}" data-settings_height="{settings_height}">{settings}</div>
         </div>
-
     </div>
 </div>

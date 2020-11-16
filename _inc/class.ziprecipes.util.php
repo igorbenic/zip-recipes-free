@@ -407,47 +407,51 @@ class Util {
 			    'title' => __("General", "zip-recipes"),
 			    'source' => 'general',
 			    'class' => 'zrdn-general',
-			    'can_hide' => true,
 		    ),
 
 		    array(
 			    'title' => __("Nutrition", "zip-recipes"),
 			    'source' => "nutrition",
 			    'class' => 'small',
-			    'can_hide' => true,
 		    ),
 
 		    array(
 			    'title' => __("Authors", "zip-recipes"),
 			    'source' => "authors",
 			    'class' => 'small',
-			    'can_hide' => true,
 		    ),
 
 		    array(
 			    'title' => __("Add-ons", "zip-recipes"),
 			    'source' => "plugins",
 			    'class' => 'small',
-			    'can_hide' => true,
 		    ),
 
 		    array(
 			    'title' => __("Advanced", "zip-recipes"),
 			    'source' => "advanced",
 			    'class' => 'small',
-			    'can_hide' => true,
 		    ),
 
 		    array(
 			    'title' => __("Other plugins", "zip-recipes"),
 			    'source' => "other",
 			    'class' => 'half-height other-plugins',
-			    'can_hide' => true,
                 'template' => 'other-plugins.php',
+			    'controls' => '<div class="rsp-logo"><a href="https://really-simple-plugins.com/"><img src="'. trailingslashit(ZRDN_PLUGIN_URL) .'images/really-simple-plugins.png" /></a></div>',
 		    ),
 	    );
-	    $grid_items = apply_filters('zrdn_grid_items', $grid_items);
-	    return $grid_items;
+	    $defaults = array(
+		    'title' => '',
+		    'source' => '',
+		    'class' => 'small',
+		    'can_hide' => true,
+            'controls' => '',
+        );
+	    foreach ($grid_items as $key => $grid_item ) {
+		    $grid_items[$key] = wp_parse_args($grid_item, $defaults);
+	    }
+	    return apply_filters('zrdn_grid_items', $grid_items);
     }
 
 	/**

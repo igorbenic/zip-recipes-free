@@ -1,6 +1,15 @@
 .notice:not(.really-simple-plugins) {
   display: none;
 }
+.zrdn-grid-controls .rsp-logo {
+  width: 202px;
+  margin-top: -20px;
+  margin-right: 16px;
+  height: 30px;
+}
+.zrdn-grid-controls .rsp-logo img {
+  width: 100%;
+}
 .zrdn-recipes .column-details {
   padding-top: 19px;
 }
@@ -1248,5 +1257,9 @@ Default bullet style
 }
 .zrdn-item.other-plugins .item-container {
   background-color: transparent;
+}
+.zrdn-item.other-plugins .item-container .item-content {
+  height: 100px;
+  border-bottom: 1px solid #dedede;
 }
 /*# sourceMappingURL=style.css.map */

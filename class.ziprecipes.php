@@ -132,9 +132,6 @@ class ZipRecipes {
 		}
 	}
 
-
-
-
 	/**
      * Add tabs to the menu header
 	 * @param array $tabs
@@ -160,7 +157,7 @@ class ZipRecipes {
 			    'page' => 'zrdn-settings',
 		    ),
 	    );
-        return $tabs;
+        return apply_filters("zrdn_menu_tabs", $tabs);
     }
 
 
@@ -1116,7 +1113,7 @@ class ZipRecipes {
 	    if (!current_user_can('manage_options')) return;
 	    $tabs =  array(
 		    'Settings' => array(
-			    'title' => __('Toggle settings', 'zip-recipes'),
+			    'title' => __('Style settings', 'zip-recipes'),
                 'page' => 'zrdn-template',
 		    ),
 	    );
@@ -1331,7 +1328,7 @@ class ZipRecipes {
 
                             }
 		                    $contents = ob_get_clean();
-		                    $output .= str_replace(array('{class}', '{title}', '{content}', '{index}','{controls}'), array($grid_item['class'], $grid_item['title'],  $contents, $index, ''), $element);
+		                    $output .= str_replace(array('{class}', '{title}', '{content}', '{index}','{controls}'), array($grid_item['class'], $grid_item['title'],  $contents, $index, $grid_item['controls']), $element);
 	                    }
 	                    echo str_replace('{content}', $output, $container);
 				        ?>

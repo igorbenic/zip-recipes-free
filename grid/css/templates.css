@@ -176,6 +176,9 @@ ol {
 .zrdn-main-container .zrdn-active-container .zrdn-recipe-block-label {
   display: none;
 }
+.zrdn-main-container .zrdn-active-container .zrdn-reset-template-settings {
+  display: none;
+}
 .zrdn-main-container .zrdn-grid .zrdn-item {
   position: relative;
   float: left;
