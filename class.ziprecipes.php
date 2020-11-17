@@ -14,15 +14,6 @@ class ZipRecipes {
     public static $suffix = '';
     public static $field;
     public static $authors;
-	public static $addons_friend = array(
-		'Authors',
-		'RecipeActions',
-		'Import',
-		'RecipeReviews',
-		'VisitorRating',
-		'RecipeGrid2',
-		'CustomTemplates',
-	);
 	public static $addons_lover = array(
 		'Authors',
 		'AutomaticNutrition',
@@ -1398,8 +1389,7 @@ class ZipRecipes {
 		    'VisitorRating'            => array(
 			    'title' => __( "Star ratings for your recipes", "zip-recipes" ),
 			    'color' => 'cmplz-blue',
-			    'link' => 'https://demo.ziprecipes.net/best-guacamole-ever/',
-
+			    'link' => 'https://demo.ziprecipes.net/best-guacamole-ever/'
 		    ),
 		    'RecipeReviews'            => array(
 			    'title' => __( "Text-based reviews of your recipes", "zip-recipes" ),
@@ -1423,8 +1413,6 @@ class ZipRecipes {
 
 	    $other_extensions_content = '';
 	    foreach ($other_extensions as $index => $other_extension ) {
-		    $status = ZipRecipes::get_extension_status($index);
-		    $other_extension['color'] = $status;
 		    $other_extensions_content .= Util::render_template('extension-bulleted-item.php', false, $other_extension);
 	    }
 
@@ -1491,8 +1479,8 @@ class ZipRecipes {
                 } else {
                     $button = '';
 	                if (isset($grid_item['link'])) $button = '<a href="'.$grid_item['link'].'" target="_blank" class="zrdn-button">'.__("See it live on our demo website", "zip-recipes").'</a>';
-	                $status = ZipRecipes::get_extension_status($index);
-	                $grid_item['title'] .= '<button class="zrdn-extension-label '.$status.'"></button>';
+//	                $status = ZipRecipes::get_extension_status($index);
+//	                $grid_item['title'] .= '<button class="zrdn-extension-label '.$status.'"></button>';
                 }
 
                 $grid_item['button'] = $button;
@@ -1524,7 +1512,7 @@ class ZipRecipes {
 
 	    if ( $extension === 'structured-data' && ($is_lover || $is_friend) ) return 'active';
 
-	    if (in_array($extension, self::$addons_lover) && !in_array($extension, self::$addons_friend)){
+	    if (in_array($extension, self::$addons_lover)){
 		    if ( $is_lover ) {
 			    if (Util::is_plugin_active($extension)) {
 				    return 'active';
@@ -1533,16 +1521,6 @@ class ZipRecipes {
 			    }
 		    } else {
 			    return 'lover';
-		    }
-	    } elseif (in_array($extension, self::$addons_friend)){
-		    if ( $is_friend ||  $is_lover ) {
-			    if (Util::is_plugin_active($extension)) {
-				    return 'active';
-			    } else {
-				    return 'disabled';
-			    }
-		    } else {
-			    return 'friend';
 		    }
 	    }
 
