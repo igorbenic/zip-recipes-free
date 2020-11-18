@@ -1,10 +1,10 @@
 === Recipe Maker For Your Food Blog from Zip Recipes ===
-Contributors: hgezim, RogierLankhorst, markwolters
+Contributors: RogierLankhorst, markwolters, hgezim,
 Plugin Name: Recipe Maker For Your Food Blog from Zip Recipes
 Plugin URI: https://www.ziprecipes.net
 License: GPLv3 or later
 Author URI: https://www.really-simple-plugins.com
-Author: Rogier Lankhorst
+Author: Really Simple Plugins
 Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
 Requires at least: 4.8

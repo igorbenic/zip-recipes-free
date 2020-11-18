@@ -129,7 +129,7 @@ class zrdn_tour {
 				),
 				7 => array(
 					'title'  => __( 'The preview recipe', 'zip-recipes' ),
-					'text'   => __( "To make the preview as accurate as possible, Zip Recipes uses a private post. A private post is not publicly visible. Only you can see it. We recommend not delete this post.", 'zip-recipes' ),
+					'text'   => __( "To make the preview as accurate as possible, Zip Recipes uses a private post. A private post is only visible to you. We recommend not to delete this post.", 'zip-recipes' ),
 					'attach' => "#post-$recipe_post_id .row-title",
 					'position' => 'right',
 					'link'   => admin_url( "edit.php" ),

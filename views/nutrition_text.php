@@ -85,4 +85,12 @@
             <div class="zrdn-nutrition-percentage"><?php echo \ZRDN\Util::minimal_number($recipe->cholesterol_daily) ?></div>
         </div>
 	<?php } ?>
+
+    <?php
+	$class = '';
+    if ( isset($settings['hide_nutrition_text_expl']) && $settings['hide_nutrition_text_expl']) $class='zrdn-hidden'?>
+    <div class="zrdn-text-nutrition-explanation <?php echo $class?>">
+    <?php _e( 'Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs.',
+        'zip-recipes' ) ?>
+    </div>
 <?php }

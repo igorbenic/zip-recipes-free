@@ -344,14 +344,14 @@ ol {
   min-height: 70px;
 }
 .zrdn-active-container .item-container .zrdn-grid-item.nutrition_text {
-  height: 250px;
+  height: 300px;
 }
 .zrdn-active-container .item-container .zrdn-grid-item.nutrition_text .sub-item-content {
-  height: 240px;
+  height: 290px;
 }
 .zrdn-active-container .item-container .zrdn-grid-item.nutrition_text .sub-item-content .zrdn-recipe-block,
 .zrdn-active-container .item-container .zrdn-grid-item.nutrition_text .sub-item-content .zrdn-recipe-block-content {
-  min-height: 220px;
+  min-height: 270px;
 }
 .zrdn-active-container .item-container .zrdn-grid-item.ingredients,
 .zrdn-active-container .item-container .zrdn-grid-item.instructions {

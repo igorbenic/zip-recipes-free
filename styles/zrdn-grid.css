@@ -6,6 +6,9 @@
   flex-wrap: wrap;
   padding: 10px;
 }
+#zrdn-recipe-container .zrdn-hidden {
+  display: none;
+}
 #zrdn-recipe-container .zrdn-block {
   max-width: 100%;
 }

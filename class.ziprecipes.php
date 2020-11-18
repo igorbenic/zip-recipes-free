@@ -748,7 +748,7 @@ class ZipRecipes {
 				'type' => 'nutrition_text',
 				'title' => __( "Nutrition info", "zip-recipes" ),
 				'single' => true,
-				'settings' => false,
+				'settings' => true,
 			),
 			array(
 				'type' => 'tags',
@@ -1389,7 +1389,8 @@ class ZipRecipes {
 		    'VisitorRating'            => array(
 			    'title' => __( "Star ratings for your recipes", "zip-recipes" ),
 			    'color' => 'cmplz-blue',
-			    'link' => 'https://demo.ziprecipes.net/best-guacamole-ever/'
+			    'link' => 'https://demo.ziprecipes.net/best-guacamole-ever/',
+
 		    ),
 		    'RecipeReviews'            => array(
 			    'title' => __( "Text-based reviews of your recipes", "zip-recipes" ),
@@ -1479,8 +1480,6 @@ class ZipRecipes {
                 } else {
                     $button = '';
 	                if (isset($grid_item['link'])) $button = '<a href="'.$grid_item['link'].'" target="_blank" class="zrdn-button">'.__("See it live on our demo website", "zip-recipes").'</a>';
-//	                $status = ZipRecipes::get_extension_status($index);
-//	                $grid_item['title'] .= '<button class="zrdn-extension-label '.$status.'"></button>';
                 }
 
                 $grid_item['button'] = $button;
@@ -1512,7 +1511,7 @@ class ZipRecipes {
 
 	    if ( $extension === 'structured-data' && ($is_lover || $is_friend) ) return 'active';
 
-	    if (in_array($extension, self::$addons_lover)){
+	    if (in_array($extension, self::$addons_lover) ){
 		    if ( $is_lover ) {
 			    if (Util::is_plugin_active($extension)) {
 				    return 'active';

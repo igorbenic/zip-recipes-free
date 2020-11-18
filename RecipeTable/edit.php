@@ -257,7 +257,7 @@ if (isset($_GET['post_id'])) {
                         'author_promo' => array(
                             'type' => 'notice',
                             'fieldname' => 'author_upgrade',
-                            'label' => sprintf(__('Need to set a custom author instead of a default WordPress editor? Custom authors is a feature available in %Zip Recipes Premium%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
+                            'label' => sprintf(__('Need to set a custom author instead of a default WordPress editor? Custom authors is a feature available in %sZip Recipes Premium%s','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
                             'media' => false,
                         ),
                     );

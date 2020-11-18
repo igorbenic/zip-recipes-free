@@ -10,7 +10,7 @@ Version: 7.1.0
 Author: Really Simple Plugins
 Author URI: https://www.really-simple-plugins.com/
 License: GPLv3 or later
-Copyright 2020 Rogier Lankhorst
+Copyright 2020 Really Simple Plugins
 This code is derived from the 2.6 version build of ZipList Recipe Plugin released by ZipList Inc.:
 http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPLv3 or later
 */

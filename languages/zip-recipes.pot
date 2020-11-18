@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Zip Recipes Lover\n"
-"POT-Creation-Date: 2020-10-17 15:07+0200\n"
-"PO-Revision-Date: 2020-10-17 15:07+0200\n"
+"POT-Creation-Date: 2020-11-18 10:06+0100\n"
+"PO-Revision-Date: 2020-11-18 10:05+0100\n"
 "Last-Translator: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
 "Language-Team: Rogier Lankhorst <rogierlankhorst@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "%s is a singleton class and you cannot create a second instance."
 msgstr ""
 
-#: NutritionLabel/widget.php:16 class.ziprecipes.php:717
+#: NutritionLabel/widget.php:16 class.ziprecipes.php:742
 msgid "Nutrition Label"
 msgstr ""
 
@@ -41,53 +41,53 @@ msgstr ""
 msgid "Show the Nutrition Label for a recipe"
 msgstr ""
 
-#: NutritionLabel/widget.php:55 class.ziprecipes.php:724
+#: NutritionLabel/widget.php:55 class.ziprecipes.php:749
 msgid "Nutrition info"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:256 RecipeTable/RecipeMenu.php:257
-#: RecipeTable/class-recipe-table.php:77 class.ziprecipes.php:110
+#: RecipeTable/RecipeMenu.php:254 RecipeTable/RecipeMenu.php:255
+#: RecipeTable/class-recipe-table.php:77 class.ziprecipes.php:135
 msgid "Recipes"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:267 RecipeTable/RecipeMenu.php:268
-#: class.ziprecipes.php:114 class.ziprecipes.php:1210
+#: RecipeTable/RecipeMenu.php:265 RecipeTable/RecipeMenu.php:266
+#: class.ziprecipes.php:139 class.ziprecipes.php:1235
 msgid "Template"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:276 RecipeTable/RecipeMenu.php:277
-#: class.ziprecipes.php:118 class.ziprecipes.php:190 class.ziprecipes.php:1195
-#: shepherd/tour.php:102
+#: RecipeTable/RecipeMenu.php:274 RecipeTable/RecipeMenu.php:275
+#: class.ziprecipes.php:143 class.ziprecipes.php:215 class.ziprecipes.php:1220
+#: shepherd/tour.php:101
 msgid "Settings"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:360 class.ziprecipes.php:491
+#: RecipeTable/RecipeMenu.php:358 class.ziprecipes.php:516
 msgid "clear image"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:364
+#: RecipeTable/RecipeMenu.php:362
 msgid "minutes"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:365
+#: RecipeTable/RecipeMenu.php:363
 msgid "hours"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:464
+#: RecipeTable/RecipeMenu.php:462
 msgid "My Recipes"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:467
+#: RecipeTable/RecipeMenu.php:465
 msgid ""
 "Here you can find an overview of your recipes. You can add them to a post or "
 "page by copying the shortcode (classic editor) or using the Gutenberg block."
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:470
+#: RecipeTable/RecipeMenu.php:468
 msgid "Add recipe"
 msgstr ""
 
-#: RecipeTable/RecipeMenu.php:476
+#: RecipeTable/RecipeMenu.php:474
 msgid "Filter"
 msgstr ""
 
@@ -103,7 +103,7 @@ msgstr ""
 msgid "cuisine"
 msgstr ""
 
-#: RecipeTable/class-recipe-table.php:145 RecipeTable/edit.php:165
+#: RecipeTable/class-recipe-table.php:145 RecipeTable/edit.php:159
 msgid "Title"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: RecipeTable/class-recipe-table.php:185 class.ziprecipes.php:229
+#: RecipeTable/class-recipe-table.php:185 class.ziprecipes.php:254
 msgid "View post"
 msgstr ""
 
@@ -148,7 +148,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: RecipeTable/class-recipe-table.php:280 RecipeTable/edit.php:235
+#: RecipeTable/class-recipe-table.php:280 RecipeTable/edit.php:229
 #: views/category.php:14 views/category.php:29
 msgid "Category"
 msgstr ""
@@ -157,13 +157,13 @@ msgstr ""
 msgid "Views"
 msgstr ""
 
-#: RecipeTable/class-recipe-table.php:282 RecipeTable/edit.php:243
+#: RecipeTable/class-recipe-table.php:282 RecipeTable/edit.php:237
 #: views/category.php:4
 msgid "Cuisine"
 msgstr ""
 
-#: RecipeTable/class-recipe-table.php:283 class.ziprecipes.php:660
-#: plugins/Authors/Authors.php:102
+#: RecipeTable/class-recipe-table.php:283 class.ziprecipes.php:685
+#: plugins/Authors/Authors.php:128
 msgid "Author"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: RecipeTable/edit.php:97 _inc/class.ziprecipes.util.php:414
+#: RecipeTable/edit.php:97 _inc/class.ziprecipes.util.php:413
 msgid "Nutrition"
 msgstr ""
 
@@ -235,55 +235,55 @@ msgid ""
 "recipes microdata."
 msgstr ""
 
-#: RecipeTable/edit.php:149
+#: RecipeTable/edit.php:147
 msgid "Low resolution, please upload a better quality image."
 msgstr ""
 
-#: RecipeTable/edit.php:154
+#: RecipeTable/edit.php:152
 msgid "Recipe image"
 msgstr ""
 
-#: RecipeTable/edit.php:166
+#: RecipeTable/edit.php:160
 msgid "My recipe"
 msgstr ""
 
-#: RecipeTable/edit.php:173
+#: RecipeTable/edit.php:167
 msgid "Prep time"
 msgstr ""
 
-#: RecipeTable/edit.php:179
+#: RecipeTable/edit.php:173
 msgid "Cook time"
 msgstr ""
 
-#: RecipeTable/edit.php:186
+#: RecipeTable/edit.php:180
 msgid "Wait time"
 msgstr ""
 
-#: RecipeTable/edit.php:193
+#: RecipeTable/edit.php:187
 msgid "Serving size"
 msgstr ""
 
-#: RecipeTable/edit.php:194
+#: RecipeTable/edit.php:188
 msgid "1 slice"
 msgstr ""
 
-#: RecipeTable/edit.php:201
+#: RecipeTable/edit.php:195
 msgid "Servings"
 msgstr ""
 
-#: RecipeTable/edit.php:202
+#: RecipeTable/edit.php:196
 msgid "4 persons"
 msgstr ""
 
-#: RecipeTable/edit.php:203
+#: RecipeTable/edit.php:197
 msgid "How many people this recipe serves"
 msgstr ""
 
-#: RecipeTable/edit.php:212 class.ziprecipes.php:703 views/ingredients.php:4
+#: RecipeTable/edit.php:206 class.ziprecipes.php:728 views/ingredients.php:4
 msgid "Ingredients"
 msgstr ""
 
-#: RecipeTable/edit.php:213
+#: RecipeTable/edit.php:207
 #, php-format
 msgid ""
 "Put each item on a separate line. There is no need to use bullets for your "
@@ -291,11 +291,11 @@ msgid ""
 "_italic_ effects and even add images! %sRead more%s"
 msgstr ""
 
-#: RecipeTable/edit.php:219 class.ziprecipes.php:710 views/instructions.php:4
+#: RecipeTable/edit.php:213 class.ziprecipes.php:735 views/instructions.php:4
 msgid "Instructions"
 msgstr ""
 
-#: RecipeTable/edit.php:220
+#: RecipeTable/edit.php:214
 #, php-format
 msgid ""
 "Put each item on a separate line. There is no need to use bullets for your "
@@ -303,119 +303,119 @@ msgid ""
 "_italic_ effects and even add images! %sRead more%s"
 msgstr ""
 
-#: RecipeTable/edit.php:227
+#: RecipeTable/edit.php:221
 msgid "Instruction video"
 msgstr ""
 
-#: RecipeTable/edit.php:228
+#: RecipeTable/edit.php:222
 msgid ""
 "A video is a great way to improve your ranking and will get picked up by "
 "Google's rich snippets."
 msgstr ""
 
-#: RecipeTable/edit.php:236
+#: RecipeTable/edit.php:230
 msgid "Bread"
 msgstr ""
 
-#: RecipeTable/edit.php:244 models/Recipe.php:825
+#: RecipeTable/edit.php:238 models/Recipe.php:831
 msgid "French"
 msgstr ""
 
-#: RecipeTable/edit.php:251 class.ziprecipes.php:696 views/notes.php:6
+#: RecipeTable/edit.php:245 class.ziprecipes.php:721 views/notes.php:6
 msgid "Notes"
 msgstr ""
 
-#: RecipeTable/edit.php:259 class.ziprecipes.php:671
+#: RecipeTable/edit.php:253 class.ziprecipes.php:696
 msgid "Summary"
 msgstr ""
 
-#: RecipeTable/edit.php:266
+#: RecipeTable/edit.php:260
 #, php-format
 msgid ""
 "Need to set a custom author instead of a default WordPress editor? Custom "
-"authors is a feature available in %sall plans%s"
+"authors is a feature available in %sZip Recipes Premium%s"
 msgstr ""
 
-#: RecipeTable/edit.php:278
+#: RecipeTable/edit.php:272
 msgid ""
 "The recipe category has been moved to the WordPress categories. You can now "
 "assign a category to your post in the WordPress post editor"
 msgstr ""
 
-#: RecipeTable/edit.php:295
+#: RecipeTable/edit.php:289
 msgid ""
 "If you enter the fields below, a HTML and CSS Google friendly nutrition "
 "label will be shown below your recipe."
 msgstr ""
 
-#: RecipeTable/edit.php:304
+#: RecipeTable/edit.php:298
 #, php-format
 msgid ""
 "Tired of looking up all nutrition data? You can generate the nutrition data "
-"automatically with %sZip Recipes Lover%s"
+"automatically with %sZip Recipes Premium%s"
 msgstr ""
 
-#: RecipeTable/edit.php:310 views/nutrition-label-html.php:24
+#: RecipeTable/edit.php:304 views/nutrition-label-html.php:24
 #: views/nutrition_text.php:11
 msgid "Calories"
 msgstr ""
 
-#: RecipeTable/edit.php:316 views/nutrition_text.php:35
+#: RecipeTable/edit.php:310 views/nutrition_text.php:35
 msgid "Carbs"
 msgstr ""
 
-#: RecipeTable/edit.php:322 views/nutrition-label-html.php:115
+#: RecipeTable/edit.php:316 views/nutrition-label-html.php:115
 #: views/nutrition_text.php:43
 msgid "Protein"
 msgstr ""
 
-#: RecipeTable/edit.php:328 views/nutrition_text.php:51
+#: RecipeTable/edit.php:322 views/nutrition_text.php:51
 msgid "Fiber"
 msgstr ""
 
-#: RecipeTable/edit.php:334 views/nutrition_text.php:59
+#: RecipeTable/edit.php:328 views/nutrition_text.php:59
 msgid "Sugar"
 msgstr ""
 
-#: RecipeTable/edit.php:340 views/nutrition-label-html.php:76
+#: RecipeTable/edit.php:334 views/nutrition-label-html.php:76
 #: views/nutrition_text.php:67
 msgid "Sodium"
 msgstr ""
 
-#: RecipeTable/edit.php:346 views/nutrition_text.php:19
+#: RecipeTable/edit.php:340 views/nutrition_text.php:19
 msgid "Fat"
 msgstr ""
 
-#: RecipeTable/edit.php:352
+#: RecipeTable/edit.php:346
 msgid "Saturated fat"
 msgstr ""
 
-#: RecipeTable/edit.php:358 views/nutrition_text.php:75
+#: RecipeTable/edit.php:352 views/nutrition_text.php:75
 msgid "Trans fat"
 msgstr ""
 
-#: RecipeTable/edit.php:364 views/nutrition-label-html.php:67
+#: RecipeTable/edit.php:358 views/nutrition-label-html.php:67
 #: views/nutrition_text.php:83
 msgid "Cholesterol"
 msgstr ""
 
-#: RecipeTable/edit.php:370 views/nutrition-label-html.php:132
+#: RecipeTable/edit.php:364 views/nutrition-label-html.php:132
 msgid "Vitamin C"
 msgstr ""
 
-#: RecipeTable/edit.php:376 views/nutrition-label-html.php:128
+#: RecipeTable/edit.php:370 views/nutrition-label-html.php:128
 msgid "Vitamin A"
 msgstr ""
 
-#: RecipeTable/edit.php:382 views/nutrition-label-html.php:142
+#: RecipeTable/edit.php:376 views/nutrition-label-html.php:142
 msgid "Iron"
 msgstr ""
 
-#: RecipeTable/edit.php:388 views/nutrition-label-html.php:138
+#: RecipeTable/edit.php:382 views/nutrition-label-html.php:138
 msgid "Calcium"
 msgstr ""
 
-#: RecipeTable/edit.php:410
+#: RecipeTable/edit.php:404
 msgid ""
 "Google prefers three images in the ratio's 1x1, 4x3 and 16x9. These are "
 "generated automatically by Zip Recipes, but you can change the selected "
@@ -424,29 +424,29 @@ msgid ""
 "is no recipe image, the linked post image."
 msgstr ""
 
-#: RecipeTable/edit.php:416 RecipeTable/edit.php:425 RecipeTable/edit.php:434
+#: RecipeTable/edit.php:410 RecipeTable/edit.php:419 RecipeTable/edit.php:428
 msgid ""
 "Image resolution too low, or image size not generated. You should use an "
 "image of at least 250x250 pixels"
 msgstr ""
 
-#: RecipeTable/edit.php:421
+#: RecipeTable/edit.php:415
 msgid "1x1 snippet image"
 msgstr ""
 
-#: RecipeTable/edit.php:430
+#: RecipeTable/edit.php:424
 msgid "4x3 snippet image"
 msgstr ""
 
-#: RecipeTable/edit.php:439
+#: RecipeTable/edit.php:433
 msgid "16x9 snippet image"
 msgstr ""
 
-#: RecipeTable/edit.php:461
+#: RecipeTable/edit.php:451
 msgid "Mark recipe as non food"
 msgstr ""
 
-#: RecipeTable/edit.php:497
+#: RecipeTable/edit.php:488
 msgid "The preview requires the recipe to be connected to a published post"
 msgstr ""
 
@@ -502,7 +502,7 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:320 class.ziprecipes.php:197
+#: _inc/class.ziprecipes.util.php:320 class.ziprecipes.php:222
 msgid "Support"
 msgstr ""
 
@@ -510,393 +510,389 @@ msgstr ""
 msgid "Display options"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:421
+#: _inc/class.ziprecipes.util.php:419
 msgid "Authors"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:428
+#: _inc/class.ziprecipes.util.php:425
 msgid "Add-ons"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:435
+#: _inc/class.ziprecipes.util.php:431
 msgid "Advanced"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:442
+#: _inc/class.ziprecipes.util.php:437
 msgid "Other plugins"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:479 grid/grid-enqueue.php:61
+#: _inc/class.ziprecipes.util.php:483 grid/grid-enqueue.php:61
 msgid "Default"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:480
+#: _inc/class.ziprecipes.util.php:484
 msgid "Custom"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:481
+#: _inc/class.ziprecipes.util.php:485
 msgid "Autumn"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:482
+#: _inc/class.ziprecipes.util.php:486
 msgid "Canada"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:483
+#: _inc/class.ziprecipes.util.php:487
 msgid "Cozy Orange"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:484
+#: _inc/class.ziprecipes.util.php:488
 msgid "Vanilla"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:485
+#: _inc/class.ziprecipes.util.php:489
 msgid "Vera"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:496
+#: _inc/class.ziprecipes.util.php:500
 msgid "Recipe presets"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:497
+#: _inc/class.ziprecipes.util.php:501
 #, php-format
 msgid "To get more templates, check out %spremium%s"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:505
+#: _inc/class.ziprecipes.util.php:509
 msgid "No border"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:506
+#: _inc/class.ziprecipes.util.php:510
 msgid "Solid"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:507
+#: _inc/class.ziprecipes.util.php:511
 msgid "Dotted"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:508
+#: _inc/class.ziprecipes.util.php:512
 msgid "Dashed"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:509
+#: _inc/class.ziprecipes.util.php:513
 msgid "Double"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:512
+#: _inc/class.ziprecipes.util.php:516
 msgid "Border style"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:520
+#: _inc/class.ziprecipes.util.php:524
 msgid "Border width"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:528
+#: _inc/class.ziprecipes.util.php:532
 msgid "Border radius"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:536
+#: _inc/class.ziprecipes.util.php:540
 msgid "Box shadow"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:544
+#: _inc/class.ziprecipes.util.php:548
 msgid "Background color"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:552
+#: _inc/class.ziprecipes.util.php:556
 msgid "Border color"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:560
+#: _inc/class.ziprecipes.util.php:564
 msgid "Text color"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:568
+#: _inc/class.ziprecipes.util.php:572
 msgid "Primary color"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:576
+#: _inc/class.ziprecipes.util.php:580
 msgid "Link color"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:583
+#: _inc/class.ziprecipes.util.php:587
 msgid "Enable jump to recipe link"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:584
+#: _inc/class.ziprecipes.util.php:588
 msgid ""
 "You can add a link at the top of each recipe which scrolls down to the "
 "recipe on the page when the user clicks it."
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:592
+#: _inc/class.ziprecipes.util.php:596
 msgid "Show summary on archive pages"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:593
+#: _inc/class.ziprecipes.util.php:597
 msgid ""
 "You can choose to show the recipe summary instead of the recipe on archive "
 "pages."
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:600 _inc/class.ziprecipes.util.php:633
+#: _inc/class.ziprecipes.util.php:604 _inc/class.ziprecipes.util.php:637
 msgid "List, no bullets"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:601 _inc/class.ziprecipes.util.php:634
+#: _inc/class.ziprecipes.util.php:605 _inc/class.ziprecipes.util.php:638
 msgid "Numbered List"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:602 _inc/class.ziprecipes.util.php:635
+#: _inc/class.ziprecipes.util.php:606 _inc/class.ziprecipes.util.php:639
 msgid "Bulleted List"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:603 _inc/class.ziprecipes.util.php:636
+#: _inc/class.ziprecipes.util.php:607 _inc/class.ziprecipes.util.php:640
 msgid "Bordered numbers | circle"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:604 _inc/class.ziprecipes.util.php:637
+#: _inc/class.ziprecipes.util.php:608 _inc/class.ziprecipes.util.php:641
 msgid "Bordered numbers | square"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:605 _inc/class.ziprecipes.util.php:638
+#: _inc/class.ziprecipes.util.php:609 _inc/class.ziprecipes.util.php:642
 msgid "Colored numbers | disc"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:606 _inc/class.ziprecipes.util.php:639
+#: _inc/class.ziprecipes.util.php:610 _inc/class.ziprecipes.util.php:643
 msgid "Colored numbers | square"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:607 _inc/class.ziprecipes.util.php:640
+#: _inc/class.ziprecipes.util.php:611 _inc/class.ziprecipes.util.php:644
 msgid "Counter"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:608 _inc/class.ziprecipes.util.php:641
+#: _inc/class.ziprecipes.util.php:612 _inc/class.ziprecipes.util.php:645
 msgid "Circles"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:609 _inc/class.ziprecipes.util.php:642
+#: _inc/class.ziprecipes.util.php:613 _inc/class.ziprecipes.util.php:646
 msgid "Squares"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:610 _inc/class.ziprecipes.util.php:643
+#: _inc/class.ziprecipes.util.php:614 _inc/class.ziprecipes.util.php:647
 msgid "Discs"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:611 _inc/class.ziprecipes.util.php:644
+#: _inc/class.ziprecipes.util.php:615 _inc/class.ziprecipes.util.php:648
 msgid "Blocks"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:625
+#: _inc/class.ziprecipes.util.php:629
 msgid "Ingredients List Type"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:658
+#: _inc/class.ziprecipes.util.php:662
 msgid "Instructions List Type"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:665
+#: _inc/class.ziprecipes.util.php:669
 #, php-format
 msgid "Copyright %s"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:667
+#: _inc/class.ziprecipes.util.php:671
 msgid "Copyright statement"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:682
-msgid "Image Width"
-msgstr ""
-
-#: _inc/class.ziprecipes.util.php:683
-msgid "Set the image width in pixels"
-msgstr ""
-
-#: _inc/class.ziprecipes.util.php:690
+#: _inc/class.ziprecipes.util.php:678
 msgid "Hide recipe image when post image is the same"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:691
+#: _inc/class.ziprecipes.util.php:679
 msgid ""
 "When enabled, the recipe image will be hidden if it's the same as the image "
 "in the post"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:701
+#: _inc/class.ziprecipes.util.php:686
 msgid "Hide Image in print view"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:713
+#: _inc/class.ziprecipes.util.php:694
 msgid "Hide link to recipe in print view"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:714
+#: _inc/class.ziprecipes.util.php:695
 msgid ""
 "The link is a direct link to the recipe, at the bottom of your recipe "
 "printout"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:721
+#: _inc/class.ziprecipes.util.php:702
 msgid "Hide nutrition label in print view"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:732 _inc/class.ziprecipes.util.php:739
-#: _inc/class.ziprecipes.util.php:746 _inc/class.ziprecipes.util.php:753
-#: _inc/class.ziprecipes.util.php:760
+#: _inc/class.ziprecipes.util.php:710 _inc/class.ziprecipes.util.php:717
+#: _inc/class.ziprecipes.util.php:724 _inc/class.ziprecipes.util.php:731
+#: _inc/class.ziprecipes.util.php:738
 msgid "Hide label"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:769
+#: _inc/class.ziprecipes.util.php:747
 msgid "Official logo"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:770
+#: _inc/class.ziprecipes.util.php:748
 msgid "Square"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:771
+#: _inc/class.ziprecipes.util.php:749
 msgid "Round"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:774
+#: _inc/class.ziprecipes.util.php:752
 msgid "Label style"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:780
+#: _inc/class.ziprecipes.util.php:759
+msgid "Hide explanation"
+msgstr ""
+
+#: _inc/class.ziprecipes.util.php:765
 msgid "Image resolution too low, or image size not generated"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:784
+#: _inc/class.ziprecipes.util.php:769
 msgid "Custom Print Button"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:792
+#: _inc/class.ziprecipes.util.php:779
 msgid "Use custom authors"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:793
+#: _inc/class.ziprecipes.util.php:780
 msgid ""
 "By default, Zip Recipes uses WordPress authors. You can use your own, custom "
 "authors as well."
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:794
+#: _inc/class.ziprecipes.util.php:781
 #, php-format
 msgid "The custom author field is a %spremium%s feature"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:803
+#: _inc/class.ziprecipes.util.php:790
 msgid "Select a default author"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:814
+#: _inc/class.ziprecipes.util.php:801
 msgid "Manage authors"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:815
+#: _inc/class.ziprecipes.util.php:802
 msgid "Add and remove your authors"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:828
+#: _inc/class.ziprecipes.util.php:815
 #, php-format
 msgid "To automatically generate nutrition data, check out %spremium%s"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:829
+#: _inc/class.ziprecipes.util.php:816
 msgid "Enable the Automatic Nutrition generator"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:836
+#: _inc/class.ziprecipes.util.php:823
 msgid "HTML format"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:837 class.ziprecipes.php:683
+#: _inc/class.ziprecipes.util.php:824 class.ziprecipes.php:708
 msgid "Image"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:844
+#: _inc/class.ziprecipes.util.php:831
 msgid "Choose nutrition label display method"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:845
+#: _inc/class.ziprecipes.util.php:832
 msgid ""
 "You can choose if you want to show the label in html format, which can be "
 "understood better by search engines, or in image format"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:853
+#: _inc/class.ziprecipes.util.php:840
 msgid "Import nutrition data for all recipes"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:854
+#: _inc/class.ziprecipes.util.php:841
 msgid ""
 "This will process in the background, and may take a while. It will pause if "
 "you close the browser, or disable the setting."
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:863
+#: _inc/class.ziprecipes.util.php:850
 msgid "Social Recipe sharing"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:864
+#: _inc/class.ziprecipes.util.php:851
 #, php-format
 msgid "Check out %spremium%s to see our recipe sharing features"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:873
+#: _inc/class.ziprecipes.util.php:860
 msgid "Add Print Button"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:882 _inc/class.ziprecipes.util.php:892
-#: _inc/class.ziprecipes.util.php:902
+#: _inc/class.ziprecipes.util.php:869 _inc/class.ziprecipes.util.php:879
+#: _inc/class.ziprecipes.util.php:889
 #, php-format
 msgid "Add %s sharing button"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:912
+#: _inc/class.ziprecipes.util.php:899
 msgid "Imperial Metrics Converter"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:922 class.ziprecipes.php:1423
+#: _inc/class.ziprecipes.util.php:909 class.ziprecipes.php:1446
 msgid "Recipe Gallery"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:936 class.ziprecipes.php:631
+#: _inc/class.ziprecipes.util.php:923 class.ziprecipes.php:656
 #: plugins/VisitorRating/VisitorRating.php:427
 msgid "Visitor Rating"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:949 class.ziprecipes.php:639
+#: _inc/class.ziprecipes.util.php:936 class.ziprecipes.php:664
 #: plugins/RecipeReviews/RecipeReviews.php:102
-#: plugins/RecipeReviews/RecipeReviews.php:748
+#: plugins/RecipeReviews/RecipeReviews.php:754
 msgid "Recipe Reviews"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:967
+#: _inc/class.ziprecipes.util.php:954
 msgid "Recipe Search"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:976
+#: _inc/class.ziprecipes.util.php:963
 msgid "Automatic Serving Adjustment"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:985
+#: _inc/class.ziprecipes.util.php:972
 msgid "Use Zip Recipes style"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:996
+#: _inc/class.ziprecipes.util.php:983
 msgid "Restart tour"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:1006
+#: _inc/class.ziprecipes.util.php:993
 msgid "Import ratings to reviews"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:1072
-msgid "Zip Recipes preview post"
+#: _inc/class.ziprecipes.util.php:1064 _inc/class.ziprecipes.util.php:1078
+msgid "Zip Recipes preview post (do not delete)"
 msgstr ""
 
-#: _inc/class.ziprecipes.util.php:1075
+#: _inc/class.ziprecipes.util.php:1067
 msgid "Save your recipe to see the preview"
 msgstr ""
 
@@ -916,7 +912,7 @@ msgstr ""
 msgid "Choose an option"
 msgstr ""
 
-#: class-field.php:845 class.ziprecipes.php:1265 views/template_settings.php:22
+#: class-field.php:845 class.ziprecipes.php:1290 views/template_settings.php:22
 msgid "Reset"
 msgstr ""
 
@@ -945,275 +941,279 @@ msgstr ""
 msgid "Don't show again"
 msgstr ""
 
-#: class.ziprecipes.php:122 shepherd/tour.php:110
+#: class.ziprecipes.php:103 class.ziprecipes.php:110
+msgid "Demo Recipe"
+msgstr ""
+
+#: class.ziprecipes.php:147 shepherd/tour.php:109
 msgid "Extensions"
 msgstr ""
 
-#: class.ziprecipes.php:203
+#: class.ziprecipes.php:228
 msgid "Upgrade to premium"
 msgstr ""
 
-#: class.ziprecipes.php:252 views/toolbar.php:153
+#: class.ziprecipes.php:277 views/toolbar.php:154
 msgid "Edit recipe"
 msgstr ""
 
-#: class.ziprecipes.php:255
+#: class.ziprecipes.php:280
 msgid "Insert new recipe"
 msgstr ""
 
-#: class.ziprecipes.php:489
+#: class.ziprecipes.php:514
 msgid "Click to edit this image"
 msgstr ""
 
-#: class.ziprecipes.php:625
+#: class.ziprecipes.php:650
 msgid "Recipe title"
 msgstr ""
 
-#: class.ziprecipes.php:647
+#: class.ziprecipes.php:672
 msgid "Actions"
 msgstr ""
 
-#: class.ziprecipes.php:654
+#: class.ziprecipes.php:679
 msgid "Divider"
 msgstr ""
 
-#: class.ziprecipes.php:665
+#: class.ziprecipes.php:690
 msgid "Categories"
 msgstr ""
 
-#: class.ziprecipes.php:677
+#: class.ziprecipes.php:702
 msgid "Details"
 msgstr ""
 
-#: class.ziprecipes.php:690
+#: class.ziprecipes.php:715
 msgid "Video"
 msgstr ""
 
-#: class.ziprecipes.php:730 views/tags.php:5
+#: class.ziprecipes.php:755 views/tags.php:5
 msgid "Tags"
 msgstr ""
 
-#: class.ziprecipes.php:737
+#: class.ziprecipes.php:762
 msgid "Social"
 msgstr ""
 
-#: class.ziprecipes.php:744
+#: class.ziprecipes.php:769
 msgid "Copyright"
 msgstr ""
 
-#: class.ziprecipes.php:877
+#: class.ziprecipes.php:902
 msgid "Premium block, enable the premium plugin to activate this block."
 msgstr ""
 
-#: class.ziprecipes.php:879
+#: class.ziprecipes.php:904
 msgid "Inactive block, enable in the settings."
 msgstr ""
 
-#: class.ziprecipes.php:923
+#: class.ziprecipes.php:948
 msgid "Link to recipe"
 msgstr ""
 
-#: class.ziprecipes.php:989
+#: class.ziprecipes.php:1014
 msgid "You do not have manage options permissions."
 msgstr ""
 
-#: class.ziprecipes.php:994
+#: class.ziprecipes.php:1019
 #: plugins/AutomaticNutrition/AutomaticNutrition.php:166
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:477
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:482
 msgid "An unexpected error has occurred. Please try again"
 msgstr ""
 
-#: class.ziprecipes.php:1047
+#: class.ziprecipes.php:1072
 msgid "Successfully saved the template"
 msgstr ""
 
-#: class.ziprecipes.php:1082
-msgid "Toggle settings"
+#: class.ziprecipes.php:1107
+msgid "Style settings"
 msgstr ""
 
-#: class.ziprecipes.php:1141
+#: class.ziprecipes.php:1166
 msgid "premium"
 msgstr ""
 
-#: class.ziprecipes.php:1145 class.ziprecipes.php:1203
+#: class.ziprecipes.php:1170 class.ziprecipes.php:1228
 msgid "Inactive"
 msgstr ""
 
-#: class.ziprecipes.php:1215
+#: class.ziprecipes.php:1240
 msgid "Add full column"
 msgstr ""
 
-#: class.ziprecipes.php:1215
+#: class.ziprecipes.php:1240
 msgid "Add half column"
 msgstr ""
 
-#: class.ziprecipes.php:1246
+#: class.ziprecipes.php:1271
 msgid "Select which dashboard items should be displayed"
 msgstr ""
 
-#: class.ziprecipes.php:1323
+#: class.ziprecipes.php:1348
 msgid "Compact and clean"
 msgstr ""
 
-#: class.ziprecipes.php:1328
+#: class.ziprecipes.php:1353
 msgid "Powerful and colorful"
 msgstr ""
 
-#: class.ziprecipes.php:1333
+#: class.ziprecipes.php:1358
 msgid "Warm and beautiful"
 msgstr ""
 
-#: class.ziprecipes.php:1338
+#: class.ziprecipes.php:1363
 msgid "A smooth looking recipe"
 msgstr ""
 
-#: class.ziprecipes.php:1343
+#: class.ziprecipes.php:1368
 msgid "Grey background for contrast"
 msgstr ""
 
-#: class.ziprecipes.php:1348
+#: class.ziprecipes.php:1373
 msgid "Simplicity sometimes is best"
 msgstr ""
 
-#: class.ziprecipes.php:1355
+#: class.ziprecipes.php:1380
 msgid "Search by ingredients"
 msgstr ""
 
-#: class.ziprecipes.php:1360
+#: class.ziprecipes.php:1385
 msgid "Social sharing with BigOven, Yummly and Pinterest"
 msgstr ""
 
-#: class.ziprecipes.php:1365
+#: class.ziprecipes.php:1390
 msgid "Star ratings for your recipes"
 msgstr ""
 
-#: class.ziprecipes.php:1371
+#: class.ziprecipes.php:1396
 msgid "Text-based reviews of your recipes"
 msgstr ""
 
-#: class.ziprecipes.php:1376
+#: class.ziprecipes.php:1401
 msgid "Imperial - Metric converter"
 msgstr ""
 
-#: class.ziprecipes.php:1380
+#: class.ziprecipes.php:1405
 msgid "All extensions are optimized for Google's structured data"
 msgstr ""
 
-#: class.ziprecipes.php:1399
+#: class.ziprecipes.php:1422
 msgid "About Extensions"
 msgstr ""
 
-#: class.ziprecipes.php:1407
+#: class.ziprecipes.php:1430
 msgid "Automatic Nutrition"
 msgstr ""
 
-#: class.ziprecipes.php:1411
+#: class.ziprecipes.php:1434
 msgid "Automatically generate all nutritional values of your recipe."
 msgstr ""
 
-#: class.ziprecipes.php:1415
+#: class.ziprecipes.php:1438
 msgid "Serving Adjustments"
 msgstr ""
 
-#: class.ziprecipes.php:1419
+#: class.ziprecipes.php:1442
 msgid ""
 "Visitors can adjust the ingredients to the number of servings they need: it "
 "won't get easier for your visitors!"
 msgstr ""
 
-#: class.ziprecipes.php:1427
+#: class.ziprecipes.php:1450
 msgid ""
 "Display your recipes in this beautiful, dynamically filterable grid gallery"
 msgstr ""
 
-#: class.ziprecipes.php:1431
+#: class.ziprecipes.php:1454
 msgid "Templates"
 msgstr ""
 
-#: class.ziprecipes.php:1437
+#: class.ziprecipes.php:1460
 msgid "And even more!"
 msgstr ""
 
-#: class.ziprecipes.php:1451
+#: class.ziprecipes.php:1474
 msgid "Get Premium"
 msgstr ""
 
-#: class.ziprecipes.php:1459
+#: class.ziprecipes.php:1482
 msgid "See it live on our demo website"
 msgstr ""
 
-#: class.ziprecipes.php:1526
+#: class.ziprecipes.php:1537
 msgid "Jump to recipe"
 msgstr ""
 
-#: class.ziprecipes.php:1693 models/Recipe.php:937
+#: class.ziprecipes.php:1704 models/Recipe.php:943
 #, php-format
 msgid "%d year"
 msgstr ""
 
-#: class.ziprecipes.php:1693 models/Recipe.php:937
+#: class.ziprecipes.php:1704 models/Recipe.php:943
 #, php-format
 msgid "%d years"
 msgstr ""
 
-#: class.ziprecipes.php:1694 models/Recipe.php:938
+#: class.ziprecipes.php:1705 models/Recipe.php:944
 #, php-format
 msgid "%d month"
 msgstr ""
 
-#: class.ziprecipes.php:1694 models/Recipe.php:938
+#: class.ziprecipes.php:1705 models/Recipe.php:944
 #, php-format
 msgid "%d months"
 msgstr ""
 
-#: class.ziprecipes.php:1695 models/Recipe.php:939
+#: class.ziprecipes.php:1706 models/Recipe.php:945
 #, php-format
 msgid "%d day"
 msgstr ""
 
-#: class.ziprecipes.php:1695 models/Recipe.php:939
+#: class.ziprecipes.php:1706 models/Recipe.php:945
 #, php-format
 msgid "%d days"
 msgstr ""
 
-#: class.ziprecipes.php:1696 models/Recipe.php:940
+#: class.ziprecipes.php:1707 models/Recipe.php:946
 #, php-format
 msgid "%d hour"
 msgstr ""
 
-#: class.ziprecipes.php:1696 models/Recipe.php:940
+#: class.ziprecipes.php:1707 models/Recipe.php:946
 #, php-format
 msgid "%d hours"
 msgstr ""
 
-#: class.ziprecipes.php:1697 models/Recipe.php:941
+#: class.ziprecipes.php:1708 models/Recipe.php:947
 #, php-format
 msgid "%d minute"
 msgstr ""
 
-#: class.ziprecipes.php:1697 models/Recipe.php:941
+#: class.ziprecipes.php:1708 models/Recipe.php:947
 #, php-format
 msgid "%d minutes"
 msgstr ""
 
-#: class.ziprecipes.php:1698 models/Recipe.php:942
+#: class.ziprecipes.php:1709 models/Recipe.php:948
 #, php-format
 msgid "%d second"
 msgstr ""
 
-#: class.ziprecipes.php:1698 models/Recipe.php:942
+#: class.ziprecipes.php:1709 models/Recipe.php:948
 #, php-format
 msgid "%d seconds"
 msgstr ""
 
-#: class.ziprecipes.php:1887
+#: class.ziprecipes.php:1898
 msgid ""
 "For the best performance, Zip Recipes recommends ImageMagick or GD PHP "
 "extensions installed. Please contact your hosting company and request that "
 "they install ImageMagick or GD PHP extensions for you website."
 msgstr ""
 
-#: controllers/EndpointController.php:105
+#: controllers/EndpointController.php:107
 msgid "Invalid recipe ID or recipe not found"
 msgstr ""
 
@@ -1241,40 +1241,40 @@ msgstr ""
 msgid "Settings changed, you should save!"
 msgstr ""
 
-#: models/Recipe.php:749
+#: models/Recipe.php:755
 msgid "Creme Brulee"
 msgstr ""
 
-#: models/Recipe.php:761
+#: models/Recipe.php:767
 msgid "This is a great recipe for all occasions"
 msgstr ""
 
-#: models/Recipe.php:773
+#: models/Recipe.php:779
 msgid "1 bowl"
 msgstr ""
 
-#: models/Recipe.php:799
+#: models/Recipe.php:805
 msgid "Easy to make, but with a big wow factor"
 msgstr ""
 
-#: models/Recipe.php:819
+#: models/Recipe.php:825
 msgid ""
 "Cool completely! Refrigerate for several hours and up to a couple of days"
 msgstr ""
 
-#: models/Recipe.php:832
+#: models/Recipe.php:838
 msgid "Example tag 1"
 msgstr ""
 
-#: models/Recipe.php:835
+#: models/Recipe.php:841
 msgid "Example tag 2"
 msgstr ""
 
-#: models/Recipe.php:838
+#: models/Recipe.php:844
 msgid "Example tag 3"
 msgstr ""
 
-#: plugins/Authors/Authors.php:109
+#: plugins/Authors/Authors.php:135
 #, php-format
 msgid ""
 "Author will be set automatically to your post author. If you want to use "
@@ -1317,7 +1317,7 @@ msgid ""
 msgstr ""
 
 #: plugins/AutomaticNutrition/AutomaticNutrition.php:181
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:488
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:493
 msgid "Recipe not found. Please save your recipe first."
 msgstr ""
 
@@ -1331,48 +1331,54 @@ msgid ""
 "use the Nutrition Generator."
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:357
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:302
+msgid ""
+"CURL is not installed on your server, which is needed for this function. "
+"Please contact your hosting company to get CURL installed on your server."
+msgstr ""
+
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:362
 #, php-format
 msgid "The %s field should not be empty"
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:367
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:385
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:372
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:390
 msgid ""
 "We had trouble understanding your ingredients. Please try removing some to "
 "see if any are not recognized by the API. If needed, you can create a "
 "separte API ingredients field, by checking the option below."
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:449
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:454
 msgid "Did not receive nutrition image url"
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:457
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:462
 msgid "Could not download nutrition"
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:530
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:535
 msgid "Successfully cleared nutrition data"
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:729
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:734
 msgid "Automatic Nutrition generation"
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:737
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:742
 msgid "To generate the Nutrition data, you should save the recipe first"
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:745
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:750
 msgid "Update"
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:745
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:750
 msgid "Generate label"
 msgstr ""
 
-#: plugins/AutomaticNutrition/AutomaticNutrition.php:746
+#: plugins/AutomaticNutrition/AutomaticNutrition.php:751
 msgid "Clear label"
 msgstr ""
 
@@ -1384,131 +1390,131 @@ msgstr ""
 msgid "Metric"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:66
+#: plugins/Licensing/Licensing.php:92
 msgid "Upgrade"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:68
+#: plugins/Licensing/Licensing.php:94
 msgid "Account"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:85 plugins/Licensing/Licensing.php:99
+#: plugins/Licensing/Licensing.php:111 plugins/Licensing/Licensing.php:125
 msgid "License"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:161
+#: plugins/Licensing/Licensing.php:187
 msgid ""
 "You haven't activated your Zip Recipes license yet. To get all future "
 "updates, enter your license on the settings page."
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:162
+#: plugins/Licensing/Licensing.php:188
 #, php-format
 msgid "Go to the %ssettings page%s or %spurchase a license%s"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:244
+#: plugins/Licensing/Licensing.php:270
 msgid "Could not connect to ziprecipes.net. Please try again later."
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:247
+#: plugins/Licensing/Licensing.php:273
 msgid "a 5 sites or unlimited sites license"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:247
+#: plugins/Licensing/Licensing.php:273
 msgid "an unlimited sites license"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:250
+#: plugins/Licensing/Licensing.php:276
 #, php-format
 msgid ""
 "You have 0 activations left on your %s sites license. If you need more "
 "activations you can upgrade your current license to %s on your %saccount%s"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:258
+#: plugins/Licensing/Licensing.php:284
 msgid "Your license is valid, but not activated on this site"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:260
+#: plugins/Licensing/Licensing.php:286
 msgid "Your license does not seem to be valid. Please check your license key"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:264
+#: plugins/Licensing/Licensing.php:290
 #, php-format
 msgid "Your license is valid, and expires on: %s"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:266
+#: plugins/Licensing/Licensing.php:292
 msgid "Enter your license here so you keep receiving updates and support."
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:281
+#: plugins/Licensing/Licensing.php:307
 msgid "License Key"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:287
+#: plugins/Licensing/Licensing.php:313
 msgid "active"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:289
+#: plugins/Licensing/Licensing.php:315
 msgid "Deactivate License"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:291
+#: plugins/Licensing/Licensing.php:317
 msgid "Activate License"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:294
+#: plugins/Licensing/Licensing.php:320
 msgid "Enter your license key"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:301
+#: plugins/Licensing/Licensing.php:327
 msgid "Save changes"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:314
+#: plugins/Licensing/Licensing.php:340
 msgid "This is not a valid license"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:319
+#: plugins/Licensing/Licensing.php:345
 msgid "Your license is expired. Please renew your license at %ziprecipes.net%s"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:322
+#: plugins/Licensing/Licensing.php:348
 #, php-format
 msgid "Your license has been revoked. Please contact %ssupport%s"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:325
+#: plugins/Licensing/Licensing.php:351
 #, php-format
 msgid ""
 "Your license could not be found in the database. Please contact %ssupport%s"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:329
+#: plugins/Licensing/Licensing.php:355
 msgid "Your license has not yet been activated for this domain."
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:332
+#: plugins/Licensing/Licensing.php:358
 msgid "Your license key appears to be invalid."
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:335
+#: plugins/Licensing/Licensing.php:361
 msgid ""
 "You have no activations left on your license. Please upgrade your license at "
 "%ziprecipes.net%s"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:342
+#: plugins/Licensing/Licensing.php:368
 msgid "Your license is valid, but has not yet been activated for this domain."
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:351
+#: plugins/Licensing/Licensing.php:377
 msgid "license data error"
 msgstr ""
 
-#: plugins/Licensing/Licensing.php:400 plugins/Licensing/Licensing.php:455
+#: plugins/Licensing/Licensing.php:426 plugins/Licensing/Licensing.php:481
 msgid "An error occurred while updating the license data, please try again."
 msgstr ""
 
@@ -1584,9 +1590,9 @@ msgid "Notify admin when a user reviews your recipe"
 msgstr ""
 
 #: plugins/RecipeReviews/RecipeReviews.php:247
-#: plugins/RecipeReviews/views/RecipeReviews.php:31
+#: plugins/RecipeReviews/views/RecipeReviews.php:30
 #: plugins/VisitorRating/VisitorRating.php:91
-#: plugins/VisitorRating/views/VisitorRating.php:31
+#: plugins/VisitorRating/views/VisitorRating.php:30
 msgid "Your rating:"
 msgstr ""
 
@@ -1602,27 +1608,27 @@ msgstr ""
 msgid "You have received a new %s star rating on %s"
 msgstr ""
 
-#: plugins/RecipeReviews/RecipeReviews.php:769
+#: plugins/RecipeReviews/RecipeReviews.php:775
 msgid "No reviews"
 msgstr ""
 
-#: plugins/RecipeReviews/views/RecipeReviews.php:5
-#: plugins/VisitorRating/views/VisitorRating.php:5
+#: plugins/RecipeReviews/views/RecipeReviews.php:4
+#: plugins/VisitorRating/views/VisitorRating.php:4
 msgid "stars"
 msgstr ""
 
-#: plugins/RecipeReviews/views/RecipeReviews.php:5
-#: plugins/RecipeReviews/views/RecipeReviews.php:44
-#: plugins/RecipeReviews/views/RecipeReviews.php:46
-#: plugins/VisitorRating/views/VisitorRating.php:5
-#: plugins/VisitorRating/views/VisitorRating.php:44
-#: plugins/VisitorRating/views/VisitorRating.php:46
+#: plugins/RecipeReviews/views/RecipeReviews.php:4
+#: plugins/RecipeReviews/views/RecipeReviews.php:43
+#: plugins/RecipeReviews/views/RecipeReviews.php:45
+#: plugins/VisitorRating/views/VisitorRating.php:4
+#: plugins/VisitorRating/views/VisitorRating.php:43
+#: plugins/VisitorRating/views/VisitorRating.php:45
 msgid "ratings"
 msgstr ""
 
-#: plugins/RecipeReviews/views/RecipeReviews.php:36
+#: plugins/RecipeReviews/views/RecipeReviews.php:35
 #: plugins/RecipeReviews/views/comments_fields.php:2
-#: plugins/VisitorRating/views/VisitorRating.php:36
+#: plugins/VisitorRating/views/VisitorRating.php:35
 msgid "Rate this recipe"
 msgstr ""
 
@@ -1635,107 +1641,118 @@ msgstr ""
 msgid "Notify admin when a user rates your recipe"
 msgstr ""
 
-#: shepherd/tour.php:81
+#: shepherd/tour.php:80
 msgid "Welcome to Zip Recipes"
 msgstr ""
 
-#: shepherd/tour.php:82
+#: shepherd/tour.php:81
 msgid ""
 "Create beautiful recipes with extended features, optimized for Google. Start "
 "with creating your recipe template or take the tour."
 msgstr ""
 
-#: shepherd/tour.php:88 shepherd/tour.php:95 shepherd/tour.php:175
+#: shepherd/tour.php:87 shepherd/tour.php:94 shepherd/tour.php:180
 msgid "Create your template"
 msgstr ""
 
-#: shepherd/tour.php:89
+#: shepherd/tour.php:88
 msgid ""
 "Here you will be able to style your recipe card. You can select one of our "
 "favorite templates or customize your recipe card to your liking with our "
 "drag & drop editor."
 msgstr ""
 
-#: shepherd/tour.php:96
+#: shepherd/tour.php:95
 msgid ""
 "Edit your recipe blocks for more customization. Drag blocks to inactive or "
 "shuffle them around. You're in control! Want to start over, press reset "
 "template or load a new predefined template"
 msgstr ""
 
-#: shepherd/tour.php:103
+#: shepherd/tour.php:102
 msgid ""
 "In our settings overview you will find general settings for your recipe card "
 "and demo's for our templates. If you need help configuring, please ask "
 "support or have a look at our documentation."
 msgstr ""
 
-#: shepherd/tour.php:111
+#: shepherd/tour.php:110
 msgid ""
 "Have a look at our premium add-ons for ZIP Recipes, taking your recipes to a "
 "whole new level!"
 msgstr ""
 
-#: shepherd/tour.php:118
+#: shepherd/tour.php:117
 msgid "Create your recipe"
 msgstr ""
 
-#: shepherd/tour.php:119
+#: shepherd/tour.php:118
 msgid ""
 "Here you can start creating your recipes and have an overview of the most "
 "important metrics per recipe, including your most popular recipes."
 msgstr ""
 
-#: shepherd/tour.php:126
+#: shepherd/tour.php:124
 msgid "Editing your recipes"
 msgstr ""
 
-#: shepherd/tour.php:127
+#: shepherd/tour.php:125
 msgid ""
 "The WYSIWYG editor will lead you through the process of creating each new "
 "recipe. A preview will be available immediately. Want to create a recipe "
 "directly in your WordPress editor. No problem!."
 msgstr ""
 
-#: shepherd/tour.php:137
+#: shepherd/tour.php:131
+msgid "The preview recipe"
+msgstr ""
+
+#: shepherd/tour.php:132
+msgid ""
+"To make the preview as accurate as possible, Zip Recipes uses a private "
+"post. A private post is only visible to you. We recommend not to delete this "
+"post."
+msgstr ""
+
+#: shepherd/tour.php:142
 msgid "Editing in Gutenberg"
 msgstr ""
 
-#: shepherd/tour.php:138 shepherd/tour.php:145
+#: shepherd/tour.php:143 shepherd/tour.php:150
 msgid ""
 "Add a Zip Recipes block, then click the block, and the 'cog' wheel on the "
 "right top to add a new recipe, or to choose an existing recipe."
 msgstr ""
 
-#: shepherd/tour.php:144 shepherd/tour.php:159
+#: shepherd/tour.php:149 shepherd/tour.php:164
 msgid "The end"
 msgstr ""
 
-#: shepherd/tour.php:152
+#: shepherd/tour.php:157
 msgid "Editing in classic editor"
 msgstr ""
 
-#: shepherd/tour.php:153
+#: shepherd/tour.php:158
 msgid ""
 "Click on 'create recipe' to start creating a new recipe, or choose an "
 "existing recipe."
 msgstr ""
 
-#: shepherd/tour.php:160
+#: shepherd/tour.php:165
 msgid ""
 "Get started. Start with your new template and go from there. You can start "
 "the tour anytime under Settings. Good luck!"
 msgstr ""
 
-#: shepherd/tour.php:173
+#: shepherd/tour.php:178
 msgid "Next"
 msgstr ""
 
-#: shepherd/tour.php:174
+#: shepherd/tour.php:179
 msgid "Previous"
 msgstr ""
 
-#: shepherd/tour.php:177
+#: shepherd/tour.php:182
 msgid "End tour"
 msgstr ""
 
@@ -1750,21 +1767,6 @@ msgid ""
 "the future will automatically become available for you."
 msgstr ""
 
-#: views/about_extensions.php:10
-msgid ""
-"Extensions marked with the lover badge, are included in Zip Recipes Lover"
-msgstr ""
-
-#: views/about_extensions.php:18
-msgid ""
-"Extensions marked with the friend badge, are included in Zip Recipes Friend "
-"& Lover"
-msgstr ""
-
-#: views/about_extensions.php:26
-msgid "Extensions active on this website"
-msgstr ""
-
 #: views/actions.php:6
 msgid "Print"
 msgstr ""
@@ -1773,7 +1775,7 @@ msgstr ""
 msgid "Print this recipe"
 msgstr ""
 
-#: views/author.php:19
+#: views/author.php:14
 msgid "by"
 msgstr ""
 
@@ -1851,6 +1853,12 @@ msgstr ""
 msgid "Saturated"
 msgstr ""
 
+#: views/nutrition_text.php:93
+msgid ""
+"Percent Daily Values are based on a 2,000 calorie diet. Your daily values "
+"may be higher or lower depending on your calorie needs."
+msgstr ""
+
 #: views/other-plugins.php:14
 msgid "Install"
 msgstr ""
@@ -1883,29 +1891,29 @@ msgstr ""
 msgid "No tags found"
 msgstr ""
 
-#: views/toolbar.php:128
+#: views/toolbar.php:129
 msgid "Recipe selection updated. Time to save!"
 msgstr ""
 
-#: views/toolbar.php:129
+#: views/toolbar.php:130
 msgid ""
 "Selecting a recipe that is linked to another post will unlink it from that "
 "post!"
 msgstr ""
 
-#: views/toolbar.php:130
+#: views/toolbar.php:131
 msgid "Show only recipes without post"
 msgstr ""
 
-#: views/toolbar.php:133 views/toolbar.php:141
+#: views/toolbar.php:134 views/toolbar.php:142
 msgid "No recipe selected"
 msgstr ""
 
-#: views/toolbar.php:160
+#: views/toolbar.php:161
 msgid "Create and insert new recipe"
 msgstr ""
 
-#: views/toolbar.php:163
+#: views/toolbar.php:164
 msgid ""
 "Creating and inserting a new recipe will unlink the current recipe from this "
 "post."
@@ -1918,10 +1926,6 @@ msgstr ""
 #: zip-recipes-lover.php:51
 msgid ""
 "Zip Recipes cannot be activated. The plugin requires WordPress 4.6 or higher"
-msgstr ""
-
-#: zip-recipes-lover.php:141 zip-recipes-lover.php:148
-msgid "Demo Recipe"
 msgstr ""
 
 #. Plugin Name of the plugin/theme

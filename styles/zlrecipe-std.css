@@ -222,6 +222,11 @@ html {
 #zrdn-recipe-container .zrdn-nutrition_text .zrdn-text-nutrition-item > div {
   text-align: center;
 }
+#zrdn-recipe-container .zrdn-nutrition_text .zrdn-text-nutrition-explanation {
+  font-style: italic;
+  font-size: 12px;
+  line-height: 16px;
+}
 #zrdn-recipe-container .zrdn-tags .zrdn-tags-container {
   display: flex;
   flex-wrap: wrap;

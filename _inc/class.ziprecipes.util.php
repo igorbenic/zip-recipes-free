@@ -670,7 +670,7 @@ class Util {
 				'table'     => false,
 				'label'     => __( "Copyright statement", 'zip-recipes' ),
 			),
-
+			
 			'hide_on_duplicate_image' => array(
 				'type'               => 'checkbox',
 				'source'             => 'recipe_image',
@@ -750,6 +750,13 @@ class Util {
 				),
 				'default' => 'logo',
 				'label'     => __( 'Label style', 'zip-recipes' ),
+			),
+
+			'hide_nutrition_text_expl' => array(
+				'type'      => 'checkbox',
+				'source'    => 'nutrition_text',
+				'table'     => false,
+				'label'     => __( 'Hide explanation', 'zip-recipes' ),
 			),
 
 			'print_image' => array(
@@ -1378,10 +1385,10 @@ class Util {
 				$thumbnail
 					= "https://img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
 				if ( ! Util::remote_file_exists( $thumbnail ) ) {
+
 					$thumbnail
 						= "https://img.youtube.com/vi/$youtube_id/hqdefault.jpg";
 				}
-
 				set_transient( "zrdn_youtube_image_$youtube_id", $thumbnail,
 					WEEK_IN_SECONDS );
 			}
@@ -1464,6 +1471,8 @@ class Util {
 
 
 	public static function remote_file_exists( $url ) {
+	    if ( !function_exists('curl_version') ) return false;
+
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		// don't download content

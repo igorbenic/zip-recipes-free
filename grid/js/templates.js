@@ -596,6 +596,14 @@ jQuery(document).ready(function($) {
         }
     });
 
+    $(document).on('click', '.zrdn-recipe-block-settings input[name=zrdn_hide_nutrition_text_expl]', function(){
+        if ($(this).is(":checked")) {
+            $(this).closest('.zrdn-recipe-block').find('.zrdn-block-wrap>.zrdn-text-nutrition-explanation').hide();
+        } else {
+            $(this).closest('.zrdn-recipe-block').find('.zrdn-block-wrap>.zrdn-text-nutrition-explanation').show();
+        }
+    });
+
     function getBlockTypesFromGrid(grid){
         var elements = grid.getItems();
         var blocks = [];
