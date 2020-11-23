@@ -96,7 +96,7 @@ class ZipRecipes {
 
 	public static function run_first_install_init() {
 	    if (!get_option('zrdn_activated_once')) {
-
+		    update_option('zrdn_activated_once', true);
 			//demo recipe
 			$args = array(
 				'searchFields' => 'recipe_title',
@@ -108,18 +108,20 @@ class ZipRecipes {
 				$recipe = new Recipe();
 				$recipe->load_default_data();
 				$recipe->recipe_title    = __( 'Demo Recipe', 'zip-recipes' );
-				$recipe->recipe_image_id = ZipRecipes::insert_media( ZRDN_PATH
-				                                                     . 'images',
-					'demo-recipe.jpg' );
+
 				$recipe->save();
 				update_option( 'zrdn_demo_recipe_id', $recipe->recipe_id );
+
+				//we do this separately, in case there is an issue with file insertion. This we the recipe can be created, only not with image.
+				$recipe->recipe_image_id = ZipRecipes::insert_media( ZRDN_PATH . 'images', 'demo-recipe.jpg' );
+				$recipe->save();
 			}
 
 			//set some defaults
 			$settings = get_option('zrdn_settings_general');
 			$zrdn_print['show_summary_on_archive_pages'] = true;
 			update_option('zrdn_settings_general', $settings);
-			update_option('zrdn_activated_once', true);
+
 		}
 	}
 

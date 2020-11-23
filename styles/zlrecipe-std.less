@@ -1,5 +1,7 @@
 @default-margin: 20px;
 
+
+
 /* Nutrition label outside container */
 #zrdn-nutrition-label {
   .nutrition-facts {
@@ -9,6 +11,13 @@
 html{scroll-behavior:smooth}
 
 #zrdn-recipe-container {
+  /* styling with zrdn markup */
+  .bold {
+    font-weight:bold;
+  }
+  .italic {
+    font-style: italic;
+  }
 
   /* SPECIFIC ELEMENT STYLES */
  .zrdn-block-divider {
@@ -265,6 +274,11 @@ html{scroll-behavior:smooth}
       font-size: 12px;
       line-height: 1.4;
       margin: auto auto;
+
+      th, tr {
+         background: #fff;
+         text-transform: none;
+      }
     }
 
     p {

@@ -6,6 +6,7 @@ html {
   scroll-behavior: smooth;
 }
 #zrdn-recipe-container {
+  /* styling with zrdn markup */
   /* SPECIFIC ELEMENT STYLES */
   /* Author */
   /* custom print button */
@@ -18,6 +19,12 @@ html {
   /*Social*/
   /* permalink, print only*/
   /* Nutrition Label CSS */
+}
+#zrdn-recipe-container .bold {
+  font-weight: bold;
+}
+#zrdn-recipe-container .italic {
+  font-style: italic;
 }
 #zrdn-recipe-container .zrdn-block-divider {
   border-bottom: 1px solid black;
@@ -252,6 +259,11 @@ html {
   font-size: 12px;
   line-height: 1.4;
   margin: auto auto;
+}
+#zrdn-recipe-container #zrdn-nutrition-label .nutrition-container th,
+#zrdn-recipe-container #zrdn-nutrition-label .nutrition-container tr {
+  background: #fff;
+  text-transform: none;
 }
 #zrdn-recipe-container #zrdn-nutrition-label p {
   margin: 0;
