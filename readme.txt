@@ -8,7 +8,7 @@ Author: Really Simple Plugins
 Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
 Requires at least: 4.8
-Tested up to: 5.5
+Tested up to: 5.6
 Stable tag: 7.1.1
 Requires PHP: 5.6
 
