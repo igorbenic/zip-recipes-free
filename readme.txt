@@ -9,7 +9,7 @@ Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
 Requires at least: 4.8
 Tested up to: 5.6
-Stable tag: 7.1.1
+Stable tag: 7.1.2
 Requires PHP: 5.6
 
 Zip Recipes is the best way to easily create professional-looking recipes fully optimized for Google and your website visitors.
@@ -114,6 +114,10 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 7. For more information, please visit [ziprecipes.net](https://ziprecipes.net)
 
 == Changelog ==
+= 7.1.2 =
+* Fix: Images in instructions/ingredients were overriden by recipe image, if provided
+* Fix: quotes resulted in double quotes on save in notes field
+
 = 7.1.1 =
 * Improvement: prevent overriding nutrition label style by themes
 * Fix: bold and italic css for Zip Recipes markup

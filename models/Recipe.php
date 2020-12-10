@@ -604,9 +604,7 @@ class Recipe {
         }
 
         if ( strlen($this->video_url) ) {
-	        $this->video_url_output = ( strpos( $this->video_url, '_value' )
-	                                    !== false ) ? $this->video_url
-		        : wp_oembed_get( $this->video_url );
+	        $this->video_url_output = ( strpos( $this->video_url, '_value' ) !== false ) ? $this->video_url : wp_oembed_get( $this->video_url );
         }
 	    $this->formatted_notes = $this->richify_item($this->zrdn_format_image($this->notes), 'notes');
 	    $this->summary_rich =  $this->richify_item($this->zrdn_format_image($this->summary), 'summary');
@@ -888,7 +886,7 @@ class Recipe {
             'ingredients_alt' => stripslashes(wp_kses_post($this->ingredients_alt)),
             'enable_ingredients_alt' => sanitize_title($this->enable_ingredients_alt),
             'instructions' => stripslashes(wp_kses_post($this->instructions)),
-            'notes' => wp_kses_post($this->notes),
+            'notes' => stripslashes(wp_kses_post($this->notes)),
             'category' => stripslashes(sanitize_text_field($this->category)),
             'cuisine' => stripslashes(sanitize_text_field($this->cuisine)),
             'trans_fat' =>sanitize_text_field( $this->trans_fat),
@@ -1299,12 +1297,6 @@ class Recipe {
 
 	/**
 	 * Processes markup for attributes like labels, images and links.
-	 * Changed behaviour in 4.5.2.7:
-	 *  - links (like [margarine|http://margarine.com] no longer include an
-	 *    'ingredient', 'ingredient-link', 'no-bullet', 'no-bullet-link' classes or a combination thereof
-	 *  - images (like %http://example.com/logo.png no longer include an
-	 *    'ingredient', 'ingredient-image', 'no-bullet', 'no-bullet-image' classes or a combination thereof
-	 *  - ids are no longer added
 	 * Syntax:
 	 * !Label
 	 * %image
@@ -1322,7 +1314,7 @@ class Recipe {
 		if (preg_match("/^%(\S*)/", $item, $matches)) { // IMAGE Updated to only pull non-whitespace after some blogs were adding additional returns to the output
 			// type: image
 			// content: $matches[1]
-			$attributes = $this->zrdn_get_responsive_image_attributes($matches[1]);
+			$attributes = $this->zrdn_get_responsive_image_attributes($matches[1] );
 			return array('type' => 'image', 'content' => $matches[1], 'attributes' => $attributes); // Images don't also have labels or links so return the line immediately.
 		}
 
@@ -1350,11 +1342,10 @@ class Recipe {
 	 * It checks image is not external and return images attributes like srcset, sized etc.
 	 *
 	 * @param string $url
-	 * @param int|bool $recipe_id
-	 * @return type
+	 * @return array
 	 */
 
-	public function zrdn_get_responsive_image_attributes($url)
+	public function zrdn_get_responsive_image_attributes( $url )
 	{
 
 		/**
@@ -1363,14 +1354,11 @@ class Recipe {
 
 		$attributes = array();
 		$attributes['url'] = $url;
-		//if a recipe_id is passed, we try to use the recipe image id
 
-		if ($this->recipe_image_id>0){
-			$attachment_id = $this->recipe_image_id;
-		} else {
-			$attachment_id = attachment_url_to_postid($url);
-			if (!$attachment_id) $attachment_id = get_post_thumbnail_id();
-		}
+		$attachment_id = attachment_url_to_postid($url);
+
+		//fallback
+		if (!$attachment_id) $attachment_id = get_post_thumbnail_id();
 
 		$attributes['attachment_id'] = $attachment_id;
 		$attributes['srcset'] = '';
@@ -1402,7 +1390,7 @@ class Recipe {
 		preg_match_all('/(%http|%https):\/\/[^ ]+(\.gif|\.jpg|\.jpeg|\.png)/', $item, $matches);
 		if (isset($matches[0]) && !empty($matches[0])) {
 			foreach ($matches[0] as $image) {
-				$attributes = $this->zrdn_get_responsive_image_attributes(str_replace('%', '', $image));
+				$attributes = $this->zrdn_get_responsive_image_attributes(str_replace('%', '', $image) );
 				$html = "<img class='' src='{$attributes['url']}";
 				if (!empty($attributes['srcset'])) {
 					$html .= " srcset='{$attributes['srcset']}";
