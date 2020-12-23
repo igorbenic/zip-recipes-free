@@ -64,7 +64,7 @@ If you enjoy this plugin and you want your site to have the best recipe features
 * Recipe search, Recipe index and Recipe Gallery
 * Save Recipes on social media, like Big Oven and Yummly
 
-Check out other plugins developed by Really Simple Plugins as well: [Complianz](https://wordpress.org/plugins/complianz-gdpr/), [WP Search Insights](https://wordpress.org/plugins/wp-search-insights/) and [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/).
+Check out other plugins developed by Really Simple Plugins as well: [Complianz](https://wordpress.org/plugins/complianz-gdpr/) and [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/).
 
 == Installation ==
 
