@@ -774,7 +774,6 @@ class Util {
 				'source'             => 'authors',
 				'is_plugin'         => true,
 				'disabled'           => true,
-				'is_plugin' => true,
 				'table'              => false,
 				'label'              => __( "Use custom authors", 'zip-recipes' ),
 				'help'              => __( "By default, Zip Recipes uses WordPress authors. You can use your own, custom authors as well.", 'zip-recipes' ),
@@ -1010,7 +1009,6 @@ class Util {
 		} else {
 			$result = $fields;
 		}
-
 	    return apply_filters("zrdn_get_fields", $result, $type);
     }
 
@@ -1498,8 +1496,8 @@ class Util {
 	 */
 
 	public static function update_option($fieldname, $new_value){
-
 		$fields = Util::get_fields();
+
 		if(isset($fields[$fieldname]['type'])) {
 			$source = $fields[$fieldname]['source'];
 		} else {

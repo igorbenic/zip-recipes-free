@@ -1155,7 +1155,7 @@ class Recipe {
 		}
 
 		$keywords= false;
-		$this->keywords =wp_get_post_tags( $this->post_id );
+		$this->keywords = wp_get_post_tags( $this->post_id );
 		if ( $this->keywords ){
 			$keywords = implode(',',wp_list_pluck($this->keywords,'name'));
 		}
