@@ -469,9 +469,9 @@ if (isset($_GET['post_id'])) {
                         $post_permalink = get_permalink($recipe->post_id);
                     } else {
                         //check if we have our default private post
-                        if ( !$recipe_id ) $recipe_id = 0;
+                        if ( !$recipe_id ) $recipe_id = Util::get_demo_recipe_id();
                         $preview_post_id = Util::get_preview_post_id( $recipe_id );
-                        $post_permalink = get_permalink($preview_post_id);
+                        $post_permalink = get_permalink( $preview_post_id );
                     }?>
                     <input type="hidden" name="zrdn_post_permalink" value = "<?php echo $post_permalink?>">
                 </div><!--tab content -->

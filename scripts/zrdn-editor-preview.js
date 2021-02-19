@@ -43,11 +43,11 @@ jQuery(document).ready(function($) {
 
 
     function enableImageEditor(fields){
-        $('.zrdn-element_recipe_image').append('<div class="zrdn-image-controls"><div class="zrdn-edit-image-text"><div class="dashicons dashicons-edit"></div></div></div>');
+        if (!recipe_id) return;
 
+        $('.zrdn-element_recipe_image').append('<div class="zrdn-image-controls"><div class="zrdn-edit-image-text"><div class="dashicons dashicons-edit"></div></div></div>');
         var link = '<span class="zrdn-image-controls-divider">|</span><a href="#" class="zrdn_remove_image"><div class="dashicons dashicons-trash"></div></a>';
         $('.zrdn-element_recipe_image .zrdn-image-controls').append(link);
-
 
         var media_uploader = null;
         var zrdn_img;
@@ -98,6 +98,8 @@ jQuery(document).ready(function($) {
                             if (response.success) {
                                 zrdn_img.attr('src', image_url);
                                 zrdn_img.attr('srcset', image_url);
+                                $('input[name=zrdn_recipe_image_id]', window.parent.document).val(thumbnail_id);
+                                $('.zrdn-preview-snippet', window.parent.document).attr('src', image_url);
                             }
                         }
                     });
@@ -107,8 +109,6 @@ jQuery(document).ready(function($) {
 
             media_uploader.open();
         });
-
-
 
         /**
          * remove image
@@ -131,7 +131,8 @@ jQuery(document).ready(function($) {
                         image.attr('src', zrdn_editor_preview.default_image);
                         image.attr('srcset', zrdn_editor_preview.default_image);
                         // $('input[name=zrdn_recipe_image_id]').val(0);
-
+                        $('input[name=zrdn_recipe_image_id]', window.parent.document).val(0);
+                        $('.zrdn-preview-snippet', window.parent.document).remove();
                     } else {
                         image.parent().append(' Clearing image failed...');
                     }

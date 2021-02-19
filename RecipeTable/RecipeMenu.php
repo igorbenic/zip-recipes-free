@@ -14,7 +14,7 @@ add_action('save_post', __NAMESPACE__ . '\zrdn_save_post', 10, 2);
 function zrdn_save_post($post_id, $post_data){
     if (Util::has_shortcode($post_id, $post_data)){
 
-        $pattern = Util::get_shortcode_pattern();
+        $pattern = Util::get_shortcode_pattern(false, false, 'gutenberg');
         $classic_pattern = Util::get_shortcode_pattern(false, false, 'classic');
         $legacy_pattern = Util::get_shortcode_pattern(false, false, 'legacy');
         if (preg_match($pattern, $post_data->post_content, $matches)) {

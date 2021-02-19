@@ -1067,7 +1067,7 @@ class Util {
 
 		    // Insert the post into the database
 		    $preview_post_id = wp_insert_post( $page );
-		    update_option('zrdn_preview_post_id',$preview_post_id);
+		    update_option('zrdn_preview_post_id', $preview_post_id);
 	    }
 
 	    //if it's trashed, restore it.

@@ -10,6 +10,9 @@
 #zrdn-recipe-container .zrdn-hide-print {
   display: none;
 }
+#zrdn-recipe-container .zrdn-print-link {
+  display: none !important;
+}
 #zrdn-recipe-container .zrdn-imperial-metric,
 #zrdn-recipe-container .zrdn__rating__count_label,
 #zrdn-recipe-container .zrdn__rating__user_rating,

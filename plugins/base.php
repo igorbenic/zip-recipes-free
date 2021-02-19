@@ -17,3 +17,17 @@ function zrdn_remove_other_plugins_block($blocks) {
 	return $blocks;
 }
 add_filter('zrdn_grid_items', __NAMESPACE__ . '\zrdn_remove_other_plugins_block', 10, 1);
+
+/**
+ * Cleanup upsells
+ * @param array $fields
+ *
+ * @return array
+ */
+
+function zrdn_remove_upsell($fields) {
+	unset($fields['author_promo']);
+	unset($fields['nutrition_promo']);
+	return $fields;
+}
+add_filter('zrdn_edit_nutrition_fields', __NAMESPACE__ . '\zrdn_remove_upsell', 10, 1);

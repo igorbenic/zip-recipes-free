@@ -114,6 +114,11 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 7. For more information, please visit [ziprecipes.net](https://ziprecipes.net)
 
 == Changelog ==
+= 7.1.3 =
+* fix image change in preview mode
+* fix stretched image in print view
+* fix for shortcode matching with Gutenberg icw elementor
+
 = 7.1.2 =
 * Fix: Images in instructions/ingredients were overriden by recipe image, if provided
 * Fix: quotes resulted in double quotes on save in notes field

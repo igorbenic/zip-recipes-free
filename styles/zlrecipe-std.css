@@ -31,6 +31,7 @@ html {
 }
 #zrdn-recipe-container .zrdn-recipe-image img {
   width: 100%;
+  height: inherit;
 }
 #zrdn-recipe-container .zrdn-author {
   display: flex;
