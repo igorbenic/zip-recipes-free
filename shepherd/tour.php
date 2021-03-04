@@ -86,8 +86,8 @@ class zrdn_tour {
 				1 => array(
 					'title'  => __( 'Create your template', 'zip-recipes' ),
 					'text'   => __( "Here you will be able to style your recipe card. You can select one of our favorite templates or customize your recipe card to your liking with our drag & drop editor.", 'zip-recipes' ),
-					'attach' => '#zrdn-save-template-settings',
-					'position' => 'right',
+					'attach' => '.tab-text.tab-Settings',
+					'position' => 'bottom',
 					'link'   => add_query_arg( array( "page" => "zrdn-template"), admin_url( "admin.php" ) ),
 				),
 				2 => array(
@@ -100,7 +100,7 @@ class zrdn_tour {
 				3 => array(
 					'title'  => __( 'Settings', 'zip-recipes' ),
 					'text'   => __( "In our settings overview you will find general settings for your recipe card and demo's for our templates. If you need help configuring, please ask support or have a look at our documentation.", 'zip-recipes' ),
-					'attach' => '.zrdn-general',
+					'attach' => '.zrdn-general .zrdn-grid-title',
 					'position' => 'right',
 					'click' => '.tab-dashboard',
 					'link'   => add_query_arg( array( "page" => "zrdn-settings"), admin_url( "admin.php" ) ),

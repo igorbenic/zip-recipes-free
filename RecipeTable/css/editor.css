@@ -251,6 +251,7 @@ Tabs
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 450px;
 }
 .zrdn-container .preview-column {
   margin-left: 20px;
