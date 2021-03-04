@@ -10,7 +10,7 @@ Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
 Requires at least: 4.8
 Tested up to: 5.6
 Stable tag: 7.1.4
-Requires PHP: 5.6
+Requires PHP: 5.7
 
 Zip Recipes is the best way to easily create professional-looking recipes fully optimized for Google and your website visitors.
 
