@@ -1216,7 +1216,7 @@ class Util {
 					unset($recipe_blocks_layout[ $index ]['blocks'][ $index_in_sub_array ]);
 				}
 				//if no blocks left, set previous or next one to 100 if this is a 50 block, and remove this one
-				if ( count($column_blocks['blocks']) === 1 ){
+				if ( count($column_blocks['blocks']) === 0 ){
 					if ( $column_blocks['type'] === 'block-50' ) {
 						if ($index % 2 == 0) {
 							$recipe_blocks_layout[$index+1]['type'] = 'block-100';

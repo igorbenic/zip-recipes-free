@@ -941,7 +941,6 @@ class ZipRecipes {
 
 		$template_name = Util::get_option('template');
 		$recipe_blocks_layout = apply_filters('zrdn_default_recipe_blocks_layout', ZipRecipes::default_recipe_blocks( $template_name ) );
-
 		$recipe_blocks_layout = get_option( 'zrdn_recipe_blocks_layout', $recipe_blocks_layout );
 		$recipe_blocks_layout[] = array(
 			'type' => 'block-0 print',
@@ -1123,9 +1122,10 @@ class ZipRecipes {
             .zrdn-grid .grid-active.small.zrdn-inactive-container .zrdn-grid-item .sub-item-content{
                 width:300px;
             }
-
         </style>
 	    <div class="wrap" id="zip-recipes">
+		    <?php //this header is a placeholder to ensure notices do not end up in the middle of our code ?>
+            <h1 class="zrdn-notice-hook-element"></h1>
 		    <?php Util::settings_header(apply_filters('zrdn_tabs', $tabs ), false);?>
 		    <?php
 		    $empty_recipe = new Recipe();
@@ -1146,6 +1146,7 @@ class ZipRecipes {
 		    }
 
 		    $recipe_blocks_layout = ZipRecipes::get_active_template_layout( );
+
 		    $recipe_blocks_layout = ZipRecipes::parse_layout_to_html($recipe_blocks_layout, $empty_recipe, $settings, false);
 		    $block_template = file_get_contents(trailingslashit(ZRDN_PATH) . 'grid/templates/recipe-block-element.php');
 		    $settings_icon_template = '<div class="zrdn-icon zrdn-block-settings dashicons dashicons-admin-generic" ></div>';
@@ -1268,6 +1269,8 @@ class ZipRecipes {
 
 	    ?>
         <div class="wrap" id="zip-recipes">
+	        <?php //this header is a placeholder to ensure notices do not end up in the middle of our code ?>
+            <h1 class="zrdn-notice-hook-element"></h1>
             <div id="zrdn-toggle-wrap">
                 <div id="zrdn-toggle-dashboard">
                     <div id="zrdn-toggle-dashboard-text">

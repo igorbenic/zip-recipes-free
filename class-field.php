@@ -250,12 +250,14 @@ if (!class_exists("ZRDN_Field")) {
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input <?php if ($args['required']) echo 'required'; ?>
+                    id="<?php echo esc_html($fieldname)?>"
                 class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                 placeholder="<?php echo esc_html($args['placeholder']) ?>"
                 type="text"
+                id="<?php echo esc_html($fieldname)?>"
                 value="<?php echo esc_html($value) ?>"
                 name="<?php echo esc_html($fieldname) ?>">
             <?php do_action('zrdn_after_field', $args); ?>
@@ -271,10 +273,11 @@ if (!class_exists("ZRDN_Field")) {
 		    ?>
 
 		    <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <button <?php if ($args['disabled']) echo 'disabled'; ?> type="button" class="button button-default zrdn-add-author">+</button>
             <span class="zrdn-author-container zrdn-template zrdn-hidden">
                 <input <?php if ($args['required']) echo 'required'; ?>
+                        id="<?php echo esc_html($fieldname)?>"
                         class="validation zrdn-author-field zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                         placeholder="<?php echo esc_html($args['placeholder']) ?>"
                         type="text"
@@ -325,12 +328,13 @@ if (!class_exists("ZRDN_Field")) {
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input <?php if ($args['required']) echo 'required'; ?>
                 class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                 placeholder="<?php echo esc_html($args['placeholder']) ?>"
                 type="text"
+                id="<?php echo esc_html($fieldname)?>"
                 pattern="^(http(s)?(:\/\/))?(www\.)?[a-zA-Z0-9-_\.\/\?\=\&]+"
                 value="<?php echo esc_html($value) ?>"
                 name="<?php echo esc_html($fieldname)?>">
@@ -346,12 +350,13 @@ if (!class_exists("ZRDN_Field")) {
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input <?php if ($args['required']) echo 'required'; ?>
                 class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                 placeholder="<?php echo esc_html($args['placeholder']) ?>"
                 type="email"
+                id="<?php echo esc_html($fieldname)?>"
                 value="<?php echo esc_html($value) ?>"
                 name="<?php echo esc_html($fieldname)?>">
             <?php do_action('zrdn_after_field', $args); ?>
@@ -366,13 +371,14 @@ if (!class_exists("ZRDN_Field")) {
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input autocomplete="tel" <?php if ($args['required']) echo 'required'; ?>
                    class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                    placeholder="<?php echo esc_html($args['placeholder']) ?>"
                    type="text"
                    value="<?php echo esc_html($value) ?>"
+                   id="<?php echo esc_html($fieldname)?>"
                    name="<?php echo esc_html($fieldname) ?>">
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
@@ -388,14 +394,16 @@ if (!class_exists("ZRDN_Field")) {
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input <?php if ($args['required']) echo 'required'; ?>
                 class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
                 placeholder="<?php echo esc_html($args['placeholder']) ?>"
                 type="number"
                 value="<?php echo esc_html($value) ?>"
+                id="<?php echo esc_html($fieldname)?>"
                 name="<?php echo esc_html($fieldname) ?>">
+
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
@@ -413,7 +421,7 @@ if (!class_exists("ZRDN_Field")) {
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>_hours"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <input <?php if ($args['required']) echo 'required'; ?>
                     class="validation zrdn-field-hour <?php if ($args['required']) echo 'is-required'; ?>"
@@ -421,10 +429,12 @@ if (!class_exists("ZRDN_Field")) {
                     type="number"
                     min="0" max="48"
                     value="<?php echo esc_html($hours) ?>"
-                    name="<?php echo esc_html($fieldname) ?>_hours">
+                    name="<?php echo esc_html($fieldname) ?>_hours"
+                    id="<?php echo esc_html($fieldname)?>_hours">
             <?php _e("(h)","zip-recipes")?>
 
             <input <?php if ($args['required']) echo 'required'; ?>
+                    id="<?php echo esc_html($fieldname)?>_minutes"
                     class="validation zrdn-field-minute <?php if ($args['required']) echo 'is-required'; ?>"
                     placeholder="<?php echo esc_html($args['placeholder']) ?>"
                     type="number"
@@ -448,7 +458,7 @@ if (!class_exists("ZRDN_Field")) {
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
 
-            <label for="<?php echo esc_html($fieldname) ?>-label"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
 
             <?php do_action('zrdn_after_label', $args); ?>
 
@@ -457,6 +467,7 @@ if (!class_exists("ZRDN_Field")) {
 
                 <input name="<?php echo esc_html($fieldname) ?>" size="40" type="checkbox"
                     <?php if ($args['disabled']) echo 'disabled'; ?>
+                       id="<?php echo esc_html($fieldname)?>"
                        class="<?php if ($args['required']) echo 'is-required'; ?>"
                        value="1" <?php echo $checked ?> />
                 <span class="zrdn-slider zrdn-round"></span>
@@ -477,7 +488,7 @@ if (!class_exists("ZRDN_Field")) {
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
 
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
 
             <?php do_action('zrdn_after_label', $args); ?>
             <div class="zrdn-validate-radio">
@@ -515,9 +526,10 @@ if (!class_exists("ZRDN_Field")) {
 	        $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname) ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <textarea name="<?php echo esc_html($fieldname) ?>"
+                      id="<?php echo esc_html($fieldname)?>"
                       <?php if ($args['required']) echo 'required'; ?>
                         class="validation zrdn-field-textarea <?php if ($args['required']) echo 'is-required'; ?>"
                       placeholder="<?php echo esc_html($args['placeholder']) ?>"><?php echo esc_html($value) ?></textarea>
@@ -541,7 +553,7 @@ if (!class_exists("ZRDN_Field")) {
             $value = $args['value'];
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo $fieldname ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <?php
             $settings = array(
@@ -564,7 +576,7 @@ if (!class_exists("ZRDN_Field")) {
             ?>
 
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo $args['fieldname'] ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname)?>""><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <div id="<?php echo esc_html($fieldname) ?>editor"
                  style="height: 200px; width: 100%"><?php echo $value ?></div>
@@ -583,7 +595,7 @@ if (!class_exists("ZRDN_Field")) {
                     });
                 });
             </script>
-            <textarea style="display:none" name="<?php echo esc_html($fieldname) ?>"><?php echo $value ?></textarea>
+            <textarea style="display:none" name="<?php echo esc_html($fieldname) ?>" id="<?php echo esc_html($fieldname)?>"><?php echo $value ?></textarea>
             <?php
         }
 
@@ -725,7 +737,7 @@ if (!class_exists("ZRDN_Field")) {
             <?php do_action('zrdn_before_label', $args); ?>
             <label for="<?php echo esc_html($fieldname) ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
-            <select <?=$disable_main?> <?php if ($args['required']) echo 'required'; ?> name="<?php echo esc_html($fieldname) ?>">
+            <select <?=$disable_main?> <?php if ($args['required']) echo 'required'; ?> name="<?php echo esc_html($fieldname) ?>" id="<?php echo esc_html($fieldname)?>">
                 <option value=""><?php _e("Choose an option", 'complianz-gdpr') ?></option>
                 <?php foreach ($args['options'] as $option_key => $option_label) {
 	                $disabled='';
@@ -844,7 +856,7 @@ if (!class_exists("ZRDN_Field")) {
                 <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-uploader" type="button" value="<?php _e('Edit', 'zip-recipes') ?>">
                 <input <?php if ($args['disabled']) echo "disabled"?> class="button zrdn-image-reset" type="button" value="<?php _e('Reset', 'zip-recipes') ?>">
             </div>
-            <img class="zrdn-preview-snippet" width="<?php echo $width?>" height="<?php echo $height?>" src="<?php echo $src?>">
+            <img class="zrdn-preview-snippet" alt="preview image for the recipe image" width="<?php echo $width?>" height="<?php echo $height?>" src="<?php echo $src?>">
             <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }

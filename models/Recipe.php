@@ -1042,8 +1042,6 @@ class Recipe {
             'calories'=>2400,//mg
         );
 
-
-
         if (empty($value) || $value==0) return 0;
         if (!isset($daily_values[$type])) return 0;
 

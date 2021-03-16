@@ -293,21 +293,19 @@ function zrdn_check_upgrade()
 		}
 
 		//move template settings to template array
-
 		if (isset($zrdn_settings['template'])) {
+			$template_name = $zrdn_settings['template'];
 			$template_settings = get_option('zrdn_settings_template');
 			$template_settings['template'] = $zrdn_settings['template'];
+			update_option('zrdn_settings_template', $template_settings);
 
 			//upgrade to template structure based on settings
-			$template = ZipRecipes::default_recipe_blocks($template_settings['template']);
-			update_option('zrdn_recipe_blocks_layout', $template);
-			update_option('zrdn_reload_template_settings', true);
-			if (class_exists('CustomTemplates')) {
-				CustomTemplates::set_defaults_for_template();
-			};
+			update_option( 'zrdn_settings_general', $zrdn_settings );
 
-			update_option('zrdn_settings_template', $template_settings);
-			update_option( 'zrdn_settings_general',$zrdn_settings );
+			ZipRecipes::set_defaults_for_template($template_name);
+			$default_recipe_blocks = ZipRecipes::default_recipe_blocks($template_name);
+			update_option('zrdn_recipe_blocks_layout', $default_recipe_blocks);
+			update_option('zrdn_reload_template_settings', true);
 		}
 
 		if (isset($zrdn_settings['border_style'])) {
@@ -357,7 +355,7 @@ function zrdn_check_upgrade()
 		Util::migrate_setting('social', 'actions', 'recipe_action_bigoven');
 		Util::migrate_setting('social', 'actions', 'recipe_action_pinterest');
 		Util::migrate_setting('social', 'plugins', 'RecipeActions');
-
+		
 		$blocks = get_option( 'zrdn_recipe_blocks_layout', array() );
 
 		$copyright = Util::get_old_setting('copyright_statement', 'general');
@@ -390,7 +388,6 @@ function zrdn_check_upgrade()
 
 		//remove social, because it's a new block
 		$blocks = Util::remove_block_from_array($blocks, 'social' );
-
 
 		update_option( 'zrdn_recipe_blocks_layout', $blocks );
 

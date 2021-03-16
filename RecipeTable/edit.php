@@ -37,6 +37,9 @@ if (isset($_GET['post_id'])) {
 ?>
 
 <div class="wrap edit-recipe" id="zip-recipes">
+	<?php //this header is a placeholder to ensure notices do not end up in the middle of our code ?>
+    <h1 class="zrdn-notice-hook-element"></h1>
+
 	<?php Util::settings_header(apply_filters('zrdn_tabs', array()), false)?>
 
     <?php
