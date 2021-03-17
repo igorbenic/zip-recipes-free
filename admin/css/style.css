@@ -1,6 +1,9 @@
 .notice:not(.really-simple-plugins) {
   display: none;
 }
+.zrdn-notice-hook-element {
+  display: none;
+}
 .zrdn-grid-controls .rsp-logo {
   width: 202px;
   margin-top: -20px;
