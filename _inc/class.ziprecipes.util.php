@@ -93,7 +93,7 @@ class Util {
 
     /**
      * Check if post contains a Gutenberg block or shortcode from Zip
-     * @param $post_id
+     * @param $post_id 
      * @param $post_data
      * @return bool
      */
@@ -441,6 +441,19 @@ class Util {
 			    'controls' => '<div class="rsp-logo"><a href="https://really-simple-plugins.com/"><img src="'. trailingslashit(ZRDN_PLUGIN_URL) .'images/really-simple-plugins.png" /></a></div>',
 		    ),
 	    );
+	    // Only display recipe sharing for english websites
+	    if ( is_rdb_api_allowed_country() ) $grid_items = wp_parse_args( array(
+			array(
+			    'title' => __("Monetize your recipes", "zip-recipes") . '<span class="new-badge">'. __("NEW", "zip-recipes") .'</span>',
+			    'source' => "recipe_sharing",
+			    'class' => 'small monetize-recipes',
+			    'can_hide' => true,
+		    ),
+		), 
+		$grid_items );
+
+	    $grid_items = apply_filters('zrdn_grid_items', $grid_items);
+
 	    $defaults = array(
 		    'title' => '',
 		    'source' => '',
@@ -451,7 +464,8 @@ class Util {
 	    foreach ($grid_items as $key => $grid_item ) {
 		    $grid_items[$key] = wp_parse_args($grid_item, $defaults);
 	    }
-	    return apply_filters('zrdn_grid_items', $grid_items);
+	    
+	   	return $grid_items;
     }
 
 	/**
@@ -992,6 +1006,69 @@ class Util {
 				'label'     => __( "Import ratings to reviews", 'zip-recipes' ),
 			),
 
+			'recipe_selling_explanation' => array(
+				'type'      => 'label',
+				'source'    => 'recipe_sharing',
+				'default'    => false,
+				'table'     => false,
+				'label'     => sprintf(__("Start earning money with ZIP Recipes. Create high-quality recipes and rent them out to be published offline only. More detailed instructions, read our %sRecipe sharing tutorial%s.", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/recipe-sharing-all-you-need-to-know">', '</a>'),
+			),
+
+			'recipe_selling_title' => array(
+				'type'      => 'title',
+				'source'    => 'recipe_sharing',
+				'title'     => __("Start monetizing", "zip-recipes"),
+			),
+
+			'enable_recipe_selling' => array(
+				'type'      => 'hidden',
+				'source'    => 'recipe_sharing',
+				'default'    => true,
+				'table'     => false,
+			),
+
+			'recipe_selling_terms_and_conditions' => array(
+				'type'      => 'normal-checkbox',
+				'source'    => 'recipe_sharing',
+				'default'    => false,
+				'table'     => false,
+				'label'     => sprintf(__("I have read and understood the %sterms and conditions%s.", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/terms-and-conditions-recipe-sharing/">', '</a>'),
+			),
+
+			'recipe_selling_copyright' => array(
+				'type'      => 'normal-checkbox',
+				'source'    => 'recipe_sharing',
+				'default'    => false,
+				'table'     => false,
+				'label'     => __( "My content is original and without copyright.",
+					'zip-recipes' ),
+				'help'              => __( "This includes the images used in your recipes. They are either without copyright restrictions or owned and authored by yourself.", 'zip-recipes' ),
+			),
+
+			'recipe_selling_contact_email' => array(
+				'type'      => 'email',
+				'source'    => 'recipe_sharing',
+				'default'    => false,
+				'table'     => false,
+				'placeholder'     => __( "Email address for Contact",
+					'zip-recipes' ),
+			),
+
+			'recipe_selling_paypal_email' => array(
+				'type'      => 'email',
+				'source'    => 'recipe_sharing',
+				'default'    => false,
+				'table'     => false,
+				'placeholder'     => __( "Paypal email",
+					'zip-recipes' ),
+			),
+			
+			'rdb_api_key' => array(
+				'type'      => 'hidden',
+				'source'    => 'recipe_sharing',
+				'default'    => false,
+				'table'     => false,
+			),
 		);
 
 		if ( $type ) {
@@ -1584,6 +1661,7 @@ class Util {
             }
         }
         $recipes = $wpdb->get_results("$sql $search_sql ORDER BY $orderby $order $offset ");
+  
         return $recipes;
     }
 

@@ -64,6 +64,10 @@ function zrdn_update_recipe_table(){
             'video_url varchar(255)',
             'non_food int(11)',
 	        'hits int(11)',
+            'edamam_sharing_status varchar(50)',
+            'zip_sharing_status varchar(50)',
+            'missing_sharing_values text',
+            'share_this_recipe tinyint',
         );
 
         $all_columns = apply_filters('zrdn__db_recipe_columns', $columns);
@@ -103,7 +107,7 @@ class Recipe {
 	 * @param $post_id
 	 */
 	public function __construct($recipe_id=null, $post_id=null, $title='', $image_url='') {
-
+		$this->missing_sharing_values = $this->default_missing_sharing_values;
 		if ($post_id) {
 			$this->post_id = $post_id;
 		}
@@ -123,6 +127,7 @@ class Recipe {
 		} else if ($this->recipe_id || $this->post_id) {
 			$this->load();
 		}
+
 	}
 
 	/**
@@ -401,6 +406,44 @@ class Recipe {
     public $jsonld = '';
     public $keywords = array();
 
+     /**
+     * varchar(255)
+     * @var string
+     */
+    public $edamam_sharing_status;
+
+     /**
+     * varchar(255)
+     * @var string
+     */
+    public $zip_sharing_status;
+
+    /**
+     * @var string
+     */
+    public $default_missing_sharing_values = array(
+	    'recipe_title' => false,
+	    'prep_time' => false,
+	    'cook_time' => false,
+	    'wait_time' => false,
+	    'yield' => false,
+	    'serving_size' => false,
+	    'ingredients' => false,
+	    'instructions' => false,
+	    'recipe_image_id' => false,
+	    'json_image_1x1' => false,
+	    'json_image_4x3' => false,
+	    'json_image_16x9' => false,
+    );
+
+    public $missing_sharing_values;
+
+
+    /**
+     * tinyint
+     * @var boolean
+     */
+    public $share_this_recipe = false;
 
     /**
      * Get a recipe from the db
@@ -610,6 +653,12 @@ class Recipe {
 	    $this->summary_rich =  $this->richify_item($this->zrdn_format_image($this->summary), 'summary');
 	    $this->nested_ingredients = $this->get_nested_items($this->ingredients);
 	    $this->nested_instructions = $this->get_nested_items($this->instructions);
+	    
+	    if (use_rdb_api()) {
+		    $this->missing_sharing_values = wp_parse_args( json_decode( $this->missing_sharing_values ) , $this->default_missing_sharing_values );
+	    } else {
+		    $this->missing_sharing_values = $this->default_missing_sharing_values;
+	    }
 
 	    //check if post_id is a revision
         if ($this->post_id && get_post_type($this->post_id) === 'revision'){
@@ -852,9 +901,8 @@ class Recipe {
     public function save(){
         if (!current_user_can('edit_posts')) return;
         global $wpdb;
-
+        $this->validate();
         $table = $wpdb->prefix . self::TABLE_NAME;
-
         $update_arr = array(
             'post_id' => intval($this->post_id),
             'nutrition_label_id' => intval($this->nutrition_label_id),
@@ -897,6 +945,10 @@ class Recipe {
             'iron' => sanitize_text_field($this->iron),
             'video_url' => esc_url_raw($this->video_url),
             'non_food' => boolval($this->non_food),
+            'edamam_sharing_status' => $this->sanitize_edamam_sharing_status($this->edamam_sharing_status),
+            'zip_sharing_status' => $this->sanitize_zip_sharing_status($this->zip_sharing_status),
+            'missing_sharing_values' => json_encode($this->missing_sharing_values),
+            'share_this_recipe' => intval($this->share_this_recipe),
         );
 
         //if an id was passed, we load the URL to keep it in sync with the new ID.
@@ -922,6 +974,89 @@ class Recipe {
                 $update_arr,
                 array('recipe_id' => $this->recipe_id)
             );
+        }
+
+    }
+
+    /**
+     * Validate the data for share.zip-recipes.net
+     * 
+     */
+
+
+    public function validate(){
+        if (!current_user_can('edit_posts')) return;
+        $error = false;
+
+        $current_sharing_status =  sanitize_text_field($this->zip_sharing_status);
+        if ($current_sharing_status == 'approved' || $current_sharing_status == 'declined' ) {
+            return;
+        }
+
+        $general = array(
+            // 'recipe_id' => intval($this->recipe_id),
+            'recipe_title' => stripslashes(sanitize_text_field($this->recipe_title)),
+            'prep_time' => Util::validate_time($this->prep_time),
+            'cook_time' => Util::validate_time($this->cook_time),
+            'wait_time' => Util::validate_time($this->wait_time),
+            'yield' => sanitize_text_field($this->yield),
+            'serving_size' => stripslashes(sanitize_text_field($this->serving_size)),
+            'ingredients' => stripslashes(wp_kses_post($this->ingredients)),
+            'instructions' => stripslashes(wp_kses_post($this->instructions)),
+            // 'category' => stripslashes(sanitize_text_field($this->category)),
+            //'cuisine' => stripslashes(sanitize_text_field($this->cuisine)),
+            // 'video_url' => esc_url_raw($this->video_url),
+        );
+
+        $images = array(
+            'recipe_image_id' => sanitize_text_field($this->recipe_image_id),
+        //     'json_image_1x1' => sanitize_text_field($this->json_image_1x1),
+        //     'json_image_4x3' => sanitize_text_field($this->json_image_4x3),
+        //     'json_image_16x9' => sanitize_text_field($this->json_image_16x9),
+        );
+
+        // $nutritional_values = array(
+        //     'calories' => sanitize_text_field($this->calories),
+        //     'fat' => sanitize_text_field($this->fat),
+        //     'carbs' => sanitize_text_field($this->carbs),
+        //     'protein' => sanitize_text_field($this->protein),
+        //     'fiber' => sanitize_text_field($this->fiber),
+        //     'sugar' => sanitize_text_field($this->sugar),
+        //     'saturated_fat' => sanitize_text_field($this->saturated_fat),
+        //     'sodium' => sanitize_text_field($this->sodium),
+        //     'vitamin_a' => sanitize_text_field($this->vitamin_a),
+        //     'vitamin_c' => sanitize_text_field($this->vitamin_c),
+        //     'calcium' => sanitize_text_field($this->calcium),
+        //     'trans_fat' =>sanitize_text_field( $this->trans_fat),
+        //     'cholesterol' => sanitize_text_field($this->cholesterol),
+        //     'iron' => sanitize_text_field($this->iron),
+        // );
+
+        foreach ($general as $key => $value) {
+            if(empty($value) && $value !== '0'){
+                $error = true;
+	            $this->missing_sharing_values[$key] = true;
+            }
+        }
+
+        foreach ($images as $key => $value) {
+            if(empty($value)){
+                $error = true;
+	            $this->missing_sharing_values[$key] = true;
+            }
+        }
+
+        if ($error) {
+            if ($current_sharing_status !== 'declined') {
+                $this->zip_sharing_status = 'needs_improvement';
+            }
+        } else {
+            if ($this->share_this_recipe) {
+                $this->zip_sharing_status = 'waiting_approval';
+            } else {
+                $this->zip_sharing_status = 'not_activated';
+            }
+
         }
     }
 
@@ -1458,6 +1593,8 @@ class Recipe {
         if (!current_user_can('delete_posts')) return false;
 
         if (!empty($this->recipe_id)) {
+            ZipRecipes::$recipe_sharing->delete_from_sharing($this->recipe_id);
+
             global $wpdb;
             $args = array('recipe_id' => intval($this->recipe_id));
             $table = $wpdb->prefix . self::TABLE_NAME;
@@ -1466,6 +1603,49 @@ class Recipe {
         return FALSE;
     }
 
+    /**
+     * Sanitize the goal type
+     * @param string $str
+     *
+     * @return string
+     */
+
+    private function sanitize_edamam_sharing_status( $str ){
+        $sharing_statuses = array(
+            'approved',
+            'declined',
+            'waiting_approval'
+        );
+
+        if ( in_array( $str, $sharing_statuses)) {
+            return $str;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Sanitize the goal type
+     * @param string $str
+     *
+     * @return string
+     */
+
+    private function sanitize_zip_sharing_status( $str ){
+        $sharing_statuses = array(
+            'not_activated',
+            'needs_improvement',
+            'waiting_approval',
+            'approved',
+            'declined'
+        );
+        
+        if ( in_array( $str, $sharing_statuses)) {
+            return $str;
+        } else {
+            return 'not_activated';
+        }
+    }
 
 	/**
 	 * Calculate Total time in raw format

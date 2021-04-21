@@ -25,7 +25,8 @@
   user-select: all;
   /* Chrome and Opera */
 }
-.zrdn-recipes .column-details {
+.zrdn-recipes .column-details,
+.zrdn-recipes .column-sharing_status {
   padding-top: 19px;
 }
 .zrdn-recipes .zrdn-badge {
@@ -35,6 +36,22 @@
 }
 .zrdn-recipes .zrdn-badge.popular {
   background-color: #61ce70;
+}
+.zrdn-recipes .zrdn-badge.ready {
+  background-color: #61ce70;
+}
+.zrdn-recipes .zrdn-badge.needs_improvement {
+  background-color: #f4bf3e;
+}
+.zrdn-recipes .zrdn-badge.waiting_approval {
+  background-color: #225cffbf;
+}
+.zrdn-recipes .zrdn-badge.approved {
+  background-color: #61ce70;
+}
+.zrdn-recipes .zrdn-badge.declined,
+.zrdn-recipes .zrdn-badge.not_activated {
+  background-color: #d7263d;
 }
 .zrdn-recipes .zrdn-badge.demo {
   background-color: #29b6f6;

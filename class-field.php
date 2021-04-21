@@ -130,6 +130,9 @@ if (!class_exists("ZRDN_Field")) {
                 case 'checkbox':
                     if ($value === 'false') $value = false;
                     return $value==true ? true : false;
+                case 'normal-checkbox':
+                    if ($value === 'false') $value = false;
+                    return $value==true ? true : false;
                 case 'colorpicker':
                     //sanitize_hex_color does not work here because we use RGBA for transparent options
 	                return sanitize_text_field($value);
@@ -228,7 +231,19 @@ if (!class_exists("ZRDN_Field")) {
         public
         function after_field($args)
         {
+            if (array_key_exists('missing_value', $args) && $args['missing_value'] && use_rdb_api()) {
 
+                echo sprintf(__("%s is required for monetizing this recipe.", 'zip-recipes'),'<p class="zrdn-missing-value-warning">'. $args['label'],'</p>');
+                
+            }
+
+
+            if (array_key_exists('url-text', $args) && array_key_exists('url', $args)) {
+                echo '</br>';
+                echo "<a href='" . $args['url'] . "'>";
+                echo $args['url-text'];
+                echo "</a>";
+            }
 
             if ($args['table']) {
 	            $this->get_comment($args);
@@ -239,7 +254,6 @@ if (!class_exists("ZRDN_Field")) {
                 echo '</div><div class="zrdn-clear"></div>';
             }
         }
-
 
         public
         function text($args)
@@ -305,15 +319,21 @@ if (!class_exists("ZRDN_Field")) {
         public
         function hidden($args)
         {
+
             $fieldname = 'zrdn_' . $args['fieldname'];
-            $value = $args['value'];
+
+            $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
             ?>
 
-            <input
-                    class="validation zrdn-field-input "
-                    type="hidden"
-                    value="<?php echo esc_html($value) ?>"
-                    name="<?php echo esc_html($fieldname) ?>">
+            <?php do_action('zrdn_before_label', $args); ?>
+            <?php do_action('zrdn_after_label', $args); ?>
+            <input <?php if ($args['required']) echo 'required'; ?>
+                class="validation zrdn-field-input <?php if ($args['required']) echo 'is-required'; ?>"
+                placeholder="<?php echo esc_html($args['placeholder']) ?>"
+                type="hidden"
+                value="<?php echo esc_html($value) ?>"
+                name="<?php echo esc_html($fieldname) ?>">
+            <?php do_action('zrdn_after_field', $args); ?>
             <?php
         }
 
@@ -460,6 +480,34 @@ if (!class_exists("ZRDN_Field")) {
                        class="<?php if ($args['required']) echo 'is-required'; ?>"
                        value="1" <?php echo $checked ?> />
                 <span class="zrdn-slider zrdn-round"></span>
+            </label>
+
+            <?php do_action('zrdn_after_field', $args); ?>
+            <?php
+        }
+
+        public
+        function normal_checkbox($args)
+        {
+            $fieldname = 'zrdn_' . $args['fieldname'];
+            $value = apply_filters('zrdn_load_field_value', $args['value'], $args['fieldname']);
+
+            $placeholder_value = ($args['disabled'] && $value) ? $value : 0;
+            $checked = $value ? "checked" : '';
+            ?>
+            <?php do_action('zrdn_before_label', $args); ?>
+
+            <label for="<?php echo esc_html($fieldname) ?>-label"><?php echo $args['label'] ?><?php echo $this->get_help_tip_btn($args);?></label>
+
+            <?php do_action('zrdn_after_label', $args); ?>
+
+            <label class="zrdn-checkbox">
+                <input name="<?php echo esc_html($fieldname) ?>" type="hidden" value="<?php echo $placeholder_value?>"/>
+
+                <input name="<?php echo esc_html($fieldname) ?>" size="40" type="checkbox"
+                    <?php if ($args['disabled']) echo 'disabled'; ?>
+                       class="<?php if ($args['required']) echo 'is-required'; ?>"
+                       value="1" <?php echo $checked ?> />
             </label>
 
             <?php do_action('zrdn_after_field', $args); ?>
@@ -646,6 +694,9 @@ if (!class_exists("ZRDN_Field")) {
                 case 'checkbox':
                     $this->checkbox($args);
                     break;
+                case 'normal-checkbox':
+                    $this->normal_checkbox($args);
+                    break; 
                 case 'textarea':
                     $this->textarea($args);
                     break;
@@ -678,6 +729,9 @@ if (!class_exists("ZRDN_Field")) {
                     break;
                 case 'label':
                     $this->label($args);
+                    break;
+                case 'title':
+                    $this->title($args);
                     break;
                 default:
                     $this->text($args);
@@ -747,7 +801,22 @@ if (!class_exists("ZRDN_Field")) {
 
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
-            <label for="<?php echo esc_html($fieldname) ?>"><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <label for="<?php echo esc_html($fieldname) ?>"><?php echo ($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
+            <?php do_action('zrdn_after_label', $args); ?>
+
+            <?php do_action('zrdn_after_field', $args); ?>
+            <?php
+        }
+
+        public
+        function title($args)
+        {
+
+            $fieldname = 'zrdn_' . $args['fieldname'];
+
+            ?>
+            <?php do_action('zrdn_before_label', $args); ?>
+            <h5 class="<?php echo esc_html($fieldname) ?>"><?php echo ($args['title']) ?><?php echo $this->get_help_tip_btn($args);?></h5>
             <?php do_action('zrdn_after_label', $args); ?>
 
             <?php do_action('zrdn_after_field', $args); ?>

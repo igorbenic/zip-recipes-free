@@ -13,6 +13,7 @@ class ZipRecipes {
 
     public static $suffix = '';
     public static $field;
+    public static $recipe_sharing;
     public static $authors;
 	public static $addons_lover = array(
 		'Authors',
@@ -36,6 +37,7 @@ class ZipRecipes {
     {
         if (is_admin()) {
             self::$field = new ZRDN_Field();
+            self::$recipe_sharing = new ZRDN_recipe_sharing_admin();
         }
         self::$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 	    add_action('zrdn_tab_content', __NAMESPACE__ . '\ZipRecipes::extensions_tab');

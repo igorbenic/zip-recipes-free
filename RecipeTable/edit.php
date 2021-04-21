@@ -154,6 +154,7 @@ if (isset($_GET['post_id'])) {
                             'thumbnail_id'          => $recipe->recipe_image_id,
                             'label'                 => __( "Recipe image",
                                 'zip-recipes' ),
+                            'missing_value' => $recipe->missing_sharing_values['recipe_image_id'],
                         ),
                         array(
                             'type' => 'text',
@@ -161,6 +162,7 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->recipe_title,
                             'label' => __("Title", 'zip-recipes'),
                             'placeholder' => __('My recipe','zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['recipe_title'],
                         ),
 
                         array(
@@ -168,12 +170,16 @@ if (isset($_GET['post_id'])) {
                             'fieldname' => 'prep_time',
                             'value' => $recipe->prep_time,
                             'label' => __("Prep time", 'zip-recipes'),
+                            'help' => __("We recommend specifying the prep time. It is more likely your recipe will be selected for monetization.", 'zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['prep_time'],
                         ),
                         array(
                             'type' => 'time',
                             'fieldname' => 'cook_time',
                             'value' => $recipe->cook_time,
                             'label' => __("Cook time", 'zip-recipes'),
+                            'help' => __("We recommend specifying the cook time. It is more likely your recipe will be selected for monetization.", 'zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['cook_time'],
                         ),
 
 	                    array(
@@ -181,6 +187,7 @@ if (isset($_GET['post_id'])) {
 		                    'fieldname' => 'wait_time',
 		                    'value' => $recipe->wait_time,
 		                    'label' => __("Wait time", 'zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['wait_time'],
 	                    ),
 
                         array(
@@ -189,6 +196,7 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->serving_size,
                             'label' => __("Serving size", 'zip-recipes'),
                             'placeholder' => __('1 slice','zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['serving_size'],
                         ),
 
                         array(
@@ -198,6 +206,7 @@ if (isset($_GET['post_id'])) {
                             'label' => __("Servings", 'zip-recipes'),
                             'placeholder' => __('4 persons','zip-recipes'),
                             'help' => __("How many people this recipe serves", 'zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['yield'],
 
                         ),
 
@@ -208,6 +217,7 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->ingredients,
                             'label' => __("Ingredients", 'zip-recipes'),
                             'comment' =>sprintf(__("Put each item on a separate line. There is no need to use bullets for your ingredients. You can also create labels, [hyperlinks|domain.com], *bold*, _italic_ effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
+                            'missing_value' => $recipe->missing_sharing_values['ingredients'],
                         ),
                         array(
                             'type' => 'textarea',
@@ -215,6 +225,7 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->instructions,
                             'label' => __("Instructions", 'zip-recipes'),
                             'comment' =>sprintf(__("Put each item on a separate line. There is no need to use bullets for your instructions. You can also create labels, [hyperlinks|domain.com], *bold*, _italic_ effects and even add images! %sRead more%s", 'zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/knowledge-base/formatting/">','</a>'),
+                            'missing_value' => $recipe->missing_sharing_values['instructions'],
                         ),
 
                         array(
@@ -390,7 +401,7 @@ if (isset($_GET['post_id'])) {
                             'fieldname' => 'nutrition_label',
                             'value' => $recipe->nutrition_label,
                             //'label' => __("Nutrition label", 'zip-recipes'),
-                        )
+                        ),
                     );
 
                     $nutrition_fields = apply_filters('zrdn_edit_nutrition_fields', $nutrition_fields, $recipe);
@@ -416,6 +427,7 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->json_image_1x1,
                             'thumbnail_id' => $recipe->json_image_1x1_id,
                             'label' => __("1x1 snippet image", 'zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['json_image_1x1'],
                         ),
                         array(
                             'type' => 'upload',
@@ -425,6 +437,7 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->json_image_4x3,
                             'thumbnail_id' => $recipe->json_image_4x3_id,
                             'label' => __("4x3 snippet image", 'zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['json_image_4x3'],
                         ),
                         array(
                             'type' => 'upload',
@@ -434,6 +447,7 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->json_image_16x9,
                             'thumbnail_id' => $recipe->json_image_16x9_id,
                             'label' => __("16x9 snippet image", 'zip-recipes'),
+                            'missing_value' => $recipe->missing_sharing_values['json_image_16x9'],
                         ),
                     );
 
@@ -454,6 +468,18 @@ if (isset($_GET['post_id'])) {
                             'label' => __("Mark recipe as non food", 'zip-recipes'),
                         ),
                     );
+
+                    if(use_rdb_api()){
+                        $add_misc_field = array(
+                                array(
+                                'type' => 'checkbox',
+                                'fieldname' => 'share_this_recipe',
+                                'value' => $recipe->share_this_recipe,
+                                'label' => __("Monetize this recipe", 'zip-recipes'),
+                            ),
+                        );
+                        $misc_fields = array_merge($misc_fields, $add_misc_field);
+                    }
 
                     $misc_fields = apply_filters('zrdn_edit_misc_fields', $misc_fields, $recipe);
                     foreach ($misc_fields as $field_args) {

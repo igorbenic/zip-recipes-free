@@ -190,6 +190,62 @@ function zrdn_unlink_recipe(){
     exit;
 }
 
+add_action('wp_ajax_zrdn_monetize_recipe', __NAMESPACE__ . '\zrdn_monetize_recipe');
+function zrdn_monetize_recipe(){
+    $error = false;
+
+    if (!current_user_can('edit_posts')) {
+        $error = true;
+    }
+
+    if (!wp_verify_nonce($_POST['nonce'],'zrdn_delete_recipe')) {
+        $error = true;
+    }
+
+    if (!$error && isset($_POST['recipe_id'])) {
+        //remove recipe shortcode from post with regex
+        $recipe_id = intval($_POST['recipe_id']);
+        $recipe = new Recipe($recipe_id);
+        $recipe->share_this_recipe = true;
+        $recipe->save();
+    }
+
+    $response = json_encode(array(
+        'success' => !$error,
+    ));
+    header("Content-Type: application/json");
+    echo $response;
+    exit;
+}
+
+add_action('wp_ajax_zrdn_demonetize_recipe', __NAMESPACE__ . '\zrdn_demonetize_recipe');
+function zrdn_demonetize_recipe(){
+    $error = false;
+
+    if (!current_user_can('edit_posts')) {
+        $error = true;
+    }
+
+    if (!wp_verify_nonce($_POST['nonce'],'zrdn_delete_recipe')) {
+        $error = true;
+    }
+
+    if (!$error && isset($_POST['recipe_id'])) {
+        //remove recipe shortcode from post with regex
+        $recipe_id = intval($_POST['recipe_id']);
+        $recipe = new Recipe($recipe_id);
+        $recipe->share_this_recipe = false;
+        $recipe->save();
+    }
+
+    $response = json_encode(array(
+        'success' => !$error,
+    ));
+    header("Content-Type: application/json");
+    echo $response;
+    exit;
+}
+
 add_action('wp_ajax_zrdn_get_embed_code', __NAMESPACE__.'\zrdn_get_embed_code');
 function zrdn_get_embed_code(){
 
@@ -440,9 +496,17 @@ function zrdn_recipe_overview(){
                         }),
                         success: function (response) {
                             if (response.success) {
-                                if (action==='unlink'){
+                                if ( action === 'unlink'){
                                     btn.closest('tr').find('.delete a').show();
                                     btn.closest('tr').find('.unlink a').hide();
+                                } else if ( action === 'monetize' ) {
+                                    btn.closest('tr').find('.column-sharing_status .zrdn-badge').hide();
+                                    btn.closest('tr').find('.column-sharing_status .waiting_approval').show();
+                                    btn.closest('tr').find('.monetize a').hide();
+                                } else if ( action === 'demonetize' ) {
+                                    btn.closest('tr').find('.column-sharing_status .zrdn-badge').hide();
+                                    btn.closest('tr').find('.column-sharing_status .not_activated').show();
+                                    btn.closest('tr').find('.demonetize a').hide();
                                 } else {
                                     btn.closest('tr').remove();
                                 }
@@ -464,7 +528,12 @@ function zrdn_recipe_overview(){
                         <h1><?php _e("My Recipes", "zip-recipes")?></h1>
                     </div>
                     <div class="zrdn-recipes-overview-intro">
-                        <p><?php _e("Here you can find an overview of your recipes. You can add them to a post or page by copying the shortcode (classic editor) or using the Gutenberg block.", "zip-recipes")?></p>
+                        <p>
+                            <?php _e("Here you can find an overview of your recipes. You can add them to a post or page by copying the shortcode (classic editor) or using the Gutenberg block.", "zip-recipes")?>
+                        </p>
+                        <p>
+                            <?php printf(__("Are you interested in monetizing your recipes? Please read %sthis article%s about monetizing with ZIP Recipes in just 5 minutes.", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/monetizing-recipes">', '</a>'); ?>
+                        </p>
                     </div>
                 </div>
                 <a href="<?php echo admin_url('admin.php?page=zrdn-recipes&action=new');?>" class="zrdn-add-recipe button button-primary"><?php _e('Add recipe', 'zip-recipes') ?></a>

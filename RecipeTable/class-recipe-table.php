@@ -146,6 +146,89 @@ class Recipe_Table extends \WP_List_Table {
     }
 
     /**
+     * Output the checkbox column
+     *
+     * @access      private
+     * @since       7.1.2
+     * @return      void
+     */
+
+    function column_cb( $recipe ) {
+
+        return sprintf(
+            '<input type="checkbox" name="%1$s_id[]" value="%2$s" />',
+            esc_attr( $this->_args['singular'] ),
+            esc_attr( $recipe->recipe_id )
+        );
+
+    }
+
+        /**
+     * Setup available bulk actions
+     *
+     * @access      private
+     * @since       7.1.2
+     * @return      array
+     */
+
+    function get_bulk_actions() {
+
+        $actions = array(
+            'delete'     => __( 'Delete', 'zip-recipes' ),
+            'enable-monetization'     => __( 'Enable monetization', 'zip-recipes' ),
+            'disable-monetization'     => __( 'Disable monetization', 'zip-recipes' ),
+        );
+
+        return $actions;
+
+    }
+
+    /**
+     * Process bulk actions
+     *
+     * @access      private
+     * @since       7.1.2
+     * @return      void
+     */
+    function process_bulk_action() {
+        if (!current_user_can('edit_posts')) return false;
+
+        if( !isset($_GET['_wpnonce']) || ! wp_verify_nonce( $_GET['_wpnonce'] , 'bulk-' . $this->_args['plural'] ) ) {
+            return;
+        }
+        
+        $ids = isset( $_GET['recipe_id'] ) ? $_GET['recipe_id'] : false;
+
+        if( ! $ids ) {
+            return;
+        }
+
+        if ( ! is_array( $ids ) ) {
+            $ids = array( $ids );
+        }
+
+        foreach ( $ids as $id ) {
+            if ( 'delete' === $this->current_action() ) {
+                $recipe = new Recipe(intval($id));
+                $recipe->delete();
+            }
+            if ( 'enable-monetization' === $this->current_action() ) {
+                $recipe = new Recipe(intval($id));
+                $recipe->share_this_recipe = true;
+                $recipe->save();
+            }
+            if ( 'disable-monetization' === $this->current_action() ) {
+                $recipe = new Recipe(intval($id));
+                $recipe->share_this_recipe = false;
+                $recipe->save();
+            }
+
+        }
+
+
+    }
+
+    /**
      * This function renders most of the columns in the list table.
      *
      * @since 1.5
@@ -187,6 +270,11 @@ class Recipe_Table extends \WP_List_Table {
         } else {
             $actions['delete'] = '<a class="zrdn-recipe-action" data-action="delete"  data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Delete', 'zip-recipes') . '</a>';
 
+        }
+        if ($recipe->share_this_recipe == true && use_rdb_api() && get_option('zrdn_demo_recipe_id') !== $recipe->recipe_id ){
+             $actions['demonetize'] = '<a class="zrdn-recipe-action" data-action="demonetize"  data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Disable monetization', 'zip-recipes') . '</a>';
+        } elseif ($recipe->share_this_recipe == false && use_rdb_api() && get_option('zrdn_demo_recipe_id') !== $recipe->recipe_id ) {
+            $actions['monetize'] = '<a class="zrdn-recipe-action" data-action="monetize"  data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Enable monetization', 'zip-recipes') . '</a>';
         }
 
         return $name  . $this->row_actions( $actions );
@@ -268,6 +356,73 @@ class Recipe_Table extends \WP_List_Table {
 	}
 
     /**
+     * Show the number of views in the column
+     * @param $recipe
+     *
+     * @return mixed
+     */
+    public function column_sharing_status( $recipe ) {
+        if (!display_recipe_sharing_functionality()) return;
+        $zip_sharing_status = $recipe->zip_sharing_status;
+        $edamam_sharing_status = $recipe->edamam_sharing_status;
+        $sharing_status = $edamam_sharing_status ? $edamam_sharing_status : $zip_sharing_status;
+
+        if (get_option('zrdn_demo_recipe_id') === $recipe->recipe_id ) {
+            return '';
+        }
+
+        if (!$recipe->share_this_recipe || !use_rdb_api()) {
+            $sharing_status = 'not_activated';
+        }
+
+        $missing_values = array_filter($recipe->missing_sharing_values);
+
+        $titles = array(
+            'not_activated' => __("Disabled", "zip-recipes"),
+            'needs_improvement' => __("Needs improvement", "zip-recipes"),
+            'waiting_approval' => __("Pending review", "zip-recipes"),
+            'approved' => __("Approved", "zip-recipes"),
+            'declined' => __("Rejected", "zip-recipes"),
+        );
+
+        if ( ! empty( $sharing_status ) ) {
+	        $missing_values_names = array(
+		        'recipe_title' => __("Title", 'zip-recipes'),
+		        'prep_time' => __("Prep time", 'zip-recipes'),
+		        'cook_time' => __("Cook time", 'zip-recipes'),
+		        'wait_time' => __("Wait time", 'zip-recipes'),
+		        'yield' => __("Serving size", 'zip-recipes'),
+		        'serving_size' => __("Servings", 'zip-recipes'),
+		        'ingredients' => __("Ingredients", 'zip-recipes'),
+		        'instructions' => __("Instructions", 'zip-recipes'),
+		        'recipe_image_id' => __("Recipe image", 'zip-recipes'),
+	        );
+
+	        $missing_values_result = array();
+	        foreach( $missing_values_names as $key => $string ) {
+		        if (array_key_exists( $key, $missing_values) ){
+			        $missing_values_result[] = $string;
+		        }
+	        }
+            ob_start();
+            echo '<span class="zrdn-badge '.$sharing_status.'">'.$titles[$sharing_status].'</span>';
+
+            if ( $sharing_status == 'needs_improvement' ) {
+                $missing = sprintf(__('The following fields need your attention: %s', 'zip-recipes'), implode( ', ', $missing_values_result ) );
+                echo '<span class="zrdn-tooltip-top tooltip-right" data-zrdn-tooltip="'.
+                        $missing.
+                     '"><span class="zrdn-tooltip-icon dashicons dashicons-editor-help"></span>
+                    </span>';
+            }
+            // add hidden fields for disabling and enabling monetization
+            echo '<span style="display: none;" class="zrdn-badge not_activated">'.$titles['not_activated'].'</span>';
+            echo '<span style="display: none;" class="zrdn-badge waiting_approval">'.$titles['waiting_approval'].'</span>';
+            return ob_get_clean();
+        }
+
+    }
+
+    /**
      * Retrieve the table columns
      *
      * @since 1.5
@@ -275,18 +430,19 @@ class Recipe_Table extends \WP_List_Table {
      */
     public function get_columns() {
         $columns = array(
-            'ID'          => __( 'ID', 'zip-recipes'),
-            'name'          => __( 'Name', 'zip-recipes'),
-            'category'          => __( 'Category', 'zip-recipes'),
-            'views'          => __( 'Views', 'zip-recipes'),
-            'cuisine'          => __( 'Cuisine', 'zip-recipes'),
-            'author'          => __( 'Author', 'zip-recipes'),
-            'shortcode'          => __( 'Shortcode', 'zip-recipes'),
-            'details'          => '',
+	        'cb'             => '<input type="checkbox"/>',
+	        'ID'             => __( 'ID', 'zip-recipes' ),
+	        'name'           => __( 'Name', 'zip-recipes' ),
+	        'category'       => __( 'Category', 'zip-recipes' ),
+	        'views'          => __( 'Views', 'zip-recipes' ),
+	        'cuisine'        => __( 'Cuisine', 'zip-recipes' ),
+	        'author'         => __( 'Author', 'zip-recipes' ),
+	        'shortcode'      => __( 'Shortcode', 'zip-recipes' ),
+	        'sharing_status' => __( 'Monetization', 'zip-recipes' ),
+	        'details'        => '',
         );
 
         return apply_filters( 'zrdn_recipe_columns', $columns );
-
     }
 
     /**
@@ -297,23 +453,15 @@ class Recipe_Table extends \WP_List_Table {
      */
     public function get_sortable_columns() {
         $columns = array(
-            'ID'          => array( 'recipe_id', true ),
-            'name'          => array( 'recipe_title', true ),
-            'views'          => array( 'hits', true ),
+	        'ID'             => array( 'recipe_id', true ),
+	        'name'           => array( 'recipe_title', true ),
+	        'views'          => array( 'hits', true ),
+	        'sharing_status' => array( 'zip_sharing_status', true ),
         );
 
         return $columns;
     }
 
-    /**
-     * Outputs the reporting views
-     *
-     * @since 1.5
-     * @return void
-     */
-    public function bulk_actions( $which = '' ) {
-        // These aren't really bulk actions but this outputs the markup in the right place
-    }
 
     /**
      * Retrieve the current page number
@@ -422,6 +570,9 @@ class Recipe_Table extends \WP_List_Table {
         $columns  = $this->get_columns();
         $hidden   = array(); // No hidden columns
         $sortable = $this->get_sortable_columns();
+
+        wp_create_nonce( 'zrdn_process_bulk_actions' );
+        $this->process_bulk_action();
 
         $this->_column_headers = array( $columns, $hidden, $sortable );
 

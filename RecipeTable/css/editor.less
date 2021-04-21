@@ -493,3 +493,24 @@ textarea {
     height: 9.5rem;
   }
 }
+
+//missing values styles
+.zrdn-missing-value-warning{
+  padding: 0.3rem;
+  background: rgba(248, 190, 46, 0.15);
+  border-radius: 5px;
+
+  &:before{
+    display: inline-block;
+    content: '!';
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.1rem;
+    -webkit-border-radius: 1rem;
+    border-radius: 1rem;
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.5rem;
+    background-color: @color-rsssl;
+  }
+}

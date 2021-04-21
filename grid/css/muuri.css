@@ -7,6 +7,9 @@
   position: absolute;
   height: 500px;
   z-index: 1;
+  /*
+            Add NEW Button
+         */
 }
 .zrdn-grid .zrdn-item.small {
   width: 400px;
@@ -70,7 +73,14 @@
   border-style: dashed;
   padding: 0;
 }
+.zrdn-grid .zrdn-item .new-badge {
+  background: #ca4a1f;
+  border-radius: 13px;
+  margin-left: 5px;
+  padding: 4px 8px;
+  color: #fff;
+  font-size: 0.8em;
+}
 .zrdn-grid .upsell-grid-container .item-container {
   box-shadow: none;
 }
-/*# sourceMappingURL=muuri.css.map */
