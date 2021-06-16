@@ -768,7 +768,7 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
             _e("How it works: ", 'zip-recipes'); ?>
             <p>
             <ul>
-                <li><?php _e('ZIP will share you recipes for non-public and offline publications.', 'zip-recipes'); ?></li>
+                <li><?php _e('ZIP will share your recipes for non-public and offline publications.', 'zip-recipes'); ?></li>
                 <li><?php _e('Earn 1 dollar per month for every recipe shared', 'zip-recipes'); ?></li>
                 <li><?php _e("You can always add, edit or remove recipes. You own your recipes. Always.", "zip-recipes") ?></li>
                 <li><?php _e("With the 1-minute set-up you can generate more income with ease.", "zip-recipes") ?></li>

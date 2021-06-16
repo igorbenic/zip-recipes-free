@@ -649,7 +649,11 @@ class Recipe {
         }
 
         if ( strlen($this->video_url) ) {
-	        $this->video_url_output = ( strpos( $this->video_url, '_value' ) !== false ) ? $this->video_url : wp_oembed_get( $this->video_url );
+	        //skip when on recipe overview page
+	        if ( !Util::is_recipe_overview_page() ) {
+		        $this->video_url_output = ( strpos( $this->video_url, '_value' ) !== false ) ? $this->video_url : wp_oembed_get( $this->video_url );
+
+	        }
         }
 	    $this->formatted_notes = $this->richify_item($this->zrdn_format_image($this->notes), 'notes');
 	    $this->summary_rich =  $this->richify_item($this->zrdn_format_image($this->summary), 'summary');
@@ -1267,6 +1271,11 @@ class Recipe {
 
 	public function jsonld()
 	{
+		//skip when on recipe overview page
+		if ( Util::is_recipe_overview_page() ) {
+			return array();
+		}
+
 		//if it's not a food item, return empty
 		if ($this->non_food) return array();
 

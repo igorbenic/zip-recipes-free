@@ -510,6 +510,19 @@ class Util {
     }
 
 	/**
+     * Check if we're on the recipes overview page.
+	 * @return bool
+	 */
+    public static function is_recipe_overview_page(){
+	    if (!isset($_GET['id']) && isset($_GET['page']) && $_GET['page'] === 'zrdn-recipes') {
+	        return true;
+        } else {
+	        return false;
+	    }
+    }
+
+
+	/**
 	 * Wrapper function to return a list of authors
 	 * @return array
 	 */
@@ -1056,7 +1069,7 @@ class Util {
                 'label'     => __('How it works:', 'zip-recipes'),
                 'checklist' => array(
                                 1 => array(
-                                    'text' => __('ZIP will share you recipes for non-public and offline publications.'),
+                                    'text' => __('ZIP will share your recipes for non-public and offline publications.'),
                                 ),
                                 2 => array(
                                     'text' => __('Earn 1 dollar per month for every recipe shared.'),
