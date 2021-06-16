@@ -288,12 +288,85 @@ Tabs
   border-color: #f8be2e;
 }
 /**grid */
+#zrdn-dashboard .zrdn-missing-value-warning:before {
+  display: inline-block;
+  content: '!';
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.1rem;
+  -webkit-border-radius: 1rem;
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  margin-right: 0.5rem;
+  background-color: #f8be2e;
+}
+#zrdn-dashboard .monetize-recipes .zrdn-label {
+  margin: 4px 0;
+}
+#zrdn-dashboard .item-container .field-group.zrdn-title {
+  padding: 0px 23px;
+}
+#zrdn-dashboard .item-container .field-group.zrdn-title .zrdn-label {
+  margin-bottom: 0;
+}
+#zrdn-dashboard .item-container .field-group.zrdn-email {
+  margin-bottom: 0;
+  padding: 0 23px;
+}
+#zrdn-dashboard .zrdn_recipe_selling_title {
+  margin: 0;
+  font-size: 0.87rem;
+}
+#zrdn-dashboard .zrdn-normal-checkbox {
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+  width: calc(100% - 23px);
+}
+#zrdn-dashboard .zrdn-normal-checkbox .zrdn-label {
+  width: 90%;
+}
+#zrdn-dashboard .zrdn-explanation-text {
+  font-size: 12px;
+  margin: 0;
+  font-weight: 300;
+}
+#zrdn-dashboard .field-group.explanation-checklist {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+#zrdn-dashboard .zrdn-explanation-checklist {
+  font-size: 12px;
+  margin: 0;
+  margin-top: 10px;
+  font-weight: 300;
+}
+#zrdn-dashboard .zrdn-explanation-checklist li {
+  display: flex;
+  margin-bottom: 4px;
+}
+#zrdn-dashboard .zrdn-explanation-checklist li p {
+  margin: 0;
+}
+#zrdn-dashboard .zrdn-explanation-checklist li:before {
+  display: inline-block;
+  content: '';
+  background-image: url('../../admin/img/check-solid.svg');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  height: 14px;
+  width: 30px;
+}
 #zrdn-dashboard .zrdn-grid .zrdn-item .item-container .item-content {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
 #zrdn-dashboard .zrdn-save-button {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
   width: 690px;
   position: absolute;
   bottom: 0;

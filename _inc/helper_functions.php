@@ -1,6 +1,77 @@
 <?php
 namespace ZRDN;
+if ( ! function_exists( __NAMESPACE__ . '\zrdn_is_rdb_api_allowed_country' ) ) {
 
+	/**
+	 * Check if this website uses a locale that can share the recipes
+	 * @return bool
+	 */
+	function zrdn_is_rdb_api_allowed_country() {
+
+		$allowed = false;
+		$confirmed_locales = array(
+			"en_AS" => "English (American Samoa)",
+			"en_AU" => "English (Australia)",
+			"en_BE" => "English (Belgium)",
+			"en_BZ" => "English (Belize)",
+			"en_BW" => "English (Botswana)",
+			"en_CA" => "English (Canada)",
+			"en_GU" => "English (Guam)",
+			"en_HK" => "English (Hong Kong SAR China)",
+			"en_IN" => "English (India)",
+			"en_IE" => "English (Ireland)",
+			"en_IL" => "English (Israel)",
+			"en_JM" => "English (Jamaica)",
+			"en_MT" => "English (Malta)",
+			"en_MH" => "English (Marshall Islands)",
+			"en_MU" => "English (Mauritius)",
+			"en_NA" => "English (Namibia)",
+			"en_NZ" => "English (New Zealand)",
+			"en_MP" => "English (Northern Mariana Islands)",
+			"en_PK" => "English (Pakistan)",
+			"en_PH" => "English (Philippines)",
+			"en_SG" => "English (Singapore)",
+			"en_ZA" => "English (South Africa)",
+			"en_TT" => "English (Trinidad and Tobago)",
+			"en_UM" => "English (U.S. Minor Outlying Islands)",
+			"en_VI" => "English (U.S. Virgin Islands)",
+			"en_GB" => "English (United Kingdom)",
+			"en_US" => "English (United States)",
+			"en_ZW" => "English (Zimbabwe)",
+			"en" 	=> "English",
+		);
+
+		$current_locale = get_locale();
+
+		if (array_key_exists( $current_locale, $confirmed_locales ) ) $allowed = true;
+
+		return $allowed;
+	}
+}
+
+if ( ! function_exists( __NAMESPACE__ . '\zrdn_use_rdb_api' ) ) {
+
+	/**
+	 * Check if this website is allowed to share recipes
+	 *
+	 * @return bool
+	 */
+	function zrdn_use_rdb_api() {
+		if (!zrdn_is_rdb_api_allowed_country()) {
+			return false;
+		}
+		$use_rdb_api = false;
+		$terms_and_conditions = Util::get_option('recipe_selling_terms_and_conditions') == true ? true : false;
+		$copyright = Util::get_option('recipe_selling_copyright') == true ? true : false;
+		$contact_email = is_email( Util::get_option('recipe_selling_contact_email')) ? true : false;
+
+		if ($terms_and_conditions && $copyright && $contact_email) {
+			$use_rdb_api = true;
+		}
+
+		return $use_rdb_api;
+	}
+}
 /**
  * Show a notice with some info
  * @param string $msg

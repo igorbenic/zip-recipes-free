@@ -8,7 +8,10 @@
     margin: @default-margin;
   }
 }
-html{scroll-behavior:smooth}
+
+//focus-within fixes a chrome bug that slows down scrolling
+//https://css-tricks.com/fixing-smooth-scrolling-with-find-on-page/
+html:focus-within{scroll-behavior:smooth}
 
 #zrdn-recipe-container {
   /* styling with zrdn markup */

@@ -2,8 +2,6 @@
 namespace ZRDN;
 defined( 'ABSPATH' ) or die( "you do not have acces to this page!" );
 
-
-
 if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 
 	class ZRDN_recipe_sharing_admin {
@@ -16,28 +14,26 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 			}
 
 			self::$_this = $this;
-
-			add_action('admin_init', array($this, 'update_user' ));
-			add_action('admin_init', array($this, 'check_if_sharing_form_was_updated' ));
+			add_action('zrdn_update_option', array($this, 'maybe_enable_recipe_sharing' ), 10,4);
+			add_action('admin_init', array($this, 'generate_recipe_sharing_api_key'));
 			add_action('admin_init', array($this, 'check_if_sync_should_run'));
 			add_action('admin_init', array($this, 'check_if_validation_should_run'));
-			
+            add_filter("zrdn_tabs", array($this, 'add_recipe_sharing_tab'), 11, 2);
+            add_action('wp_ajax_zrdn_dismiss_sharing_notice', array($this, 'dismiss_sharing_notice'));
+            add_action("admin_notices", array($this, 'show_notice_sharing'));
 		}
 
 		static function this() {
 			return self::$_this;
 		}
 
-
 		//chunked, progress
 		public function daily_sync(){
 			if ( ! wp_doing_cron() && ! current_user_can( 'manage_options' )) {
-				error_log('No permissions');
 				return false;
 			}
 			
-			if ( ! use_rdb_api() ) {
-				error_log('No RDB API used');
+			if ( ! zrdn_use_rdb_api() ) {
 				return false;
 			} else {
 				update_option( 'zrdn_sync_started', true);
@@ -124,6 +120,9 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 					if (is_numeric($serving_size)) {
 						$data[ $language ][$index]->serving_size = $serving_size . ' portion';
 					}
+
+					// add post URL where the recipe is located
+					$data[ $language ][$index]->recipe_url = intval($recipe->post_id) ? get_permalink($recipe->post_id) : false;
 					
 					//$c = new Recipe( $recipe->recipe_id, $language );
 					
@@ -240,11 +239,13 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 		 */
 
 		public function check_if_validation_should_run(){
+			if (!zrdn_use_rdb_api()) return;
+
 			// update_option( 'zrdn_validation_completed', false );
 			if ( get_option( 'zrdn_validation_completed') !== true)  {
 				$offset = get_option('zrdn_validate_recipes_offset', 0);
 
-				//get most populare recipes
+				//get most popular recipes
 				$args = array(
 					'order_by' => 'desc',
 					'order' => 'DESC',
@@ -270,16 +271,15 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 		/** 
 		 * Function for checking if a recipe is ready for sharing with the recipe database.
 		 * 
-		 * @param bool $count
+		 * @param int $recipe_id
+		 * @param int $post_id
 		 *
 		 * @return int|array
 		 */
 
 		public function validate_recipe($recipe_id, $post_id){
-
 			$recipe = new Recipe($recipe_id, $post_id);
 			$recipe->save();
-
 		}
 
 
@@ -348,7 +348,7 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 		public function revoke_all_recipes_from_sharing(){
 			$api_key = $this->get_api_key();
 			// recipe_selling should be turned off
-			if (use_rdb_api()) return;
+			if (zrdn_use_rdb_api()) return;
 		
 			// API key should be set
 			if (!isset($api_key)) return;
@@ -499,13 +499,65 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 			return false;
 		}
 
+		/**
+		 * Get the api key
+		 * @return string|bool
+		 */
 		public function get_api_key(){
-
-			$api_key = !empty(Util::get_option('rdb_api_key')) ? Util::get_option('rdb_api_key') : false;
-			return $api_key;
+			return !empty(Util::get_option('rdb_api_key')) ? Util::get_option('rdb_api_key') : false;
 		}
 
-		public function update_user(){
+
+        /**
+		 *
+		 * @return bool
+		 */
+		public function sharing_active(){
+			return !empty($this->get_api_key()) && get_option('zrdn_enable_recipe_selling');
+		}
+
+        /**
+         * Check if the sharing settings were changed.
+         *
+         * @param $new_value
+         * @param $old_value
+         * @param $fieldname
+         * @param $source
+         *
+         * @return mixed
+         */
+        public function maybe_enable_recipe_sharing($new_value, $old_value, $fieldname, $source) {
+            if ( !current_user_can('manage_options')) {
+                return $new_value;
+            }
+
+            if ( $new_value === $old_value ) {
+                return $new_value;
+            }
+
+            if ( $fieldname === 'recipe_selling_terms_and_conditions'
+                || $fieldname === 'recipe_selling_copyright'
+                || $fieldname === 'recipe_selling_contact_email'
+                || $fieldname === 'recipe_selling_paypal_email'
+            ) {
+                update_option( 'zrdn_recipe_selling_updated', true );
+
+                if (
+                    boolval( $_POST['zrdn_recipe_selling_terms_and_conditions'] )
+                    && boolval( $_POST['zrdn_recipe_selling_copyright'] )
+                    && is_email( $_POST['zrdn_recipe_selling_contact_email'] )
+                ) {
+                    update_option( 'zrdn_enable_recipe_selling', true );
+                } else {
+                    update_option( 'zrdn_enable_recipe_selling', false );
+                }
+
+            }
+            return $new_value;
+        }
+
+        public function generate_recipe_sharing_api_key(){
+			if ( !current_user_can('manage_options')) return;
 			$msg   = '';
 			$error = false;
 
@@ -513,17 +565,15 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 				$msg   = 'Selling info not updated';
 				$error = true;
 			}
-			
 
-			if ( !use_rdb_api() ) {
+			if (!get_option('zrdn_enable_recipe_selling')) {
+				$msg   = 'sharing not enabled';
 				$error = true;
-				$msg
-				       = __( 'Recipe sharing is turned off.',
-					"zip-recipes" );
 			}
 
 			$website_url = get_site_url();
-			$full_name = Util::get_option('recipe_selling_full_name') ? Util::get_option('recipe_selling_full_name') : 'deleted';
+			$user_info = get_userdata(get_current_user_id());
+			$full_name = $user_info->display_name;
 			$contact_email = Util::get_option('recipe_selling_contact_email');
 			$paypal_email = Util::get_option('recipe_selling_paypal_email');
 			$api_key = $this->get_api_key();
@@ -541,11 +591,6 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 		    if (!isset($contact_email)) {
 		        $error = true;
 		        $msg .= "No contact_email. ";
-		    }
-
-		    if (!isset($paypal_email)) {
-		        $error = true;
-		        $msg .= "No paypal_email. ";
 		    }
 
 			if ( get_transient( 'zrdn_recipedatabase_request_active' ) ) {
@@ -583,7 +628,6 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 				);
 
 				$result = curl_exec( $ch );
-
 			
 				$error  = ( $result == 0
 				            && strpos( $result,
@@ -595,14 +639,11 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 				}
 
 				curl_close( $ch );
-
 				delete_transient( 'zrdn_recipedatabase_request_active' );
 			}
 
 			if ( ! $error ) {
 				$result = json_decode( $result );
-				//recipe creation also searches fuzzy, so we can now change the recipe name to an asterisk value
-				//on updates it will still match.
 				if ( isset( $result->data->error ) ) {
 					$msg   = $result->data->error;
 					$error = true;
@@ -627,23 +668,408 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 			}
 		}
 
-		public function check_if_sharing_form_was_updated(){
-			if (isset( $_POST['zrdn_enable_recipe_selling'] ) ){
-				update_option( 'zrdn_recipe_selling_updated', true );
+        /**
+         * Add recipe sharing tab
+         * @param $tabs
+         *
+         * @return mixed
+         */
 
-				if (
-					$_POST['zrdn_recipe_selling_terms_and_conditions'] 
-					&& $_POST['zrdn_recipe_selling_copyright'] 
-					&& is_email( $_POST['zrdn_recipe_selling_contact_email'] ) 
-					&& is_email( $_POST['zrdn_recipe_selling_paypal_email'] )
-				) {
-					update_option( 'zrdn_enable_recipe_selling', true );
-				} else {
-					update_option( 'zrdn_enable_recipe_selling', false );
-				}
-				
-			}
-		}
+        public function add_recipe_sharing_tab($tabs){
+            if (!current_user_can('manage_options')) return $tabs;
 
-	} // end of class
+            $tabs['recipe_sharing'] = array(
+                'title' => __('Monetize your recipes', 'zip-recipes'),
+                'page' => 'zrdn-recipe-sharing',
+            );
+            return $tabs;
+        }
+
+        /**
+         * Zip Recipes general settings page
+         */
+        public static function recipe_sharing_page() {
+
+            if (!current_user_can('manage_options')) return;
+            do_action('zrdn_on_settings_page' );
+            $field = ZipRecipes::$field;
+
+            ?>
+            <div class="wrap" id="zip-recipes">
+                <?php //this header is a placeholder to ensure notices do not end up in the middle of our code ?>
+                <h1 class="zrdn-notice-hook-element"></h1>
+
+                <div id="zrdn-dashboard">
+
+                    <?php Util::settings_header(apply_filters('zrdn_tabs', array()), true);?>
+                    <style>#zrdn-show-toggles{display: none;}</style>
+                    <div class="zrdn-main-container">
+                        <!--    Dashboard tab   -->
+                        <div id="monetize" class="tab-content current">
+                            <form id="zrdn-monetize" method="POST">
+
+                                <?php
+                                $grid_items = Util::grid_items('monetize');
+                                $container = zrdn_grid_container();
+                                $element = zrdn_grid_element();
+                                $output = '';
+                                foreach ($grid_items as $index => $grid_item) {
+                                    ob_start();
+                                    if ( isset( $grid_item['template' ] ) ) {
+                                        echo Util::render_template($grid_item['template']);
+                                    } else {
+                                        $fields = Util::get_fields($grid_item['source']);
+                                        foreach ( $fields as $fieldname => $field_args ) {
+                                            $field->get_field_html( $field_args , $fieldname);
+                                        }
+                                        if (isset($grid_item['footer'])){
+                                            echo Util::render_template($grid_item['footer']);
+                                        } else {
+                                            $field->save_button();
+                                        }
+
+
+                                    }
+                                    $contents = ob_get_clean();
+                                    $output .= str_replace(array('{class}', '{title}', '{content}', '{index}','{controls}'), array($grid_item['class'], $grid_item['title'],  $contents, $index, $grid_item['controls']), $element);
+                                }
+                                echo str_replace('{content}', $output, $container);
+                                ?>
+                            </form>
+                        </div>
+
+                        <?php do_action('zrdn_tab_content'); ?>
+
+                    </div>
+
+                </div><!--dashboard close -->
+
+
+            </div><!--wrap close -->
+            <?php
+        }
+
+        /**
+         * Show notice
+         */
+
+        public function show_notice_sharing()
+        {
+            $screen = get_current_screen();
+            if ( $screen->parent_base === 'edit' ) return;
+
+            add_action('admin_print_footer_scripts', array($this, 'dismiss_sharing_notice_script'));
+            $dismissed = get_option('zrdn_sharing_notice_dismissed');
+            $link_open = '<a class="button button-primary"" href="'.admin_url('admin.php?page=zrdn-recipe-sharing').'">';
+            $link_open_purchase = '<a target="blank" href="https://ziprecipes.net/premium/">';
+            if (!$dismissed) {
+
+            ob_start();
+            _e("How it works: ", 'zip-recipes'); ?>
+            <p>
+            <ul>
+                <li><?php _e('ZIP will share you recipes for non-public and offline publications.', 'zip-recipes'); ?></li>
+                <li><?php _e('Earn 1 dollar per month for every recipe shared', 'zip-recipes'); ?></li>
+                <li><?php _e("You can always add, edit or remove recipes. You own your recipes. Always.", "zip-recipes") ?></li>
+                <li><?php _e("With the 1-minute set-up you can generate more income with ease.", "zip-recipes") ?></li>
+            </ul>
+            </p>
+            <?php
+            $content = ob_get_clean();
+
+            ob_start();
+            ?>
+            <form action="" method="post">
+                <?php wp_nonce_field('zrdn_nonce', 'zrdn_nonce'); ?>
+                <?php echo $link_open ?>
+                    <?php _e("1-Minute Configuration", "zip-recipes"); ?>
+                </a>
+                <button class="notice-dismiss notice-dismiss-sharing" target="_blank"></button>
+                <a href="#" class="button button-default notice-dismiss-sharing"><?php _e("Thanks, but no thanks", "zip-recipes"); ?></a>
+            </form>
+            <?php
+            $footer = ob_get_clean();
+
+            $class = apply_filters("zrdn_activation_notice_classes", "zrdn-dismiss-notice is-dismissible");
+            $title = __("Monetize your recipes", "zip-recipes");
+            echo $this->notice_html( $class, $title, $content, $footer);
+            }
+        }
+
+        /**
+         * Process the ajax dismissal of the success message.
+         *
+         * @since  2.0
+         *
+         * @access public
+         *
+         */
+
+        public function dismiss_sharing_notice()
+        {
+            check_ajax_referer('zrdn-dismiss-sharing-notice', 'nonce');
+            update_option('zrdn_sharing_notice_dismissed', true);
+            wp_die();
+        }
+
+        public function dismiss_sharing_notice_script()
+        {
+            $ajax_nonce = wp_create_nonce("zrdn-dismiss-sharing-notice");
+            ?>
+            <script type='text/javascript'>
+                jQuery(document).ready(function ($) {
+
+                    $(".zrdn-dismiss-notice.notice.is-dismissible").on("click", ".notice-dismiss", function (event) {
+                        console.log('click');
+                        var data = {
+                            'action': 'zrdn_dismiss_sharing_notice',
+                            'nonce': '<?php echo $ajax_nonce; ?>'
+                        };
+
+                        $.post(ajaxurl, data, function (response) {
+
+                        });
+                    });
+                    $(".zrdn-dismiss-notice.notice.is-dismissible").on("click", ".notice-dismiss-sharing", function (event) {
+                        var data = {
+                            'action': 'zrdn_dismiss_sharing_notice',
+                            'nonce': '<?php echo $ajax_nonce; ?>'
+                        };
+
+                        $.post(ajaxurl, data, function (response) {
+                            $(".zrdn-dismiss-notice").hide(300);
+                        });
+                    });
+                });
+            </script>
+            <?php
+        }
+
+        /**
+         * @param string $class
+         * @param string $title
+         * @param string $content
+         * @param string|bool $footer
+         * @return false|string
+         *
+         * @since 4.0
+         * Return the notice HTML
+         *
+         */
+
+        public function notice_html($class, $title, $content, $footer=false) {
+
+            ob_start();
+            ?>
+            <?php if ( is_rtl() ) { ?>
+                <style>
+                    .zrdn-notice .zrdn-notice-header {
+                        justify-content: flex-start;
+                    }
+                    .zrdn-badge.new{
+                        background-color: #F343A0;
+                        margin: 9px 0 4px 8px;
+                        font-weight: 600;
+                        font-size: 11px;
+                        padding: 5px 20px;
+                        color: #fff;
+                        border-radius: 20px;
+                    }
+                    #zrdn-message .error{
+                        border-right-color:#d7263d;
+                    }
+                    .activate-ssl .button {
+                        margin-bottom: 5px;
+                    }
+
+                    #zrdn-message .button-primary {
+                        margin-left: 10px;
+                    }
+
+                    .zrdn-notice-header {
+                        height: 60px;
+                        border-bottom: 1px solid #dedede;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding-right: 25px;
+                    }
+                    .zrdn-notice-header h1 {
+                        font-weight: bold;
+                    }
+
+                    .zrdn-notice-content {
+                        margin-top: 20px;
+                        padding-bottom: 20px;
+                        padding-right: 25px;
+                    }
+
+                    .zrdn-notice-footer {
+                        border-top: 1px solid #dedede;
+                        height: 35px;
+                        display: flex;
+                        align-items: center;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        margin-right: 25px;
+                        margin-left: 25px;
+                    }
+
+                    #zrdn-message {
+                        padding: 0;
+                        border-right-color: #333;
+                    }
+
+                    #zrdn-message .zrdn-notice-li::before {
+                        vertical-align: middle;
+                        margin-left: 25px;
+                        color: lightgrey;
+                        content: "\f345";
+                        font: 400 21px/1 dashicons;
+                    }
+
+                    #zrdn-message ul {
+                        list-style: none;
+                        list-style-position: inside;
+                    }
+                    #zrdn-message li {
+                        margin-right:30px;
+                        margin-bottom:10px;
+                    }
+                    #zrdn-message li:before {
+                        background-color: #F343A0;
+                        color: #fff;
+                        height: 10px;
+                        width: 10px;
+                        border-radius:50%;
+                        content: '';
+                        position: absolute;
+                        margin-top: 5px;
+                        margin-right:-30px;
+                    }
+
+                    .settings_page_rlzrdn_really_simple_ssl #wpcontent #zrdn-message, .settings_page_zip-recipes #wpcontent #zrdn-message {
+                        margin: 20px;
+                    }
+                    <?php echo apply_filters('zrdn_pro_inline_style', ''); ?>
+                </style>
+            <?php } else { ?>
+                <style>
+                    .zrdn-notice .zrdn-notice-header {
+                        justify-content: flex-start;
+                    }
+                    .zrdn-badge.new{
+                        background-color: #F343A0;
+                        margin: 9px 0 4px 8px;
+                        font-weight: 600;
+                        font-size: 11px;
+                        padding: 5px 20px;
+                        color: #fff;
+                        border-radius: 20px;
+                    }
+                    #zrdn-message .error{
+                        border-left-color:#d7263d;
+                    }
+                    .activate-ssl .button {
+                        margin-bottom: 5px;
+                    }
+
+                    #zrdn-message .button-primary {
+                        margin-right: 10px;
+                    }
+
+                    .zrdn-notice-header {
+                        height: 60px;
+                        border-bottom: 1px solid #dedede;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding-left: 25px;
+                    }
+                    .zrdn-notice-header h1 {
+                        font-weight: bold;
+                    }
+
+                    .zrdn-notice-content {
+                        margin-top: 20px;
+                        padding-bottom: 20px;
+                        padding-left: 25px;
+                    }
+
+                    .zrdn-notice-footer {
+                        border-top: 1px solid #dedede;
+                        height: 35px;
+                        display: flex;
+                        align-items: center;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        margin-left: 25px;
+                        margin-right: 25px;
+                    }
+
+                    #zrdn-message {
+                        padding: 0;
+                        border-left-color: #333;
+                    }
+
+                    #zrdn-message .zrdn-notice-li::before {
+                        vertical-align: middle;
+                        margin-right: 25px;
+                        color: lightgrey;
+                        content: "\f345";
+                        font: 400 21px/1 dashicons;
+                    }
+
+                    #zrdn-message ul {
+                        list-style: none;
+                        list-style-position: inside;
+                    }
+                    #zrdn-message li {
+                        margin-left:30px;
+                        margin-bottom:10px;
+                    }
+                    #zrdn-message li:before {
+                        background-color: #F343A0;
+                        color: #fff;
+                        height: 10px;
+                        width: 10px;
+                        border-radius:50%;
+                        content: '';
+                        position: absolute;
+                        margin-top: 5px;
+                        margin-left:-30px;
+                    }
+
+                    .settings_page_rlzrdn_really_simple_ssl #wpcontent #zrdn-message, .settings_page_zip-recipes #wpcontent #zrdn-message {
+                        margin: 20px;
+                    }
+                    <?php echo apply_filters('zrdn_pro_inline_style', ''); ?>
+                </style>
+            <?php } ?>
+            <div id="zrdn-message" class="notice <?php echo $class?> really-simple-plugins">
+                <div class="zrdn-notice">
+                    <div class="zrdn-notice-header">
+                        <h1><?php echo $title ?></h1><span class="zrdn-badge new">NEW</span>
+                    </div>
+                    <div class="zrdn-notice-content">
+                        <?php echo $content ?>
+                    </div>
+                    <?php
+                    if ($footer ) { ?>
+                        <div class="zrdn-notice-footer">
+                            <?php echo $footer;?>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <?php
+
+            $content = ob_get_clean();
+            return $content;
+        }
+
+
+    } // end of class
 } // end of class exists

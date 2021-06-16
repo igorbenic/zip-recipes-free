@@ -271,9 +271,9 @@ class Recipe_Table extends \WP_List_Table {
             $actions['delete'] = '<a class="zrdn-recipe-action" data-action="delete"  data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Delete', 'zip-recipes') . '</a>';
 
         }
-        if ($recipe->share_this_recipe == true && use_rdb_api() && get_option('zrdn_demo_recipe_id') !== $recipe->recipe_id ){
+        if ($recipe->share_this_recipe == true && zrdn_use_rdb_api() && get_option('zrdn_demo_recipe_id') !== $recipe->recipe_id ){
              $actions['demonetize'] = '<a class="zrdn-recipe-action" data-action="demonetize"  data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Disable monetization', 'zip-recipes') . '</a>';
-        } elseif ($recipe->share_this_recipe == false && use_rdb_api() && get_option('zrdn_demo_recipe_id') !== $recipe->recipe_id ) {
+        } elseif ($recipe->share_this_recipe == false && zrdn_use_rdb_api() && get_option('zrdn_demo_recipe_id') !== $recipe->recipe_id ) {
             $actions['monetize'] = '<a class="zrdn-recipe-action" data-action="monetize"  data-id="'.$recipe->recipe_id.'" href="#">' . __( 'Enable monetization', 'zip-recipes') . '</a>';
         }
 
@@ -362,7 +362,7 @@ class Recipe_Table extends \WP_List_Table {
      * @return mixed
      */
     public function column_sharing_status( $recipe ) {
-        if (!display_recipe_sharing_functionality()) return;
+        if (!zrdn_is_rdb_api_allowed_country()) return;
         $zip_sharing_status = $recipe->zip_sharing_status;
         $edamam_sharing_status = $recipe->edamam_sharing_status;
         $sharing_status = $edamam_sharing_status ? $edamam_sharing_status : $zip_sharing_status;
@@ -371,7 +371,7 @@ class Recipe_Table extends \WP_List_Table {
             return '';
         }
 
-        if (!$recipe->share_this_recipe || !use_rdb_api()) {
+        if (!$recipe->share_this_recipe || !zrdn_use_rdb_api()) {
             $sharing_status = 'not_activated';
         }
 
@@ -442,6 +442,10 @@ class Recipe_Table extends \WP_List_Table {
 	        'details'        => '',
         );
 
+        if (!zrdn_use_rdb_api()){
+            unset($columns['sharing_status']);
+        }
+
         return apply_filters( 'zrdn_recipe_columns', $columns );
     }
 
@@ -459,7 +463,11 @@ class Recipe_Table extends \WP_List_Table {
 	        'sharing_status' => array( 'zip_sharing_status', true ),
         );
 
-        return $columns;
+	    if (!zrdn_use_rdb_api()){
+	        unset($columns['sharing_status']);
+        }
+
+	    return $columns;
     }
 
 

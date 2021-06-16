@@ -2,7 +2,7 @@
 #zrdn-nutrition-label .nutrition-facts {
   margin: 20px;
 }
-html {
+html:focus-within {
   scroll-behavior: smooth;
 }
 #zrdn-recipe-container {

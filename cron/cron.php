@@ -37,8 +37,6 @@ function zrdn_schedule_cron() {
 		// 	array( zrdn_recipe_sharing_admin::sync_recipes(), 'cron_check_last_updated_status' ),
 		// 	100 );
 	}
-	
-
 }
 
 add_filter( 'cron_schedules', 'zrdn_filter_cron_schedules' );

@@ -107,7 +107,7 @@ class Recipe {
 	 * @param $post_id
 	 */
 	public function __construct($recipe_id=null, $post_id=null, $title='', $image_url='') {
-		$this->missing_sharing_values = $this->default_missing_sharing_values;
+		//$this->missing_sharing_values = $this->default_missing_sharing_values;
 		if ($post_id) {
 			$this->post_id = $post_id;
 		}
@@ -120,15 +120,21 @@ class Recipe {
 		if ($image_url) {
 			$this->recipe_image = $image_url;
 		}
+        if (Util::get_option('recipe_selling_share_all_published')){
+            $this->share_this_recipe = true;
+        } else {
+            $this->share_this_recipe = false;
+        }
 
 		//in preview, we should load placeholders if no recipe id is known
 		if ( !$this->recipe_id && isset($_GET['mode']) && $_GET['mode'] === 'zrdn-preview') {
-			$this->load_placeholders();
+            $this->load_placeholders();
 		} else if ($this->recipe_id || $this->post_id) {
-			$this->load();
-		}
-
-	}
+            $this->load();
+		} else {
+            $this->missing_sharing_values = $this->default_missing_sharing_values;
+        }
+    }
 
 	/**
 	 * @var int
@@ -431,9 +437,6 @@ class Recipe {
 	    'ingredients' => false,
 	    'instructions' => false,
 	    'recipe_image_id' => false,
-	    'json_image_1x1' => false,
-	    'json_image_4x3' => false,
-	    'json_image_16x9' => false,
     );
 
     public $missing_sharing_values;
@@ -582,7 +585,6 @@ class Recipe {
                 $this->is_featured_post_image = true;
             }
         }
-
         //set a separate json image
         //if this recipe has an image, use it
 	    if (!empty($this->recipe_image)){
@@ -653,9 +655,9 @@ class Recipe {
 	    $this->summary_rich =  $this->richify_item($this->zrdn_format_image($this->summary), 'summary');
 	    $this->nested_ingredients = $this->get_nested_items($this->ingredients);
 	    $this->nested_instructions = $this->get_nested_items($this->instructions);
-	    
-	    if (use_rdb_api()) {
-		    $this->missing_sharing_values = wp_parse_args( json_decode( $this->missing_sharing_values ) , $this->default_missing_sharing_values );
+
+	    if ( zrdn_use_rdb_api() ) {
+		    $this->missing_sharing_values = wp_parse_args( json_decode( $this->missing_sharing_values ),  $this->default_missing_sharing_values );
 	    } else {
 		    $this->missing_sharing_values = $this->default_missing_sharing_values;
 	    }
@@ -773,7 +775,7 @@ class Recipe {
 	    }
 
         //get random recipe id for some functionality, like ratings
-        if (!$actual_recipe_id) {
+        if ( !$actual_recipe_id ) {
             global $wpdb;
             $table = $wpdb->prefix . self::TABLE_NAME;
             $recipe_id = $wpdb->get_var("SELECT max(recipe_id) FROM $table");
@@ -850,13 +852,6 @@ class Recipe {
 	    $this->has_nutrition_data = true;
 
 	    $this->summary_rich = $this->summary = __("Easy to make, but with a big wow factor", "zip-recipes");
-	    $this->fat_daily;
-	    $this->calories_daily;
-	    $this->saturated_fat_daily;
-	    $this->cholesterol_daily;
-	    $this->sodium_daily;
-	    $this->carbs_daily;
-	    $this->fiber_daily;
 	    $this->ingredients = '2 cups heavy or light cream, or half-and-half'."\n".
 		                    '1 vanilla bean, split lengthwise, or 1 teaspoon vanilla extract'."\n".
 		                    '1/8 teaspoon salt'."\n".
@@ -873,7 +868,6 @@ class Recipe {
 	    $this->nested_ingredients = $this->get_nested_items($this->ingredients);
 	    $this->nested_instructions = $this->get_nested_items($this->instructions);
 	    $this->formatted_notes =  $this->notes;
-	    $this->category;
 	    $this->categories = get_categories(array('number' => 2));
 	    $this->cuisine = __('French', 'zip-recipes');
 	    $this->created_at = time();
@@ -1068,6 +1062,7 @@ class Recipe {
      */
     public function format_duration($duration)
     {
+        $string = '';
         if ($duration == null) {
             return '';
         }

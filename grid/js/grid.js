@@ -151,7 +151,7 @@ jQuery(document).ready(function($) {
         var tab_id = $(this).attr('data-tab');
         if (tab_id ==='dashboard'){
             $('#zrdn-show-toggles').show();
-        } else{
+        } else {
             $('#zrdn-show-toggles').hide();
         }
         $('ul.tabs li').removeClass('current');

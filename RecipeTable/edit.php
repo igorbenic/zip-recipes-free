@@ -427,7 +427,6 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->json_image_1x1,
                             'thumbnail_id' => $recipe->json_image_1x1_id,
                             'label' => __("1x1 snippet image", 'zip-recipes'),
-                            'missing_value' => $recipe->missing_sharing_values['json_image_1x1'],
                         ),
                         array(
                             'type' => 'upload',
@@ -437,7 +436,6 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->json_image_4x3,
                             'thumbnail_id' => $recipe->json_image_4x3_id,
                             'label' => __("4x3 snippet image", 'zip-recipes'),
-                            'missing_value' => $recipe->missing_sharing_values['json_image_4x3'],
                         ),
                         array(
                             'type' => 'upload',
@@ -447,7 +445,6 @@ if (isset($_GET['post_id'])) {
                             'value' => $recipe->json_image_16x9,
                             'thumbnail_id' => $recipe->json_image_16x9_id,
                             'label' => __("16x9 snippet image", 'zip-recipes'),
-                            'missing_value' => $recipe->missing_sharing_values['json_image_16x9'],
                         ),
                     );
 
@@ -469,7 +466,7 @@ if (isset($_GET['post_id'])) {
                         ),
                     );
 
-                    if(use_rdb_api()){
+                    if(zrdn_use_rdb_api()){
                         $add_misc_field = array(
                                 array(
                                 'type' => 'checkbox',

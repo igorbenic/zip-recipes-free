@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( "you do not have access to this page!" );
 
 add_action( 'admin_enqueue_scripts', 'zrdn_enqueue_assets' );
 function zrdn_enqueue_assets( $hook ) {
-	if (strpos($hook, "zrdn-settings")===false ) return;
+	if (strpos($hook, "zrdn-settings")===false && strpos($hook, "zrdn-recipe-sharing")===false ) return;
 
 	wp_register_style( ' zrdn-muuri',
 		trailingslashit( ZRDN_PLUGIN_URL ) . "grid/css/muuri.css", "",

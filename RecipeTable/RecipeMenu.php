@@ -334,6 +334,15 @@ function zrdn_recipe_admin_menu()
 		__NAMESPACE__ . '\ZipRecipes::settings_page' // callback function
 	);
 
+    add_submenu_page(
+        'zrdn-recipes',
+        __("Monetize your recipes", "zip-recipes"), // page_title
+        __("Monetize your recipes", "zip-recipes"), // menu_title
+        'manage_options', // capability
+        'zrdn-recipe-sharing', // menu_slug
+        __NAMESPACE__ . '\ZRDN_recipe_sharing_admin::recipe_sharing_page' // callback function
+    );
+
 	do_action("zrdn__menu_page", array(
 		"capability" => 'manage_options',
 		"parent_slug" => 'zrdn-recipes',
@@ -404,7 +413,10 @@ function zrdn_enqueue_style($hook){
         wp_enqueue_script("zrdn-editor-popup-modal", ZRDN_PLUGIN_URL."RecipeTable/js/popup_editor_modal.js",  array('jquery'), ZRDN_VERSION_NUM);
     }
 
-    if (!(isset($_GET['page']) && $_GET['page'] == 'zrdn-settings') && !isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new') ) return;
+    if (
+            !(isset($_GET['page']) && $_GET['page'] == 'zrdn-settings') && !isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new')
+            && !(isset($_GET['page']) && $_GET['page'] == 'zrdn-recipe-sharing') && !isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new')
+    ) return;
 
 
     wp_enqueue_script("zrdn-editor", ZRDN_PLUGIN_URL."RecipeTable/js/editor.js",  array('jquery'), ZRDN_VERSION_NUM);

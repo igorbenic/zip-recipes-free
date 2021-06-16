@@ -98,7 +98,6 @@ class Util {
      * @return bool
      */
 
-
     public static function has_shortcode($post_id, $post_data){
         if (!$post_data) $post_data = get_post($post_id);
         if (!$post_data) return false;
@@ -296,13 +295,15 @@ class Util {
 					<div class="header-links">
 						<div class="tab-links">
 							<?php
-							$first = true;
+                            $current = '';
 							foreach ($tabs as $tab => $data) {
 								if (isset($data['cap']) && current_user_can( $data['cap'] ) ) continue;
-								$current = $first ? 'current' : '';
-								$first = false;
-
-								if (!isset($_GET['id']) && isset($_GET['page']) && $_GET['page'] === $data['page']) {
+                                if ( $_GET['page'] === $data['page'] ) {
+                                    $current = 'current';
+                                }
+                                if ($data['page'] === 'zrdn-recipe-sharing') {
+                                    $url = add_query_arg(array('page' => $data['page']), admin_url('admin.php'));
+                                } elseif (!isset($_GET['id']) && isset($_GET['page']) && $_GET['page'] === $data['page']) {
 									$url = '#'.$tab.'#top';
                                 } else {
 								    $url = add_query_arg(array('page' => $data['page'].'#'.$tab), admin_url('admin.php'));
@@ -311,7 +312,9 @@ class Util {
 								<li class="tab-link <?=$current?>" data-tab="<?=$tab?>">
                                     <a class="tab-text tab-<?=$tab?>" href="<?php echo $url?>"><?=$data['title']?></a>
 								</li>
-							<?php } ?>
+							<?php
+                                $current = '';
+							} ?>
 						</div>
 						<div class="documentation-container">
 							<div class="documentation">
@@ -401,40 +404,46 @@ class Util {
 	 * @return array
 	 */
 
-    public static function grid_items(){
+    public static function grid_items($page = 'settings'){
 	    $grid_items = array(
 		    array(
 			    'title' => __("General", "zip-recipes"),
+			    'page' => 'settings',
 			    'source' => 'general',
 			    'class' => 'zrdn-general',
 		    ),
 
 		    array(
 			    'title' => __("Nutrition", "zip-recipes"),
+                'page' => 'settings',
 			    'source' => "nutrition",
 			    'class' => 'small',
 		    ),
 
 		    array(
 			    'title' => __("Authors", "zip-recipes"),
+                'page' => 'settings',
 			    'source' => "authors",
 			    'class' => 'small',
 		    ),
 
 		    array(
 			    'title' => __("Add-ons", "zip-recipes"),
+                'page' => 'settings',
 			    'source' => "plugins",
 			    'class' => 'small',
 		    ),
 
 		    array(
 			    'title' => __("Advanced", "zip-recipes"),
+                'page' => 'settings',
 			    'source' => "advanced",
 			    'class' => 'small',
 		    ),
 
 		    array(
 			    'title' => __("Other plugins", "zip-recipes"),
+                'page' => 'settings',
 			    'source' => "other",
 			    'class' => 'half-height other-plugins',
                 'template' => 'other-plugins.php',
@@ -442,29 +451,61 @@ class Util {
 		    ),
 	    );
 	    // Only display recipe sharing for english websites
-	    if ( is_rdb_api_allowed_country() ) $grid_items = wp_parse_args( array(
-			array(
-			    'title' => __("Monetize your recipes", "zip-recipes") . '<span class="new-badge">'. __("NEW", "zip-recipes") .'</span>',
-			    'source' => "recipe_sharing",
-			    'class' => 'small monetize-recipes',
-			    'can_hide' => true,
-		    ),
-		), 
-		$grid_items );
+	    if ( zrdn_is_rdb_api_allowed_country() ){
+	        $grid_items = wp_parse_args( array(
+                array(
+                    'title' => __("Monetize your recipes", "zip-recipes"),
+                    'page' => 'monetize',
+                    'source' => "recipe_sharing",
+                    'class' => 'small monetize-recipes',
+                    'can_hide' => false,
+                    'footer' => 'monetize-your-recipes-footer.php',
+                ),
+                array(
+                    'title' => __("Settings", "zip-recipes"),
+                    'page' => 'monetize',
+                    'source' => "recipe_sharing_settings",
+                    'class' => 'small recipe_sharing_settings',
+                    'can_hide' => false,
+                ),
+//                array(
+//                    'title' => __("Documentation", "zip-recipes"),
+//                    'page' => 'monetize',
+//                    'source' => "recipe_sharing_documentation",
+//                    'class' => 'small recipe_sharing_documentation',
+//                    'template' => 'documentation.php',
+//                    'can_hide' => false,
+//                ),
+                array(
+                    'title' => __("Statistics", "zip-recipes"),
+                    'page' => 'monetize',
+                    'source' => "recipe_sharing_statistics",
+                    'class' => 'small recipe_sharing_statistics',
+                    'template' => 'statistics.php',
+                    'can_hide' => false,
+                ),
+            ),
+            $grid_items );
+	    }
 
 	    $grid_items = apply_filters('zrdn_grid_items', $grid_items);
 
 	    $defaults = array(
 		    'title' => '',
+		    'page' => '',
 		    'source' => '',
 		    'class' => 'small',
 		    'can_hide' => true,
             'controls' => '',
         );
 	    foreach ($grid_items as $key => $grid_item ) {
-		    $grid_items[$key] = wp_parse_args($grid_item, $defaults);
+	        if ($grid_item['page'] !== $page) {
+                unset($grid_items[$key]);
+            } else {
+                $grid_items[$key] = wp_parse_args($grid_item, $defaults);
+            }
 	    }
-	    
+
 	   	return $grid_items;
     }
 
@@ -1007,24 +1048,26 @@ class Util {
 			),
 
 			'recipe_selling_explanation' => array(
-				'type'      => 'label',
+				'type'      => 'explanation_checklist',
 				'source'    => 'recipe_sharing',
 				'default'    => false,
 				'table'     => false,
-				'label'     => sprintf(__("Start earning money with ZIP Recipes. Create high-quality recipes and rent them out to be published offline only. More detailed instructions, read our %sRecipe sharing tutorial%s.", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/recipe-sharing-all-you-need-to-know">', '</a>'),
-			),
-
-			'recipe_selling_title' => array(
-				'type'      => 'title',
-				'source'    => 'recipe_sharing',
-				'title'     => __("Start monetizing", "zip-recipes"),
-			),
-
-			'enable_recipe_selling' => array(
-				'type'      => 'hidden',
-				'source'    => 'recipe_sharing',
-				'default'    => true,
-				'table'     => false,
+				//'label'     => sprintf(__("Start earning money with ZIP Recipes. Create high-quality recipes and rent them out to be published offline only. More detailed instructions, read our %sRecipe sharing tutorial%s.", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/recipe-sharing-all-you-need-to-know">', '</a>'),
+                'label'     => __('How it works:', 'zip-recipes'),
+                'checklist' => array(
+                                1 => array(
+                                    'text' => __('ZIP will share you recipes for non-public and offline publications.'),
+                                ),
+                                2 => array(
+                                    'text' => __('Earn 1 dollar per month for every recipe shared.'),
+                                ),
+                                3 => array(
+                                    'text' => __('You can always add, edit or remove recipes.'),
+                                ),
+                                4 => array(
+                                    'text' => __('With the 1-minute set-up you can generate more income with ease.'),
+                                ),
+                             ),
 			),
 
 			'recipe_selling_terms_and_conditions' => array(
@@ -1040,9 +1083,9 @@ class Util {
 				'source'    => 'recipe_sharing',
 				'default'    => false,
 				'table'     => false,
-				'label'     => __( "My content is original and without copyright.",
+				'label'     => __( "Recipe photo's are without copyright.",
 					'zip-recipes' ),
-				'help'              => __( "This includes the images used in your recipes. They are either without copyright restrictions or owned and authored by yourself.", 'zip-recipes' ),
+				'help'              => __( "They are either without copyright restrictions or owned and authored by yourself.", 'zip-recipes' ),
 			),
 
 			'recipe_selling_contact_email' => array(
@@ -1053,15 +1096,6 @@ class Util {
 				'placeholder'     => __( "Email address for Contact",
 					'zip-recipes' ),
 			),
-
-			'recipe_selling_paypal_email' => array(
-				'type'      => 'email',
-				'source'    => 'recipe_sharing',
-				'default'    => false,
-				'table'     => false,
-				'placeholder'     => __( "Paypal email",
-					'zip-recipes' ),
-			),
 			
 			'rdb_api_key' => array(
 				'type'      => 'hidden',
@@ -1069,6 +1103,38 @@ class Util {
 				'default'    => false,
 				'table'     => false,
 			),
+
+            'recipe_selling_settings_explanation' => array(
+                'type'      => 'explanation',
+                'source'    => 'recipe_sharing_settings',
+                'default'    => false,
+                'table'     => false,
+                'label'     => __("You can enable monetization per recipe, or with bulk action under recipes. Below will enable monetization for all current and new", "zip-recipes"),
+            ),
+
+            'recipe_selling_share_all_published' => array(
+                'type'      => 'checkbox',
+                'source'    => 'recipe_sharing_settings',
+                'default'    => false,
+                'table'     => false,
+                'label'     => __( "Share all published recipes by default", 'zip-recipes' ),
+            ),
+            'recipe_selling_paypal_email' => array(
+                'type'      => 'email',
+                'label'     => __( "Payment email", 'zip-recipes' ),
+                'source'    => 'recipe_sharing_settings',
+                'default'    => false,
+                'table'     => false,
+                'placeholder'     => __( "Paypal email",
+                    'zip-recipes' ),
+            ),
+            'recipe_selling_paypal_email_explanation' => array(
+                'type'      => 'explanation',
+                'source'    => 'recipe_sharing_settings',
+                'default'    => false,
+                'table'     => false,
+                'label'     => __("We will keep you up-to-date about recipes shared and when you can expect the first payment.", "zip-recipes"),
+            ),
 		);
 
 		if ( $type ) {
@@ -1519,7 +1585,6 @@ class Util {
 			);
 			$recipes = Util::get_recipes($args);
 			$all_categories = array();
-			$cats = array();
 			foreach ($recipes as $index => $recipe) {
 				$recipe = new Recipe($recipe->recipe_id);
 
@@ -1533,11 +1598,9 @@ class Util {
 							'count' => $cat->category_count,
 						);
 					}
-
 				}
-
 			}
-			set_transient('zrdn_recipe_categories', $all_categories, HOUR_IN_SECONDS);
+			set_transient('zrdn_recipe_categories', $all_categories, MONTH_IN_SECONDS);
 		}
 
 		return $all_categories;
@@ -1664,6 +1727,26 @@ class Util {
   
         return $recipes;
     }
+
+//    add_action('zrdn_update_option', 'bulk_share'), 10,4);
+    public static function bulk_share($new_value, $old_value, $fieldname, $source) {
+
+        if ( !current_user_can('manage_options')) {
+            return $new_value;
+        }
+        if ( $new_value === $old_value ) {
+            return $new_value;
+        }
+
+        if ( $fieldname === 'recipe_selling_share_all_published' && $new_value == true) {
+            global $wpdb;
+            $recipes_table = $wpdb->prefix . Recipe::TABLE_NAME;
+            $sql = "UPDATE $recipes_table SET share_this_recipe = 1";
+            $wpdb->query( $sql );
+        }
+        return $new_value;
+    }
+
 
     /**
      * Log messages if WP_DEBUG is set.

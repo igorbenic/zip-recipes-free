@@ -37,10 +37,12 @@ class ZipRecipes {
     {
         if (is_admin()) {
             self::$field = new ZRDN_Field();
-            self::$recipe_sharing = new ZRDN_recipe_sharing_admin();
         }
+
+	    self::$recipe_sharing = new ZRDN_recipe_sharing_admin();
         self::$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-	    add_action('zrdn_tab_content', __NAMESPACE__ . '\ZipRecipes::extensions_tab');
+
+        add_action('zrdn_tab_content', __NAMESPACE__ . '\ZipRecipes::extensions_tab');
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::load_plugins', 20);
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::process_template_update', 21);
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::process_settings_update', 22);
@@ -91,6 +93,8 @@ class ZipRecipes {
 
 	    add_filter('zrdn_tabs', __NAMESPACE__ . '\ZipRecipes::add_menu_tabs');
 	    add_action('admin_init', __NAMESPACE__ . '\ZipRecipes::run_first_install_init', 20 );
+
+        add_action('zrdn_update_option',  __NAMESPACE__ . '\Util::bulk_share', 10, 4);
     }
 
 	/**
@@ -1280,7 +1284,7 @@ class ZipRecipes {
                     </div>
                     <div id="zrdn-checkboxes">
                         <?php
-                        $grid_items = Util::grid_items();
+                        $grid_items = Util::grid_items('settings');
                         foreach ($grid_items as $index => $grid_item) {
                             $style = "";
                             if (!$grid_item['can_hide']) {
@@ -1310,7 +1314,7 @@ class ZipRecipes {
                         <form id="zrdn-settings" method="POST">
 
                         <?php
-                        $grid_items = Util::grid_items();
+                        $grid_items = Util::grid_items('settings');
                         $container = zrdn_grid_container();
                         $element = zrdn_grid_element();
 	                    $output = '';
@@ -1540,8 +1544,7 @@ class ZipRecipes {
 	 */
 
 	public static function jump_to_recipes_button($content){
-
-		if ( is_singular() && Util::get_option('jump_to_recipe_link') && ( strpos($content, 'zrdn-jump-to-link')!==false || strpos($content, 'amd-zlrecipe-recipe') !==false ) ) {
+		if ( is_singular() && Util::get_option('jump_to_recipe_link') && ( strpos($content, 'zrdn-recipe') !==false || strpos($content, 'amd-zlrecipe-recipe') !==false ) ) {
 			$button = '<a href="#zrdn-recipe-container" class="zrdn-recipe-quick-link">'.__('Jump to recipe','zip-recipes').'</a>';
 			$content =  $button.$content;
 		}
@@ -1557,9 +1560,14 @@ class ZipRecipes {
 
 	    if (!current_user_can('manage_options')) return;
 
-	    if (!isset($_GET['page']) || $_GET['page'] !== 'zrdn-settings') {
-	        return;
+	    if (isset($_GET['page'])) {
+	        if ( $_GET['page'] !== 'zrdn-settings' && $_GET['page'] !== 'zrdn-recipe-sharing'){
+	            return;
+            }
+        } else {
+	         return;
         }
+
 	    if (!isset($_POST['zrdn_nonce']) || !wp_verify_nonce($_POST['zrdn_nonce'], 'zrdn_save')) {
 	        return;
 	    }
@@ -2022,3 +2030,5 @@ class ZipRecipes {
 	}
 
 }
+
+

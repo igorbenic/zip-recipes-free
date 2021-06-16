@@ -1,8 +1,9 @@
 @brand-primary: #F343A0;
 @brand-friend: #27b6f6;
 @color-success: #61ce70; //green
-@color-complianz: #29b6f6;
+@color-warning: #f39c12; //orange
 @color-error: #d7263d;
+@color-complianz: #29b6f6;
 @light-text-color: #3c3c3c;
 @border-color: #DEDEDE;
 @grey-light: #ededed;
@@ -16,6 +17,26 @@
 //}
 .notice:not(.really-simple-plugins){
   display:none;
+}
+
+/*
+    Add NEW Button
+ */
+.zrdn-active-badge{
+  background: @color-success;
+  border-radius: 13px;
+  margin-left: 5px;
+  padding: 4px 8px;
+  color: #fff;
+  font-size: 0.8em;
+}
+.zrdn-new-badge{
+  background: @color-error;
+  border-radius: 13px;
+  margin-left: 5px;
+  padding: 4px 8px;
+  color: #fff;
+  font-size: 0.8em;
 }
 
 .zrdn-notice-hook-element {
@@ -138,6 +159,9 @@
       }
       &.active {
         background-color: #36d636;
+      }
+      &.disabled {
+        background-color: #d7263d;
       }
       &.zrdn-hide-bullet {
         display:none;
@@ -1438,6 +1462,21 @@ Default bullet style
   margin-right: 10px;
   background-color: lightgrey;
   text-decoration: none;
+  &.green{
+    background-color: @color-success;
+  }
+  &.orange{
+    background-color: @color-warning;
+  }
+  &.red{
+    background-color: @color-error;
+  }
+  &.active {
+    background-color: #36d636;
+  }
+  &.disabled {
+    background-color: #d7263d;
+  }
 }
 
 .zrdn-otherplugins-upsell {
@@ -1488,4 +1527,118 @@ Default bullet style
     }
   }
 
+}
+#zrdn-dashboard .zrdn-grid {
+  .monetize-recipes{
+    input#zrdn_recipe_selling_contact_email{
+      margin-bottom: 0;
+      margin-top: 15px;
+    }
+    .zrdn-normal-checkbox{
+      padding: 0 23px;
+    }
+    .zrdn-explanation-checklist{
+      height: 135px;
+    }
+  }
+  .zrdn-item.recipe_sharing_{
+    &settings{
+
+    }
+    &documentation{
+      .zrdn-documentation-element{
+        a{
+          display: flex;
+          padding: 12px 23px;
+          text-decoration: none;
+          color: #444;
+          &:hover{
+            text-decoration: underline;
+            color: @brand-primary;
+          }
+        }
+      }
+      .zrdn-documentation-footer{
+        display: flex;
+        a{
+          text-align: center;
+          color: @brand-primary;
+          width: 100%;
+          font-size: 13px;
+          line-height: 2.15384615;
+          min-height: 30px;
+          margin: 0;
+          padding: 0 10px;
+        }
+      }
+    }
+    &statistics{
+      .item-content {
+        height: calc(100% - 75px);
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: stretch;
+        padding: 0;
+        .statistics-container{
+          border-bottom: 1px solid #dedede;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: center;
+
+          &:last-of-type{
+            border-color: transparent;
+          }
+          width: 100%;
+          padding: 5px 23px;
+          &__header{
+            display: flex;
+            align-content: flex-start;
+            justify-content: space-between;
+            width: 100%;
+            p{
+              font-size: 14px;
+              margin-top: 0;
+            }
+          }
+          &__content{
+            display: flex;
+            align-content: flex-start;
+            justify-content: space-between;
+            width: 100%;
+            .statistics-status-display{
+              display: flex;
+              align-content: flex-start;
+              justify-content: flex-start;
+              width: calc(40% - 10px);
+              &:first-of-type{
+                width: calc(60% - 10px);
+              }
+              .zrdn-bullet{
+                margin-top: 3px;
+              }
+              p{
+                margin: 0;
+                margin-bottom: 10px;
+                font-size: 14px;
+              }
+              a{
+                font-size: 12px;
+                color: @light-text-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.wrap .notice.zrdn-dismiss-notice{
+  margin: 15px;
+}
+.zrdn-footer-status{
+  display: flex;
+  align-items: center;
+  .zrdn-bullet{
+    margin-right: 6px;
+  }
 }
