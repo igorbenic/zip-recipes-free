@@ -10,7 +10,6 @@ class AutomaticNutrition extends PluginBase
     function __construct ()
     {
 	    $this->suffix = ( defined( 'WP_SCRIPT_DEBUG' ) && WP_SCRIPT_DEBUG ) ? '' : '.min';
-
 	    add_filter('zrdn__db_recipe_columns', array($this, 'recipe_table_columns'), 10, 1);
 	    add_filter('zrdn__recipe_field_names', array($this, 'recipe_field_names'), 10, 1);
 	    add_action('zrdn_nutrition_fields', array($this, 'add_nutrition_field'));
@@ -18,18 +17,18 @@ class AutomaticNutrition extends PluginBase
 	    add_action('wp_ajax_zrdn_update_nutrition_delete', array($this, 'update_nutrition_delete'));
 	    add_filter('zrdn_edit_nutrition_fields', array($this, 'add_ingredient_field'), 10, 2);
 	    add_filter("zrdn_get_fields", array($this, 'enable_nutrition_field'), 10, 2);
-
-	    //add_action('admin_init', array($this, 'update_all_recipes'));
 	    add_action('admin_footer', array($this, 'fire_all_recipes_import_ajax'));
 	    add_action('wp_ajax_zrdn_import_nutrition_all_recipes', array($this, 'ajax_update_all_recipes'));
     }
 
 	public function enable_nutrition_field($fields, $type){
-		if ($type === 'nutrition'){
+
+		if ( $type === 'nutrition' && $this->nutrition_api_allowed() ) {
+			$fields['AutomaticNutrition']['disabled'] =  false;
 			$fields['nutrition_label_type']['disabled'] =  false;
 			$fields['import_nutrition_data_all_recipes']['disabled'] =  false;
 
-			if (Util::get_option('import_nutrition_data_all_recipes')) {
+			if ( Util::get_option('import_nutrition_data_all_recipes') ) {
 			    if ($this->import_completed()) {
 				    $fields['import_nutrition_data_all_recipes']['comment'] =  __("Import completed", "zip-recipes");
 			    } else {
@@ -43,7 +42,6 @@ class AutomaticNutrition extends PluginBase
 				unset($fields['import_nutrition_data_all_recipes']);
 			}
 		}
-
 		return $fields;
 	}
 
@@ -283,7 +281,21 @@ class AutomaticNutrition extends PluginBase
         return get_option("zrdn_nutrition_data_import_completed");
     }
 
+    public function nutrition_api_allowed(){
 
+	    $sharing_enabled = get_option( 'zrdn_enable_recipe_selling' ) && Util::get_option('recipe_selling_share_all_published');
+	    $license_valid = false;
+	    if ( defined('ZRDN_PREMIUM') ){
+		    $zrdn_license = new licensing();
+		    $license_valid = $zrdn_license->license_is_valid();
+	    }
+
+	    if ( $license_valid || $sharing_enabled ) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+    }
 
 	/**
      * Get nutrition data for a recipe
@@ -294,11 +306,9 @@ class AutomaticNutrition extends PluginBase
 
     public function get_nutrition_data($recipe){
         $msg = $error = $response = false;
-	    $zrdn_license = new licensing();
-	    $sharing_enabled = get_option( 'zrdn_enable_recipe_selling' ) && Util::get_option('recipe_selling_share_all_published');
-	    $license_valid = defined('ZRDN_PREMIUM') && $zrdn_license->license_is_valid();
 
-	    if ( !$sharing_enabled && !$license_valid ){
+
+	    if ( !$this->nutrition_api_allowed() ){
 		    $error = true;
 		    $msg = __('Usage of the Nutrition Generator requires either a valid license, or sharing of all your recipes.', "zip-recipes");
 	    }

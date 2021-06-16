@@ -18,9 +18,9 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 			add_action('admin_init', array($this, 'generate_recipe_sharing_api_key'));
 			add_action('admin_init', array($this, 'check_if_sync_should_run'));
 			add_action('admin_init', array($this, 'check_if_validation_should_run'));
-            add_filter("zrdn_tabs", array($this, 'add_recipe_sharing_tab'), 11, 2);
-            add_action('wp_ajax_zrdn_dismiss_sharing_notice', array($this, 'dismiss_sharing_notice'));
-            add_action("admin_notices", array($this, 'show_notice_sharing'));
+//            add_filter("zrdn_tabs", array($this, 'add_recipe_sharing_tab'), 11, 2);
+//            add_action('wp_ajax_zrdn_dismiss_sharing_notice', array($this, 'dismiss_sharing_notice'));
+//            add_action("admin_notices", array($this, 'show_notice_sharing'));
 		}
 
 		static function this() {
@@ -242,9 +242,8 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 			if (!zrdn_use_rdb_api()) return;
 
 			// update_option( 'zrdn_validation_completed', false );
-			if ( get_option( 'zrdn_validation_completed') !== true)  {
-				$offset = get_option('zrdn_validate_recipes_offset', 0);
-
+			if ( !get_option( 'zrdn_validation_completed') )  {
+			    $offset = get_option('zrdn_validate_recipes_offset', 0);
 				//get most popular recipes
 				$args = array(
 					'order_by' => 'desc',
@@ -761,7 +760,6 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
             add_action('admin_print_footer_scripts', array($this, 'dismiss_sharing_notice_script'));
             $dismissed = get_option('zrdn_sharing_notice_dismissed');
             $link_open = '<a class="button button-primary"" href="'.admin_url('admin.php?page=zrdn-recipe-sharing').'">';
-            $link_open_purchase = '<a target="blank" href="https://ziprecipes.net/premium/">';
             if (!$dismissed) {
 
             ob_start();

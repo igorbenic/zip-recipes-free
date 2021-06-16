@@ -44,7 +44,7 @@ function zrdn_get_nr_of_recipes_by_sharing_status( $sharing_status ){
 <div class="statistics-container statistics_revenue">
     <div class="statistics-container__header">
         <p><?php _e("Potential revenue", "zip-recipes")?></p>
-        <p><b><?php echo sprintf(__("%s dollar/month", "zip-recipes"), $estimated_revenue) ?></b></p>
+        <p><b>$<?php printf(__("%s,-/month", "zip-recipes"), $estimated_revenue) ?></b></p>
     </div>
     <div class="statistics-container__content">
         <div class="statistics-status-display">

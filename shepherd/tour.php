@@ -105,29 +105,22 @@ class zrdn_tour {
 					'click' => '.tab-dashboard',
 					'link'   => add_query_arg( array( "page" => "zrdn-settings"), admin_url( "admin.php" ) ),
 				),
+
 				4 => array(
-					'title'  => __( 'Extensions', 'zip-recipes' ),
-					'text'   => __( "Have a look at our premium add-ons for ZIP Recipes, taking your recipes to a whole new level!", 'zip-recipes' ),
-					'attach' => '.zrdn-about-extensions',
-					'position' => 'right',
-					'click' => '.tab-extensions',
-					'link'   => add_query_arg( array( "page" => "zrdn-settings"), admin_url( "admin.php" ) ),
-				),
-				5 => array(
 					'title'  => __( 'Create your recipe', 'zip-recipes' ),
 					'text'   => __( "Here you can start creating your recipes and have an overview of the most important metrics per recipe, including your most popular recipes.", 'zip-recipes' ),
 					'attach' => '.zrdn-add-recipe',
 					'position' => 'right',
 					'link'   => add_query_arg( array( "page" => "zrdn-recipes"), admin_url( "admin.php" ) ),
 				),
-				6 => array(
+				5 => array(
 					'title'  => __( 'Editing your recipes', 'zip-recipes' ),
 					'text'   => __( "The WYSIWYG editor will lead you through the process of creating each new recipe. A preview will be available immediately. Want to create a recipe directly in your WordPress editor. No problem!.", 'zip-recipes' ),
 					'attach' => '.zrdn-recipe-save-button',
 					'position' => 'right',
 					'link'   => add_query_arg( array( "page" => "zrdn-recipes", "id" => $demo_recipe_id), admin_url( "admin.php" ) ),
 				),
-				7 => array(
+				6 => array(
 					'title'  => __( 'The preview recipe', 'zip-recipes' ),
 					'text'   => __( "To make the preview as accurate as possible, Zip Recipes uses a private post. A private post is only visible to you. We recommend not to delete this post.", 'zip-recipes' ),
 					'attach' => "#post-$recipe_post_id .row-title",
@@ -138,14 +131,14 @@ class zrdn_tour {
 			);
 
 			if ( Util::uses_gutenberg() ) {
-				$steps[8] = array(
+				$steps[7] = array(
 					'title'  => __( 'Editing in Gutenberg', 'zip-recipes' ),
 					'text'   => __( "Add a Zip Recipes block, then click the block, and the 'cog' wheel on the right top to add a new recipe, or to choose an existing recipe.", 'zip-recipes' ),
 					'attach' => '.interface-pinned-items',
 					'position' => 'left',
 					'link'   => add_query_arg( array( "action" => "edit", "post" => $recipe_post_id), admin_url( "post.php" ) ),
 				);
-				$steps[9] = array(
+				$steps[8] = array(
 					'title'  => __( 'The end', 'zip-recipes' ),
 					'text'   => __( "Add a Zip Recipes block, then click the block, and the 'cog' wheel on the right top to add a new recipe, or to choose an existing recipe.", 'zip-recipes' ),
 					'attach' => '.interface-pinned-items',
@@ -153,14 +146,14 @@ class zrdn_tour {
 					'link'   => add_query_arg( array( "action" => "edit", "post" => $recipe_post_id), admin_url( "post.php" ) ),
 				);
 			} else {
-				$steps[8] = array(
+				$steps[7] = array(
 					'title'  => __( 'Editing in classic editor', 'zip-recipes' ),
 					'text'   => __( "Click on 'create recipe' to start creating a new recipe, or choose an existing recipe.", 'zip-recipes' ),
 					'attach' => '#zrdn_recipe_meta_box',
 					'position' => 'left',
 					'link'   => add_query_arg( array( "action" => "edit", "post" => $recipe_post_id), admin_url( "post.php" ) ),
 				);
-				$steps[9] = array(
+				$steps[8] = array(
 					'title'  => __( 'The end', 'zip-recipes' ),
 					'text'   => __( "Get started. Start with your new template and go from there. You can start the tour anytime under Settings. Good luck!", 'zip-recipes' ),
 					'attach' => '#zrdn_recipe_meta_box',

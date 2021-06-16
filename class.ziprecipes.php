@@ -42,7 +42,6 @@ class ZipRecipes {
 	    self::$recipe_sharing = new ZRDN_recipe_sharing_admin();
         self::$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 
-        add_action('zrdn_tab_content', __NAMESPACE__ . '\ZipRecipes::extensions_tab');
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::load_plugins', 20);
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::process_template_update', 21);
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::process_settings_update', 22);
@@ -150,10 +149,6 @@ class ZipRecipes {
 		    ),
 		    'dashboard' => array(
 			    'title' => __('Settings', 'zip-recipes'),
-			    'page' => 'zrdn-settings',
-		    ),
-		    'extensions' => array(
-			    'title' => __('Extensions', 'zip-recipes'),
 			    'page' => 'zrdn-settings',
 		    ),
 	    );
@@ -303,10 +298,7 @@ class ZipRecipes {
 	    $parentPath = dirname(__FILE__);
 	    $pluginsPath = "$parentPath/plugins";
 	    $active_plugins = Util::get_active_plugins();
-
-        if ( count($active_plugins)>0) {
-	        require_once($pluginsPath.'/base.php');
-        }
+        require_once($pluginsPath.'/base.php');
 
 	    foreach ($active_plugins as $plugin_name){
 		    $pluginPath = $pluginsPath."/".$plugin_name.'/'.$plugin_name.'.php';
@@ -493,12 +485,12 @@ class ZipRecipes {
 	    }
 	    apply_filters( 'zrdn_print_style_url', $stylesheet);
 	    wp_localize_script(
-	            self::MAIN_PRINT_SCRIPT,
+            self::MAIN_PRINT_SCRIPT,
             'zrdn_print_styles',
             array(
-                    'grid_style' => $grid_style,
-                    'stylesheet_url' => $stylesheet,
-                    'print_css' => $print_css
+	            'grid_style'     => $grid_style,
+	            'stylesheet_url' => $stylesheet,
+	            'print_css'      => $print_css
             )
         );
 
@@ -1348,196 +1340,6 @@ class ZipRecipes {
         </div><!--wrap close -->
         <?php
     }
-
-	/**
-	 * Show extension tabs
-	 */
-
-    public static function extensions_tab(){
-	    $element = zrdn_grid_element();
-	    $templates_extensions = array(
-		    array(
-			    'title' => "Autumn - ".__("Compact and clean" , "zip-recipes"),
-			    'color' => 'default-grey',
-			    'link' => 'https://demo.ziprecipes.net/best-guacamole-ever/',
-		    ),
-		    array(
-			    'title' => "Canada - ".__("Powerful and colorful" , "zip-recipes"),
-			    'color' => 'default-grey',
-			    'link' => 'https://demo.ziprecipes.net/tres-leches/',
-		    ),
-		    array(
-			    'title' => "Cozy Orange - ".__("Warm and beautiful" , "zip-recipes"),
-			    'color' => 'default-grey',
-			    'link' => 'https://demo.ziprecipes.net/pumpkin-soup-recommended-fall-recipe/',
-		    ),
-		    array(
-			    'title' => "Vanilla - ".__("A smooth looking recipe" , "zip-recipes"),
-			    'color' => 'default-grey',
-			    'link' => 'https://demo.ziprecipes.net/plum-cake-with-streusel/',
-		    ),
-		    array(
-			    'title' => "Vera - ".__("Grey background for contrast" , "zip-recipes"),
-			    'color' => 'default-grey',
-			    'link' => 'https://demo.ziprecipes.net/mussels-with-fennel-and-chorizo/',
-		    ),
-		    array(
-			    'title' => "Default - ".__("Simplicity sometimes is best" , "zip-recipes"),
-			    'color' => 'default-grey',
-			    'link' => 'https://demo.ziprecipes.net/corn-salad/',
-		    ),
-	    );
-	    $other_extensions = array(
-		    'RecipeSearch'             => array(
-			    'title' => __( "Search by ingredients", "zip-recipes" ),
-			    'color' => 'cmplz-blue',
-			    'link' => 'https://demo.ziprecipes.net/?s=coriander',
-		    ),
-		    'RecipeActions'            => array(
-                'title' => __( "Social sharing with BigOven, Yummly and Pinterest", "zip-recipes" ),
-                'color' => 'cmplz-blue',
-		        'link' => 'https://demo.ziprecipes.net/best-guacamole-ever/',
-            ),
-		    'VisitorRating'            => array(
-			    'title' => __( "Star ratings for your recipes", "zip-recipes" ),
-			    'color' => 'cmplz-blue',
-			    'link' => 'https://demo.ziprecipes.net/best-guacamole-ever/',
-
-		    ),
-		    'RecipeReviews'            => array(
-			    'title' => __( "Text-based reviews of your recipes", "zip-recipes" ),
-			    'color' => 'cmplz-blue',
-			    'link' => 'https://demo.ziprecipes.net/best-guacamole-ever/',
-		    ),
-		    'ImperialMetricsConverter' => array(
-			    'title' => __( "Imperial - Metric converter", "zip-recipes" ),
-			    'color' => 'cmplz-blue',
-		    ),
-		    'structured-data' => array(
-			    'title' => __( "All extensions are optimized for Google's structured data", "zip-recipes" ),
-			    'color' => 'default-grey',
-		    ),
-	    );
-
-	    $template_content = '';
-	    foreach ($templates_extensions as $templates_extension ) {
-		    $template_content .= Util::render_template('extension-bulleted-item.php', false, $templates_extension);
-	    }
-
-	    $other_extensions_content = '';
-	    foreach ($other_extensions as $index => $other_extension ) {
-		    $other_extensions_content .= Util::render_template('extension-bulleted-item.php', false, $other_extension);
-	    }
-
-        $extensions = array(
-                'general' => array(
-                    'title' => __("About Extensions", "zip-recipes"),
-                    'class' => 'small zrdn-about-extensions',
-                    'image'     => '',
-                    'link'     => 'https://demo.ziprecipes.net/corn-salad/',
-                    'description' => Util::render_template('about_extensions.php'),
-                ),
-
-                'AutomaticNutrition' => array(
-                    'title' => __("Automatic Nutrition", "zip-recipes"),
-                    'class' => 'small',
-                    'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/nutrition.jpg',
-                    'link'     => 'https://demo.ziprecipes.net/tres-leches/',
-                    'description' => __("Automatically generate all nutritional values of your recipe.", "zip-recipes"),
-                ),
-
-                'ServingAdjustment' => array(
-	                'title' => __("Serving Adjustments", "zip-recipes"),
-	                'class' => 'small',
-	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/servingadjustments.jpg',
-	                'link'     => 'https://demo.ziprecipes.net/best-guacamole-ever/',
-	                'description' => __("Visitors can adjust the ingredients to the number of servings they need: it won't get easier for your visitors!", "zip-recipes"),
-                ),
-
-                'RecipeGrid2' => array(
-	                'title' => __("Recipe Gallery", "zip-recipes"),
-	                'class' => 'small',
-	                'image'     => trailingslashit(ZRDN_PLUGIN_URL) . 'images/recipegrid2.jpg',
-	                'link'     => 'https://demo.ziprecipes.net/recipe-gallery/',
-	                'description' => __("Display your recipes in this beautiful, dynamically filterable grid gallery", "zip-recipes"),
-                ),
-
-                'CustomTemplates' => array(
-	                'title' => __("Templates", "zip-recipes"),
-	                'class' => 'half-height zrdn-bulleted-block',
-	                'content' => '<div>'.$template_content.'</div>',
-                ),
-
-                'other-extensions' => array(
-	                'title' => __("And even more!", "zip-recipes"),
-	                'class' => 'half-height zrdn-bulleted-block',
-	                'content' => '<div>'.$other_extensions_content.'</div>',
-                ),
-        );
-
-        $extensions = apply_filters('zrdn_extensions', $extensions);
-	    $output = "";
-	    ?>
-        <div id="extensions" class="zrdn-gridless tab-content">
-            <div class="zrdn-grid">
-            <?php
-            foreach ($extensions as $index => $grid_item){
-                if ($index === 'general') {
-                    $btn_title = apply_filters('zrdn_upgrade_button', __('Get Premium', 'zip-recipes'));
-                    if (strtolower($btn_title) === 'account'){
-	                    $button = '<a href="https://ziprecipes.net/account" target="_blank" class="button button-primary">'.$btn_title.'</a>';
-                    } else {
-                        $button = '<a href="https://ziprecipes.net/premium" target="_blank" class="button button-primary">'.$btn_title.'</a>';
-                    }
-                } else {
-                    $button = '';
-	                if (isset($grid_item['link'])) $button = '<a href="'.$grid_item['link'].'" target="_blank" class="zrdn-button">'.__("See it live on our demo website", "zip-recipes").'</a>';
-                }
-
-                $grid_item['button'] = $button;
-                if (isset($grid_item['content'])) {
-                    $content = $grid_item['content'];
-                } else {
-	                $content = Util::render_template('extension-grid.php', false, $grid_item);
-                }
-
-	            $output .= str_replace( array('{class}', '{title}', '{content}', '{index}', '{controls}', 'grid-active'), array($grid_item['class'], $grid_item['title'],  $content, $index, '', ''), $element);
-            }
-            echo $output;
-            ?>
-            </div>
-        </div>
-        <?php
-    }
-
-	/**
-     * Get status for an extension
-	 * @param $extension
-	 *
-	 * @return string
-	 */
-
-    public static function get_extension_status($extension){
-	    $is_lover = defined('ZRDN_PRODUCT_ID') && ZRDN_PRODUCT_ID === 1843;
-	    $is_friend = defined('ZRDN_PRODUCT_ID') && ZRDN_PRODUCT_ID === 1851;
-
-	    if ( $extension === 'structured-data' && ($is_lover || $is_friend) ) return 'active';
-
-	    if (in_array($extension, self::$addons_lover) ){
-		    if ( $is_lover ) {
-			    if (Util::is_plugin_active($extension)) {
-				    return 'active';
-			    } else {
-				    return 'disabled';
-			    }
-		    } else {
-			    return 'lover';
-		    }
-	    }
-
-	    return 'zrdn-hide-bullet';
-    }
-
 
 	/**
 	 * Conditionally add a "jump to recipe button" to the post.

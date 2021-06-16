@@ -72,7 +72,7 @@ if (defined('ZRDN_PLUGIN_BASENAME')) {
 	define('ZRDN_PLUGIN_BASENAME', plugin_basename(__FILE__));
 	define('ZRDN_PLUGIN_URL', sprintf('%s/%s/', plugins_url(), dirname(plugin_basename(__FILE__))));
 	define('ZRDN_API_URL', "https://api.ziprecipes.net");
-
+	define('ZRDN_RECIPEDATABASE_URL', 'https://share.ziprecipes.net/');
 	require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 	$plugin_data = get_plugin_data(__FILE__);
 	define('ZRDN_PLUGIN_PRODUCT_NAME', $plugin_data['Name'] );
@@ -100,6 +100,10 @@ if (!function_exists(__NAMESPACE__ . '\init')) {
 			require_once( ZRDN_PATH . 'shepherd/tour.php' );
 
 		}
+		/**
+		 * Recipe sharing
+		 */
+		require_once( ZRDN_PATH . 'sharing/class-recipe-sharing-admin.php' );
 
 		/**
 		 * API endpoint & Basic Auth
