@@ -971,10 +971,9 @@ class Util {
 				'type'      => 'checkbox',
 				'source'    => 'plugins',
 				'is_plugin' => true,
-				'disabled'  => true,
+				'disabled'  => false,
 				'table'     => false,
 				'label'     => __( 'Recipe Gallery', 'zip-recipes' ),
-
 			),
 
 			'VisitorRating' => array(
