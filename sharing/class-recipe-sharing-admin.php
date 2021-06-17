@@ -123,9 +123,6 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 
 					// add post URL where the recipe is located
 					$data[ $language ][$index]->recipe_url = intval($recipe->post_id) ? get_permalink($recipe->post_id) : false;
-					
-					//$c = new Recipe( $recipe->recipe_id, $language );
-					
 					$index++;
 				}
 			}

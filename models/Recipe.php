@@ -104,22 +104,18 @@ class Recipe {
 	 * Recipe constructor.
 	 *
 	 * @param int $recipe_id
-	 * @param $post_id
+	 * @param int $post_id
+	 * @param bool $single // set to false if in an overview. De oembeds will not run, to limit api calls.
 	 */
-	public function __construct($recipe_id=null, $post_id=null, $title='', $image_url='') {
-		//$this->missing_sharing_values = $this->default_missing_sharing_values;
+	public function __construct($recipe_id=null, $post_id=null, $single=true) {
 		if ($post_id) {
 			$this->post_id = $post_id;
 		}
 		if ($recipe_id !== false ) {
 			$this->recipe_id = $recipe_id;
 		}
-		if ($title) {
-			$this->recipe_title = $title;
-		}
-		if ($image_url) {
-			$this->recipe_image = $image_url;
-		}
+		$this->single = $single;
+
         if (Util::get_option('recipe_selling_share_all_published')){
             $this->share_this_recipe = true;
         } else {
@@ -144,6 +140,7 @@ class Recipe {
      * @var bool
      */
     public $is_placeholder = false;
+    public $single = true;
 	/**
 	 * @var int
 	 */
@@ -650,9 +647,8 @@ class Recipe {
 
         if ( strlen($this->video_url) ) {
 	        //skip when on recipe overview page
-	        if ( !Util::is_recipe_overview_page() ) {
+	        if ( !Util::is_recipe_overview_page() && $this->single ) {
 		        $this->video_url_output = ( strpos( $this->video_url, '_value' ) !== false ) ? $this->video_url : wp_oembed_get( $this->video_url );
-
 	        }
         }
 	    $this->formatted_notes = $this->richify_item($this->zrdn_format_image($this->notes), 'notes');
@@ -661,7 +657,7 @@ class Recipe {
 	    $this->nested_instructions = $this->get_nested_items($this->instructions);
 
 	    if ( zrdn_use_rdb_api() ) {
-		    $this->missing_sharing_values = wp_parse_args( json_decode( $this->missing_sharing_values ),  $this->default_missing_sharing_values );
+		    $this->missing_sharing_values = wp_parse_args( $this->missing_sharing_values,  $this->default_missing_sharing_values );
 	    } else {
 		    $this->missing_sharing_values = $this->default_missing_sharing_values;
 	    }

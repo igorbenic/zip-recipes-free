@@ -208,7 +208,7 @@ class RecipeGrid2 extends PluginBase
             $position = 1;
             $itemlistElements = array();
             foreach ($recipes as $recipe) {
-                $recipe = new Recipe($recipe->recipe_id);
+                $recipe = new Recipe($recipe->recipe_id, false, false );
                 $recipeItem = $recipe->jsonld();
                 $recipeItem["url"] = $grid_url;
                 $itemlistElements[] = array(
@@ -421,7 +421,7 @@ class RecipeGrid2 extends PluginBase
 
         $grid_items = '';
         foreach($recipes as $index => $recipe) {
-            $recipe = new Recipe($recipe->recipe_id);
+            $recipe = new Recipe($recipe->recipe_id, false, false );
             $recipes[$index] = $recipe;
             if ($layoutMode=='mosaic') {
                 //get random size from array

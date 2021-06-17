@@ -879,7 +879,7 @@ class Util {
 				'is_plugin' => true,
 				'disabled'  => true,
 				'table'     => false,
-				'comment'   => sprintf(__("To automatically generate nutrition data, check out %spremium%s", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/automatic-nutrition-for-your-recipes/">', '</a>'),
+				'comment'   => sprintf(__("Auto generated nutrition data is available if you have , check out %spremium%s", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/automatic-nutrition-for-your-recipes/">', '</a>'),
 				'label'     => __( 'Enable the Automatic Nutrition generator', 'zip-recipes' ),
 			),
 
@@ -908,15 +908,22 @@ class Util {
 				'help'     => __( 'This will process in the background, and may take a while. It will pause if you close the browser, or disable the setting.', 'zip-recipes' ),
 			),
 
+			'RecipeGrid2' => array(
+				'type'      => 'checkbox',
+				'source'    => 'plugins',
+				'is_plugin' => true,
+				'disabled'  => false,
+				'table'     => false,
+				'label'     => __( 'Recipe Gallery', 'zip-recipes' ),
+			),
+
 			'RecipeActions' => array(
 				'type'      => 'checkbox',
 				'source'    => 'plugins',
 				'is_plugin' => true,
 				'disabled'  => true,
 				'table'     => false,
-				'label'     => __( 'Social Recipe sharing', 'zip-recipes' ),
-				'comment'   => sprintf(__("Check out %spremium%s to see our recipe sharing features", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/premium">', '</a>'),
-
+				'label'     => __( 'Yummly, Bigoven, Pinterest', 'zip-recipes' ),
 			),
 
 			'add_print_button' => array(
@@ -965,15 +972,6 @@ class Util {
 				'table'     => false,
 				'label'     => __( 'Imperial Metrics Converter',
 					'zip-recipes' ),
-			),
-
-			'RecipeGrid2' => array(
-				'type'      => 'checkbox',
-				'source'    => 'plugins',
-				'is_plugin' => true,
-				'disabled'  => false,
-				'table'     => false,
-				'label'     => __( 'Recipe Gallery', 'zip-recipes' ),
 			),
 
 			'VisitorRating' => array(
