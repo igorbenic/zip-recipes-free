@@ -367,7 +367,7 @@ class Recipe_Table extends \WP_List_Table {
         $edamam_sharing_status = $recipe->edamam_sharing_status;
         $sharing_status = $edamam_sharing_status ? $edamam_sharing_status : $zip_sharing_status;
 
-        if (get_option('zrdn_demo_recipe_id') === $recipe->recipe_id ) {
+        if ( get_option('zrdn_demo_recipe_id') === $recipe->recipe_id ) {
             return '';
         }
 
@@ -376,7 +376,6 @@ class Recipe_Table extends \WP_List_Table {
         }
 
         $missing_values = array_filter($recipe->missing_sharing_values);
-
         $titles = array(
             'not_activated' => __("Disabled", "zip-recipes"),
             'needs_improvement' => __("Needs improvement", "zip-recipes"),

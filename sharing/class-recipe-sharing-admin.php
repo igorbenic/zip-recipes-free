@@ -761,14 +761,13 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 
             ob_start();
             _e("How it works: ", 'zip-recipes'); ?>
-            <p>
             <ul>
                 <li><?php _e('ZIP will share your recipes for non-public and offline publications.', 'zip-recipes'); ?></li>
                 <li><?php _e('Earn 1 dollar per month for every recipe shared', 'zip-recipes'); ?></li>
                 <li><?php _e("You can always add, edit or remove recipes. You own your recipes. Always.", "zip-recipes") ?></li>
                 <li><?php _e("With the 1-minute set-up you can generate more income with ease.", "zip-recipes") ?></li>
             </ul>
-            </p>
+
             <?php
             $content = ob_get_clean();
 
@@ -815,7 +814,6 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
                 jQuery(document).ready(function ($) {
 
                     $(".zrdn-dismiss-notice.notice.is-dismissible").on("click", ".notice-dismiss", function (event) {
-                        console.log('click');
                         var data = {
                             'action': 'zrdn_dismiss_sharing_notice',
                             'nonce': '<?php echo $ajax_nonce; ?>'

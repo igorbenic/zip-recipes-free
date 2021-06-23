@@ -879,7 +879,7 @@ class Util {
 				'is_plugin' => true,
 				'disabled'  => true,
 				'table'     => false,
-				'comment'   => sprintf(__("Auto generated nutrition data is available if you have , check out %spremium%s", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/automatic-nutrition-for-your-recipes/">', '</a>'),
+				'comment'   => sprintf(__("Auto generated nutrition data is available if you have enabled %srecipe sharing%s for all recipes, or in the %spremium%s plugin", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/recipe-sharing-all-you-need-to-know/">','</a>','<a target="_blank" href="https://ziprecipes.net/automatic-nutrition-for-your-recipes/">', '</a>'),
 				'label'     => __( 'Enable the Automatic Nutrition generator', 'zip-recipes' ),
 			),
 
@@ -1062,7 +1062,6 @@ class Util {
 				'source'    => 'recipe_sharing',
 				'default'    => false,
 				'table'     => false,
-				//'label'     => sprintf(__("Start earning money with ZIP Recipes. Create high-quality recipes and rent them out to be published offline only. More detailed instructions, read our %sRecipe sharing tutorial%s.", "zip-recipes"), '<a target="_blank" href="https://ziprecipes.net/recipe-sharing-all-you-need-to-know">', '</a>'),
                 'label'     => __('How it works:', 'zip-recipes'),
                 'checklist' => array(
                                 1 => array(

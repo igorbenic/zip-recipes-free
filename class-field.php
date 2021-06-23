@@ -835,7 +835,7 @@ if (!class_exists("ZRDN_Field")) {
                     foreach ($checklist as $c_item){
                         $tooltip = '';
                         if (isset($c_item['help'])) $tooltip = $this->get_help_tip_btn($c_item);
-                        echo '<li><p>' . $c_item['text'] . $tooltip . '</p></li>';
+                        echo '<li>' . $c_item['text'] . $tooltip . '</li>';
                     }
                 ?>
                 </ul>

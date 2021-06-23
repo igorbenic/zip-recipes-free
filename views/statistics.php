@@ -1,7 +1,6 @@
 <?php
 use ZRDN\Recipe;
 use ZRDN\Util;
-
 defined( 'ABSPATH' ) or die();
 if (\ZRDN\zrdn_use_rdb_api()) {
     $active_recipes = zrdn_get_nr_of_recipes_by_sharing_status('approved');
@@ -13,7 +12,7 @@ $recipes_needs_improvement = zrdn_get_nr_of_recipes_by_sharing_status('needs_imp
 $recipes_waiting = zrdn_get_nr_of_recipes_by_sharing_status('waiting_approval');
 $recipes_rejected = zrdn_get_nr_of_recipes_by_sharing_status('declined');
 $recipes_disabled = zrdn_get_nr_of_recipes_by_sharing_status('not_activated');
-$estimated_revenue = $active_recipes + $recipes_waiting + $recipes_needs_improvement + $recipes_disabled;
+$estimated_revenue = intval($active_recipes + $recipes_waiting + $recipes_needs_improvement + $recipes_disabled -1 );//we subtract one for demo recipe. then intval to make sure it's positive
 
 //get most populair recipes
 $recipe_args = array(
@@ -22,20 +21,19 @@ $recipe_args = array(
     'post_status' => 'publish',
     'number' => 1,
 );
-$most_popular_recipe = Util::get_recipes($recipe_args);
+$most_popular_recipe = Util::get_recipes( $recipe_args );
 $most_popular_url = esc_url( admin_url( "admin.php?page=zrdn-recipes&id=". $most_popular_recipe[0]->recipe_id ."") );
 
 function zrdn_get_nr_of_recipes_by_sharing_status( $sharing_status ){
     global $wpdb;
-    $count = get_transient("zrdn_recipes_".$sharing_status."_count");
-    if (!$count) {
-        $recipes_table = $wpdb->prefix . Recipe::TABLE_NAME;
-        $query = "SELECT count(*) as nr_of_recipes FROM $recipes_table where zip_sharing_status = '" . $sharing_status ."'" ;
-        $result = $wpdb->get_results($query);
-        $rows = $result[0];
-        $count = $rows->nr_of_recipes;
-        set_transient("zrdn_recipes_".$sharing_status."_count", $count, HOUR_IN_SECONDS);
-    }
+    $recipes_table = $wpdb->prefix . Recipe::TABLE_NAME;
+	$demo_recipe_id = get_option('zrdn_demo_recipe_id');
+
+	$query = "SELECT count(*) as nr_of_recipes FROM $recipes_table where recipe_id != $demo_recipe_id AND post_id != 0 AND zip_sharing_status = '" . $sharing_status ."'";
+    $result = $wpdb->get_results($query);
+    $rows = $result[0];
+    $count = $rows->nr_of_recipes;
+
     return $count;
 }
 

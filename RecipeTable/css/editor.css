@@ -343,11 +343,7 @@ Tabs
   font-weight: 300;
 }
 #zrdn-dashboard .zrdn-explanation-checklist li {
-  display: flex;
   margin-bottom: 4px;
-}
-#zrdn-dashboard .zrdn-explanation-checklist li p {
-  margin: 0;
 }
 #zrdn-dashboard .zrdn-explanation-checklist li:before {
   display: inline-block;

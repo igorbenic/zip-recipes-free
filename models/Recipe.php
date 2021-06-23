@@ -657,6 +657,7 @@ class Recipe {
 	    $this->nested_instructions = $this->get_nested_items($this->instructions);
 
 	    if ( zrdn_use_rdb_api() ) {
+		    $this->missing_sharing_values = !empty($this->missing_sharing_values) ? json_decode( $this->missing_sharing_values ) : array();
 		    $this->missing_sharing_values = wp_parse_args( $this->missing_sharing_values,  $this->default_missing_sharing_values );
 	    } else {
 		    $this->missing_sharing_values = $this->default_missing_sharing_values;
