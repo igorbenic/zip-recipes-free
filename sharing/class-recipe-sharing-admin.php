@@ -14,13 +14,13 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 			}
 
 			self::$_this = $this;
-			add_action('zrdn_update_option', array($this, 'maybe_enable_recipe_sharing' ), 10,4);
-			add_action('admin_init', array($this, 'generate_recipe_sharing_api_key'));
-			add_action('admin_init', array($this, 'check_if_sync_should_run'));
-			add_action('admin_init', array($this, 'check_if_validation_should_run'));
-//            add_filter("zrdn_tabs", array($this, 'add_recipe_sharing_tab'), 11, 2);
-//            add_action('wp_ajax_zrdn_dismiss_sharing_notice', array($this, 'dismiss_sharing_notice'));
-//            add_action("admin_notices", array($this, 'show_notice_sharing'));
+			add_action( 'zrdn_update_option', array($this, 'maybe_enable_recipe_sharing' ), 10,4);
+			add_action( 'admin_init', array($this, 'generate_recipe_sharing_api_key'));
+			add_action( 'admin_init', array($this, 'check_if_sync_should_run'));
+			add_action( 'admin_init', array($this, 'check_if_validation_should_run'));
+            add_filter( "zrdn_tabs", array($this, 'add_recipe_sharing_tab'), 11, 2);
+            add_action( 'wp_ajax_zrdn_dismiss_sharing_notice', array($this, 'dismiss_sharing_notice'));
+            add_action( "admin_notices", array($this, 'show_notice_sharing'));
 		}
 
 		static function this() {
@@ -753,7 +753,6 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
         {
             $screen = get_current_screen();
             if ( $screen->parent_base === 'edit' ) return;
-
             add_action('admin_print_footer_scripts', array($this, 'dismiss_sharing_notice_script'));
             $dismissed = get_option('zrdn_sharing_notice_dismissed');
             $link_open = '<a class="button button-primary"" href="'.admin_url('admin.php?page=zrdn-recipe-sharing').'">';
