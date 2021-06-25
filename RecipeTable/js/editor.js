@@ -63,6 +63,11 @@ jQuery(document).ready(function ($) {
     var preview = $('#zrdn-preview');
     var preview_page_loaded = false;
     syncPreview();
+    //do another one to make sure the iframe height is correct
+    setTimeout(function(){
+        syncPreview();
+    },2000);
+
     function syncPreview(forceField){
         forceField = typeof forceField !== 'undefined' ? forceField : false;
 
@@ -107,14 +112,15 @@ jQuery(document).ready(function ($) {
                     recipeContainer = preview_iframe.contentDocument.getElementById('zrdn-recipe-container');
                     zrdnUpdateFields(zrdn_variables, $(recipeContainer));
                     resizeIframe(preview_iframe);
-
-                    preview.animate({"height": "768px"});
                     preview_page_loaded = true;
                 });
             } else {
                 preview_iframe = document.getElementById('preview_iframe');
                 recipeContainer = preview_iframe.contentDocument.getElementById('zrdn-recipe-container');
                 zrdnUpdateFields(zrdn_variables, $(recipeContainer));
+                console.log("resize iframe");
+                resizeIframe(preview_iframe);
+
             }
         }
     }
@@ -173,15 +179,12 @@ jQuery(document).ready(function ($) {
 
     function resizeIframe( frame ) {
         var b = frame.contentWindow.document.body || frame.contentDocument.body,
-            cHeight = $(b).height();
-
+        cHeight = $(b).find("#zrdn-recipe-container").height();
         if( frame.oHeight !== cHeight ) {
             $(frame).height( 0 );
             frame.style.height = 0;
-
             $(frame).height( cHeight );
             frame.style.height = parseInt(cHeight) + 200 + "px";
-
             frame.oHeight = cHeight;
         }
     }
