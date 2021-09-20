@@ -74,7 +74,7 @@ if (defined('ZRDN_PLUGIN_BASENAME')) {
 	define('ZRDN_API_URL', "https://api.ziprecipes.net");
 	define('ZRDN_RECIPEDATABASE_URL', 'https://share.ziprecipes.net/');
 	require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-	$plugin_data = get_plugin_data(__FILE__);
+	$plugin_data = get_file_data( __FILE__, array( 'Version' => 'Version' ), false );
 	define('ZRDN_PLUGIN_PRODUCT_NAME', $plugin_data['Name'] );
 	$debug = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? time() : '';
 	define('ZRDN_VERSION_NUM', $plugin_data['Version'] . $debug);
