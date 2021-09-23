@@ -73,11 +73,9 @@ if (defined('ZRDN_PLUGIN_BASENAME')) {
 	define('ZRDN_PLUGIN_URL', sprintf('%s/%s/', plugins_url(), dirname(plugin_basename(__FILE__))));
 	define('ZRDN_API_URL', "https://api.ziprecipes.net");
 	define('ZRDN_RECIPEDATABASE_URL', 'https://share.ziprecipes.net/');
-	require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-	$plugin_data = get_file_data( __FILE__, array( 'Version' => 'Version' ), false );
-	define('ZRDN_PLUGIN_PRODUCT_NAME', $plugin_data['Name'] );
+	define('ZRDN_PLUGIN_PRODUCT_NAME', 'Zip Recipes' );
 	$debug = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? time() : '';
-	define('ZRDN_VERSION_NUM', $plugin_data['Version'] . $debug);
+	define('ZRDN_VERSION_NUM', '8.0.0' . $debug);
 
 	add_action('plugins_loaded', __NAMESPACE__ . '\init', 9);
 }
