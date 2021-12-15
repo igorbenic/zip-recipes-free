@@ -114,8 +114,8 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 7. For more information, please visit [ziprecipes.net](https://ziprecipes.net)
 
 == Changelog ==
-= 8.0.0 =
-* New: recipe sharing: a new way to monetize your recipes!
+= 7.1.6 =
+* 
 
 = 7.1.5 =
 * Fix: upgrade causing broken template
