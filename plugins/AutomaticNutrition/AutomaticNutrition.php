@@ -282,7 +282,6 @@ class AutomaticNutrition extends PluginBase
     }
 
     public function nutrition_api_allowed(){
-
 	    $sharing_enabled = get_option( 'zrdn_enable_recipe_selling' ) && Util::get_option('recipe_selling_share_all_published');
 	    $license_valid = false;
 	    if ( defined('ZRDN_PREMIUM') ){
@@ -458,21 +457,19 @@ class AutomaticNutrition extends PluginBase
 
 		    //update recipe data
 		    if (isset($nutrition_data['Energy'])) $recipe->calories = $nutrition_data['Energy'];
-		    if (isset($nutrition_data['Trans'])) $recipe->trans_fat = $nutrition_data['Trans'];
-		    if (isset($nutrition_data['Saturated'])) $recipe->saturated_fat = $nutrition_data['Saturated'];
+		    if (isset($nutrition_data['Fatty acids, total trans'])) $recipe->trans_fat = $nutrition_data['Fatty acids, total trans'];
+		    if (isset($nutrition_data['Fatty acids, total saturated'])) $recipe->saturated_fat = $nutrition_data['Fatty acids, total saturated'];
 		    if (isset($nutrition_data['Cholesterol'])) $recipe->cholesterol = $nutrition_data['Cholesterol'];
-		    if (isset($nutrition_data['Vitamin C'])) $recipe->vitamin_c = $nutrition_data['Vitamin C'];
-		    if (isset($nutrition_data['Fat']))$recipe->fat = $nutrition_data['Fat'];
-		    if (isset($nutrition_data['Carbs']))$recipe->carbs = $nutrition_data['Carbs'];
-		    if (isset($nutrition_data['Fiber']))$recipe->fiber = $nutrition_data['Fiber'];
-		    if (isset($nutrition_data['Sugars']))$recipe->sugar = $nutrition_data['Sugars'];
+		    if (isset($nutrition_data['Total lipid (fat)']))$recipe->fat = $nutrition_data['Total lipid (fat)'];
+		    if (isset($nutrition_data['Carbohydrate, by difference']))$recipe->carbs = $nutrition_data['Carbohydrate, by difference'];
+		    if (isset($nutrition_data['Fiber, total dietary']))$recipe->fiber = $nutrition_data['Fiber, total dietary'];
+		    if (isset($nutrition_data['Sugars, total']))$recipe->sugar = $nutrition_data['Sugars, total'];
 		    if (isset($nutrition_data['Protein']))$recipe->protein = $nutrition_data['Protein'];
-		    if (isset($nutrition_data['Sodium']))$recipe->sodium = $nutrition_data['Sodium'];
-		    if (isset($nutrition_data['Calcium']))$recipe->calcium = $nutrition_data['Calcium'];
-		    if (isset($nutrition_data['Iron']))$recipe->iron = $nutrition_data['Iron'];
-		    if (isset($nutrition_data['Vitamin A'])) $recipe->vitamin_a = $nutrition_data['Vitamin A'];
-		    if (isset($nutrition_data['Vitamin C']))$recipe->vitamin_c = $nutrition_data['Vitamin C'];
-
+		    if (isset($nutrition_data['Sodium, Na']))$recipe->sodium = $nutrition_data['Sodium, Na'];
+		    if (isset($nutrition_data['Calcium, Ca']))$recipe->calcium = $nutrition_data['Calcium, Ca'];
+		    if (isset($nutrition_data['Iron, Fe']))$recipe->iron = $nutrition_data['Iron, Fe'];
+		    if (isset($nutrition_data['Vitamin A, RAE'])) $recipe->vitamin_a = $nutrition_data['Vitamin A, RAE'];
+		    if (isset($nutrition_data['Vitamin C, total ascorbic acid']))$recipe->vitamin_c = $nutrition_data['Vitamin C, total ascorbic acid'];
 		    if ( !$image_url ) {
 			    $msg = __("Did not receive nutrition image url","zip-recipes");
 		    }

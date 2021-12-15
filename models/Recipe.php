@@ -982,6 +982,9 @@ class Recipe {
     public function validate(){
         if (!current_user_can('edit_posts')) return;
         $error = false;
+        if ( !zrdn_use_rdb_api() ) {
+            return;
+        }
         $current_sharing_status =  sanitize_text_field($this->zip_sharing_status);
         if ($current_sharing_status == 'approved' || $current_sharing_status == 'declined' ) {
             return;
@@ -1031,7 +1034,7 @@ class Recipe {
                 $error = true;
 	            $this->missing_sharing_values[$key] = true;
             } else {
-		        unset($this->missing_sharing_values[$key]);
+		        if (isset($this->missing_sharing_values[$key])) unset($this->missing_sharing_values[$key]);
 	        }
         }
 
@@ -1040,7 +1043,7 @@ class Recipe {
                 $error = true;
 	            $this->missing_sharing_values[$key] = true;
             }else {
-	            unset($this->missing_sharing_values[$key]);
+                if (isset($this->missing_sharing_values[$key])) unset($this->missing_sharing_values[$key]);
             }
         }
 

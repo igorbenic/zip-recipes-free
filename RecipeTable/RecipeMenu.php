@@ -333,15 +333,17 @@ function zrdn_recipe_admin_menu()
 		'zrdn-settings', // menu_slug
 		__NAMESPACE__ . '\ZipRecipes::settings_page' // callback function
 	);
-
-    add_submenu_page(
-        'zrdn-recipes',
-        __("Monetize your recipes", "zip-recipes"), // page_title
-        __("Monetize your recipes", "zip-recipes"), // menu_title
-        'manage_options', // capability
-        'zrdn-recipe-sharing', // menu_slug
-        __NAMESPACE__ . '\ZRDN_recipe_sharing_admin::recipe_sharing_page' // callback function
-    );
+	/**
+	 * Uncomment to enable recipe sharing
+	 */
+//    add_submenu_page(
+//        'zrdn-recipes',
+//        __("Monetize your recipes", "zip-recipes"), // page_title
+//        __("Monetize your recipes", "zip-recipes"), // menu_title
+//        'manage_options', // capability
+//        'zrdn-recipe-sharing', // menu_slug
+//        __NAMESPACE__ . '\ZRDN_recipe_sharing_admin::recipe_sharing_page' // callback function
+//    );
 
 	do_action("zrdn__menu_page", array(
 		"capability" => 'manage_options',

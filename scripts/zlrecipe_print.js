@@ -2,7 +2,11 @@ var win=null;
 function zlrPrint(id, plugin_path)
 {
 	var content = document.getElementById(id).innerHTML;
-	var title = document.getElementsByClassName("zrdn-element_recipe_title")[0].innerHTML;
+	if (document.getElementsByClassName("zrdn-block-wrap zrdn-recipe_title").length > 0) {	
+			var title = document.getElementsByClassName("zrdn-element_recipe_title")[0].innerHTML;
+	} else {
+			var title = '';
+	}
 	win = window.open();
 	self.focus();
 	win.document.open();

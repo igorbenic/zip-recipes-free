@@ -128,8 +128,8 @@ if (!class_exists("ZRDN_Field")) {
             }
             switch ($type) {
                 case 'checkbox':
-                    if ($value === 'false') $value = false;
-                    return $value==true ? true : false;
+                    if ($value === 'false') $value = 0;
+                    return $value==true ? 1 : 0; //save as 1 or 0, to enable default true option.
                 case 'normal-checkbox':
                     if ($value === 'false') $value = false;
                     return $value==true ? true : false;

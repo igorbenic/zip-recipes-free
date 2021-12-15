@@ -57,6 +57,10 @@ if ( ! function_exists( __NAMESPACE__ . '\zrdn_use_rdb_api' ) ) {
 	 * @return bool
 	 */
 	function zrdn_use_rdb_api() {
+		/**
+		 * Uncomment to enable recipe sharing
+		 */
+		return false;
 		if (!zrdn_is_rdb_api_allowed_country()) {
 			return false;
 		}

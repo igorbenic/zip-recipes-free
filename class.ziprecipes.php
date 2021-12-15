@@ -38,8 +38,10 @@ class ZipRecipes {
         if (is_admin()) {
             self::$field = new ZRDN_Field();
         }
-
-	    self::$recipe_sharing = new ZRDN_recipe_sharing_admin();
+	    /**
+	     * Uncomment to enable recipe sharing
+	     */
+//	    self::$recipe_sharing = new ZRDN_recipe_sharing_admin();
         self::$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 
 	    add_action('plugins_loaded', __NAMESPACE__ . '\ZipRecipes::load_plugins', 20);

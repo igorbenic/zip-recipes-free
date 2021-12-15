@@ -453,14 +453,17 @@ class Util {
 	    // Only display recipe sharing for english websites
 	    if ( zrdn_is_rdb_api_allowed_country() ){
 	        $grid_items = wp_parse_args( array(
-                array(
-                    'title' => __("Monetize your recipes", "zip-recipes"),
-                    'page' => 'monetize',
-                    'source' => "recipe_sharing",
-                    'class' => 'small monetize-recipes',
-                    'can_hide' => false,
-                    'footer' => 'monetize-your-recipes-footer.php',
-                ),
+		        /**
+		         * Uncomment to enable recipe sharing
+		         */
+//                array(
+//                    'title' => __("Monetize your recipes", "zip-recipes"),
+//                    'page' => 'monetize',
+//                    'source' => "recipe_sharing",
+//                    'class' => 'small monetize-recipes',
+//                    'can_hide' => false,
+//                    'footer' => 'monetize-your-recipes-footer.php',
+//                ),
                 array(
                     'title' => __("Settings", "zip-recipes"),
                     'page' => 'monetize',
@@ -652,6 +655,7 @@ class Util {
 				'type'               => 'checkbox',
 				'source'             => 'general',
 				'table'              => false,
+                'default'              => true,
 				'label'              => __( "Enable jump to recipe link", 'zip-recipes' ),
 				'help'              => __( "You can add a link at the top of each recipe which scrolls down to the recipe on the page when the user clicks it.", 'zip-recipes' ),
 			),
@@ -660,7 +664,7 @@ class Util {
 				'type'               => 'checkbox',
 				'source'             => 'general',
 				'table'              => false,
-				'default'            => false,
+				'default'            => true,
 				'label'              => __( "Show summary on archive pages", 'zip-recipes' ),
 				'help'              => __( "You can choose to show the recipe summary instead of the recipe on archive pages.", 'zip-recipes' ),
 			),
@@ -757,7 +761,7 @@ class Util {
 			'hide_permalink' => array(
 				'type'      => 'checkbox',
 				'source'    => 'general',
-				'default'    => true,
+				'default'    => false,
 				'table'     => false,
 				'label'     => __( "Hide link to recipe in print view", 'zip-recipes' ),
 				'help'     => __( "The link is a direct link to the recipe, at the bottom of your recipe printout", 'zip-recipes' ),
@@ -835,6 +839,8 @@ class Util {
 				'size'                  => 'zrdn_custom_print_image',
 				'table'                 => false,
 				'label'                 => __( 'Custom Print Button', 'zip-recipes' ),
+				'help'              => __( "Us an image of minimal 256x256 px.", 'zip-recipes' ),
+
 			),
 
 			'Authors' => array(
@@ -1042,7 +1048,6 @@ class Util {
 				'source'    => 'advanced',
 				'post_get'    => 'get',
 				'action'    => 'zrdn_restart_tour',
-				'default'    => true,
 				'table'     => false,
 				'label'     => __( "Restart tour",
 					'zip-recipes' ),
@@ -1052,7 +1057,7 @@ class Util {
 				'type'      => 'checkbox',
 				'source'    => 'advanced',
 				'disabled'    => true,
-				'default'    => true,
+				'default'    => false,
 				'table'     => false,
 				'label'     => __( "Import ratings to reviews", 'zip-recipes' ),
 			),
@@ -1475,13 +1480,15 @@ class Util {
 	    } else {
 	    	return false;
 	    }
+
 	    $source = $field_config['source'];
 	    $default = isset($field_config['default']) ? $field_config['default'] : false;
 	    $zrdn_settings = get_option("zrdn_settings_$source");
-
 	    if (!isset($zrdn_settings[$fieldname])) {
-	    	$value = $default;
-	    } else if (!is_array($zrdn_settings[$fieldname]) && strlen($zrdn_settings[$fieldname]) === 0) {
+		    $value = $default;
+	    } else if ( $field_config['type'] === 'checkbox' && $zrdn_settings[$fieldname] === false ){
+            $value = $default;
+	    } else if (!is_array($zrdn_settings[$fieldname]) && strlen($zrdn_settings[$fieldname]) == 0) {
 		    $value = $default;
 	    } else if (is_array($zrdn_settings[$fieldname]) && empty($zrdn_settings[$fieldname]) ) {
 		    $value = $default;

@@ -14,6 +14,7 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 			}
 
 			self::$_this = $this;
+
 			add_action( 'zrdn_update_option', array($this, 'maybe_enable_recipe_sharing' ), 10,4);
 			add_action( 'admin_init', array($this, 'generate_recipe_sharing_api_key'));
 			add_action( 'admin_init', array($this, 'check_if_sync_should_run'));

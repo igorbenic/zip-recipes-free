@@ -15,61 +15,77 @@ html:focus-within{scroll-behavior:smooth}
 
 #zrdn-recipe-container {
   /* styling with zrdn markup */
+
   .bold {
-    font-weight:bold;
+    font-weight: bold;
   }
+
   .italic {
     font-style: italic;
   }
 
   /* SPECIFIC ELEMENT STYLES */
- .zrdn-block-divider {
-   border-bottom:1px solid black;
- }
+
+  .zrdn-block-divider {
+    border-bottom: 1px solid black;
+  }
 
   .zrdn-recipe-image {
     img {
-      width:100%;
-      height:inherit;
+      width: 100%;
+      height: inherit;
     }
   }
 
   /* Author */
+
   .zrdn-author {
-    .zrdn-avatar + div {margin-left:25px;}
+    .zrdn-avatar + div {
+      margin-left: 25px;
+    }
+
     div + div {
       margin-left: 5px;
     }
-    display:flex;
-    align-items:center;
+
+    display: flex;
+    align-items: center;
+
     .zrdn-avatar {
       img {
-      border-radius: 50%;
-      width: 60px;
-      height:inherit;
-    }
+        border-radius: 50%;
+        width: 60px;
+        height: inherit;
+      }
     }
   }
 
-  .zrdn-category  {
+  .zrdn-category {
     .zrdn-recipe-label {
-      display:none;
-      min-width:130px;
+      display: none;
+      min-width: 130px;
       font-weight: 700;
     }
-    display:flex;
+
+    display: flex;
     flex-wrap: wrap;
+
     a, div, span {
-      padding-right:@default-margin;
+      padding-right: @default-margin;
     }
-    .zrdn-cuisine-category-divider {padding:0}
+
+    .zrdn-cuisine-category-divider {
+      padding: 0
+    }
 
   }
 
   /* custom print button */
+
   .zrdn-actions {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
+
     .zrdn-print-link {
       vertical-align: top;
       display: inline-block;
@@ -82,11 +98,13 @@ html:focus-within{scroll-behavior:smooth}
   }
 
   /*Video*/
+
   .zrdn-video .zrdn-element_video_url {
     position: relative;
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
+
     iframe,
     object,
     embed {
@@ -100,40 +118,55 @@ html:focus-within{scroll-behavior:smooth}
 
 
   /* Yield */
+
   .zrdn-details {
-    div + div { padding-right:0.5*@default-margin;}
-    display:flex;
-    flex-wrap: wrap;
-    .zrdn-details-item {
-      flex-basis:50%;
-      display:flex;
+    div + div {
+      padding-right: 0.5*@default-margin;
     }
+
+    display: flex;
+    flex-wrap: wrap;
+
+    .zrdn-details-item {
+      flex-basis: 50%;
+      display: flex;
+    }
+
     .zrdn-recipe-label, .zrdn-value {
-      flex-basis:50%;
+      flex-basis: 50%;
       white-space: nowrap;
     }
+
     .zrdn-recipe-label {
-      font-weight:700;
+      font-weight: 700;
       padding-right: 10px;
     }
+
     .zrdn-yield-container {
-      .zrdn-yield-label {padding-right:0.5*@default-margin}
-      display:flex;
+      .zrdn-yield-label {
+        padding-right: 0.5*@default-margin
+      }
+
+      display: flex;
       align-items: center;
+
       .zrdn-yield {
-        display:flex;
+        display: flex;
         align-items: center;
       }
     }
   }
 
   /* Ingredients */
+
   ul, ol {
     margin-left: @default-margin;
+
     &.nobullets {
       list-style: none;
-      margin-left:0;
+      margin-left: 0;
       padding-left: 0;
+
       li {
         list-style: none;
       }
@@ -141,16 +174,19 @@ html:focus-within{scroll-behavior:smooth}
   }
 
   @default-bullet-color: #E35899;
+
   ol, ul {
     li {
-      margin-top:8px;
+      margin-top: 8px;
     }
+
     &.zrdn-numbered li, &.zrdn-bullets li {
       counter-increment: inst;
       display: block;
       position: relative;
     }
-    &.zrdn-numbered li:before{
+
+    &.zrdn-numbered li:before {
       content: counter(inst);
       position: absolute;
       left: -30px;
@@ -159,40 +195,44 @@ html:focus-within{scroll-behavior:smooth}
       font-size: 12px;
       top: 9px;
     }
-    &.zrdn-bullets li:before{
+
+    &.zrdn-bullets li:before {
       content: '';
       position: absolute;
       left: -30px;
       top: 9px;
     }
-    &.zrdn-square li:before{
+
+    &.zrdn-square li:before {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0;
     }
 
-    &.zrdn-round li:before{
+    &.zrdn-round li:before {
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       border-radius: 50%;
     }
-    &.zrdn-bordered li:before{
+
+    &.zrdn-bordered li:before {
       border: 2px solid @default-bullet-color;
       color: @default-bullet-color;
       background-color: transparent;
       height: 26px;
       width: 26px;
-      line-height:20px;
-      font-size:17px;
-      top:0;
+      line-height: 20px;
+      font-size: 17px;
+      top: 0;
     }
-    &.zrdn-solid li:before{
+
+    &.zrdn-solid li:before {
       background-color: @default-bullet-color;
       color: #fff;
       height: 24px;
       width: 24px;
       line-height: 23px;
-      font-size:17px;
+      font-size: 17px;
     }
 
     &.zrdn-counter li:before {
@@ -203,37 +243,45 @@ html:focus-within{scroll-behavior:smooth}
   }
 
   /* Notes */
+
   #zrdn-notes {
 
   }
 
   /* nutrition in text */
+
   .zrdn-nutrition_text {
-    display:flex;
-    flex-wrap:wrap;
-    line-height:1.8em;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 1.8em;
+
     .zrdn-text-nutrition-item {
-      margin:0 10px 10px 0;
-      border:2px solid #666;
-      padding:5px;
-      color:#666;
-      min-width:100px;
+      margin: 0 10px 10px 0;
+      border: 2px solid #666;
+      padding: 5px;
+      color: #666;
+      min-width: 100px;
+
       .zrdn-nutrition-title {
-        font-size:18px;
+        font-size: 18px;
       }
+
       .zrdn-nutrition-value {
-        font-size:27px;
+        font-size: 27px;
         line-height: 36px;
-        border-bottom:1px solid #666;
+        border-bottom: 1px solid #666;
       }
+
       .zrdn-nutrition-percentage {
-        font-size:22px;
+        font-size: 22px;
       }
-      >div {
-        text-align:center;
+
+      > div {
+        text-align: center;
       }
     }
-    .zrdn-text-nutrition-explanation{
+
+    .zrdn-text-nutrition-explanation {
       font-style: italic;
       font-size: 12px;
       line-height: 16px;
@@ -242,10 +290,12 @@ html:focus-within{scroll-behavior:smooth}
   }
 
   /* TAGS */
+
   .zrdn-tags {
     .zrdn-tags-container {
       display: flex;
-      flex-wrap:wrap;
+      flex-wrap: wrap;
+
       .zrdn-tag-item:first-child,
       .zrdn-tag-item + .zrdn-tag-item {
         margin-right: 0.5 * @default-margin;
@@ -254,20 +304,25 @@ html:focus-within{scroll-behavior:smooth}
   }
 
   /*Social*/
+
   .zrdn-social-container {
-    display:flex;
-    .zrdn-share + .zrdn-share{
-      margin-left:@default-margin;
+    display: flex;
+
+    .zrdn-share + .zrdn-share {
+      margin-left: @default-margin;
     }
+
     .zrdn-share {
 
     }
   }
 
   /* permalink, print only*/
-  .zrdn-printed-permalink{
-    display:none;
+
+  .zrdn-printed-permalink {
+    display: none;
   }
+}
 
   /* Nutrition Label CSS */
   #zrdn-nutrition-label {
@@ -432,7 +487,6 @@ html:focus-within{scroll-behavior:smooth}
       border-bottom: 1px solid black;
     }
   }
-}
 
 /* END SPECIFIC ELEMENT STYLES */
 

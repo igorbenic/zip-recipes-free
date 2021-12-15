@@ -18,7 +18,6 @@ html:focus-within {
   /* TAGS */
   /*Social*/
   /* permalink, print only*/
-  /* Nutrition Label CSS */
 }
 #zrdn-recipe-container .bold {
   font-weight: bold;
@@ -252,68 +251,69 @@ html:focus-within {
 #zrdn-recipe-container .zrdn-printed-permalink {
   display: none;
 }
-#zrdn-recipe-container #zrdn-nutrition-label {
+/* Nutrition Label CSS */
+#zrdn-nutrition-label {
   width: 100%;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-container {
+#zrdn-nutrition-label .nutrition-container {
   font-family: sans-serif;
   font-size: 12px;
   line-height: 1.4;
   margin: auto auto;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-container th,
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-container tr {
+#zrdn-nutrition-label .nutrition-container th,
+#zrdn-nutrition-label .nutrition-container tr {
   background: #fff;
   text-transform: none;
 }
-#zrdn-recipe-container #zrdn-nutrition-label p {
+#zrdn-nutrition-label p {
   margin: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts {
+#zrdn-nutrition-label .nutrition-facts {
   border: 1px solid black;
   width: 280px;
   padding: 8px;
   margin: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts table {
+#zrdn-nutrition-label .nutrition-facts table {
   border-collapse: collapse;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__title {
+#zrdn-nutrition-label .nutrition-facts__title {
   margin: 0 0 4px 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__title::before {
+#zrdn-nutrition-label .nutrition-facts__title::before {
   display: none;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-serving-size {
+#zrdn-nutrition-label .nutrition-serving-size {
   white-space: normal;
 }
-#zrdn-recipe-container #zrdn-nutrition-label h4.nutrition-facts__title {
+#zrdn-nutrition-label h4.nutrition-facts__title {
   font-size: 30px;
   font-weight: bold;
 }
-#zrdn-recipe-container #zrdn-nutrition-label h5.nutrition-facts__title,
-#zrdn-recipe-container #zrdn-nutrition-label h5.nutrition-facts__title span {
+#zrdn-nutrition-label h5.nutrition-facts__title,
+#zrdn-nutrition-label h5.nutrition-facts__title span {
   font-size: 22px;
   font-weight: normal;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__header {
+#zrdn-nutrition-label .nutrition-facts__header {
   border-bottom: 20px solid black;
   padding: 0 0 4px 0;
   margin: 0 0 8px 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__header p {
+#zrdn-nutrition-label .nutrition-facts__header p {
   margin: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table {
+#zrdn-nutrition-label .nutrition-facts__table {
   width: 100%;
   margin: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table thead tr th,
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table thead tr td {
+#zrdn-nutrition-label .nutrition-facts__table thead tr th,
+#zrdn-nutrition-label .nutrition-facts__table thead tr td {
   border: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table th,
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table td {
+#zrdn-nutrition-label .nutrition-facts__table th,
+#zrdn-nutrition-label .nutrition-facts__table td {
   font-weight: normal;
   text-align: left;
   padding: 4px 0;
@@ -322,51 +322,51 @@ html:focus-within {
   white-space: nowrap;
   font-size: 12px;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table td:last-child {
+#zrdn-nutrition-label .nutrition-facts__table td:last-child {
   text-align: right;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table .blank-cell {
+#zrdn-nutrition-label .nutrition-facts__table .blank-cell {
   width: 16px;
   border-top: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table .thick-row th,
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table .thick-row td {
+#zrdn-nutrition-label .nutrition-facts__table .thick-row th,
+#zrdn-nutrition-label .nutrition-facts__table .thick-row td {
   border-top-width: 5px;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .small-info {
+#zrdn-nutrition-label .small-info {
   font-size: 12px;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .copyright {
+#zrdn-nutrition-label .copyright {
   font-size: 12px;
   margin-top: 20px;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--small {
+#zrdn-nutrition-label .nutrition-facts__table--small {
   @extend . nutrition-facts__table;
   border-bottom: 1px solid #999;
   margin: 0 0 8px 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--small thead tr {
+#zrdn-nutrition-label .nutrition-facts__table--small thead tr {
   border-bottom: 1px solid black;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--small td:last-child {
+#zrdn-nutrition-label .nutrition-facts__table--small td:last-child {
   text-align: left;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--small th,
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--small td {
+#zrdn-nutrition-label .nutrition-facts__table--small th,
+#zrdn-nutrition-label .nutrition-facts__table--small td {
   border: 0;
   padding: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid {
+#zrdn-nutrition-label .nutrition-facts__table--grid {
   width: 100%;
   margin: 0;
   margin: 0 0 8px 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid thead tr th,
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid thead tr td {
+#zrdn-nutrition-label .nutrition-facts__table--grid thead tr th,
+#zrdn-nutrition-label .nutrition-facts__table--grid thead tr td {
   border: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid th,
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid td {
+#zrdn-nutrition-label .nutrition-facts__table--grid th,
+#zrdn-nutrition-label .nutrition-facts__table--grid td {
   font-weight: normal;
   text-align: left;
   padding: 4px 0;
@@ -375,35 +375,35 @@ html:focus-within {
   white-space: nowrap;
   font-size: 12px;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid td:last-child {
+#zrdn-nutrition-label .nutrition-facts__table--grid td:last-child {
   text-align: right;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid .blank-cell {
+#zrdn-nutrition-label .nutrition-facts__table--grid .blank-cell {
   width: 16px;
   border-top: 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid .thick-row th,
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid .thick-row td {
+#zrdn-nutrition-label .nutrition-facts__table--grid .thick-row th,
+#zrdn-nutrition-label .nutrition-facts__table--grid .thick-row td {
   border-top-width: 5px;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid td {
+#zrdn-nutrition-label .nutrition-facts__table--grid td {
   font-size: 12px;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid td:last-child {
+#zrdn-nutrition-label .nutrition-facts__table--grid td:last-child {
   text-align: left;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .nutrition-facts__table--grid td:last-child::before {
+#zrdn-nutrition-label .nutrition-facts__table--grid td:last-child::before {
   content: "•";
   font-weight: bold;
   margin: 0 4px 0 0;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .text-center {
+#zrdn-nutrition-label .text-center {
   text-align: center;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .thick-end {
+#zrdn-nutrition-label .thick-end {
   border-bottom: 20px solid black;
 }
-#zrdn-recipe-container #zrdn-nutrition-label .thin-end {
+#zrdn-nutrition-label .thin-end {
   border-bottom: 1px solid black;
 }
 /* END SPECIFIC ELEMENT STYLES */
