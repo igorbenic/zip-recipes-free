@@ -114,8 +114,12 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 7. For more information, please visit [ziprecipes.net](https://ziprecipes.net)
 
 == Changelog ==
+= 8.0.0 =
+* New: Grid gallery layout
+* several small bug fixes
+
 = 7.1.6 =
-* 
+* don't add title to print view if it's not available
 
 = 7.1.5 =
 * Fix: upgrade causing broken template
