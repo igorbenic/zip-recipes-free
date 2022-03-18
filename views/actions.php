@@ -12,7 +12,7 @@
 			$settings['print_image'] = ZRDN_PLUGIN_URL .'/images/print.png';
 		} ?>
 		<a title="<?php _e('Print this recipe','zip-recipes') ?>" href="javascript:void(0);" onclick="zlrPrint('zrdn-recipe-container', '<?php echo ZRDN_PLUGIN_URL ?>'); return false" rel="nofollow">
-            <img src="{print_image}" alt="<?php _e("Print this recipe", 'zip-recipes')?>" longdesc="<?php _e("Print this recipe", 'zip-recipes')?>">
+            <img src="{print_image}" alt="<?php _e("Print this recipe", 'zip-recipes')?>">
 		</a>
 	</div>
 <?php } ?>

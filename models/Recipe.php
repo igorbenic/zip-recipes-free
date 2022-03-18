@@ -1599,7 +1599,7 @@ class Recipe {
         if (!current_user_can('delete_posts')) return false;
 
         if (!empty($this->recipe_id)) {
-            ZipRecipes::$recipe_sharing->delete_from_sharing($this->recipe_id);
+//            ZipRecipes::$recipe_sharing->delete_from_sharing($this->recipe_id);
 
             global $wpdb;
             $args = array('recipe_id' => intval($this->recipe_id));

@@ -2,7 +2,7 @@
     $link_close = $link_open = '';
     if ($recipe->author_id) {
         echo '<div class="zrdn-avatar">';
-        echo get_avatar($recipe->author_id, 96, '', $recipe->author, array('extra_attr' => 'longdesc="'.$recipe->author.'"'));
+        echo get_avatar($recipe->author_id, 96, '', $recipe->author );
         $url = get_author_posts_url( $recipe->author_id);
         $link_open ='<a href="'.$url.'">';
         $link_close = '</a>';
