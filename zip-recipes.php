@@ -15,7 +15,7 @@ This code is derived from the 2.6 version build of ZipList Recipe Plugin release
 http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPL2 or later
 */
 
-/*  Copyright 2022  Really Simple Plugins BV  (email : support@really-simple-ssl.com)
+/*  Copyright 2022  Zip Recipes BV  (email : support@ziprecipes.net)
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
     published by the Free Software Foundation.
