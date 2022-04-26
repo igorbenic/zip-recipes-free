@@ -9,25 +9,23 @@ Description: A plugin that adds all the necessary microdata to your recipes, so 
 Version: 8.0.2
 Author: Really Simple Plugins
 Author URI: https://www.really-simple-plugins.com/
-License: GPLv3 or later
-Copyright 2020 Really Simple Plugins
+License: GPL2
+Copyright 2022 Really Simple Plugins
 This code is derived from the 2.6 version build of ZipList Recipe Plugin released by ZipList Inc.:
-http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPLv3 or later
+http://get.ziplist.com/partner-with-ziplist/wordpress-recipe-plugin/ and licensed under GPL2 or later
 */
 
-/*
-    Zip Recipes is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Zip Recipes Plugin is distributed in the hope that it will be useful,
+/*  Copyright 2022  Really Simple Plugins BV  (email : support@really-simple-ssl.com)
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as
+    published by the Free Software Foundation.
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
-    along with Zip Recipes Plugin. If not, see <http://www.gnu.org/licenses/>.
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 namespace ZRDN;
