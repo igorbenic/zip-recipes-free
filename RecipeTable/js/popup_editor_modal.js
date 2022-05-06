@@ -36,7 +36,6 @@ jQuery(document).ready(function ($) {
         //now, save this recipe
         var recipe_id = $('input[name=zrdn_recipe_id]').val();
         var formdata = $('#recipe-settings').serializeArray();
-
         btn.html('...');
         btn.html('<div class="zrdn-loader zrdn-loader-white"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
 
@@ -59,6 +58,8 @@ jQuery(document).ready(function ($) {
                         $("#nutrition_action_buttons").show();
                     }
                     recipe_id = response.recipe_id;
+                    //update the recipe id in the DOM
+                    $('input[name=zrdn_recipe_id]').val(recipe_id);
                     //classic only, so we use the classic shortcode
                     var shortcode = '[amd-zlrecipe-recipe:'+recipe_id+']';
 
