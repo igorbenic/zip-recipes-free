@@ -7,10 +7,10 @@ Author URI: https://www.really-simple-plugins.com
 Author: Really Simple Plugins
 Donate link: https://www.paypal.me/reallysimplessl
 Tags: recipe, recipes, ingredients, food, cooking, blog, SEO
-Requires at least: 4.8
-Tested up to: 6.0
+Requires at least: 4.9
+Tested up to: 6.1
 Stable tag: 8.0.3
-Requires PHP: 5.6
+Requires PHP: 7.2
 
 Zip Recipes is the best way to easily create professional-looking recipes fully optimized for Google and your website visitors.
 
