@@ -38,15 +38,15 @@ if (!function_exists(__NAMESPACE__ . '\zrdn_activation_check')) {
 	 */
 	function zrdn_activation_check()
 	{
-		if (version_compare(PHP_VERSION, '5.6', '<')) {
+		if (version_compare(PHP_VERSION, '7.2', '<')) {
 			deactivate_plugins(plugin_basename(__FILE__));
-			wp_die(__('Zip Recipes cannot be activated. The plugin requires PHP 5.6 or higher', 'zip-recipes'));
+			wp_die(__('Zip Recipes cannot be activated. The plugin requires PHP 7.2 or higher', 'zip-recipes'));
 		}
 
 		global $wp_version;
-		if (version_compare($wp_version, '4.8', '<')) {
+		if (version_compare($wp_version, '4.9', '<')) {
 			deactivate_plugins(plugin_basename(__FILE__));
-			wp_die(__('Zip Recipes cannot be activated. The plugin requires WordPress 4.6 or higher', 'zip-recipes'));
+			wp_die(__('Zip Recipes cannot be activated. The plugin requires WordPress 4.9 or higher', 'zip-recipes'));
 		}
 	}
 	register_activation_hook( __FILE__, __NAMESPACE__ . '\zrdn_activation_check' );
