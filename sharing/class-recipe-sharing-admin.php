@@ -134,9 +134,7 @@ if ( ! class_exists( "ZRDN_recipe_sharing_admin" ) ) {
 
 		/**
 		 * Runs once a week to check if the CDB should be synced
-		 *
-		 * @hooked zrdn_every_week_hook
-		 */
+         */
 
 		public function sync_recipes( $recipes ) {
 			//if ( !function_exists('curl_version') ) return false;

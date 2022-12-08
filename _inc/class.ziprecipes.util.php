@@ -502,7 +502,7 @@ class Util {
             'controls' => '',
         );
 	    foreach ($grid_items as $key => $grid_item ) {
-	        if ($grid_item['page'] !== $page) {
+	        if ( isset( $grid_item['page'] ) && $grid_item['page'] !== $page ) {
                 unset($grid_items[$key]);
             } else {
                 $grid_items[$key] = wp_parse_args($grid_item, $defaults);

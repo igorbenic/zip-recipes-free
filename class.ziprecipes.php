@@ -502,7 +502,6 @@ class ZipRecipes {
 		        $recipe_id = intval($_GET['id']);
 		        $stored_temp_recipe_data = get_transient('zrdn_preview_recipe_data');
 		        if ($stored_temp_recipe_data) unset($stored_temp_recipe_data[$user_id][$recipe_id]);
-		        set_transient('zrdn_preview_recipe_data', $stored_temp_recipe_data , HOUR_IN_SECONDS);
 
 		        set_transient('zrdn_preview_recipe_data', $stored_temp_recipe_data , HOUR_IN_SECONDS);
 		        wp_register_style('zrdn-editor-preview', plugins_url('styles/zrdn-preview' . self::$suffix . '.css', __FILE__), array(), ZRDN_VERSION_NUM, 'all');
@@ -1566,7 +1565,7 @@ class ZipRecipes {
         $recipe_json_ld = array();
 
         // get recipe id - limitation: only 1 recipe is supported
-        if (Util::has_shortcode($post->ID, $post)){
+	    if ( isset( $post ) && Util::has_shortcode( $post->ID, $post ) ){
             // Find recipe
             $recipe = new Recipe(false, $post->ID);
             $recipe_json_ld = $recipe->jsonld();

@@ -244,6 +244,10 @@ function zrdn_check_upgrade()
 		if (isset($zrdn_settings['ingredients_list_type'])) {
 			$ingredients_settings = get_option('zrdn_settings_template');
 
+			if ( ! is_array( $ingredients_settings ) ) {
+				$ingredients_settings = [];
+			}
+
 			$value = $zrdn_settings['ingredients_list_type'];
 			$value = $value === 'ol' ? 'numbered' : 'nobullets';
 			switch ( $value ) {
@@ -270,6 +274,10 @@ function zrdn_check_upgrade()
 		if (isset($zrdn_settings['instructions_list_type'])) {
 			$instructions_settings = get_option('zrdn_settings_template');
 
+			if ( ! is_array( $instructions_settings ) ) {
+				$instructions_settings = [];
+			}
+
 			$value = $zrdn_settings['instructions_list_type'];
 			switch ( $value ) {
 				case 'l':
@@ -286,16 +294,22 @@ function zrdn_check_upgrade()
 				default :
 					$value = 'nobullets';
 			}
+
 			$instructions_settings['instructions_list_type'] = $value;
 			unset($zrdn_settings['instructions_list_type']);
 			update_option('zrdn_settings_instructions', $instructions_settings);
-			update_option( 'zrdn_settings_general',$zrdn_settings );
+			update_option('zrdn_settings_general',$zrdn_settings);
 		}
 
 		//move template settings to template array
 		if (isset($zrdn_settings['template'])) {
 			$template_name = $zrdn_settings['template'];
 			$template_settings = get_option('zrdn_settings_template');
+
+			if ( ! is_array( $template_settings ) ) {
+				$template_settings = [];
+			}
+
 			$template_settings['template'] = $zrdn_settings['template'];
 			update_option('zrdn_settings_template', $template_settings);
 
