@@ -975,7 +975,7 @@ class Recipe {
 
     /**
      * Validate the data for share.zip-recipes.net
-     * 
+     *
      */
 
 
@@ -1182,8 +1182,8 @@ class Recipe {
         if (!isset($daily_values[$type])) return 0;
 
         $daily_value = $daily_values[$type];
-        $p = round(($value/$daily_value)*100,1).'%';
-        return $p;
+
+	    return round( ( (float) $value / $daily_value) * 100,1) . '%';
     }
 
 
@@ -1645,7 +1645,7 @@ class Recipe {
             'approved',
             'declined'
         );
-        
+
         if ( in_array( $str, $sharing_statuses)) {
             return $str;
         } else {
