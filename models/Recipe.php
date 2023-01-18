@@ -975,7 +975,7 @@ class Recipe {
 
     /**
      * Validate the data for share.zip-recipes.net
-     *
+     * 
      */
 
 
@@ -1178,12 +1178,12 @@ class Recipe {
             'calories'=>2400,//mg
         );
 
-        if (empty($value) || $value==0) return 0;
+        if (empty($value) || $value===0) return 0;
         if (!isset($daily_values[$type])) return 0;
 
         $daily_value = $daily_values[$type];
 
-	    return round( ( (float) $value / $daily_value) * 100,1) . '%';
+	    return round( ( (int) $value / $daily_value) * 100,1) . '%';
     }
 
 
@@ -1645,7 +1645,7 @@ class Recipe {
             'approved',
             'declined'
         );
-
+        
         if ( in_array( $str, $sharing_statuses)) {
             return $str;
         } else {
