@@ -126,7 +126,7 @@ class Recipe_Table extends \WP_List_Table {
 		        <?php } ?>
             </select>
             <label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
-            <input type="text" value="<?php echo $this->get_search()?>" name="s">
+            <input type="text" value="<?php echo esc_html($this->get_search())?>" name="s">
             <?php submit_button( $text, 'button', false, false, array('ID' => 'search-submit') ); ?>
         </p>
         <?php
