@@ -93,7 +93,7 @@ class Util {
 
     /**
      * Check if post contains a Gutenberg block or shortcode from Zip
-     * @param $post_id 
+     * @param $post_id
      * @param $post_data
      * @return bool
      */
@@ -742,7 +742,7 @@ class Util {
 				'table'     => false,
 				'label'     => __( "Copyright statement", 'zip-recipes' ),
 			),
-			
+
 			'hide_on_duplicate_image' => array(
 				'type'               => 'checkbox',
 				'source'             => 'recipe_image',
@@ -918,7 +918,7 @@ class Util {
 				'type'      => 'checkbox',
 				'source'    => 'plugins',
 				'is_plugin' => true,
-				'disabled'  => false,
+				'disabled'  => true,
 				'table'     => false,
 				'label'     => __( 'Recipe Gallery', 'zip-recipes' ),
 			),
@@ -1110,7 +1110,7 @@ class Util {
 				'placeholder'     => __( "Email address for Contact",
 					'zip-recipes' ),
 			),
-			
+
 			'rdb_api_key' => array(
 				'type'      => 'hidden',
 				'source'    => 'recipe_sharing',
@@ -1740,7 +1740,7 @@ class Util {
             }
         }
         $recipes = $wpdb->get_results("$sql $search_sql ORDER BY $orderby $order $offset ");
-  
+
         return $recipes;
     }
 
