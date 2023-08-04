@@ -214,15 +214,15 @@ class Util {
             $contents = file_get_contents($file);
         }
 
-		if ($recipe) {
-			foreach ( $recipe as $fieldname => $value ) {
-				if ( is_array( $value ) ) {
-					continue;
-				}
-				$contents = str_replace( '{' . $fieldname . '}', $value,
-					$contents );
+				if ($recipe) {
+			    foreach ($recipe as $fieldname => $value) {
+			        if (is_array($value)) {
+			            continue;
+			        }
+			        $contents = strtr($contents, ['{' . $fieldname . '}' => $value]);
+			    }
 			}
-		}
+
 
         if (is_array($settings) && count($settings)>0){
             foreach($settings as $placeholder => $value){
