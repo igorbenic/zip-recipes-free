@@ -93,6 +93,7 @@ jQuery(document).ready(function($) {
                             recipe_image_id : thumbnail_id,
                             recipe_image : image_url,
                             action: 'zrdn_update_recipe_image',
+                            nonce : zrdn_editor_preview.nonce,
                         }),
                         success: function (response) {
                             if (response.success) {

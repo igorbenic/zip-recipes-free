@@ -25,7 +25,6 @@ function initTour(){
 	for (var key in steps) {
 		if (steps.hasOwnProperty(key)) {
 			var step = steps[key];
-			console.log(step);
 			var stepCount = steps.length;
 
 			if ($(step.attach).length) {

@@ -63,7 +63,7 @@ function zrdn_clear_image(){
     }
 
     if (!$error && isset($_POST['recipe_id'])) {
-        $recipe = new Recipe(intval($_POST['recipe_id']));
+        $recipe = new Recipe( (int) $_POST['recipe_id'] );
         $recipe->recipe_image_id = false;
         $recipe->recipe_image = '';
         $recipe->save();
@@ -90,12 +90,12 @@ function zrdn_update_recipe_from_popup(){
         $error = true;
     }
     $recipe_id = false;
-    if (isset($_POST['recipe_id']) && intval($_POST['recipe_id'])>0){
-        $recipe_id = intval($_POST['recipe_id']);
+    if ( isset($_POST['recipe_id']) && (int) $_POST['recipe_id'] > 0){
+        $recipe_id = (int) $_POST['recipe_id'];
     }
     if (!$error) {
         if ($recipe_id) {
-            $recipe = new Recipe(intval($_POST['recipe_id']));
+            $recipe = new Recipe( (int) $_POST['recipe_id'] );
         } else {
             //create new
             $recipe = new Recipe();
@@ -178,64 +178,8 @@ function zrdn_unlink_recipe(){
 
     if (!$error && isset($_POST['recipe_id'])) {
         //remove recipe shortcode from post with regex
-        $recipe_id = intval($_POST['recipe_id']);
+        $recipe_id = (int) $_POST['recipe_id'];
         zrdn_unlink_recipe_from_post($recipe_id);
-    }
-
-    $response = json_encode(array(
-        'success' => !$error,
-    ));
-    header("Content-Type: application/json");
-    echo $response;
-    exit;
-}
-
-add_action('wp_ajax_zrdn_monetize_recipe', __NAMESPACE__ . '\zrdn_monetize_recipe');
-function zrdn_monetize_recipe(){
-    $error = false;
-
-    if (!current_user_can('edit_posts')) {
-        $error = true;
-    }
-
-    if (!wp_verify_nonce($_POST['nonce'],'zrdn_delete_recipe')) {
-        $error = true;
-    }
-
-    if (!$error && isset($_POST['recipe_id'])) {
-        //remove recipe shortcode from post with regex
-        $recipe_id = intval($_POST['recipe_id']);
-        $recipe = new Recipe($recipe_id);
-        $recipe->share_this_recipe = true;
-        $recipe->save();
-    }
-
-    $response = json_encode(array(
-        'success' => !$error,
-    ));
-    header("Content-Type: application/json");
-    echo $response;
-    exit;
-}
-
-add_action('wp_ajax_zrdn_demonetize_recipe', __NAMESPACE__ . '\zrdn_demonetize_recipe');
-function zrdn_demonetize_recipe(){
-    $error = false;
-
-    if (!current_user_can('edit_posts')) {
-        $error = true;
-    }
-
-    if (!wp_verify_nonce($_POST['nonce'],'zrdn_delete_recipe')) {
-        $error = true;
-    }
-
-    if (!$error && isset($_POST['recipe_id'])) {
-        //remove recipe shortcode from post with regex
-        $recipe_id = intval($_POST['recipe_id']);
-        $recipe = new Recipe($recipe_id);
-        $recipe->share_this_recipe = false;
-        $recipe->save();
     }
 
     $response = json_encode(array(
@@ -279,6 +223,10 @@ function zrdn_update_recipe_image(){
     if (!isset($_POST['recipe_image_id'])) {
         $error = true;
     }
+
+	if (!wp_verify_nonce($_POST['nonce'],'zrdn_edit_recipe')) {
+		$error = true;
+	}
 
     if (!$error){
 	    $image_id = intval($_POST['recipe_image_id']);
@@ -333,17 +281,6 @@ function zrdn_recipe_admin_menu()
 		'zrdn-settings', // menu_slug
 		__NAMESPACE__ . '\ZipRecipes::settings_page' // callback function
 	);
-	/**
-	 * Uncomment to enable recipe sharing
-	 */
-//    add_submenu_page(
-//        'zrdn-recipes',
-//        __("Monetize your recipes", "zip-recipes"), // page_title
-//        __("Monetize your recipes", "zip-recipes"), // menu_title
-//        'manage_options', // capability
-//        'zrdn-recipe-sharing', // menu_slug
-//        __NAMESPACE__ . '\ZRDN_recipe_sharing_admin::recipe_sharing_page' // callback function
-//    );
 
 	do_action("zrdn__menu_page", array(
 		"capability" => 'manage_options',
@@ -406,7 +343,7 @@ add_action('admin_enqueue_scripts', __NAMESPACE__ . '\zrdn_enqueue_style');
 function zrdn_enqueue_style($hook){
     if (strpos($hook, 'zrdn') === FALSE) return;
 
-    if ((isset($_GET['page']) && $_GET['page']=='zrdn-recipes')) {
+    if ((isset($_GET['page']) && $_GET['page']==='zrdn-recipes')) {
         wp_register_style('zrdn-recipes-overview', ZRDN_PLUGIN_URL."RecipeTable/css/recipes.css", array(), ZRDN_VERSION_NUM, 'all');
         wp_enqueue_style('zrdn-recipes-overview');
     }
@@ -416,8 +353,8 @@ function zrdn_enqueue_style($hook){
     }
 
     if (
-            !(isset($_GET['page']) && $_GET['page'] == 'zrdn-settings') && !isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new')
-            && !(isset($_GET['page']) && $_GET['page'] == 'zrdn-recipe-sharing') && !isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']=='new')
+            !(isset($_GET['page']) && $_GET['page'] === 'zrdn-settings') && !isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']==='new')
+            && !(isset($_GET['page']) && $_GET['page'] === 'zrdn-recipe-sharing') && !isset($_GET['id']) && !(isset($_GET['action']) && $_GET['action']==='new')
     ) return;
 
 
@@ -475,13 +412,13 @@ function zrdn_recipe_overview(){
 
     $id = false;
     if (isset($_GET['id'])) {
-        $id = intval($_GET['id']);
+        $id = (int) $_GET['id'];
     }
 
-    if ($id || (isset($_GET['action']) && $_GET['action']=='new'))  {
-        include(dirname(__FILE__)."/edit.php");
+    if ($id || (isset($_GET['action']) && $_GET['action']==='new'))  {
+        include( __DIR__ . "/edit.php");
     } else {
-        include(dirname(__FILE__) . '/class-recipe-table.php');
+        include( __DIR__ . '/class-recipe-table.php');
 
         $recipes_table = new Recipe_Table();
         $recipes_table->prepare_items();
@@ -572,15 +509,11 @@ add_action('init', __NAMESPACE__.'\zrdn_process_update_recipe');
 function zrdn_process_update_recipe(){
 
     /**
-     * Skip f
-     */
-
-    /**
      * unlink from post
      */
-
-    if ((isset($_GET['action']) && $_GET['action']=='unlink')) {
-        zrdn_unlink_recipe_from_post(intval($_GET['id']));
+    $get_nonce = isset($_GET['nonce']) ? $_GET['nonce'] : false;
+    if ((isset($_GET['action']) && $_GET['action']==='unlink') && wp_verify_nonce($get_nonce, 'zrdn_save_recipe')) {
+        zrdn_unlink_recipe_from_post( (int) $_GET['id'] );
     }
 
     /**

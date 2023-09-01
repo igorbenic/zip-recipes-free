@@ -133,7 +133,6 @@
                 });
             } else {
                 return co.replace(/\[zrdn-recipe id="([0-9]+)"\]/g, function (a, b) {
-                    console.log("recipe id "+b);
                     return '<img id="amd-zlrecipe-recipe-' + b + '" class="amd-zlrecipe-recipe" src="' + plugindir + '/images/zip-recipes-placeholder.png" alt="" />';
                 });
             }

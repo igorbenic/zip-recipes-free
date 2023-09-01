@@ -118,7 +118,6 @@ jQuery(document).ready(function ($) {
                 preview_iframe = document.getElementById('preview_iframe');
                 recipeContainer = preview_iframe.contentDocument.getElementById('zrdn-recipe-container');
                 zrdnUpdateFields(zrdn_variables, $(recipeContainer));
-                console.log("resize iframe");
                 resizeIframe(preview_iframe);
 
             }

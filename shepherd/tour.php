@@ -206,6 +206,11 @@ class zrdn_tour {
 			return;
 		}
 
+		$nonce = isset($_GET['nonce']) ? $_GET['nonce'] : false;
+		if ( !wp_verify_nonce($nonce, 'zrdn_save_recipe') ) {
+			return;
+		}
+
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}

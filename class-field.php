@@ -846,9 +846,7 @@ if (!class_exists("ZRDN_Field")) {
         public
         function title($args)
         {
-
             $fieldname = 'zrdn_' . $args['fieldname'];
-
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
             <h5 class="<?php echo esc_html($fieldname) ?>"><?php echo ($args['title']) ?><?php echo $this->get_help_tip_btn($args);?></h5>
@@ -868,14 +866,12 @@ if (!class_exists("ZRDN_Field")) {
         public
         function button($args)
         {
-            $fieldname = 'zrdn_' . $args['fieldname'];
-
             ?>
             <?php do_action('zrdn_before_label', $args); ?>
             <label><?php echo esc_html($args['label']) ?><?php echo $this->get_help_tip_btn($args);?></label>
             <?php do_action('zrdn_after_label', $args); ?>
             <?php if ($args['post_get']==='get'){ ?>
-            <a <?php if ($args['disabled']) echo "disabled"?> href="<?php echo $args['disabled'] ? "#" : admin_url('admin.php?page=zrdn-settings&action='.$args['action'])?>" class="button"><?php echo esc_html($args['label']) ?></a>
+            <a <?php if ($args['disabled']) echo "disabled"?> href="<?php echo $args['disabled'] ? "#" : admin_url('admin.php?page=zrdn-settings&nonce='.wp_create_nonce('zrdn_save_recipe').'&action='.$args['action'])?>" class="button"><?php echo esc_html($args['label']) ?></a>
         <?php } else { ?>
             <input <?php if ($args['warn']) echo 'onclick="return confirm(\''.$args['warn'].'\');"'?> <?php if ($args['disabled']) echo "disabled"?> class="button" type="submit" name="<?php echo $args['action']?>"
                                                                                                                                                      value="<?php echo esc_html($args['label']) ?>">

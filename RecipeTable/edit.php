@@ -22,7 +22,8 @@ $link_to_post_id = false;
 if (isset($_GET['post_id'])) {
     $link_to_post_id = intval($_GET['post_id']);
     $post = get_post($link_to_post_id);
-    if (!$post && isset($_GET['post_type'])) {
+    $nonce = isset($_GET['nonce']) ? $_GET['nonce'] : '';
+    if ( !$post && isset($_GET['post_type']) && wp_verify_nonce($nonce, 'zrdn_save_recipe') ) {
         $post_type = sanitize_title($_GET['post_type']);
 
         //post does not exist yet. Create it, so we can link to it.
@@ -123,7 +124,7 @@ if (isset($_GET['post_id'])) {
                                     <a class="button button-default"
                                        href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
                                     <a class="button button-default"
-                                       href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink'), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
+                                       href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink', 'nonce' => wp_create_nonce('zrdn_save_recipe') ), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
                                    <?php if (get_post_status($recipe->post_id)==='publish') { ?>
                                     <a class="button button-default" target="_blank"
                                        href="<?php echo get_permalink($recipe->post_id) ?>"><?php _e("View", "zip-recipes") ?></a>

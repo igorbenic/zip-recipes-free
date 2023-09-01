@@ -158,7 +158,7 @@
 
         ?>
         <p class="post-attributes-label-wrapper">
-            <a id="zrdn-create-recipe" href="<?php echo add_query_arg(array('page'=>'zrdn-recipes', 'action'=>'new', 'post_id'=>$post_id, 'post_type'=>$post_type), admin_url());?>" class="button" ><?php _e("Create and insert new recipe","zip-recipes")?></a>
+            <a id="zrdn-create-recipe" href="<?php echo add_query_arg(array('page'=>'zrdn-recipes', 'action'=>'new', 'nonce' => wp_create_nonce('zrdn_save_recipe'), 'post_id'=>$post_id, 'post_type'=>$post_type), admin_url());?>" class="button" ><?php _e("Create and insert new recipe","zip-recipes")?></a>
         </p>
 
         <?php if ($selected_recipe_id) echo '<div>'.__('Creating and inserting a new recipe will unlink the current recipe from this post.', 'zip-recipes').'</div>'?>
