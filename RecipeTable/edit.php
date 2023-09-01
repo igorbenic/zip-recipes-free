@@ -50,7 +50,7 @@ if (isset($_GET['post_id'])) {
     if (isset($_POST['zrdn_recipe_id'])) $recipe_id = intval($_POST['zrdn_recipe_id']);
 
     $recipe = new Recipe($recipe_id);
-    if (strlen($recipe->recipe_title)==0) {
+    if (empty($recipe->recipe_title)) {
         $recipe->recipe_title = __("New recipe", "zip-recipes");
 
         //when empty, we grab recipe title from post
@@ -113,49 +113,51 @@ if (isset($_GET['post_id'])) {
                     <button type="submit" class="button button-primary save"><?php _e('Save', 'zip-recipes') ?></button>
                     <input type="submit" class="button button-primary exit" value="<?php _e('Save and close', 'zip-recipes') ?>">
                 </div>
-                <div id="general" class="zrdn-tabcontent <?php if ($active_tab=='general') echo 'active'?>">
-                    <?php
-                    $preview_post_id = get_option('zrdn_preview_post_id');
-                    if ( !$zrdn_popup && $recipe->post_id && $recipe->post_id !== $preview_post_id ){
-                                if ( get_post_type($recipe->post_id) === 'trash') {
-                                    zrdn_notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
-                                } else {
-                                    ?>
-                                    <a class="button button-default"
-                                       href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
-                                    <a class="button button-default"
-                                       href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink', 'nonce' => wp_create_nonce('zrdn_save_recipe') ), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
-                                   <?php if (get_post_status($recipe->post_id)==='publish') { ?>
-                                    <a class="button button-default" target="_blank"
-                                       href="<?php echo get_permalink($recipe->post_id) ?>"><?php _e("View", "zip-recipes") ?></a>
+                <div id="general" class="zrdn-tabcontent <?php if ($active_tab == 'general') echo 'active' ?>">
+		            <?php
+		            $preview_post_id = get_option('zrdn_preview_post_id');
 
-                                    <?php }
-                                }
-                        } ?>
-                    <?php
-                    if ($recipe->is_featured_post_image && Util::get_option('hide_on_duplicate_image') ){
-                        zrdn_notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes") );
-                    }
-                    $tags = wp_get_post_tags( $recipe->post_id );
-                    if ($recipe->post_id && !$tags){
-                        zrdn_notice(
-                                sprintf(__("You haven't added any tags to your post yet. In your post you can %sadd%s some tags relevant to this recipe. These will get added as keywords to your recipes microdata.", "zip-recipes"),
-                            '<a href="'.add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')).'">','</a>')
-                                , 'notice', true, false, false);
-                    }
+		            if (!$zrdn_popup && ! empty( $recipe->post_id ) && $recipe->post_id !== $preview_post_id ) {
+			            if (get_post_type($recipe->post_id) === 'trash') {
+				            zrdn_notice(__("This recipe is linked to a post, but this post has been trashed. You can untrash the post, or link the recipe to another post or page", "zip-recipes"), 'warning');
+			            } else {
+				            // Only execute if $recipe->post_id is not empty
+				            ?>
+                            <a class="button button-default"
+                               href="<?php echo add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) ?>"><?php _e("Edit linked post", "zip-recipes") ?></a>
+                            <a class="button button-default"
+                               href="<?php echo add_query_arg(array('page' => 'zrdn-recipes', 'id' => $recipe->recipe_id, 'action' => 'unlink', 'nonce' => wp_create_nonce('zrdn_save_recipe')), admin_url()) ?>"><?php _e("Unlink from post", "zip-recipes") ?></a>
+				            <?php if ( get_post_status($recipe->post_id ) === 'publish') { ?>
+                                <a class="button button-default" target="_blank"
+                                   href="<?php echo get_permalink($recipe->post_id) ?>"><?php _e("View", "zip-recipes") ?></a>
+					            <?php
+				            }
+			            }
+		            }
+		            if (!empty($recipe->is_featured_post_image) && Util::get_option('hide_on_duplicate_image')) {
+			            zrdn_notice(__("Your recipe image is the same as your post image. The image will be hidden on the front end.", "zip-recipes"));
+		            }
+		            if (!empty($recipe->post_id)) {
+			            $tags = wp_get_post_tags($recipe->post_id);
+			            if (!$tags) {
+				            zrdn_notice(
+					            sprintf(__("You haven't added any tags to your post yet. In your post you can %sadd%s some tags relevant to this recipe. These will get added as keywords to your recipes microdata.", "zip-recipes"),
+						            '<a href="' . add_query_arg(array('post' => $recipe->post_id, 'action' => 'edit'), admin_url('post.php')) . '">', '</a>'),
+					            'notice', true, false, false
+				            );
+			            }
+		            }
 
-                    $fields = array(
+                $fields = array(
                         array(
                             'type'                  => 'upload',
                             'fieldname'             => 'recipe_image',
-                            'low_resolution_notice' => __( "Low resolution, please upload a better quality image.",
-                                'zip-recipes' ),
+                            'low_resolution_notice' => __( "Low resolution, please upload a better quality image.", 'zip-recipes' ),
                             'size'                  => 'zrdn_recipe_image',
-                            'value'                 => $recipe->recipe_image,
-                            'thumbnail_id'          => $recipe->recipe_image_id,
-                            'label'                 => __( "Recipe image",
-                                'zip-recipes' ),
-                            'missing_value' => $recipe->missing_sharing_values['recipe_image_id'],
+                            'value'                 => $recipe->recipe_image ?? '',
+                            'thumbnail_id'          => $recipe->recipe_image_id ?? 0,
+                            'label'                 => __( "Recipe image", 'zip-recipes' ),
+                            'missing_value' => $recipe->missing_sharing_values['recipe_image_id'] ?? 0,
                         ),
                         array(
                             'type' => 'text',
@@ -256,7 +258,7 @@ if (isset($_GET['post_id'])) {
                         array(
                             'type' => 'editor',
                             'fieldname' => 'notes',
-                            'value' => $recipe->notes,
+                            'value' => $recipe->notes ?? '',
                             'label' => __("Notes", 'zip-recipes'),
                             'media' => false,
                         ),
@@ -264,7 +266,7 @@ if (isset($_GET['post_id'])) {
                         array(
                             'type' => 'editor',
                             'fieldname' => 'summary',
-                            'value' => $recipe->summary,
+                            'value' => $recipe->summary ?? '',
                             'label' => __("Summary", 'zip-recipes'),
                             'media' => false,
                         ),
@@ -280,15 +282,15 @@ if (isset($_GET['post_id'])) {
                     /**
                      * Category saved in recipe is deprecated, we move to wordpress categories
                      */
-                    if (strlen($recipe->category)==0){
-                        $fields['categoryField']=array(
-                            'type' => 'notice',
-                            'fieldname' => 'categoryDeprecated',
-                            'label' => sprintf(__('The recipe category has been moved to the WordPress categories. You can now assign a category to your post in the WordPress post editor','zip-recipes'),'<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">','</a>'),
-                            'media' => false,
-                            'callback' => 'cmplzSelectedCategories'
-                        );
-                    }
+                     if (empty($recipe->category)) {
+                         $fields['categoryField'] = array(
+                             'type' => 'notice',
+                             'fieldname' => 'categoryDeprecated',
+                             'label' => sprintf(__('The recipe category has been moved to the WordPress categories. You can now assign a category to your post in the WordPress post editor', 'zip-recipes'), '<a target="_blank" href="https://ziprecipes.net/prevent-author-warning-by-google-by-adding-an-author-to-your-recipe/">', '</a>'),
+                             'media' => false,
+                         );
+                     }
+
 
                     $fields = apply_filters('zrdn_edit_fields', $fields, $recipe);
                     foreach ($fields as $field_args) {

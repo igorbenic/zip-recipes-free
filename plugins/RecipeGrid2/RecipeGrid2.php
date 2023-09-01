@@ -20,7 +20,7 @@ class RecipeGrid2 extends PluginBase
     function __construct() {
         $this->dir = 'plugins/'.basename(dirname(__FILE__)).'/';
 
-        add_shortcode('zrdn-grid', array($this, 'render_grid'));
+        add_shortcode('zrdn-grid', array($this, 'render_grid') );
 
         //backward compatibility:
         add_shortcode('ziprecipes', array($this, 'render_grid'));
@@ -30,7 +30,7 @@ class RecipeGrid2 extends PluginBase
             add_action('admin_enqueue_scripts', array($this, 'tinymce_css'));
         }
 
-        add_action( 'enqueue_block_assets', array($this, 'enqueue_assets_gutenberg'));
+        add_action( 'enqueue_block_assets', array($this, 'enqueue_assets_gutenberg') );
         add_action( 'wp_ajax_nopriv_zrdn_grid_load_more',  array($this, 'zrdn_grid_load_more'));
         add_action( 'wp_ajax_zrdn_grid_load_more',  array($this, 'zrdn_grid_load_more'));
         add_action( 'post_updated', array($this, 'clear_category_cache'), 10, 3 );
@@ -41,7 +41,6 @@ class RecipeGrid2 extends PluginBase
         add_action( 'admin_init',array($this,  'maybe_load_iframe'), 30);
 
     }
-
 
     public function clear_category_cache($post_ID, $post_after=false, $post_before=false){
         delete_transient('zrdn_recipe_categories');
@@ -113,7 +112,7 @@ class RecipeGrid2 extends PluginBase
             wp_enqueue_style('zrdn-grid-css');
 
             wp_enqueue_script('zrdn-grid', ZRDN_PLUGIN_URL . $this->dir . "js/jquery.cubeportfolio.min.js", array('jquery'), ZRDN_VERSION_NUM, true);
-	        wp_enqueue_script('zrdn-grid-custom', ZRDN_PLUGIN_URL . $this->dir . "js/main$min.js", array('jquery'), ZRDN_VERSION_NUM, true);
+            //	    wp_enqueue_script('zrdn-grid-custom', ZRDN_PLUGIN_URL . $this->dir . "js/main$min.js", array('jquery'), ZRDN_VERSION_NUM, true);
 
         }
 
@@ -157,12 +156,13 @@ class RecipeGrid2 extends PluginBase
 
     public function enqueue_assets_gutenberg()
     {
+
         $min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 
         wp_register_style('zrdn-grid-css', ZRDN_PLUGIN_URL . $this->dir."css/recipegrid$min.css", false, ZRDN_VERSION_NUM);
         wp_enqueue_style('zrdn-grid-css');
         wp_enqueue_script('zrdn-grid', ZRDN_PLUGIN_URL . $this->dir . "js/jquery.cubeportfolio.min.js", array('jquery'), ZRDN_VERSION_NUM, true);
-	    //wp_enqueue_script('zrdn-grid-custom', ZRDN_PLUGIN_URL . $this->dir . "js/main$min.js", array('jquery'), ZRDN_VERSION_NUM, true);
+//	    wp_enqueue_script('zrdn-grid-custom', ZRDN_PLUGIN_URL . $this->dir . "js/main$min.js", array('jquery'), ZRDN_VERSION_NUM, true);
 
     }
 
@@ -253,6 +253,7 @@ class RecipeGrid2 extends PluginBase
         //old shortcodes are:
         //[ziprecipes grid id='1']
         //[ziprecipes index id='1']
+
 
         ob_start();
 
@@ -356,6 +357,9 @@ class RecipeGrid2 extends PluginBase
             }
         }
 
+        $min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
+
+        wp_enqueue_script('zrdn-grid-custom', ZRDN_PLUGIN_URL . $this->dir . "js/main$min.js", array('jquery'), ZRDN_VERSION_NUM, true);
         wp_localize_script('zrdn-grid-custom', 'zrdn_grid_settings', $settings);
         $args = array(
             'post_status'=>'publish',

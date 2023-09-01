@@ -215,14 +215,13 @@ class Util {
         }
 
 				if ($recipe) {
-			    foreach ($recipe as $fieldname => $value) {
-			        if (is_array($value)) {
-			            continue;
-			        }
-			        $contents = strtr($contents, ['{' . $fieldname . '}' => $value]);
-			    }
-			}
-
+							    foreach ($recipe as $fieldname => $value) {
+							        if (is_array($value)) {
+							            continue;
+							        }
+							        $contents = strtr($contents, ['{' . $fieldname . '}' => $value]);
+							    }
+							}
 
         if (is_array($settings) && count($settings)>0){
             foreach($settings as $placeholder => $value){
@@ -918,7 +917,7 @@ class Util {
 				'type'      => 'checkbox',
 				'source'    => 'plugins',
 				'is_plugin' => true,
-				'disabled'  => true,
+				'disabled'  => false,
 				'table'     => false,
 				'label'     => __( 'Recipe Gallery', 'zip-recipes' ),
 			),

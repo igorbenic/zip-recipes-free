@@ -562,7 +562,7 @@ class Recipe {
         }
 
         //backwards compatibility: update attachment id if it's not there
-        if (!$this->recipe_image_id && strlen($this->recipe_image)>0){
+	    if (!$this->recipe_image_id && !is_null($this->recipe_image) && strlen($this->recipe_image) > 0) {
             $recipe_image_id = attachment_url_to_postid($this->recipe_image);
             if (!$recipe_image_id) $recipe_image_id = get_post_thumbnail_id($this->post_id);
             $this->recipe_image_id = $recipe_image_id;
@@ -600,22 +600,30 @@ class Recipe {
         $post_categories = wp_get_post_categories($this->post_id);
         $cats = array();
         $all_from_post = true;
-        foreach ($post_categories as $c) {
-            $cat = get_category($c);
-            if (!term_exists($c) ) {
-            	continue;
-            }
+	    foreach ($post_categories as $c) {
+		    $cat = get_category($c);
+		    if (!term_exists($c)) {
+			    continue;
+		    }
 
-            $cats[] = $cat->name;
-	        $this->categories[] = $cat->term_id;
-            //if all categories are loaded from wordpress, we leave the categories string blank.
-            if (strpos( $this->category, $cat->name) === FALSE) {
-	            $all_from_post = false;
-            }
-        }
-		if (strlen($this->category)===0) $all_from_post = true;
-        $this->category = implode(', ',$cats);
-	    if ($all_from_post){
+		    $cats[] = $cat->name;
+		    $this->categories[] = $cat->term_id;
+		    // if all categories are loaded from WordPress, we leave the categories string blank.
+		    if (!empty($this->category) && strpos($this->category, $cat->name) === FALSE) {
+			    $all_from_post = false;
+		    }
+	    }
+	    $all_from_post = false;
+
+
+		// Check if $this->category is null or an empty string
+	    if (empty($this->category)) {
+		    $all_from_post = true;
+	    }
+
+	    $this->category = implode(', ', $cats);
+
+	    if ($all_from_post) {
 		    $this->category = '';
 	    }
 
@@ -645,12 +653,15 @@ class Recipe {
             $this->has_nutrition_data = true;
         }
 
-        if ( strlen($this->video_url) ) {
-	        //skip when on recipe overview page
-	        if ( !Util::is_recipe_overview_page() && $this->single ) {
-		        $this->video_url_output = ( strpos( $this->video_url, '_value' ) !== false ) ? $this->video_url : wp_oembed_get( $this->video_url );
-	        }
-        }
+	    if (!empty($this->video_url)) {
+		    //skip when on recipe overview page
+		    if (!Util::is_recipe_overview_page() && $this->single) {
+			    $this->video_url_output = (strpos($this->video_url, '_value') !== false)
+				    ? $this->video_url
+				    : wp_oembed_get($this->video_url);
+		    }
+	    }
+
 	    $this->formatted_notes = $this->richify_item($this->zrdn_format_image($this->notes), 'notes');
 	    $this->summary_rich =  $this->richify_item($this->zrdn_format_image($this->summary), 'summary');
 	    $this->nested_ingredients = $this->get_nested_items($this->ingredients);
@@ -1152,17 +1163,18 @@ class Recipe {
      *
      * @param string $type
      * @param string $value
+     *
      * @return string $daily_value in %
      */
 
     public function calculate_daily_value($type, $value){
         //in case of preview mode, return default value
-        if (strpos($value, '_value')!==FALSE){
-            return str_replace("_value", "_value_daily", $value);
-        }
+	    if ($value !== null && strpos($value, '_value') !== FALSE) {
+		    return str_replace("_value", "_value_daily", $value);
+	    }
 
         //get number value
-        $value = str_replace(array(' ', 'mg', 'g', 'µg', 'kcal'), '', $value);
+	    $value = str_replace(array(' ', 'mg', 'g', 'µg', 'kcal'), '', (string) $value);
 
         $daily_values = array(
             'fat' => 65, //g
@@ -1281,16 +1293,21 @@ class Recipe {
 		//if it's not a food item, return empty
 		if ($this->non_food) return array();
 
+
 		$formattedIngredientsArray = array();
-		foreach (explode("\n", $this->ingredients) as $item) {
-			$itemArray = $this->zrdn_format_item($item);
-			$formattedIngredientsArray[] = strip_tags( do_shortcode($itemArray['content']) );
+		if (!empty($this->ingredients)) {
+			foreach (explode("\n", $this->ingredients) as $item) {
+				$itemArray = $this->zrdn_format_item($item);
+				$formattedIngredientsArray[] = strip_tags( do_shortcode($itemArray['content']) );
+			}
 		}
 
 		$formattedInstructionsArray = array();
-		foreach (explode("\n", $this->instructions) as $item) {
-			$itemArray = $this->zrdn_format_item($item);
-			$formattedInstructionsArray[] = strip_tags( do_shortcode($itemArray['content']) );
+		if (!empty($this->instructions)) {
+			foreach (explode("\n", $this->instructions) as $item) {
+				$itemArray = $this->zrdn_format_item($item);
+				$formattedInstructionsArray[] = strip_tags( do_shortcode($itemArray['content']) );
+			}
 		}
 
 		$keywords= false;
@@ -1310,8 +1327,12 @@ class Recipe {
 		}
 
 		$description = $this->summary;
-		if (strlen($description)===0) $description = $this->recipe_title;
-		$description = trim(preg_replace('/\s+/', ' ', strip_tags($description)));
+		if (!empty($description)) {
+			if (strlen($description)===0) $description = $this->recipe_title;
+			$description = trim(preg_replace('/\s+/', ' ', strip_tags($description)));
+		} else {
+			$description = $this->recipe_title;
+		}
 
 		$recipe_json_ld = array(
 			"@context" => "http://schema.org",
@@ -1526,7 +1547,10 @@ class Recipe {
 	 */
 	public function zrdn_format_image($item)
 	{
-		preg_match_all('/(%http|%https):\/\/[^ ]+(\.gif|\.jpg|\.jpeg|\.png)/', $item, $matches);
+		if (!empty($item)) {
+			preg_match_all('/(%http|%https):\/\/[^ ]+(\.gif|\.jpg|\.jpeg|\.png)/', $item, $matches);
+		}
+
 		if (isset($matches[0]) && !empty($matches[0])) {
 			foreach ($matches[0] as $image) {
 				$attributes = $this->zrdn_get_responsive_image_attributes(str_replace('%', '', $image) );
@@ -1577,14 +1601,21 @@ class Recipe {
 	 */
 	public function richify_item($item, $type=false)
 	{
+		if ( empty( $item ) ) {
+			return $item;
+		}
+
 		$output = preg_replace('/\[([^\]\|\[]*)\|([^\]\|\[]*)\]/', '<a href="\\2" target="_blank">\\1</a>', $item);
 		$output = preg_replace('/(^|\s)\*([^\s\*][^\*]*[^\s\*]|[^\s\*])\*(\W|$)/', '\\1<span class="bold">\\2</span>\\3', $output);
 		$output = preg_replace('/(^|\s)_([^\s_][^_]*[^\s_]|[^\s_])_(\W|$)/', '\\1<span class="italic">\\2</span>\\3', $output);
+
 		if ($type === 'notes' || $type === 'summary') {
 			$output = $this->insert_breaks($output);
 		}
+
 		return $output;
 	}
+
 
     /**
      * Delete recipe from table
