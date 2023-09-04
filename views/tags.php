@@ -1,17 +1,20 @@
 <?php
 $index = 0;
 if ($recipe->keywords || $recipe->preview ) {
-    ?>
-    <h4 class="zrdn-tags-label zrdn-recipe-label"><?php _e( "Tags", "zip-recipes" ) ?></h4>
+	?>
+	<h4 class="zrdn-tags-label zrdn-recipe-label"><?php _e( "Tags", "zip-recipes" ) ?></h4>
 	<?php
 	echo '<div class="zrdn-tags-container">';
-	if (is_array($recipe->keywords) ) {
+	if ( is_array($recipe->keywords ) ) {
 		foreach ( $recipe->keywords as $tag ) {
-		    if (is_tag($tag)) {
-		        $tag_link = get_tag_link( $tag );
-            } else {
-			    $tag_link = "#";
-            }
+			// Check if the tag exists
+			$existing_tag = term_exists( $tag->name, 'post_tag' );
+			if ( $existing_tag ) {
+				// Get the tag link using the tag ID
+				$tag_link = get_tag_link( $existing_tag['term_id'] );
+			} else {
+				$tag_link = "#";
+			}
 			$index ++
 			?>
 			<div class="zrdn-tag-item">
@@ -28,4 +31,3 @@ if ($recipe->keywords || $recipe->preview ) {
 	}
 }
 if ($recipe->keywords) echo '</div>';
-
