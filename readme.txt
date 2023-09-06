@@ -117,6 +117,7 @@ Because of the way WordPress' text editor works, if you decide to add or remove 
 
 = 8.1.0 =
 * Improvement: PHP 8.2 compatibility
+* Fix: Recipe Tags not linking correctly
 
 = 8.0.9 =
 * Improvement: WordPress tested up to 6.3

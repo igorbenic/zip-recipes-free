@@ -14,7 +14,7 @@ if ($recipe->keywords || $recipe->preview ) {
 				$tag_link = get_tag_link( $existing_tag['term_id'] );
 			} else {
 				$tag_link = "#";
-			}
+            }
 			$index ++
 			?>
 			<div class="zrdn-tag-item">
