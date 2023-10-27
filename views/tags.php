@@ -1,8 +1,8 @@
 <?php
 $index = 0;
 if ($recipe->keywords || $recipe->preview ) {
-	?>
-	<h4 class="zrdn-tags-label zrdn-recipe-label"><?php _e( "Tags", "zip-recipes" ) ?></h4>
+    ?>
+    <h4 class="zrdn-tags-label zrdn-recipe-label"><?php _e( "Tags", "zip-recipes" ) ?></h4>
 	<?php
 	echo '<div class="zrdn-tags-container">';
 	if ( is_array($recipe->keywords ) ) {
@@ -31,3 +31,4 @@ if ($recipe->keywords || $recipe->preview ) {
 	}
 }
 if ($recipe->keywords) echo '</div>';
+

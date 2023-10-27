@@ -539,8 +539,8 @@ class Recipe_Table extends \WP_List_Table {
         $search  = $this->get_search();
         $category  = $this->get_category_filter();
         $cuisine  = $this->get_cuisine_filter();
-        $order   = isset( $_GET['order'] )   ? sanitize_text_field( $_GET['order'] )   : 'DESC';
-        $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( $_GET['orderby'] ) : 'recipe_id';
+        $order   = isset( $_GET['order'] )   ? esc_sql( $_GET['order'] )   : 'DESC';
+        $orderby = isset( $_GET['orderby'] ) ? esc_sql( $_GET['orderby'] ) : 'recipe_id';
 
         $args    = array(
             'number'  => $this->per_page,

@@ -1691,8 +1691,17 @@ class Util {
         $args = wp_parse_args($args, $default_args);
         $pagesize = intval($args['number']);
         $offset = $args['offset'];
-        $orderby = $args['orderby'];
-        $order = $args['order'];
+	    $orderby_fields = array(
+		    'recipe_title',
+		    'ingredients',
+		    'instructions',
+		    'summary',
+		    'notes',
+		    'cuisine',
+		    'hits',
+	    );
+        $orderby = in_array( $args['orderby'], $orderby_fields, true ) ? $args['orderby'] : 'recipe_title';
+        $order = $args['order'] === 'ASC' ? 'ASC' : 'DESC';
         global $wpdb;
         $search_sql = '';
         if (strlen($args['search'])>0){
